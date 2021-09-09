@@ -1,0 +1,22 @@
+<div class="record-container">
+    <h3>{{title}}</h3>
+    <div class="record-details">
+      <div class="filter">
+        <span class="fltr">Filter by record:</span>
+        <mat-form-field appearance="outline">
+          <mat-label>All records</mat-label>
+          <mat-select [formControl]="records" multiple>
+            <mat-option *ngFor="let record of recordList" [value]="records">{{record}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div class="type">
+        <ul>
+          <li *ngFor="let record of recordDataTitles; index as i;">
+              <p>{{record}}</p>
+          </li>
+        </ul>
+      </div>
+    </div>
+</div>
