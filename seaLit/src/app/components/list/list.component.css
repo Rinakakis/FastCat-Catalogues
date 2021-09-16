@@ -20,14 +20,14 @@ h3{
 }
 
 
-ul{
+.archival{
     margin-left: 40px;
     margin-right: 40px;
 }
 
 .title{
     margin-right: 5px;
-    font-weight:600;
+    font-weight:500;
 }
 
 a{
@@ -41,7 +41,7 @@ a{
 
 .info-container{
     margin-bottom: 5px;
-    font-size: 14px;
+    font-size: 13px;
 }
 
 .archival-container{

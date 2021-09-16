@@ -11,10 +11,10 @@
         </mat-form-field>
       </div>
 
-      <div class="type">
+      <div class="type" *ngIf="showData">
         <ul>
           <li *ngFor="let record of recordDataTitles; index as i;">
-              <p>{{record}}</p>
+              <p id="record" (click)="table($event)">{{record}} ({{totalCount[i]}}) </p>
           </li>
         </ul>
       </div>

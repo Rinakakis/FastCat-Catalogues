@@ -12,13 +12,23 @@ h3{
 
 
 .fltr{
-  font-weight: 600;
+  font-weight: 500;
+  font-size: 15px;
   margin-right: 10px;
 }
 
 ul{
   list-style-type:none;
+  padding: 0px;
 }
+
+#record{
+  font-weight:500;
+  font-size: 15px;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
 
 @media only screen and (min-width: 440px) {
   .record-details{

@@ -36,70 +36,63 @@ export class ListService {
     return this.http.get<any>(this.url);
   }
 
-  getCreListIT(){
-    const mapp = this.mapping();
-    const instances = INSTANCES;
-    const crewList: any[] = crewIT;
-    var result: any[] = [];
-    Object.keys(mapp).forEach(key=> {
-      if(key == crewList[0].docs[0].template){
-        console.log('for:',key)
-        Object.keys(instances).forEach((entities: any)=>{
-
-          if(entities !="templates_mapping"){
-            var name = entities;
-            // console.log(name);
-            let res =  Object.keys(instances[entities]).filter((sType: any) => sType == mapp[key]).map(skey => instances[entities][skey]);
-            if(res.length != 0){
-              res[0][0].title = name;
-              // console.log(res[0])
-              result.push((res[0][0]));
-            }
-          }
-
-        })
-        console.log(result);
-        result = [];
-      }
-    });
-    // return crewList
-  }
-
-  getCreListIT2(){
+  getCreListIT2(): object{
     const mapp = this.mapping();
     const parser = PARSER;
     const crewList: any[] = crewIT;
-
-    console.log(crewList)
-    // console.log(parser)
+    var objArray: any = {};
     
     for (const key in mapp) { // for every source type 
       if(key == crewList[0].docs[0].template){ // for now only for crew list IT
-        
         var temp = parser[mapp[key]];
-        // console.log(temp)
-        for(const entitie in temp){
-            console.log(entitie+': ');
-            // console.log(temp[entitie]);
-            var table = temp[entitie];
-            for(const column in table){
-              var item = table[column];
-              // console.log(crewList[0].item); doesn't work
-              console.log(" "+column+":")
-              console.log( _.get(crewList[0],item));
-            }
 
+        for (let i = 0; i < crewList.length; i++) {
+          var fake = JSON.parse(JSON.stringify(temp));
+          // we dublicate the structure of the parser so we can 
+          // change the path to actual data
+
+          for(const entitie in temp){ // entitie --> array name
+              
+              var table = temp[entitie];
+              for(const column in table){
+                var item = table[column]; // path from parser 
+                var data = _.get(crewList[i],item);
+                // if( typeof data == 'string')
+                //   fake[entitie][column] = data;
+                // else
+                //   fake[entitie][column] = this.formatObject(data,column);
+                
+                fake[entitie][column] = data;
+
+              }
+          }
+          objArray[crewList[i].docs[0]._id] = fake;
         }
-
       }
-      
     }
+    console.log(objArray);
+
+    return objArray;
+  }
+
+  formatObject(data: any, column: string): any {
+    console.log(column);  
+    console.log(data);
+    for (const i in data) {
+        console.log(i,data[i]);
+      
+    }  
+    
   }
 
 
+  getSourceTypeLength(): number{
+    return crewIT.length;
+  }
+  
+
   mapping(): any{
     return INSTANCES.templates_mapping;
-
   }
 
 }
