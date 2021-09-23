@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 
 
 import { List } from '../Lits'
 import { LIST } from  '../mock_list';
 import { INSTANCES } from '../instances';
-import { PARSER } from '../parser';
+import { PARSER } from '../parser2';
 import { crewIT } from '../dummy-crew-lis-IT';
 import * as _ from 'lodash';
 
@@ -15,8 +15,10 @@ import * as _ from 'lodash';
 })
 export class ListService {
   private url = 'http://localhost:3000/docs';
-  
-  constructor(private http:HttpClient) { }
+  temp: any = []; 
+  constructor(private http:HttpClient) { 
+
+  }
 
   getList(): Observable<List[]>{
     const list = of(LIST);
@@ -36,35 +38,65 @@ export class ListService {
     return this.http.get<any>(this.url);
   }
 
-  getCreListIT2(): object{
+  getCreListIT2(a:any): object{
     const mapp = this.mapping();
     const parser = PARSER;
-    const crewList: any[] = crewIT;
+    // const crewList: any[] = crewIT;
+    const crewList: any[] = a;
     var objArray: any = {};
     
     for (const key in mapp) { // for every source type 
       if(key == crewList[0].docs[0].template){ // for now only for crew list IT
         var temp = parser[mapp[key]];
-
-        for (let i = 0; i < crewList.length; i++) {
+        // console.log(temp)
+        console.log(crewList.length)
+        for (let i = 0; i < crewList.length; i++){
           var fake = JSON.parse(JSON.stringify(temp));
           // we dublicate the structure of the parser so we can 
           // change the path to actual data
 
-          for(const entitie in temp){ // entitie --> array name
+          for(const entity in temp){ // entity --> array name e.g. Ship owners 
               
-              var table = temp[entitie];
-              for(const column in table){
-                var item = table[column]; // path from parser 
-                var data = _.get(crewList[i],item);
-                // if( typeof data == 'string')
-                //   fake[entitie][column] = data;
-                // else
-                //   fake[entitie][column] = this.formatObject(data,column);
-                
-                fake[entitie][column] = data;
+              var table = temp[entity]; // the table object with columns
+              // console.log(table['value-type'])
+              if(table['value-type'] == undefined){
+                for(const column in table){
+                    var item = table[column]; // path from parser 
+                    if(item.path != undefined){ // undefined -> links
+                      var data = _.get(crewList[i], item.path);  
+                      fake[entity][column] = data;
 
+                    }else if(item.link != undefined){
+                      var data = item.link;
+                      fake[entity][column].link = data;
+                    }  
+                }
+              }else{
+                
+                for(const column in table){
+                  var item = table[column]; // path from parser 
+                  if(item != 'list'){
+                    if(item.path != undefined){ // undefined -> links
+                      
+                      var data = _.get(crewList[i], item.path.split(".#.")[0]);  
+                      
+                      var index = 0;
+                      var ar = [];
+                      while(data[index]!= undefined && !_.isEmpty(data[index])){
+
+                        ar.push(data[index++][item.path.split(".#.")[1]])
+                      }
+                      fake[entity][column] = ar;
+                      fake[entity]['lenght'] = index;
+  
+                    }else if(item.link != undefined){
+                      var data = item.link;
+                      fake[entity][column].link = data;
+                    }  
+                  }
+                }
               }
+ 
           }
           objArray[crewList[i].docs[0]._id] = fake;
         }
@@ -73,6 +105,11 @@ export class ListService {
     console.log(objArray);
 
     return objArray;
+  }
+
+  getEverything(){
+    return this.http.get('http://192.168.1.3:8081/crew').toPromise()
+        .then(res => this.getCreListIT2(res));
   }
 
   formatObject(data: any, column: string): any {

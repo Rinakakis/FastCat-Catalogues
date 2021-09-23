@@ -12,6 +12,7 @@
     position: absolute;
     top: 0;
     margin-left: 40px;
+    cursor: pointer;
 }
 
 h2{

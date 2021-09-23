@@ -5,6 +5,7 @@ import { ListService } from 'src/app/services/list.service';
 import { ActivatedRoute } from '@angular/router';
 import { FormControl } from '@angular/forms';
 import { indexOf } from 'lodash';
+import { crewIT } from 'src/app/dummy-crew-lis-IT';
 
 @Component({
   selector: 'app-list-detail',
@@ -13,29 +14,40 @@ import { indexOf } from 'lodash';
 })
 export class ListDetailComponent implements OnInit {
 
+  columnDefs = [  
+  ];
+
+  rowData = [];
   records = new FormControl();
   recordList: string[] = ['Extra cheese', 'Mushroom', 'Onion', 'Pepperoni', 'Sausage', 'Tomato'];
   totalCount : number[] = [];
   record: List | undefined;
   recordDataTitles!: string[];
   showData: boolean = false;
+  tableClicked: boolean = false;
+  entityClicked: boolean = false;
   title!: string;
-  
+  sourceType: object = {}; 
+
   constructor(
     private route: ActivatedRoute,
-    private listservise : ListService
+    private listservice : ListService
   ) { }
 
   ngOnInit(): void {
-    this.getRecord();
+
+    this.listservice.getEverything().then((CrewLitsIT : object)=>{
+      this.sourceType = CrewLitsIT;
+      this.getRecord(CrewLitsIT);
+    });
+  
   }
 
-  getRecord(): void {
-    var CrewLitsIT = this.listservise.getCreListIT2();
-
+  getRecord(CrewLitsIT: object): void {
+    
     const name = String(this.route.snapshot.paramMap.get('title'));
     
-    this.listservise.getRecord(name)
+    this.listservice.getRecord(name)
       .subscribe(record => this.record = record);
 
     // console.log(this.record);
@@ -67,26 +79,18 @@ export class ListDetailComponent implements OnInit {
     
     for (const key in CrewLitsIT) {
         const element = CrewLitsIT[key];
-        // console.log(element);
         for (const record in element) {
-            console.log(key)
-            const lala = element[record];
+          const entity = element[record];
+          
             var index: number = titles.indexOf(record);
-            if (typeof lala[Object.keys(lala)[0]] == 'object'){
-              console.log(record +'->');
-              console.log(lala);
-              var temp2 = Object(lala[Object.keys(lala)[0]]);
-              for (const i in temp2) {
-                if(!this.isEmpty(temp2[i]))
-                count[index] = count[index] + 1;
-              }
+            if (entity['value-type'] != undefined){
+              count[index] = count[index] + entity['lenght'];
             }else{ 
               count[index] = count[index] + 1;
             }
         }
         // break;
     }
-    console.log(count);
     this.totalCount = count;
     this.recordDataTitles = titles
     this.showData = true;
@@ -102,11 +106,47 @@ export class ListDetailComponent implements OnInit {
             return false;
     }
     return true;
-}
+  } 
 
-table(event:any){
-  console.log(event);
-}
+  table(entity:string): void{
+    if(this.tableClicked)
+      this.tableClicked = !this.tableClicked; 
+    console.log(entity);
+    this.getSelectedType(entity);
+  }
 
+  getSelectedType(entity: string): object{
+    
+    var source = this.sourceType;
+    
+    var temp: any = Object.values(source).map((val) => {
+      // console.log(val[entity])
+      return val[entity];
+    });
+
+    var titles: any =  Object.keys(temp[0]);
+    var titleFormat = titles.map((val: string) => {
+        return {'field': val, 'sortable': true, 'filter': true};
+    });
+
+    this.columnDefs = titleFormat;
+    console.log(titleFormat);
+
+    console.log(temp);
+    this.rowData = temp;
+    this.tableClicked = !this.tableClicked; 
+    return {};
+  }
+
+  displaySelected(id:string): void {
+    var record = this.getRecordWithId(id);
+    console.log(record);
+    
+  }
+
+  getRecordWithId(id: string): object{
+    var source: any = this.sourceType;
+    return source[id];
+  }
 }
 

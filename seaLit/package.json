@@ -21,6 +21,8 @@
     "@angular/platform-browser": "~12.2.0",
     "@angular/platform-browser-dynamic": "~12.2.0",
     "@angular/router": "~12.2.0",
+    "ag-grid-angular": "^26.0.0",
+    "ag-grid-community": "^26.0.0",
     "json-server": "^0.16.3",
     "lodash": "^4.17.21",
     "rxjs": "~6.6.0",

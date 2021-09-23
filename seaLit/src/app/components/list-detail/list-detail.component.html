@@ -5,8 +5,8 @@
         <span class="fltr">Filter by record:</span>
         <mat-form-field appearance="outline">
           <mat-label>All records</mat-label>
-          <mat-select [formControl]="records" multiple>
-            <mat-option *ngFor="let record of recordList" [value]="records">{{record}}</mat-option>
+          <mat-select [formControl]="records" (selectionChange)="displaySelected($event.value)">
+            <mat-option *ngFor="let record of recordList" [value]="record">{{record}}</mat-option>
           </mat-select>
         </mat-form-field>
       </div>
@@ -14,9 +14,22 @@
       <div class="type" *ngIf="showData">
         <ul>
           <li *ngFor="let record of recordDataTitles; index as i;">
-              <p id="record" (click)="table($event)">{{record}} ({{totalCount[i]}}) </p>
+              <p id="record" (click)="table(record)">{{record}} ({{totalCount[i]}}) </p>
           </li>
         </ul>
       </div>
     </div>
+
+    <ag-grid-angular 
+      *ngIf="tableClicked"
+      style="height: 500px;"
+      class="ag-theme-alpine"
+      [rowData]="rowData"
+      [columnDefs]="columnDefs"
+      [pagination]="true"
+      [paginationAutoPageSize]=true
+      >
+    </ag-grid-angular>
+    
+  
 </div>

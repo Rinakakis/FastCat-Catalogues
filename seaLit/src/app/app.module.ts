@@ -8,11 +8,14 @@ import { MatSelectModule } from '@angular/material/select';
 import { FormsModule,ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
+import { AgGridModule } from 'ag-grid-angular'; 
+
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './components/header/header.component';
 import { ListComponent } from './components/list/list.component';
-import { ListDetailComponent } from './components/list-detail/list-detail.component'; 
+import { ListDetailComponent } from './components/list-detail/list-detail.component';
+import { TablesComponent } from './components/tables/tables.component'; 
 
 
 @NgModule({
@@ -20,7 +23,8 @@ import { ListDetailComponent } from './components/list-detail/list-detail.compon
     AppComponent,
     HeaderComponent,
     ListComponent,
-    ListDetailComponent
+    ListDetailComponent,
+    TablesComponent
   ],
   imports: [
     BrowserModule,
@@ -32,7 +36,8 @@ import { ListDetailComponent } from './components/list-detail/list-detail.compon
     MatSelectModule, 
     AppRoutingModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    AgGridModule.withComponents([])
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { List } from '../../Lits'
 import { ListService } from 'src/app/services/list.service';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-list',
@@ -12,13 +13,15 @@ export class ListComponent implements OnInit {
   list: List[] = [];
   id = -1;
 
-  constructor(private listservice: ListService) { }
+  constructor(
+    private listservice: ListService,
+    private http: HttpClient
+    ) { }
 
   ngOnInit(): void {
-    this.listservice.getCreListIT2();
     this.getList();
   }
-
+  
   getList(): void{
     this.listservice.getList()
       .subscribe(list => this.list = list);
