@@ -26,10 +26,33 @@
       class="ag-theme-alpine"
       [rowData]="rowData"
       [columnDefs]="columnDefs"
+      [defaultColDef]="defaultColDef"
       [pagination]="true"
       [paginationAutoPageSize]=true
       >
     </ag-grid-angular>
     
-  
+    <div class="tables"
+      *ngIf="selectedTable"
+    >
+      <div class="table" 
+      *ngFor="let tableg of tables; index as i;"
+      >
+        <ag-grid-angular 
+          style="height: 500px;"
+          class="ag-theme-alpine"
+          [rowData]="tableg"
+          [columnDefs]="tablesTitles[i]"
+          [defaultColDef]="defaultColDef"
+          [pagination]="true"
+          [paginationAutoPageSize]=true
+          >
+        </ag-grid-angular>
+
+      </div>
+
+    </div>
+    
+
+   
 </div>

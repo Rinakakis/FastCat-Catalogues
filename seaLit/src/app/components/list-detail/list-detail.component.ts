@@ -16,6 +16,10 @@ export class ListDetailComponent implements OnInit {
 
   columnDefs = [  
   ];
+  
+  defaultColDef = {
+    resizable: true,
+  };
 
   rowData = [];
   records = new FormControl();
@@ -28,6 +32,11 @@ export class ListDetailComponent implements OnInit {
   entityClicked: boolean = false;
   title!: string;
   sourceType: object = {}; 
+
+  tables: any[] = [];
+  tablesTitles: any[] = [];
+  tablesCount: number = 0;
+  selectedTable: boolean = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -69,30 +78,12 @@ export class ListDetailComponent implements OnInit {
     //   });
   }
 
-  getTypes(CrewLitsIT: any): void {
-    var titles: any[] = [];
-    var count : number[] = [];
-    var temp = CrewLitsIT[Object.keys(CrewLitsIT)[0]];
+  getTypes(CrewLitsIT: any): void{
     
-    titles = Object.keys(temp);
-    count = Array(titles.length).fill(0);
-    
-    for (const key in CrewLitsIT) {
-        const element = CrewLitsIT[key];
-        for (const record in element) {
-          const entity = element[record];
-          
-            var index: number = titles.indexOf(record);
-            if (entity['value-type'] != undefined){
-              count[index] = count[index] + entity['lenght'];
-            }else{ 
-              count[index] = count[index] + 1;
-            }
-        }
-        // break;
-    }
-    this.totalCount = count;
-    this.recordDataTitles = titles
+    var res = this.listservice.getTypes(CrewLitsIT);
+
+    this.totalCount = res.count;
+    this.recordDataTitles = res.titles;
     this.showData = true;
   }
   
@@ -124,29 +115,113 @@ export class ListDetailComponent implements OnInit {
       return val[entity];
     });
 
-    var titles: any =  Object.keys(temp[0]);
+    var titles: any =  this.getTitles(temp[0]);
+    
     var titleFormat = titles.map((val: string) => {
         return {'field': val, 'sortable': true, 'filter': true};
     });
+
 
     this.columnDefs = titleFormat;
     console.log(titleFormat);
 
     console.log(temp);
-    this.rowData = temp;
+    var res = temp;
+    if(temp[0]["value-type"] == 'list')
+      res = this.formatList(temp);
+    
+    this.rowData = res;
     this.tableClicked = !this.tableClicked; 
     return {};
   }
 
-  displaySelected(id:string): void {
-    var record = this.getRecordWithId(id);
-    console.log(record);
+  formatList(temp: any): any {
+    var array: any[] = [];
+    var totalCount = 0;
+
+    if(Array.isArray(temp)){
+      temp.forEach((element: any) => {
+            var count = 0;
+            while(count<element.lenght){
+              var obj: any = {};
+              for (const key in element){
+                if(!Array.isArray(element[key])){
+                  obj[key] = element[key];
+                }
+                else{
+                  obj[key] = element[key][count];
+                }
+              }
+              array[totalCount++]= obj;
+              count++;
+              // break;
+            }
+          });
+    }else{
+      var element = temp;
+      var count = 0;
+      while(count<element.lenght){
+        var obj: any = {};
+        for (const key in element){
+          if(!Array.isArray(element[key])){
+            obj[key] = element[key];
+          }
+          else{
+            obj[key] = element[key][count];
+          }
+        }
+        array[totalCount++]= obj;
+        count++;
+        // break;
+      }
+    }
+
     
+    return array;
   }
 
-  getRecordWithId(id: string): object{
+  displaySelected(id:string): void {
+    var record = this.getRecordWithId(id);
+    var length = Object.keys(record).length;
+    this.tablesCount = length;
+
+    for (const key in record){
+      var table = record[key];
+      var titles: any =  this.getTitles(table);
+      if(table["value-type"] == 'list'){
+        table = this.formatList(table);
+        titles = this.getTitles(table[0]);
+      }
+      console.log(table)
+      this.tables.push(table);
+
+      var titleFormat = titles.map((val: string) => {
+        return {'field': val, 'sortable': true, 'filter': true};
+      });
+      this.tablesTitles.push(titleFormat);
+      
+    }
+    console.log(this.tables)
+    console.log(this.tablesTitles)
+
+    if(this.tableClicked)
+      this.tableClicked = !this.tableClicked; 
+
+    if(!this.selectedTable)
+      this.selectedTable = !this.selectedTable; 
+    console.log(length)
+  }
+
+  getRecordWithId(id: string): any{
     var source: any = this.sourceType;
     return source[id];
+  }
+
+  getTitles(temp: any): string[]{
+    
+    var titles: string[] =  Object.keys(temp);
+    titles = titles.filter((name: string) => name!='value-type' && name!='lenght');
+    return titles;
   }
 }
 

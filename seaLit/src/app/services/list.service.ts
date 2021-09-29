@@ -117,9 +117,7 @@ export class ListService {
     console.log(data);
     for (const i in data) {
         console.log(i,data[i]);
-      
     }  
-    
   }
 
 
@@ -130,6 +128,31 @@ export class ListService {
 
   mapping(): any{
     return INSTANCES.templates_mapping;
+  }
+
+  getTypes(CrewLitsIT: any): any{
+    var titles: any[] = [];
+    var count : number[] = [];
+    var temp = CrewLitsIT[Object.keys(CrewLitsIT)[0]];
+    
+    titles = Object.keys(temp);
+    count = Array(titles.length).fill(0);
+    
+    for (const key in CrewLitsIT) {
+        const element = CrewLitsIT[key];
+        for (const record in element) {
+          const entity = element[record];
+          
+            var index: number = titles.indexOf(record);
+            if (entity['value-type'] != undefined){
+              count[index] = count[index] + entity['lenght'];
+            }else{ 
+              count[index] = count[index] + 1;
+            }
+        }
+        // break;
+    }
+    return {'count':count, 'titles':titles};
   }
 
 }
