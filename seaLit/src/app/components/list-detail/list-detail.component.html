@@ -20,7 +20,7 @@
       </div>
     </div>
 
-    <ag-grid-angular 
+    <ag-grid-angular
       *ngIf="tableClicked"
       style="height: 500px;"
       class="ag-theme-alpine"
@@ -29,16 +29,26 @@
       [defaultColDef]="defaultColDef"
       [pagination]="true"
       [paginationAutoPageSize]=true
+      [gridOptions]="gridOptions"
       >
     </ag-grid-angular>
-    
+
     <div class="tables"
       *ngIf="selectedTable"
     >
-      <div class="table" 
-      *ngFor="let tableg of tables; index as i;"
-      >
-        <ag-grid-angular 
+      <div class="nocol-grid">
+        <div class="nontable" *ngFor="let info of nonLitsInfo; index as i;">
+          <h3 id="notable-title">{{keysNonList[i]}} </h3>
+            <p *ngFor="let item of info | keyvalue">
+              <b>{{item.key}}</b> : {{item.value}}
+            </p>
+        </div>
+
+      </div>
+
+      <div class="table" *ngFor="let tableg of tables; index as i;">
+        <h3>{{keysList[i]}}</h3>
+        <ag-grid-angular
           style="height: 500px;"
           class="ag-theme-alpine"
           [rowData]="tableg"
@@ -46,13 +56,13 @@
           [defaultColDef]="defaultColDef"
           [pagination]="true"
           [paginationAutoPageSize]=true
+          [gridOptions]="gridOptions"
           >
         </ag-grid-angular>
 
       </div>
 
     </div>
-    
 
-   
+
 </div>
