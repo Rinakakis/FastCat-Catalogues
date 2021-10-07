@@ -52,6 +52,10 @@ ul{
 }
 
 
+.mat-form-field{
+  width: 50%;
+}
+
 @media only screen and (min-width: 440px) {
   .record-details{
     padding-left: 40px;

@@ -25,15 +25,20 @@ export class ListDetailComponent implements OnInit {
     // Add event handlers
     onCellClicked: ((event: CellClickedEvent) =>{
       if(isObject(event.value)){
-        console.log('Cell was clicked')
-        console.log(event)
+        // console.log('Cell was clicked')
+        // console.log(event)
+        var data: any = event.value;
+        var link = data.link;
+        var Id = data.Id;
+        var table = this.getRecordWithId(Id)[link];
+        console.log(table);
       }
     })
   }
 
   rowData = [];
   records = new FormControl();
-  recordList: string[] = ['Extra cheese', 'Mushroom', 'Onion', 'Pepperoni', 'Sausage', 'Tomato'];
+  recordList: string[] = [];
   totalCount : number[] = [];
   record: List | undefined;
   recordDataTitles!: string[];
@@ -76,8 +81,8 @@ export class ListDetailComponent implements OnInit {
 
     if(this.record != undefined){
       this.title = String(this.record.title) + ' ('+this.getLength(CrewLitsIT) +' records)';
-      this.recordList = Object.keys(CrewLitsIT).map((ids) => ids);
-
+      // this.recordList = Object.keys(CrewLitsIT).map((ids) => ids);
+      this.recordList = this.listservice.Titles;
     }
 
      this.getTypes(CrewLitsIT);
@@ -194,7 +199,9 @@ export class ListDetailComponent implements OnInit {
     return array;
   }
 
-  displaySelected(id:string): void {
+  displaySelected(title:string): void {
+    var id = this.listservice.getIdfromTitle(title);
+
     var record = this.getRecordWithId(id);
     var length = Object.keys(record).length;
     this.tablesCount = length;

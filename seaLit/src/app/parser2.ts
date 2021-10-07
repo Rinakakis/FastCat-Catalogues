@@ -8,7 +8,8 @@ export const PARSER: any = {
              "path":"docs[0].data.ship_records.ship_type"
           },
           "Construction location":{
-             "link":"Ship construction locations"
+             "link":"Ship construction locations",
+             "Id": "docs[0]._id"
           },
           "Construction date":{
              "path":"docs[0].data.ship_records.construction_location_date"
@@ -17,10 +18,12 @@ export const PARSER: any = {
              "path":"docs[0].data.ship_records.registry_number"
           },
           "Ship owners":{
-             "link":"Ship owners"
+             "link":"Ship owners",
+             "Id": "docs[0]._id"
           },
           "Crew members":{
-             "link":"Crew members"
+             "link":"Crew members",
+             "Id": "docs[0]._id"
           }
        },
        "Ship owners":{
@@ -34,7 +37,8 @@ export const PARSER: any = {
              "path":"docs[0].data.ship_records.owner_fathers_name"
           },
           "Ships":{
-             "link":"Ship"
+             "link":"Ship",
+             "Id": "docs[0]._id"
           }
        },
        "Registry ports":{
@@ -42,7 +46,8 @@ export const PARSER: any = {
              "path":"docs[0].data.ship_records.registry_port"
           },
           "Ships":{
-             "link":"Ship"
+             "link":"Ship",
+             "Id": "docs[0]._id"
           }
        },
        "Ship construction locations":{
@@ -50,7 +55,8 @@ export const PARSER: any = {
              "path":"docs[0].data.ship_records.construction_location"
           },
           "Ships":{
-             "link":"Ship"
+             "link":"Ship",
+             "Id": "docs[0]._id"
           }
        },
        "Departure ports":{
@@ -59,7 +65,8 @@ export const PARSER: any = {
              "path":"docs[0].data.route.#.departure_port"
           },
           "Ships":{
-             "link":"Ship"
+             "link":"Ship",
+             "Id": "docs[0]._id"
           }
        },
        "Crew members":{
@@ -95,22 +102,25 @@ export const PARSER: any = {
              "path":"docs[0].data.crew_list.#.discharge_date"
           },
           "Ships":{
-             "link":"Ship"
+             "link":"Ship",
+             "Id": "docs[0]._id"
           }
        },
        "Embarkation/Discharge ports":{
           "value-type":"list",
           "Embarkation Port":{
-             "path": "docs[0].data.crew_list.#.embarkation_port"             
+             "path": "docs[0].data.crew_list.#.embarkation_port"
           },
           "Discharage Port":{
             "path": "docs[0].data.crew_list.#.discharge_port"
           },
           "Crew members":{
-             "link":"Crew members"
+             "link":"Crew members",
+             "Id": "docs[0]._id"
           },
           "Ships":{
-             "link":"Ship"
+             "link":"Ship",
+             "Id": "docs[0]._id"
           }
        }
     }

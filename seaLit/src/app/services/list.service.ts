@@ -16,6 +16,9 @@ import * as _ from 'lodash';
 export class ListService {
   private url = 'http://localhost:3000/docs';
   temp: any = [];
+  List: any;
+  Ids: string[] = [];
+  Titles: string[] = [];
   constructor(private http:HttpClient) {
 
   }
@@ -56,9 +59,8 @@ export class ListService {
           // change the path to actual data
 
           for(const entity in temp){ // entity --> array name e.g. Ship owners
-
               var table = temp[entity]; // the table object with columns
-              // console.log(table['value-type'])
+
               if(table['value-type'] == undefined){
                 for(const column in table){
                     var item = table[column]; // path from parser
@@ -69,6 +71,7 @@ export class ListService {
                     }else if(item.link != undefined){
                       var data = item.link;
                       fake[entity][column].link = data;
+                      fake[entity][column].Id = _.get(crewList[i], item.Id);
                     }
                 }
               }else{
@@ -92,23 +95,28 @@ export class ListService {
                     }else if(item.link != undefined){
                       var data = item.link;
                       fake[entity][column].link = data;
+                      fake[entity][column].Id = _.get(crewList[i], item.Id);
                     }
                   }
                 }
               }
 
           }
+          this.mapTitle(crewList[i]);
+
           objArray[crewList[i].docs[0]._id] = fake;
+
         }
       }
     }
+    this.List = objArray;
     console.log(objArray);
 
     return objArray;
   }
 
   getEverything(){
-    return this.http.get('http://192.168.1.20:8081/crew').toPromise()
+    return this.http.get('http://192.168.1.17:8081/crew').toPromise()
         .then(res => this.getCreListIT2(res));
   }
 
@@ -153,6 +161,23 @@ export class ListService {
         // break;
     }
     return {'count':count, 'titles':titles};
+  }
+
+  mapTitle(record: any): void{
+    var obj = record.docs[0].data;
+
+    var title =  obj.ship_records.ship_name + ', ' + obj.source_identity.date_of_document + ', '
+    + obj.record_information.name + ' ' + obj.record_information.surname + ' #' + obj.record_information.catalogue_id;
+
+    this.Ids.push(record.docs[0]._id);
+    this.Titles.push(title);
+  }
+
+  getIdfromTitle(title: string): string{
+    var i = this.Titles.indexOf(title);
+
+    return this.Ids[i];
+
   }
 
 }
