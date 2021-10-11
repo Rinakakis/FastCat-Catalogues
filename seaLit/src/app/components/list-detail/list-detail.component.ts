@@ -77,29 +77,21 @@ export class ListDetailComponent implements OnInit {
     this.listservice.getRecord(name)
       .subscribe(record => this.record = record);
 
-    // console.log(this.record);
-
     if(this.record != undefined){
       this.title = String(this.record.title) + ' ('+this.getLength(CrewLitsIT) +' records)';
-      // this.recordList = Object.keys(CrewLitsIT).map((ids) => ids);
-      this.recordList = this.listservice.Titles;
+      var tempList = this.listservice.Titles;
+      this.recordList = tempList.sort().map(data => data[0]);
+
     }
 
      this.getTypes(CrewLitsIT);
 
-    // this.recordList =
-    // this.listservise.getRecordData(this.title)
-    //   .subscribe((Rdata) => {
-    //     // this.recordData = Rdata;
-    //     this.recordDataTitles =  Object.keys(Rdata[0].data);
-    //     this.showData = true;
-    //   });
   }
 
   getTypes(CrewLitsIT: any): void{
 
     var res = this.listservice.getTypes(CrewLitsIT);
-
+    console.log(res);
     this.totalCount = res.count;
     this.recordDataTitles = res.titles;
     this.showData = true;
@@ -143,10 +135,11 @@ export class ListDetailComponent implements OnInit {
     this.columnDefs = titleFormat;
     console.log(titleFormat);
 
-    console.log(temp);
     var res = temp;
     if(temp[0]["value-type"] == 'list')
       res = this.formatList(temp);
+
+    console.log(res);
 
     this.rowData = res;
     this.tableClicked = !this.tableClicked;
@@ -156,26 +149,26 @@ export class ListDetailComponent implements OnInit {
   formatList(temp: any): any {
     var array: any[] = [];
     var totalCount = 0;
-
+    console.log(temp)
     if(Array.isArray(temp)){
       temp.forEach((element: any) => {
-            var count = 0;
-            while(count<element.lenght){
-              var obj: any = {};
-              for (const key in element){
-                if(!Array.isArray(element[key])){
-                  obj[key] = element[key];
-                }
-                else{
-                  obj[key] = element[key][count];
-                  // console.log(element[key][count])
-                }
-              }
-              array[totalCount++]= obj;
-              count++;
-              // break;
+        var count = 0;
+        while(count<element.lenght){
+          var obj: any = {};
+          for (const key in element){
+            if(!Array.isArray(element[key])){
+              obj[key] = element[key];
             }
-          });
+            else{
+              obj[key] = element[key][count];
+              // console.log(element[key][count])
+            }
+          }
+          array[totalCount++]= obj;
+          count++;
+          // break;
+        }
+      });
     }else{
       var element = temp;
       var count = 0;

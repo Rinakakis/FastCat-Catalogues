@@ -9,16 +9,16 @@ i = 0;
 app.use(cors());
 
 app.get('/crew', function (req, res) {
+    // setTimeout(()=>{
     array = [];
     fs.readdirSync(path)
     .map(name => {
         var file = fs.readFileSync(path+'/'+name, 'utf8');
         var student = JSON.parse(file.trim());
-        // if(i++ == 0 ) console.log(student);  
-        // file = JSON.parse(file);
         array.push(student);
     });
     res.end(JSON.stringify(array));
+    // }, 5000);    
 })
 
 var server = app.listen(8081, function () {
@@ -26,14 +26,3 @@ var server = app.listen(8081, function () {
    var port = server.address().port
    console.log("Example app listening at http://%s:%s", host, port)
 })
-
-// function init() {
-//     fs.readdirSync(path)
-//     .map(name => {
-//         var file = fs.readFileSync(path+'/'+name, 'utf8');
-//         array.push(file);
-//     });
-
-//   }
-
-//   init();

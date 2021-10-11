@@ -27,6 +27,7 @@ ul{
   font-size: 15px;
   cursor: pointer;
   text-decoration: underline;
+  width: fit-content;
 }
 
 .nontable{

@@ -108,11 +108,11 @@ export const PARSER: any = {
        },
        "Embarkation/Discharge ports":{
           "value-type":"list",
-          "Embarkation Port":{
-             "path": "docs[0].data.crew_list.#.embarkation_port"
-          },
-          "Discharage Port":{
-            "path": "docs[0].data.crew_list.#.discharge_port"
+          "Port":{
+            "path":[
+              "docs[0].data.crew_list.#.embarkation_port",
+              "docs[0].data.crew_list.#.discharge_port"
+           ]
           },
           "Crew members":{
              "link":"Crew members",

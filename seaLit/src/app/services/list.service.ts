@@ -18,7 +18,7 @@ export class ListService {
   temp: any = [];
   List: any;
   Ids: string[] = [];
-  Titles: string[] = [];
+  Titles: any[] = [];
   constructor(private http:HttpClient) {
 
   }
@@ -41,6 +41,7 @@ export class ListService {
     return this.http.get<any>(this.url);
   }
 
+
   getCreListIT2(a:any): object{
     const mapp = this.mapping();
     const parser = PARSER;
@@ -49,7 +50,7 @@ export class ListService {
     var objArray: any = {};
 
     for (const key in mapp) { // for every source type
-      if(key == crewList[0].docs[0].template){ // for now only for crew list IT
+      if(key == crewList[0].docs[0].template){ // for now, only for crew list IT
         var temp = parser[mapp[key]];
         // console.log(temp)
         console.log(crewList.length)
@@ -75,22 +76,14 @@ export class ListService {
                     }
                 }
               }else{
-
+                // if(entity == "Embarkation/Discharge ports"){
                 for(const column in table){
                   var item = table[column]; // path from parser
                   if(item != 'list'){
                     if(item.path != undefined){ // undefined -> links
-
-                      var data = _.get(crewList[i], item.path.split(".#.")[0]);
-
-                      var index = 0;
-                      var ar = [];
-                      while(data[index]!= undefined && !_.isEmpty(data[index])){
-
-                        ar.push(data[index++][item.path.split(".#.")[1]])
-                      }
-                      fake[entity][column] = ar;
-                      fake[entity]['lenght'] = index;
+                      var ret: string[] = this.addListData(entity, item, crewList[i]);
+                      fake[entity][column] = ret;
+                      fake[entity]['lenght'] = ret.length;
 
                     }else if(item.link != undefined){
                       var data = item.link;
@@ -99,6 +92,8 @@ export class ListService {
                     }
                   }
                 }
+                // console.log(fake[entity])
+                // }
               }
 
           }
@@ -115,8 +110,33 @@ export class ListService {
     return objArray;
   }
 
+  addListData(entity: any, item: any, crew: any): string[] {
+    var index = 0;
+    var ar: string[] = [];
+
+    if(Array.isArray(item.path)){ // condition for Embarkation/Discharge ports
+      var data0 = _.get(crew, item.path[0].split(".#.")[0]);
+      var data1 = _.get(crew, item.path[1].split(".#.")[0]);
+      while(data0[index]!= undefined && !_.isEmpty(data0[index])){
+          ar.push(data0[index][item.path[0].split(".#.")[1]] +', '+ data1[index++][item.path[1].split(".#.")[1]]);
+      }
+    }else{
+      var data = _.get(crew, item.path.split(".#.")[0]);
+      while(data[index]!= undefined && !_.isEmpty(data[index])){
+        ar.push(data[index++][item.path.split(".#.")[1]]);
+      }
+    }
+    // if(entity =!'Crew members'){
+
+    //   ar = ar.filter(function(item, pos) {
+    //     return ar.indexOf(item) == pos;
+    //   })
+    // }
+    return ar;
+  }
+
   getEverything(){
-    return this.http.get('http://192.168.1.17:8081/crew').toPromise()
+    return this.http.get('http://192.168.1.18:8081/crew').toPromise()
         .then(res => this.getCreListIT2(res));
   }
 
@@ -169,15 +189,16 @@ export class ListService {
     var title =  obj.ship_records.ship_name + ', ' + obj.source_identity.date_of_document + ', '
     + obj.record_information.name + ' ' + obj.record_information.surname + ' #' + obj.record_information.catalogue_id;
 
-    this.Ids.push(record.docs[0]._id);
-    this.Titles.push(title);
+
+    // this.Ids.push(record.docs[0]._id);
+    this.Titles.push([title,record.docs[0]._id]);
   }
 
   getIdfromTitle(title: string): string{
-    var i = this.Titles.indexOf(title);
+    console.log(title)
 
-    return this.Ids[i];
-
+    var res = this.Titles.filter(data => data[0] == title);
+    return res[0][1];
   }
 
 }
