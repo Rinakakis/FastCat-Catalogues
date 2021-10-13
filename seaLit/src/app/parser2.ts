@@ -8,8 +8,7 @@ export const PARSER: any = {
              "path":"docs[0].data.ship_records.ship_type"
           },
           "Construction location":{
-             "link":"Ship construction locations",
-             "Id": "docs[0]._id"
+            "path":"docs[0].data.ship_records.construction_location",
           },
           "Construction date":{
              "path":"docs[0].data.ship_records.construction_location_date"

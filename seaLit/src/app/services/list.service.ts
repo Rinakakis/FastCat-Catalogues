@@ -14,6 +14,7 @@ import * as _ from 'lodash';
   providedIn: 'root'
 })
 export class ListService {
+
   private url = 'http://localhost:3000/docs';
   temp: any = [];
   List: any;
@@ -45,7 +46,6 @@ export class ListService {
   getCreListIT2(a:any): object{
     const mapp = this.mapping();
     const parser = PARSER;
-    // const crewList: any[] = crewIT;
     const crewList: any[] = a;
     var objArray: any = {};
 
@@ -76,7 +76,6 @@ export class ListService {
                     }
                 }
               }else{
-                // if(entity == "Embarkation/Discharge ports"){
                 for(const column in table){
                   var item = table[column]; // path from parser
                   if(item != 'list'){
@@ -92,8 +91,6 @@ export class ListService {
                     }
                   }
                 }
-                // console.log(fake[entity])
-                // }
               }
 
           }
@@ -105,8 +102,7 @@ export class ListService {
       }
     }
     this.List = objArray;
-    console.log(objArray);
-
+    // console.log(objArray);
     return objArray;
   }
 
@@ -126,12 +122,13 @@ export class ListService {
         ar.push(data[index++][item.path.split(".#.")[1]]);
       }
     }
-    // if(entity =!'Crew members'){
+    if(entity == 'Departure ports' || entity == 'Embarkation/Discharge ports'){
+      ar = ar.filter(function(item, pos) {
+        return ar.indexOf(item) == pos;
+      })
+      // console.log(ar)
+    }
 
-    //   ar = ar.filter(function(item, pos) {
-    //     return ar.indexOf(item) == pos;
-    //   })
-    // }
     return ar;
   }
 
@@ -167,10 +164,9 @@ export class ListService {
     count = Array(titles.length).fill(0);
 
     for (const key in CrewLitsIT) {
-        const element = CrewLitsIT[key];
+        const element = CrewLitsIT[key]; // record obj without the id
         for (const record in element) {
-          const entity = element[record];
-
+            const entity = element[record];
             var index: number = titles.indexOf(record);
             if (entity['value-type'] != undefined){
               count[index] = count[index] + entity['lenght'];
@@ -189,16 +185,90 @@ export class ListService {
     var title =  obj.ship_records.ship_name + ', ' + obj.source_identity.date_of_document + ', '
     + obj.record_information.name + ' ' + obj.record_information.surname + ' #' + obj.record_information.catalogue_id;
 
-
-    // this.Ids.push(record.docs[0]._id);
     this.Titles.push([title,record.docs[0]._id]);
   }
 
   getIdfromTitle(title: string): string{
     console.log(title)
-
     var res = this.Titles.filter(data => data[0] == title);
     return res[0][1];
   }
+
+  formatList(temp: any): any {
+    var array: any[] = [];
+    var totalCount = 0;
+    console.log(temp)
+    if(Array.isArray(temp)){
+      temp.forEach((element: any) => {
+        var count = 0;
+        while(count<element.lenght){
+          var obj: any = {};
+          for (const key in element){
+            if(!Array.isArray(element[key])){
+              obj[key] = element[key];
+            }
+            else{
+              obj[key] = element[key][count];
+            }
+          }
+          array[totalCount++]= obj;
+          count++;
+        }
+      });
+      console.log(array);
+    }else{
+      var element = temp;
+      var count = 0;
+      while(count<element.lenght){
+        var obj: any = {};
+        for (const key in element){
+          if(!Array.isArray(element[key])){
+            obj[key] = element[key];
+          }
+          else{
+            obj[key] = element[key][count];
+          }
+        }
+        array[totalCount++]= obj;
+        count++;
+      }
+    }
+    return array;
+  }
+
+  removeDuplicates(data: any[]): any {
+    // console.log(data);
+
+    if(Object.values(data[0]).filter(val => typeof val == 'string' && val !='list').length == 1){ //if table has only one value
+
+      var temp:any[] = data.map(val =>{
+        return Object.values(val).filter(val => typeof val == 'string' && val !='list').join();
+      })
+      // var temp:any[] = data.map(val =>{
+      //   return Object.values(val).join(',').slice(0, -15);
+      // })
+
+      console.log(temp)
+
+      const count: boolean[] = temp.map(function (item, pos) {
+        return temp.indexOf(item) == pos;
+      })
+
+      // const count: boolean[] = temp.filter(Boolean).length;
+      console.log(temp)
+      console.log(count)
+
+      for (let i = 0; i < data.length; i++) {
+        const element = data[i];
+        if(count[i] == true)
+          console.log(element)
+        // var el = Object.values(element).join('');
+      }
+
+    }
+    return {};
+  }
+
+
 
 }

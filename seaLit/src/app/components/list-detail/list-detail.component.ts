@@ -5,7 +5,7 @@ import { ListService } from 'src/app/services/list.service';
 import { ActivatedRoute } from '@angular/router';
 import { FormControl } from '@angular/forms';
 import { CellClickedEvent } from 'ag-grid-community';
-import { isObject } from 'lodash';
+import { isObject, isPlainObject } from 'lodash';
 
 @Component({
   selector: 'app-list-detail',
@@ -24,14 +24,14 @@ export class ListDetailComponent implements OnInit {
   gridOptions = {
     // Add event handlers
     onCellClicked: ((event: CellClickedEvent) =>{
-      if(isObject(event.value)){
+      if(/*isObject(event.value)*/ 1){
         // console.log('Cell was clicked')
         // console.log(event)
-        var data: any = event.value;
-        var link = data.link;
-        var Id = data.Id;
-        var table = this.getRecordWithId(Id)[link];
-        console.log(table);
+        // var data: any = event.value;
+        // var link = data.link;
+        // var Id = data.Id;
+        // var table = this.getRecordWithId(Id)[link];
+        console.log(event.data);
       }
     })
   }
@@ -110,18 +110,23 @@ export class ListDetailComponent implements OnInit {
   }
 
   table(entity:string): void{
-    if(this.tableClicked)
+    if(this.selectedTable)
+      this.selectedTable = !this.selectedTable;
+
+    if(this.tableClicked){
       this.tableClicked = !this.tableClicked;
+    }
+
     console.log(entity);
-    this.getSelectedType(entity);
+    this.rowData = this.getSelectedType(entity);
+    this.tableClicked = !this.tableClicked;
   }
 
-  getSelectedType(entity: string): object{
+  getSelectedType(entity: string): any{
 
     var source = this.sourceType;
 
     var temp: any = Object.values(source).map((val) => {
-      // console.log(val[entity])
       return val[entity];
     });
 
@@ -137,60 +142,13 @@ export class ListDetailComponent implements OnInit {
 
     var res = temp;
     if(temp[0]["value-type"] == 'list')
-      res = this.formatList(temp);
-
-    console.log(res);
-
-    this.rowData = res;
-    this.tableClicked = !this.tableClicked;
-    return {};
+      res = this.listservice.formatList(temp);
+    // else
+      /* res = */this.listservice.removeDuplicates(res);
+    return res;
   }
 
-  formatList(temp: any): any {
-    var array: any[] = [];
-    var totalCount = 0;
-    console.log(temp)
-    if(Array.isArray(temp)){
-      temp.forEach((element: any) => {
-        var count = 0;
-        while(count<element.lenght){
-          var obj: any = {};
-          for (const key in element){
-            if(!Array.isArray(element[key])){
-              obj[key] = element[key];
-            }
-            else{
-              obj[key] = element[key][count];
-              // console.log(element[key][count])
-            }
-          }
-          array[totalCount++]= obj;
-          count++;
-          // break;
-        }
-      });
-    }else{
-      var element = temp;
-      var count = 0;
-      while(count<element.lenght){
-        var obj: any = {};
-        for (const key in element){
-          if(!Array.isArray(element[key])){
-            obj[key] = element[key];
-          }
-          else{
-            obj[key] = element[key][count];
-          }
-        }
-        array[totalCount++]= obj;
-        count++;
-        // break;
-      }
-    }
 
-
-    return array;
-  }
 
   displaySelected(title:string): void {
     var id = this.listservice.getIdfromTitle(title);
@@ -211,7 +169,7 @@ export class ListDetailComponent implements OnInit {
       var titles: any =  this.getTitles(table);
 
       if(table["value-type"] == 'list'){
-        table = this.formatList(table);
+        table = this.listservice.formatList(table);
         titles = this.getTitles(table[0]);
         // console.log(table)
         this.tables.push(table);
@@ -229,8 +187,7 @@ export class ListDetailComponent implements OnInit {
       }
 
     }
-    // console.log(this.tables)
-    // console.log(this.tablesTitles)
+
     console.log(this.nonLitsInfo)
 
     if(this.tableClicked)
@@ -238,7 +195,6 @@ export class ListDetailComponent implements OnInit {
 
     if(!this.selectedTable)
       this.selectedTable = !this.selectedTable;
-    console.log(length)
   }
 
   getRecordWithId(id: string): any{
@@ -247,14 +203,16 @@ export class ListDetailComponent implements OnInit {
   }
 
   getTitles(temp: any): string[]{
-
-    var titles: string[] =  Object.keys(temp);
-    titles = titles.filter((name: string) => name!='value-type' && name!='lenght');
+    var titles: string[] = [];
+    for (const [key, value] of Object.entries(temp)) {
+      if(!isPlainObject(value) && key!='value-type' && key!='lenght')
+        titles.push(key);
+    }
     return titles;
+    // var titles: string[] =  Object.keys(temp);
+    // titles = titles.filter((name: string) => name!='value-type' && name!='lenght');
+    // return titles;
   }
 
-  // isObject(value: any) : boolean {
-  //   return typeof value === 'object' && !Array.isArray(value) && value !== null;
-  // }
 }
 
