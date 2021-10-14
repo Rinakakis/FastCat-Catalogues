@@ -9,6 +9,7 @@ import { INSTANCES } from '../instances';
 import { PARSER } from '../parser2';
 import { crewIT } from '../dummy-crew-lis-IT';
 import * as _ from 'lodash';
+import { isArray, isObject } from 'lodash';
 
 @Injectable({
   providedIn: 'root'
@@ -237,36 +238,68 @@ export class ListService {
   }
 
   removeDuplicates(data: any[]): any {
-    // console.log(data);
+
 
     if(Object.values(data[0]).filter(val => typeof val == 'string' && val !='list').length == 1){ //if table has only one value
 
-      var temp:any[] = data.map(val =>{
+      var newarray: any[] = [];
+
+      var temp: any[] = data.map(val =>{
         return Object.values(val).filter(val => typeof val == 'string' && val !='list').join();
       })
       // var temp:any[] = data.map(val =>{
       //   return Object.values(val).join(',').slice(0, -15);
       // })
 
-      console.log(temp)
+      // console.log(temp)
 
       const count: boolean[] = temp.map(function (item, pos) {
         return temp.indexOf(item) == pos;
       })
 
       // const count: boolean[] = temp.filter(Boolean).length;
-      console.log(temp)
-      console.log(count)
-
-      for (let i = 0; i < data.length; i++) {
-        const element = data[i];
-        if(count[i] == true)
-          console.log(element)
-        // var el = Object.values(element).join('');
+      // console.log(temp)
+      var lala = temp.reduce(function (acc, curr) {
+        return acc[curr] ? ++acc[curr] : acc[curr] = 1, acc
+      }, {});
+      console.log(lala)
+      // console.log(count)
+      console.log(count.filter(Boolean).length)
+      for (let i = 0; i < data.length; i++){
+        var element = data[i];
+        if(count[i] == true){
+          newarray.push(element)
+        }else{
+          var name = temp[i];
+          var index = this.findIndexOfName(name,newarray);
+          newarray[index] = this.merge(newarray[index], element);
+        }
       }
-
+      console.log(newarray)
     }
     return {};
+  }
+  merge(father: any, element: any): any {
+    // console.log(father)
+    // console.log(element)
+    for (const key in father) {
+      if(_.isObject(father[key])){
+        if(_.isArray(father[key])){
+          father[key].push(element[key]);
+        }else{
+          var temp = [];
+          temp.push(father[key],element[key]);
+          // console.log('first')
+          father[key] = temp;
+        }
+      }
+    }
+    return father;
+    // console.log(father)
+  }
+
+  findIndexOfName(name: string, newarray: any[]) {
+    return newarray.findIndex(data => Object.values(data).filter(val => typeof val == 'string' && val !='list').join() == name )
   }
 
 
