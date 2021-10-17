@@ -1,0 +1,11 @@
+.record-container{
+  padding: 20px
+}
+
+h3{
+  font: 'Lato', "Times New Roman", Times, serif;
+  color: #3B678E;
+  /* text-align: center; */
+  /* margin: 20px; */
+  font-weight: 500;
+}

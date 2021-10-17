@@ -9,7 +9,6 @@ import { INSTANCES } from '../instances';
 import { PARSER } from '../parser2';
 import { crewIT } from '../dummy-crew-lis-IT';
 import * as _ from 'lodash';
-import { isArray, isObject } from 'lodash';
 
 @Injectable({
   providedIn: 'root'
@@ -21,8 +20,9 @@ export class ListService {
   List: any;
   Ids: string[] = [];
   Titles: any[] = [];
-  constructor(private http:HttpClient) {
+  EntityData: any = {};
 
+  constructor(private http:HttpClient) {
   }
 
   getList(): Observable<List[]>{
@@ -195,7 +195,7 @@ export class ListService {
     return res[0][1];
   }
 
-  formatList(temp: any): any {
+  formatList(temp: any): any[] {
     var array: any[] = [];
     var totalCount = 0;
     console.log(temp)
@@ -234,11 +234,10 @@ export class ListService {
         count++;
       }
     }
-    return array;
+    return this.removeDuplicates(array);
   }
 
-  removeDuplicates(data: any[]): any {
-
+  removeDuplicates(data: any[]): any[] {
 
     if(Object.values(data[0]).filter(val => typeof val == 'string' && val !='list').length == 1){ //if table has only one value
 
@@ -259,10 +258,10 @@ export class ListService {
 
       // const count: boolean[] = temp.filter(Boolean).length;
       // console.log(temp)
-      var lala = temp.reduce(function (acc, curr) {
-        return acc[curr] ? ++acc[curr] : acc[curr] = 1, acc
-      }, {});
-      console.log(lala)
+      // var lala = temp.reduce(function (acc, curr) {
+      //   return acc[curr] ? ++acc[curr] : acc[curr] = 1, acc
+      // }, {});
+      // console.log(lala)
       // console.log(count)
       console.log(count.filter(Boolean).length)
       for (let i = 0; i < data.length; i++){
@@ -276,9 +275,11 @@ export class ListService {
         }
       }
       console.log(newarray)
+      return newarray;
     }
-    return {};
+    return data;
   }
+
   merge(father: any, element: any): any {
     // console.log(father)
     // console.log(element)
@@ -301,7 +302,5 @@ export class ListService {
   findIndexOfName(name: string, newarray: any[]) {
     return newarray.findIndex(data => Object.values(data).filter(val => typeof val == 'string' && val !='list').join() == name )
   }
-
-
 
 }

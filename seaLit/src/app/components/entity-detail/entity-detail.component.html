@@ -1,0 +1,11 @@
+<div class="record-container">
+  <h3>{{title}}: {{entity}}</h3>
+
+  <div class="nocol-grid">
+    <div class="nontable" *ngFor="let data of noTableData; index as i;">
+        <p> <b>{{data.key}}</b> : {{data.name}}
+        </p>
+    </div>
+
+  </div>
+</div>

@@ -17,6 +17,7 @@ import { HeaderComponent } from './components/header/header.component';
 import { ListComponent } from './components/list/list.component';
 import { ListDetailComponent } from './components/list-detail/list-detail.component';
 import { TablesComponent } from './components/tables/tables.component';
+import { EntityDetailComponent } from './components/entity-detail/entity-detail.component';
 
 
 @NgModule({
@@ -25,7 +26,8 @@ import { TablesComponent } from './components/tables/tables.component';
     HeaderComponent,
     ListComponent,
     ListDetailComponent,
-    TablesComponent
+    TablesComponent,
+    EntityDetailComponent
   ],
   imports: [
     BrowserModule,

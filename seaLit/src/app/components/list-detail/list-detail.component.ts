@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 import { List } from '../../Lits'
 import { ListService } from 'src/app/services/list.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { FormControl } from '@angular/forms';
 import { CellClickedEvent } from 'ag-grid-community';
 import { isObject, isPlainObject } from 'lodash';
@@ -13,28 +13,6 @@ import { isObject, isPlainObject } from 'lodash';
   styleUrls: ['./list-detail.component.css']
 })
 export class ListDetailComponent implements OnInit {
-
-  columnDefs = [
-  ];
-
-  defaultColDef = {
-    resizable: true,
-  };
-
-  gridOptions = {
-    // Add event handlers
-    onCellClicked: ((event: CellClickedEvent) =>{
-      if(/*isObject(event.value)*/ 1){
-        // console.log('Cell was clicked')
-        // console.log(event)
-        // var data: any = event.value;
-        // var link = data.link;
-        // var Id = data.Id;
-        // var table = this.getRecordWithId(Id)[link];
-        console.log(event.data);
-      }
-    })
-  }
 
   rowData = [];
   records = new FormControl();
@@ -53,12 +31,14 @@ export class ListDetailComponent implements OnInit {
   tablesCount: number = 0;
   selectedTable: boolean = false;
   nonLitsInfo: any[] = [];
-  keysNonList: any[] = [];;
+  keysNonList: any[] = [];
+  entity: string = '';
   keysList: any[] = [];;
 
   constructor(
     private route: ActivatedRoute,
-    private listservice : ListService
+    private listservice : ListService,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -68,6 +48,30 @@ export class ListDetailComponent implements OnInit {
       this.getRecord(CrewLitsIT);
     });
 
+  }
+
+  columnDefs = [
+  ];
+
+  defaultColDef = {
+    resizable: true,
+  };
+
+  gridOptions = {
+    // Add event handlers
+    onCellClicked: ((event: CellClickedEvent) =>{
+        // console.log(this.entity)
+        // console.log(event.data);
+        var data = event.data;
+        var entity = this.entity.replace('/','-');
+        var name = ''
+        Object.keys(data).forEach(k =>{
+          if(typeof data[k] == 'string' && k!= 'value-type')
+            name =data[k];
+        });
+        this.listservice.EntityData = data;
+        this.router.navigate(['list/'+entity+'/'+name]);
+    })
   }
 
   getRecord(CrewLitsIT: object): void {
@@ -91,7 +95,7 @@ export class ListDetailComponent implements OnInit {
   getTypes(CrewLitsIT: any): void{
 
     var res = this.listservice.getTypes(CrewLitsIT);
-    console.log(res);
+    // console.log(res);
     this.totalCount = res.count;
     this.recordDataTitles = res.titles;
     this.showData = true;
@@ -117,7 +121,7 @@ export class ListDetailComponent implements OnInit {
       this.tableClicked = !this.tableClicked;
     }
 
-    console.log(entity);
+    this.entity = entity;
     this.rowData = this.getSelectedType(entity);
     this.tableClicked = !this.tableClicked;
   }
@@ -143,8 +147,9 @@ export class ListDetailComponent implements OnInit {
     var res = temp;
     if(temp[0]["value-type"] == 'list')
       res = this.listservice.formatList(temp);
-    // else
-      /* res = */this.listservice.removeDuplicates(res);
+    else
+      res = this.listservice.removeDuplicates(res);
+
     return res;
   }
 
@@ -182,7 +187,13 @@ export class ListDetailComponent implements OnInit {
 
       }else{
         console.log(table)
-        this.nonLitsInfo.push(table);
+        var lala = JSON.parse(JSON.stringify(table));
+        Object.keys(lala).forEach(k => {
+          if(typeof lala[k] == 'object')
+            delete lala[k];
+        })
+        console.log(table)
+        this.nonLitsInfo.push(lala);
         this.keysNonList.push(key);
       }
 
