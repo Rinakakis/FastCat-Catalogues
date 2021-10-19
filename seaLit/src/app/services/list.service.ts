@@ -1,13 +1,7 @@
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-
-
-import { List } from '../Lits'
-import { LIST } from  '../mock_list';
-import { INSTANCES } from '../instances';
-import { PARSER } from '../parser2';
-import { crewIT } from '../dummy-crew-lis-IT';
+import { INSTANCES } from '../templates';
+import { PARSER } from '../crewListRuoli_conf';
 import * as _ from 'lodash';
 
 @Injectable({
@@ -15,9 +9,9 @@ import * as _ from 'lodash';
 })
 export class ListService {
 
-  private url = 'http://localhost:3000/docs';
   temp: any = [];
   List: any;
+  Records: any[] = [];
   Ids: string[] = [];
   Titles: any[] = [];
   EntityData: any = {};
@@ -25,34 +19,30 @@ export class ListService {
   constructor(private http:HttpClient) {
   }
 
-  getList(): Observable<List[]>{
-    const list = of(LIST);
-    return list;
+  getList(){
+    const res = this.http.get('http://192.168.1.18:8081/numberOfrecords')
+    res.subscribe(list => this.Records = <any[]> list);
+    return res;
   }
 
-  getRecord(title: string): Observable<List | undefined>{
-
-    const list = LIST.find(record => record.title == title);
-
-    return of(list);
+  getEverything(record: string){
+    console.log(record)
+    return this.http.get('http://192.168.1.18:8081/record/'+record).toPromise()
+        .then(res => this.getCreListIT2(res));
   }
-
-  getRecordData(title: string): Observable<any>{
-    // const mod: String = '('+title+')'+'.json';
-
-    return this.http.get<any>(this.url);
-  }
-
 
   getCreListIT2(a:any): object{
+    console.log(a);
     const mapp = this.mapping();
+    console.log(mapp);
     const parser = PARSER;
     const crewList: any[] = a;
     var objArray: any = {};
 
-    for (const key in mapp) { // for every source type
-      if(key == crewList[0].docs[0].template){ // for now, only for crew list IT
-        var temp = parser[mapp[key]];
+    mapp.forEach((element: any) => {
+       // for every source type
+      if(element.id == crewList[0].docs[0].template){ // for now, only for crew list IT
+        var temp = parser[element.name];
         // console.log(temp)
         console.log(crewList.length)
         for (let i = 0; i < crewList.length; i++){
@@ -101,7 +91,7 @@ export class ListService {
 
         }
       }
-    }
+    })
     this.List = objArray;
     // console.log(objArray);
     return objArray;
@@ -133,10 +123,6 @@ export class ListService {
     return ar;
   }
 
-  getEverything(){
-    return this.http.get('http://192.168.1.18:8081/crew').toPromise()
-        .then(res => this.getCreListIT2(res));
-  }
 
   formatObject(data: any, column: string): any {
     console.log(column);
@@ -146,14 +132,11 @@ export class ListService {
     }
   }
 
-
-  getSourceTypeLength(): number{
-    return crewIT.length;
-  }
-
-
   mapping(): any{
-    return INSTANCES.templates_mapping;
+    return INSTANCES.templates.map((obj: any) =>{
+      return {'name':obj.name, 'id': obj.id}
+    })
+
   }
 
   getTypes(CrewLitsIT: any): any{
@@ -238,7 +221,7 @@ export class ListService {
   }
 
   removeDuplicates(data: any[]): any[] {
-
+    console.log(data)
     if(Object.values(data[0]).filter(val => typeof val == 'string' && val !='list').length == 1){ //if table has only one value
 
       var newarray: any[] = [];
@@ -303,4 +286,13 @@ export class ListService {
     return newarray.findIndex(data => Object.values(data).filter(val => typeof val == 'string' && val !='list').join() == name )
   }
 
+  getRecordWithId(id: string): any{
+    var source: any = this.List;
+    return source[id];
+  }
+
+  getTableFromRecordWithId(id: string, name:string): any{
+    var source: any = this.List;
+    return _.get(source[id],name);
+  }
 }

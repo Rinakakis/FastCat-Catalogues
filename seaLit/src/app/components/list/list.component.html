@@ -6,8 +6,8 @@
             <div class="list-container">
                 <div class="title">
                     <a
-                        routerLink="/list/{{item.title}}">
-                        {{item.title}} ({{item.record}} records)
+                        routerLink="/list/{{item.name}}">
+                        {{item.name}} ({{item.count}} records)
                     </a>
                 </div>
                 <div class="info">
@@ -17,7 +17,7 @@
                 </div>
             </div>
             <div *ngIf="id == i" class="info-container">
-                {{item.info}}
+                {{item.description}}
             </div>
         </li>
     </ul>

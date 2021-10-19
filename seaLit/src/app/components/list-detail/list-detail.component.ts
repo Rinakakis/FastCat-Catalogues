@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 
-import { List } from '../../Lits'
 import { ListService } from 'src/app/services/list.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormControl } from '@angular/forms';
@@ -18,7 +17,7 @@ export class ListDetailComponent implements OnInit {
   records = new FormControl();
   recordList: string[] = [];
   totalCount : number[] = [];
-  record: List | undefined;
+  record: any;
   recordDataTitles!: string[];
   showData: boolean = false;
   tableClicked: boolean = false;
@@ -42,8 +41,9 @@ export class ListDetailComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    const name = String(this.route.snapshot.paramMap.get('title'));
 
-    this.listservice.getEverything().then((CrewLitsIT : object)=>{
+    this.listservice.getEverything(name).then((CrewLitsIT : object)=>{
       this.sourceType = CrewLitsIT;
       this.getRecord(CrewLitsIT);
     });
@@ -78,8 +78,8 @@ export class ListDetailComponent implements OnInit {
 
     const name = String(this.route.snapshot.paramMap.get('title'));
 
-    this.listservice.getRecord(name)
-      .subscribe(record => this.record = record);
+    // this.listservice.getRecord(name)
+    //   .subscribe(record => this.record = record);
 
     if(this.record != undefined){
       this.title = String(this.record.title) + ' ('+this.getLength(CrewLitsIT) +' records)';
@@ -158,7 +158,7 @@ export class ListDetailComponent implements OnInit {
   displaySelected(title:string): void {
     var id = this.listservice.getIdfromTitle(title);
 
-    var record = this.getRecordWithId(id);
+    var record = this.listservice.getRecordWithId(id);
     var length = Object.keys(record).length;
     this.tablesCount = length;
     this.tablesTitles = [];
@@ -166,8 +166,6 @@ export class ListDetailComponent implements OnInit {
     this.nonLitsInfo = [];
     this.keysList = [];
     this.keysNonList = [];
-
-    // console.log(this.getTitles(record));
 
     for (const key in record){
       var table = record[key];
@@ -208,11 +206,6 @@ export class ListDetailComponent implements OnInit {
       this.selectedTable = !this.selectedTable;
   }
 
-  getRecordWithId(id: string): any{
-    var source: any = this.sourceType;
-    return source[id];
-  }
-
   getTitles(temp: any): string[]{
     var titles: string[] = [];
     for (const [key, value] of Object.entries(temp)) {
@@ -220,9 +213,7 @@ export class ListDetailComponent implements OnInit {
         titles.push(key);
     }
     return titles;
-    // var titles: string[] =  Object.keys(temp);
-    // titles = titles.filter((name: string) => name!='value-type' && name!='lenght');
-    // return titles;
+
   }
 
 }

@@ -1,11 +1,26 @@
 <div class="record-container">
-  <h3>{{title}}: {{entity}}</h3>
-
   <div class="nocol-grid">
-    <div class="nontable" *ngFor="let data of noTableData; index as i;">
-        <p> <b>{{data.key}}</b> : {{data.name}}
-        </p>
+    <div class="nontable" >
+      <h3 class="notable-title">{{title}} </h3>
+      <p *ngFor="let data of noTableData; index as i;"> <b>{{data.key}}</b> : {{data.name}} </p>
     </div>
+  </div>
 
+  <div class="tables" *ngIf="displayTable">
+    <div class="table" *ngFor="let tableg of tableArray; index as i;">
+      <h3 class="table-title">{{keysList[i]}}</h3>
+      <ag-grid-angular
+        style="height: 500px; width: auto;"
+        class="ag-theme-alpine"
+        [rowData]="tableg"
+        [columnDefs]="tablesTitles[i]"
+        [defaultColDef]="defaultColDef"
+        [pagination]="true"
+        [paginationAutoPageSize]=true
+
+        >
+      </ag-grid-angular>
+
+    </div>
   </div>
 </div>
