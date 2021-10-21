@@ -36,36 +36,4 @@
       </ag-grid-angular>
     </div>
 
-    <div class="tables"
-      *ngIf="selectedTable"
-    >
-      <div class="nocol-grid">
-        <div class="nontable" *ngFor="let info of nonLitsInfo; index as i;">
-          <h3 class="notable-title">{{keysNonList[i]}} </h3>
-            <p *ngFor="let item of info | keyvalue">
-              <b>{{item.key}}</b> : {{item.value}}
-            </p>
-        </div>
-
-      </div>
-
-      <div class="table" *ngFor="let tableg of tables; index as i;">
-        <h3 class="table-title">{{keysList[i]}}</h3>
-        <ag-grid-angular
-          style="height: 500px; width: auto;"
-          class="ag-theme-alpine"
-          [rowData]="tableg"
-          [columnDefs]="tablesTitles[i]"
-          [defaultColDef]="defaultColDef"
-          [pagination]="true"
-          [paginationAutoPageSize]=true
-          [gridOptions]="gridOptions"
-          >
-        </ag-grid-angular>
-
-      </div>
-
-    </div>
-
-
 </div>

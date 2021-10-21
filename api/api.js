@@ -56,9 +56,33 @@ app.get('/record/:name', function (req, res) {
    res.end(JSON.stringify(myarray));
 })
 
+app.get('/sourceRecordList/:name/', function (req, res){
+
+   var tableNames = getTableNames(req);
+   var config = getConfig(req.params.name);
+   var record = templates.find(obj => obj.name == req.params.name);
+   var myarray = [];
+   var count = [];
+   var fullpath = path + req.params.name.replaceAll(' ', '_');
+      
+   fs.readdirSync(fullpath)
+   .map(name => {
+      var file = fs.readFileSync(fullpath+'/'+name, 'utf8');
+      var record = JSON.parse(file.trim());
+      myarray.push(record);
+   });
+   
+   for (const key in config) {
+      const tableconfig = config[key];
+      count.push({[key] : formatObject(myarray, tableconfig).length});
+   }
+   
+   res.end(JSON.stringify(count));
+
+})
 
 app.get('/numberOfrecords/:name', function(req, res){
-   var record =req.params.name;
+   var record = req.params.name;
    var myarray = [];
    myarray = fs.readdirSync(path)
    .map(name => {
@@ -70,7 +94,7 @@ app.get('/numberOfrecords/:name', function(req, res){
    });
    // console.log(myarray)
    if(record!='all')
-   myarray = myarray.filter(obj => obj.name == record);
+      myarray = myarray.filter(obj => obj.name == record);
    
    res.end(JSON.stringify(myarray));
 })
@@ -78,8 +102,8 @@ app.get('/numberOfrecords/:name', function(req, res){
 app.get('/record/:name/:entity', function (req, res) {
       var recordName = req.params.name;
       var myarray = [];
-      var fullpath = path + recordName.replaceAll(' ', '_');;
-      var config = getConfig(req);
+      var fullpath = path + recordName.replaceAll(' ', '_');
+      var config = getConfigEntity(req.params.name,req.params.entity);
       
       fs.readdirSync(fullpath)
       .map(name => {
@@ -94,17 +118,23 @@ app.get('/record/:name/:entity', function (req, res) {
 })
 
 
-function getConfig(req){
-   var recordName = req.params.name;
-   var entity = req.params.entity;
+function getConfigEntity(recordName,entity){
+   var record = templates.find(obj => obj.name == recordName);
+   var config = fs.readFileSync('./examples/parse/'+record.configuration, 'utf8');
+   config = JSON.parse(config);
+   config = _.get(config,record.name)
+   config = _.get(config, entity)
+
+   return config;
+}
+
+function getConfig(recordName){
    
    var record = templates.find(obj => obj.name == recordName);
    var config = fs.readFileSync('./examples/parse/'+record.configuration, 'utf8');
    config = JSON.parse(config);
-   var tablepath = _.get(config,record.name)
-   tablepath = _.get(tablepath, entity)
-
-   return tablepath;
+   config = _.get(config,record.name);
+   return config;
 }
 
 function formatObject(data, config){
@@ -229,7 +259,7 @@ function formatObject(data, config){
  }
 
  function removeDuplicates(data){
-   console.log(data)
+   // console.log(data)
    if(Object.values(data[0]).filter(val => typeof val == 'string' && val !='list').length == 1){ //if table has only one value
 
      var newarray = [];
@@ -254,7 +284,7 @@ function formatObject(data, config){
      // }, {});
      // console.log(lala)
      // console.log(count)
-     console.log(count.filter(Boolean).length)
+   //   console.log(count.filter(Boolean).length)
      for (let i = 0; i < data.length; i++){
        var element = data[i];
        if(count[i] == true){
@@ -265,7 +295,7 @@ function formatObject(data, config){
          newarray[index] = merge(newarray[index], element);
        }
      }
-     console.log(newarray)
+   //   console.log(newarray)
      return newarray;
    }
 
@@ -303,4 +333,13 @@ function replaceEmptyValues(array) {
          }
       });
    });
+}
+
+function getTableNames(req){
+   var recordName = req.params.name;
+   var record = templates.find(obj => obj.name == recordName);
+   var config = fs.readFileSync('./examples/parse/'+record.configuration, 'utf8');
+   config = JSON.parse(config);
+   config = _.get(config,record.name);
+   return JSON.stringify(Object.keys(config));
 }
