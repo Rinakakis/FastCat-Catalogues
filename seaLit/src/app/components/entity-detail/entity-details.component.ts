@@ -1,13 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { CellClickedEvent } from 'ag-grid-community';
 import { isPlainObject } from 'lodash';
 import { ListService } from 'src/app/services/list.service';
 @Component({
-  selector: 'app-entity-detail',
-  templateUrl: './entity-detail.component.html',
-  styleUrls: ['./entity-detail.component.css']
+  selector: 'app-entity-details',
+  templateUrl: './entity-details.component.html',
+  styleUrls: ['./entity-details.component.css']
 })
-export class EntityDetailComponent implements OnInit {
+export class EntityDetailsComponent implements OnInit {
 
   title: string = '';
   entity: string = '';
@@ -17,6 +18,22 @@ export class EntityDetailComponent implements OnInit {
   displayTable: boolean = false;
   keysList: any[] = [];
 
+  gridOptions = {
+    // Add event handlers
+    onCellClicked: ((event: CellClickedEvent) =>{
+        var source = String(this.route.snapshot.paramMap.get('source'));
+        var data = event.data;
+        var entity = this.entity.replace('/','-');
+        var name = ''
+        Object.keys(data).forEach(k =>{
+          if(typeof data[k] == 'string' && k!= 'value-type')
+            name =data[k];
+        });
+        this.listservice.EntityData = data;
+        this.router.navigate(['list/'+source+'/'+entity+'/'+name]);
+    })
+  }
+
   columnDefs = [
   ];
 
@@ -25,7 +42,8 @@ export class EntityDetailComponent implements OnInit {
   };
   constructor(
     private listservice : ListService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router
   ) {}
 
   ngOnInit(): void {

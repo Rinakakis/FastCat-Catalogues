@@ -1,14 +1,16 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { ListDetailComponent } from './components/list-detail/list-detail.component';
+import { ListDetailsComponent } from './components/list-details/list-details.component';
 import { ListComponent } from './components/list/list.component';
-import { EntityDetailComponent } from './components/entity-detail/entity-detail.component';
+import { EntityDetailsComponent } from './components/entity-detail/entity-details.component';
+import { RecordDetailsComponent } from './components/record-details/record-details.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/list', pathMatch: 'full' },
   { path: 'list', component: ListComponent },
-  { path: 'list/:title', component: ListDetailComponent },
-  { path: 'list/:entity/:name', component: EntityDetailComponent }
+  { path: 'list/:source', component: ListDetailsComponent },
+  { path: 'list/:source/:id', component: RecordDetailsComponent },
+  { path: 'list/:source/:entity/:name', component: EntityDetailsComponent }
 ];
 
 @NgModule({

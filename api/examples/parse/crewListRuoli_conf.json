@@ -1,5 +1,5 @@
 {
-   "entities":{
+   "Crew List (Ruoli di Equipaggio)":{
       "Ship":{
          "Name":{
             "path":"docs[0].data.ship_records.ship_name"
@@ -8,7 +8,7 @@
             "path":"docs[0].data.ship_records.ship_type"
          },
          "Construction location":{
-            "link":"Ship construction locations"
+           "path":"docs[0].data.ship_records.construction_location"
          },
          "Construction date":{
             "path":"docs[0].data.ship_records.construction_location_date"
@@ -17,10 +17,12 @@
             "path":"docs[0].data.ship_records.registry_number"
          },
          "Ship owners":{
-            "link //ΣΥΝΔΕΣΗ ΜΕ ΑΛΛΗ ΟΝΤΟΤΗΤΑ ΑΠ' ΟΠΟΥ ΜΠΟΡΟΥΜΕ ΝΑ ΤΡΑΒΗΞΟΥΜΕ ΤΙΣ ΠΛΗΡΟΦΟΡΙΕΣ":"Ship owners"
+            "link":"Ship owners",
+            "Id": "docs[0]._id"
          },
          "Crew members":{
-            "link":"Crew members"
+            "link":"Crew members",
+            "Id": "docs[0]._id"
          }
       },
       "Ship owners":{
@@ -34,7 +36,8 @@
             "path":"docs[0].data.ship_records.owner_fathers_name"
          },
          "Ships":{
-            "link":"Ship"
+            "link":"Ship",
+            "Id": "docs[0]._id"
          }
       },
       "Registry ports":{
@@ -42,7 +45,8 @@
             "path":"docs[0].data.ship_records.registry_port"
          },
          "Ships":{
-            "link":"Ship"
+            "link":"Ship",
+            "Id": "docs[0]._id"
          }
       },
       "Ship construction locations":{
@@ -50,25 +54,18 @@
             "path":"docs[0].data.ship_records.construction_location"
          },
          "Ships":{
-            "link":"Ship"
+            "link":"Ship",
+            "Id": "docs[0]._id"
          }
       },
       "Departure ports":{
-         "value-type":"list //ΣΕ ΑΥΤΗ ΤΗ ΠΕΡΙΠΤΩΣΗ ΤΟ PATH ΤΩΝ ΔΕΔΟΜΕΝΩΝ ΠΕΡΙΕΧΕΙ #, ΤΟ ΟΠΟΙΟ ΑΝΤΙΠΡΟΣΩΠΕΥΕΙ ΕΝΑΝ ΑΡΙΘΜΟ. ΙΣΩΣ ΥΠΑΡΧΕΙΚ ΚΑΙ ΚΑΛΥΤΕΡΟΣ ΤΡΟΠΟΣ ΓΙΑ ΝΑ ΓΙΝΕΙ ΑΥΤΟ...ΣΚΕΨΟΥ ΤΟ",
+         "value-type":"list",
          "Port":{
             "path":"docs[0].data.route.#.departure_port"
          },
          "Ships":{
-            "link":"Ship"
-         }
-      },
-      "Arrival ports":{
-         "value-type":"list",
-         "port":{
-            "path":"docs[0].data.route.#.arrival_port"
-         },
-         "Ships":{
-            "link":"Ship"
+            "link":"Ship",
+            "Id": "docs[0]._id"
          }
       },
       "Crew members":{
@@ -104,38 +101,37 @@
             "path":"docs[0].data.crew_list.#.discharge_date"
          },
          "Ships":{
-            "link":"Ship"
+            "link":"Ship",
+            "Id": "docs[0]._id"
          }
       },
-      "Embarkation/Discharge ports":{
+      "Embarkation ports":{
          "value-type":"list",
          "Port":{
-            "path // ΠΕΡΙΠΤΩΣΗ ΠΟΥ Η ΤΙΜΗ ΠΡΟΕΡΧΕΤΑΙ ΑΠΟ ΠΕΡΙΣΣΟΤΕΡΑ ΤΟΥ ΕΝΟΣ ΠΕΔΙΑ":[
-               "docs[0].data.crew_list.#.embarkation_port",
-               "docs[0].data.crew_list.#.discharge_port"
-            ]
+           "path":"docs[0].data.crew_list.#.embarkation_port"
          },
          "Crew members":{
-            "link":"Crew members"
+            "link":"Crew members",
+            "Id": "docs[0]._id"
          },
          "Ships":{
-            "link":"Ship"
+            "link":"Ship",
+            "Id": "docs[0]._id"
          }
       },
-      "Residence locations of crew members":{
-         
-      },
-      "Professions of crew members":{
-         
-      },
-      "Authors (Transcribers)":{
-         
-      },
-      "Archives / Libraries":{
-         
-      },
-      "Issuing Authorities":{
-         
+      "Discharge ports":{
+         "value-type":"list",
+         "Port":{
+           "path": "docs[0].data.crew_list.#.discharge_port"
+         },
+         "Crew members":{
+            "link":"Crew members",
+            "Id": "docs[0]._id"
+         },
+         "Ships":{
+            "link":"Ship",
+            "Id": "docs[0]._id"
+         }
       }
    }
 }

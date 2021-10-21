@@ -4,14 +4,14 @@ import { ListService } from 'src/app/services/list.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormControl } from '@angular/forms';
 import { CellClickedEvent } from 'ag-grid-community';
-import { isObject, isPlainObject } from 'lodash';
+import { isEmpty, isObject, isPlainObject } from 'lodash';
 
 @Component({
-  selector: 'app-list-detail',
-  templateUrl: './list-detail.component.html',
-  styleUrls: ['./list-detail.component.css']
+  selector: 'app-list-details',
+  templateUrl: './list-details.component.html',
+  styleUrls: ['./list-details.component.css']
 })
-export class ListDetailComponent implements OnInit {
+export class ListDetailsComponent implements OnInit {
 
   rowData = [];
   records = new FormControl();
@@ -32,7 +32,8 @@ export class ListDetailComponent implements OnInit {
   nonLitsInfo: any[] = [];
   keysNonList: any[] = [];
   entity: string = '';
-  keysList: any[] = [];;
+  keysList: any[] = [];selectedTableName: any;
+;
 
   constructor(
     private route: ActivatedRoute,
@@ -41,12 +42,17 @@ export class ListDetailComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    const name = String(this.route.snapshot.paramMap.get('title'));
+    const name = String(this.route.snapshot.paramMap.get('source'));
 
-    this.listservice.getEverything(name).then((CrewLitsIT : object)=>{
-      this.sourceType = CrewLitsIT;
-      this.getRecord(CrewLitsIT);
-    });
+    if(isEmpty(this.listservice.List)){
+      this.listservice.getEverything(name).then((CrewLitsIT : object)=>{
+        this.sourceType = CrewLitsIT;
+        this.getRecord(this.sourceType);
+      });
+    }else{
+      this.sourceType = this.listservice.List;
+      this.getRecord(this.sourceType);
+    }
 
   }
 
@@ -60,8 +66,7 @@ export class ListDetailComponent implements OnInit {
   gridOptions = {
     // Add event handlers
     onCellClicked: ((event: CellClickedEvent) =>{
-        // console.log(this.entity)
-        // console.log(event.data);
+        var source = String(this.route.snapshot.paramMap.get('source'));
         var data = event.data;
         var entity = this.entity.replace('/','-');
         var name = ''
@@ -70,32 +75,31 @@ export class ListDetailComponent implements OnInit {
             name =data[k];
         });
         this.listservice.EntityData = data;
-        this.router.navigate(['list/'+entity+'/'+name]);
+        this.router.navigate(['list/'+source+'/'+entity+'/'+name]);
     })
   }
 
   getRecord(CrewLitsIT: object): void {
 
-    const name = String(this.route.snapshot.paramMap.get('title'));
-
-    // this.listservice.getRecord(name)
-    //   .subscribe(record => this.record = record);
-
-    if(this.record != undefined){
-      this.title = String(this.record.title) + ' ('+this.getLength(CrewLitsIT) +' records)';
-      var tempList = this.listservice.Titles;
-      this.recordList = tempList.sort().map(data => data[0]);
-
-    }
-
-     this.getTypes(CrewLitsIT);
+    const name = String(this.route.snapshot.paramMap.get('source'));
+    console.log(name)
+    this.listservice.getRecord(name).subscribe((list: any) =>{
+      this.record = list[0];
+      console.log(this.record)
+      if(this.record != undefined){
+        this.title = String(this.record.name) + ' ('+this.record.count +' records)';
+        var tempList = this.listservice.Titles;
+        this.recordList = tempList.sort().map(data => data[0]);
+      }
+       this.getTypes(CrewLitsIT);
+    });
 
   }
 
   getTypes(CrewLitsIT: any): void{
 
-    var res = this.listservice.getTypes(CrewLitsIT);
-    // console.log(res);
+    var res = this.listservice.getTypes(CrewLitsIT); // counting
+    console.log(res);
     this.totalCount = res.count;
     this.recordDataTitles = res.titles;
     this.showData = true;
@@ -118,6 +122,8 @@ export class ListDetailComponent implements OnInit {
       this.selectedTable = !this.selectedTable;
 
     if(this.tableClicked){
+      if(entity == this.entity)
+        return;
       this.tableClicked = !this.tableClicked;
     }
 
@@ -150,6 +156,8 @@ export class ListDetailComponent implements OnInit {
     else
       res = this.listservice.removeDuplicates(res);
 
+    this.listservice.replaceEmptyValues(res);
+
     return res;
   }
 
@@ -157,53 +165,8 @@ export class ListDetailComponent implements OnInit {
 
   displaySelected(title:string): void {
     var id = this.listservice.getIdfromTitle(title);
-
-    var record = this.listservice.getRecordWithId(id);
-    var length = Object.keys(record).length;
-    this.tablesCount = length;
-    this.tablesTitles = [];
-    this.tables = [];
-    this.nonLitsInfo = [];
-    this.keysList = [];
-    this.keysNonList = [];
-
-    for (const key in record){
-      var table = record[key];
-      var titles: any =  this.getTitles(table);
-
-      if(table["value-type"] == 'list'){
-        table = this.listservice.formatList(table);
-        titles = this.getTitles(table[0]);
-        // console.log(table)
-        this.tables.push(table);
-        this.keysList.push(key);
-
-        var titleFormat = titles.map((val: string) => {
-          return {'field': val, 'sortable': true, 'filter': true};
-        });
-        this.tablesTitles.push(titleFormat);
-
-      }else{
-        console.log(table)
-        var lala = JSON.parse(JSON.stringify(table));
-        Object.keys(lala).forEach(k => {
-          if(typeof lala[k] == 'object')
-            delete lala[k];
-        })
-        console.log(table)
-        this.nonLitsInfo.push(lala);
-        this.keysNonList.push(key);
-      }
-
-    }
-
-    console.log(this.nonLitsInfo)
-
-    if(this.tableClicked)
-      this.tableClicked = !this.tableClicked;
-
-    if(!this.selectedTable)
-      this.selectedTable = !this.selectedTable;
+    const name = String(this.route.snapshot.paramMap.get('source'));
+    this.router.navigate(['list/'+name+'/'+id]);
   }
 
   getTitles(temp: any): string[]{

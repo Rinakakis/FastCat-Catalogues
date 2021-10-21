@@ -105,13 +105,24 @@ export const PARSER: any = {
              "Id": "docs[0]._id"
           }
        },
-       "Embarkation/Discharge ports":{
+       "Embarkation ports":{
           "value-type":"list",
           "Port":{
-            "path":[
-              "docs[0].data.crew_list.#.embarkation_port",
-              "docs[0].data.crew_list.#.discharge_port"
-           ]
+            "path":"docs[0].data.crew_list.#.embarkation_port"
+          },
+          "Crew members":{
+             "link":"Crew members",
+             "Id": "docs[0]._id"
+          },
+          "Ships":{
+             "link":"Ship",
+             "Id": "docs[0]._id"
+          }
+       },
+       "Discharge ports":{
+          "value-type":"list",
+          "Port":{
+            "path": "docs[0].data.crew_list.#.discharge_port"
           },
           "Crew members":{
              "link":"Crew members",

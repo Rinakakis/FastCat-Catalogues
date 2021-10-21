@@ -10,7 +10,7 @@ import * as _ from 'lodash';
 export class ListService {
 
   temp: any = [];
-  List: any;
+  List: any = [];
   Records: any[] = [];
   Ids: string[] = [];
   Titles: any[] = [];
@@ -20,7 +20,7 @@ export class ListService {
   }
 
   getList(){
-    const res = this.http.get('http://192.168.1.18:8081/numberOfrecords')
+    const res = this.http.get('http://192.168.1.18:8081/numberOfrecords/all')
     res.subscribe(list => this.Records = <any[]> list);
     return res;
   }
@@ -29,6 +29,11 @@ export class ListService {
     console.log(record)
     return this.http.get('http://192.168.1.18:8081/record/'+record).toPromise()
         .then(res => this.getCreListIT2(res));
+  }
+
+  getRecord(title: string): any{
+
+    return this.http.get('http://192.168.1.18:8081/numberOfrecords/'+title);
   }
 
   getCreListIT2(a:any): object{
@@ -93,7 +98,7 @@ export class ListService {
       }
     })
     this.List = objArray;
-    // console.log(objArray);
+    console.log(objArray);
     return objArray;
   }
 
@@ -113,12 +118,12 @@ export class ListService {
         ar.push(data[index++][item.path.split(".#.")[1]]);
       }
     }
-    if(entity == 'Departure ports' || entity == 'Embarkation/Discharge ports'){
-      ar = ar.filter(function(item, pos) {
-        return ar.indexOf(item) == pos;
-      })
-      // console.log(ar)
-    }
+    // if(entity == 'Departure ports' || entity == 'Discharge ports' ){
+    //   ar = ar.filter(function(item, pos) {
+    //     return ar.indexOf(item) == pos;
+    //   })
+    //   // console.log(ar)
+    // }
 
     return ar;
   }
@@ -132,7 +137,7 @@ export class ListService {
     }
   }
 
-  mapping(): any{
+  mapping(): any[]{
     return INSTANCES.templates.map((obj: any) =>{
       return {'name':obj.name, 'id': obj.id}
     })
@@ -166,16 +171,19 @@ export class ListService {
   mapTitle(record: any): void{
     var obj = record.docs[0].data;
 
-    var title =  obj.ship_records.ship_name + ', ' + obj.source_identity.date_of_document + ', '
+    var title = obj.ship_records.ship_name + ', ' + obj.source_identity.date_of_document + ', '
     + obj.record_information.name + ' ' + obj.record_information.surname + ' #' + obj.record_information.catalogue_id;
 
     this.Titles.push([title,record.docs[0]._id]);
   }
 
   getIdfromTitle(title: string): string{
-    console.log(title)
     var res = this.Titles.filter(data => data[0] == title);
     return res[0][1];
+  }
+  getTitlefromId(id: string): string{
+    var res = this.Titles.filter(data => data[1] == id);
+    return res[0][0];
   }
 
   formatList(temp: any): any[] {
@@ -220,6 +228,16 @@ export class ListService {
     return this.removeDuplicates(array);
   }
 
+  replaceEmptyValues(array: any[]):any[] {
+    return array.map(obj => {
+      Object.keys(obj).map(function(key) {
+        if(obj[key] === '' || obj[key] == undefined) {
+            obj[key] = 'Unknown';
+        }
+    });
+    });
+  }
+
   removeDuplicates(data: any[]): any[] {
     console.log(data)
     if(Object.values(data[0]).filter(val => typeof val == 'string' && val !='list').length == 1){ //if table has only one value
@@ -260,6 +278,7 @@ export class ListService {
       console.log(newarray)
       return newarray;
     }
+
     return data;
   }
 

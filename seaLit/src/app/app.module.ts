@@ -15,9 +15,10 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './components/header/header.component';
 import { ListComponent } from './components/list/list.component';
-import { ListDetailComponent } from './components/list-detail/list-detail.component';
+import { ListDetailsComponent } from './components/list-details/list-details.component';
 import { TablesComponent } from './components/tables/tables.component';
-import { EntityDetailComponent } from './components/entity-detail/entity-detail.component';
+import { EntityDetailsComponent } from './components/entity-detail/entity-details.component';
+import { RecordDetailsComponent } from './components/record-details/record-details.component';
 
 
 @NgModule({
@@ -25,9 +26,10 @@ import { EntityDetailComponent } from './components/entity-detail/entity-detail.
     AppComponent,
     HeaderComponent,
     ListComponent,
-    ListDetailComponent,
+    ListDetailsComponent,
     TablesComponent,
-    EntityDetailComponent
+    EntityDetailsComponent,
+    RecordDetailsComponent
   ],
   imports: [
     BrowserModule,
