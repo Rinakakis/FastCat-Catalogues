@@ -133,5 +133,12 @@
             "Id": "docs[0]._id"
          }
       }
-   }
+   },
+   "Title":[
+      "docs[0].data.ship_records.ship_name",
+      "docs[0].data.source_identity.date_of_document",
+      "docs[0].data.record_information.name",
+      "docs[0].data.record_information.surname",
+      "docs[0].data.record_information.catalogue_id"
+   ]
 }

@@ -20,7 +20,7 @@ export class ListComponent implements OnInit {
   }
 
   getList(): void{
-    this.listservice.getList()
+    this.listservice.getNamesOfSources()
       .subscribe(list => this.list = list);
   }
 

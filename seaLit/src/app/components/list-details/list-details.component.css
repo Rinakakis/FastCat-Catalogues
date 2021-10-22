@@ -10,6 +10,10 @@ h3{
   padding: 20px
 }
 
+.record-columns {
+  column-count: 3;
+  column-gap: 40px;
+}
 
 .fltr{
   font-weight: 500;
@@ -57,9 +61,6 @@ ul{
   border-color: #babfc7;
 }
 
-
-
-
 .mat-form-field{
   width: 50%;
 }
@@ -68,5 +69,17 @@ ul{
   .record-details{
     padding-left: 40px;
     padding-right: 40px;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .record-columns {
+    column-count: 2;
+  }
+}
+
+@media only screen and (max-width: 440px) {
+  .record-columns {
+    column-count: 1;
   }
 }

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CellClickedEvent } from 'ag-grid-community';
-import { isPlainObject } from 'lodash';
+import { isObject, isPlainObject } from 'lodash';
 import { ListService } from 'src/app/services/list.service';
 
 @Component({
@@ -10,9 +10,9 @@ import { ListService } from 'src/app/services/list.service';
   styleUrls: ['./record-details.component.css']
 })
 export class RecordDetailsComponent implements OnInit {
-  templateId: string ='';
+  sourceId: string ='';
   Id: string ='';
-  templateTitle: string ='';
+  sourceName: string ='';
 
   rowData = [];
   entityClicked: boolean = false;
@@ -34,8 +34,14 @@ export class RecordDetailsComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    const source = String(this.route.snapshot.paramMap.get('source'));
     const id = String(this.route.snapshot.paramMap.get('id'));
-    this.displaySelected(id);
+    console.log(source,id);
+    this.listservice.getrecordFromSource(source,id).subscribe(record=>{
+      console.log(record);
+      this.displaydata(record);
+    })
+
   }
 
   columnDefs = [
@@ -58,14 +64,11 @@ export class RecordDetailsComponent implements OnInit {
             name =data[k];
         });
         this.listservice.EntityData = data;
-        this.router.navigate(['list/'+source+'/'+entity+'/'+name]);
+        this.router.navigate(['list/'+source+'?'+''+'/'+name]);
     })
   }
 
-  displaySelected(id:string): void {
-
-
-    var record = this.listservice.getRecordWithId(id);
+  displaydata(record: any): void {
     var length = Object.keys(record).length;
     this.tablesCount = length;
     this.tablesTitles = [];
@@ -74,45 +77,35 @@ export class RecordDetailsComponent implements OnInit {
     this.keysList = [];
     this.keysNonList = [];
 
-    this.title = this.listservice.getTitlefromId(id);
+    this.title = record.title;
 
-    var source: any = this.listservice.mapping().filter(temp=> temp.name == String(this.route.snapshot.paramMap.get('source')));
-    this.Id = id;
-    this.templateId = source[0].id;
-    this.templateTitle = source[0].name;
+    this.Id = record.id;
+    this.sourceId = record.sourceId;
+    this.sourceName = record.sourceName;
 
-    for (const key in record){
-      var table = record[key];
-      var titles: any =  this.getTitles(table);
-
-      if(table["value-type"] == 'list'){
-        table = this.listservice.formatList(table);
-        titles = this.getTitles(table[0]);
-        // console.log(table)
-        this.tables.push(table);
-        this.keysList.push(key);
-
+    record.data.forEach((element: any) => {
+      var data: any[] = Object.values(element);
+      data = data[0];
+      if(data.length == 1){
+        this.keysNonList.push(Object.keys(element).join());
+        var lala = JSON.parse(JSON.stringify(data[0]));
+        Object.keys(lala).forEach(k => {
+          if(typeof lala[k] == 'object' || k =='lenght' || k == 'value-type')
+            delete lala[k];
+        })
+        this.nonLitsInfo.push(lala);
+      }else{
+        this.keysList.push(Object.keys(element).join());
+        var titles = this.getTitles(data[0]);
         var titleFormat = titles.map((val: string) => {
           return {'field': val, 'sortable': true, 'filter': true};
         });
         this.tablesTitles.push(titleFormat);
-
-      }else{
-        console.log(table)
-        var lala = JSON.parse(JSON.stringify(table));
-        Object.keys(lala).forEach(k => {
-          if(typeof lala[k] == 'object')
-            delete lala[k];
-        })
-        console.log(table)
-        this.nonLitsInfo.push(lala);
-        this.keysNonList.push(key);
+        this.tables.push(data);
       }
+    });
 
-    }
-
-    console.log(this.nonLitsInfo)
-
+    console.log(this.tables)
     if(!this.selectedTable)
       this.selectedTable = !this.selectedTable;
   }
@@ -120,7 +113,7 @@ export class RecordDetailsComponent implements OnInit {
   getTitles(temp: any): string[]{
     var titles: string[] = [];
     for (const [key, value] of Object.entries(temp)) {
-      if(!isPlainObject(value) && key!='value-type' && key!='lenght')
+      if(!isObject(value) && key!='value-type' && key!='lenght')
         titles.push(key);
     }
     return titles;

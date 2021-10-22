@@ -47,12 +47,7 @@ app.get('/record/:name', function (req, res) {
    record = record.replaceAll(' ', '_');
    var myarray = [];
    var fullpath = path + record;
-   fs.readdirSync(fullpath)
-   .map(name => {
-      var file = fs.readFileSync(fullpath+'/'+name, 'utf8');
-      var record = JSON.parse(file.trim());
-      myarray.push(record);
-   });
+   myarray = getallRecordFiles(fullpath);
    res.end(JSON.stringify(myarray));
 })
 
@@ -65,20 +60,26 @@ app.get('/sourceRecordList/:name/', function (req, res){
    var count = [];
    var fullpath = path + req.params.name.replaceAll(' ', '_');
       
-   fs.readdirSync(fullpath)
-   .map(name => {
-      var file = fs.readFileSync(fullpath+'/'+name, 'utf8');
-      var record = JSON.parse(file.trim());
-      myarray.push(record);
-   });
+   myarray = getallRecordFiles(fullpath);
+
    
    for (const key in config) {
       const tableconfig = config[key];
-      count.push({[key] : formatObject(myarray, tableconfig).length});
+      var obj = {'name': key,'count':formatObject(myarray, tableconfig).length}
+      count.push(obj);
    }
    
    res.end(JSON.stringify(count));
+})
 
+app.get('/sourceRecordTitles/:name/', function (req, res){
+   var myarray = [];
+   var fullpath = path + req.params.name.replaceAll(' ', '_');
+      
+   myarray = getallRecordFiles(fullpath);
+   var titles = getTitlesofRecords(myarray,req.params.name);
+   
+   res.end(JSON.stringify(titles));
 })
 
 app.get('/numberOfrecords/:name', function(req, res){
@@ -99,24 +100,74 @@ app.get('/numberOfrecords/:name', function(req, res){
    res.end(JSON.stringify(myarray));
 })
 
-app.get('/record/:name/:entity', function (req, res) {
-      var recordName = req.params.name;
+app.get('/tableData', function (req, res) {
+      var source = req.query.source;
+      var tableName = req.query.tableName;
+      var id = req.query.id;
       var myarray = [];
-      var fullpath = path + recordName.replaceAll(' ', '_');
-      var config = getConfigEntity(req.params.name,req.params.entity);
       
-      fs.readdirSync(fullpath)
-      .map(name => {
-         var file = fs.readFileSync(fullpath+'/'+name, 'utf8');
-         var record = JSON.parse(file.trim());
-         myarray.push(record);
-      });
-      
-      myarray = formatObject(myarray, config);
+      if(id == null){
+          myarray = handleSingleTable(source,tableName); 
+      }else{
+          myarray = handleRecordTables(source,id);
+      }
 
       res.end(JSON.stringify(myarray));
 })
 
+function handleRecordTables(source,id){
+  var myarray = [];
+  var fullpath = path + source.replaceAll(' ', '_');
+  var config = getConfig(source);
+  
+  fs.readdirSync(fullpath)
+  .map(name => {
+    var file = fs.readFileSync(fullpath+'/'+name, 'utf8');
+    var record = JSON.parse(file.trim());
+    if(record.docs[0]._id == id)
+      myarray.push(record);
+  });
+  
+  var obj = getTitlesofRecords(myarray,source);
+  obj = obj[0];
+  var data = [];
+  for (const tablename in config) {
+    const tabeconfig = config[tablename];
+    data.push({[tablename]: formatObject(myarray, tabeconfig)});
+  }
+  obj.data = data;
+  var recordconf = templates.find(elem => elem.name == source);
+  obj.sourceId = recordconf.id; 
+  obj.sourceName = recordconf.name; 
+
+  return obj;
+}
+
+function handleSingleTable(source,tableName){
+  var myarray = [];
+  var fullpath = path + source.replaceAll(' ', '_');
+  var config = getConfigEntity(source,tableName);
+  
+  fs.readdirSync(fullpath)
+  .map(name => {
+    var file = fs.readFileSync(fullpath+'/'+name, 'utf8');
+    var record = JSON.parse(file.trim());
+    myarray.push(record);
+  });
+  
+  return formatObject(myarray, config);
+}
+
+function getallRecordFiles(fullpath){
+   var myarray = [];
+   fs.readdirSync(fullpath)
+      .map(name => {
+        var file = fs.readFileSync(fullpath+'/'+name, 'utf8');
+        var record = JSON.parse(file.trim());
+        myarray.push(record);
+      });
+   return myarray;
+}
 
 function getConfigEntity(recordName,entity){
    var record = templates.find(obj => obj.name == recordName);
@@ -129,7 +180,6 @@ function getConfigEntity(recordName,entity){
 }
 
 function getConfig(recordName){
-   
    var record = templates.find(obj => obj.name == recordName);
    var config = fs.readFileSync('./examples/parse/'+record.configuration, 'utf8');
    config = JSON.parse(config);
@@ -137,75 +187,162 @@ function getConfig(recordName){
    return config;
 }
 
+function getConfigTitle(recordName){
+   var record = templates.find(obj => obj.name == recordName);
+   var config = fs.readFileSync('./examples/parse/'+record.configuration, 'utf8');
+   config = JSON.parse(config);
+   config = _.get(config,'Title');
+   return config;
+}
+
+function getTitlesofRecords(myarray, name){
+   var titleConfig = getConfigTitle(name);
+   var titlearray = [];
+   return myarray.map(record =>{
+      titlearray = titleConfig.map(path =>{
+         return _.get(record,path);
+      });
+      
+      titlearray[titlearray.length-1] = '#'+titlearray[titlearray.length-1];
+
+      return {'id': record.docs[0]._id,'title':titlearray.join(' ')};
+   })
+}
+
 function formatObject(data, config){
    // console.log(config);
-   const mydata = data;
-   var objArray = [];
-
-   for (let i = 0; i < mydata.length; i++) {
-      var fake = JSON.parse(JSON.stringify(config));
-      // we dublicate the structure of the parser so we can
-      // change the path to actual data
-      if (config['value-type'] == undefined) {
-         for (const column in config) {
-            var item = config[column]; // path from parser
-            if (item.path != undefined) { // undefined -> links
-               var data = _.get(mydata[i], item.path);
-               fake[column] = data;
-            } else if (item.link != undefined) { // we have link
-               var data = item.link;
-               fake[column].link = data;
-               fake[column].Id = _.get(mydata[i], item.Id);
-            }
-         }
-      } else {
-         for (const column in config) {
-            var item = config[column]; // path from parser
-            if (item != 'list') {
-               if (item.path != undefined) { // undefined -> links
-                  var ret = addListData(item, mydata[i]);
-                  fake[column] = ret;
-                  fake['lenght'] = ret.length;
-               } else if (item.link != undefined) {
-                  var data = item.link;
-                  fake[column].link = data;
-                  fake[column].Id = _.get(mydata[i], item.Id);
-               }
-            }
-         }
-      }
-
-      // this.mapTitle(mydata[i]);
-      objArray.push(fake);
-   }
-   // this.List = objArray;
-   // console.log(objArray);
-   if(objArray[0]["value-type"] == 'list')
-      objArray = formatList(objArray);
+  
+  const mydata = data;
+  var objArray = [];
+  var mydata2;
+  for (let i = 0; i < mydata.length; i++) {
+    var fake = JSON.parse(JSON.stringify(config));
+    // we dublicate the structure of the parser so we can
+    // change the path to actual data
+    if(mydata.length == 1)
+      mydata2 = mydata[0];
     else
-    objArray = removeDuplicates(objArray);
+      mydata2 = mydata[i];
 
-   replaceEmptyValues(objArray);
-   
-   return objArray;
+    if (config['value-type'] == undefined) {
+        for (const column in config) {
+          var item = config[column]; // path from parser
+          if (item.path != undefined) { // undefined -> links
+              var data = _.get(mydata2, item.path);
+              fake[column] = data;
+          } else if (item.link != undefined) { // we have link
+              var data = item.link;
+              fake[column].link = data;
+              fake[column].Id = _.get(mydata2, item.Id);
+          }
+        }
+    } else {
+        for (const column in config) {
+          var item = config[column]; // path from parser
+          if (item != 'list') {
+              if (item.path != undefined) { // undefined -> links
+                var ret = addListData(item, mydata2);
+                fake[column] = ret;
+                fake['lenght'] = ret.length;
+              } else if (item.link != undefined) {
+                var data = item.link;
+                fake[column].link = data;
+                fake[column].Id = _.get(mydata2, item.Id);
+              }
+          }
+        }
+    }
+
+    // this.mapTitle(mydata[i]);
+    objArray.push(fake);
+  }
+  // this.List = objArray;
+  // console.log(objArray);
+  if(objArray[0]["value-type"] == 'list')
+    objArray = formatList(objArray);
+  else
+  objArray = removeDuplicates(objArray);
+
+  replaceEmptyValues(objArray);
+  
+  return objArray;
  }
 
- function addListData(item, mydata){
-   var index = 0;
-   var ar = [];
+//  formatRecord(record, config){
+//   const mydata: any[] = a;
+//   var objArray: any = {};
 
-   if(Array.isArray(item.path)){ // condition for Embarkation/Discharge ports OLD
-     var data0 = _.get(mydata, item.path[0].split(".#.")[0]);
-     var data1 = _.get(mydata, item.path[1].split(".#.")[0]);
-     while(data0[index]!= undefined && !_.isEmpty(data0[index])){
-         ar.push(data0[index][item.path[0].split(".#.")[1]] +', '+ data1[index++][item.path[1].split(".#.")[1]]);
-     }
-   }else{
-     var data = _.get(mydata, item.path.split(".#.")[0]);
-     while(data[index]!= undefined && !_.isEmpty(data[index])){
-       ar.push(data[index++][item.path.split(".#.")[1]]);
-     }
-   }
+//   for (const key in mapp) { // for every source type
+//     if(key == mydata[0].docs[0].template){ // for now, only for crew list IT
+//       var temp = parser[mapp[key]];
+//       // console.log(temp)
+//       console.log(mydata.length)
+//       for (let i = 0; i < mydata.length; i++){
+//         var fake = JSON.parse(JSON.stringify(temp));
+//         // we dublicate the structure of the parser so we can
+//         // change the path to actual data
+
+//         for(const entity in temp){ // entity --> array name e.g. Ship owners
+//             var table = temp[entity]; // the table object with columns
+
+//             if(table['value-type'] == undefined){
+//               for(const column in table){
+//                   var item = table[column]; // path from parser
+//                   if(item.path != undefined){ // undefined -> links
+//                     var data = _.get(mydata[i], item.path);
+//                     fake[entity][column] = data;
+
+//                   }else if(item.link != undefined){
+//                     var data = item.link;
+//                     fake[entity][column].link = data;
+//                     fake[entity][column].Id = _.get(mydata[i], item.Id);
+//                   }
+//               }
+//             }else{
+//               for(const column in table){
+//                 var item = table[column]; // path from parser
+//                 if(item != 'list'){
+//                   if(item.path != undefined){ // undefined -> links
+//                     var ret: string[] = this.addListData(entity, item, mydata[i]);
+//                     fake[entity][column] = ret;
+//                     fake[entity]['lenght'] = ret.length;
+
+//                   }else if(item.link != undefined){
+//                     var data = item.link;
+//                     fake[entity][column].link = data;
+//                     fake[entity][column].Id = _.get(mydata[i], item.Id);
+//                   }
+//                 }
+//               }
+//             }
+
+//         }
+//         objArray[mydata[i].docs[0]._id] = fake;
+//       }
+//     }
+//   }
+//   this.List = objArray;
+//   // console.log(objArray);
+//   return objArray;
+// }
+
+
+ function addListData(item, mydata){
+  var index = 0;
+  var ar = [];
+
+  if(Array.isArray(item.path)){ // condition for Embarkation/Discharge ports OLD
+    var data0 = _.get(mydata, item.path[0].split(".#.")[0]);
+    var data1 = _.get(mydata, item.path[1].split(".#.")[0]);
+    while(data0[index]!= undefined && !_.isEmpty(data0[index])){
+      ar.push(data0[index][item.path[0].split(".#.")[1]] +', '+ data1[index++][item.path[1].split(".#.")[1]]);
+    }
+    }else{
+      var data = _.get(mydata, item.path.split(".#.")[0]);
+      while(data[index]!= undefined && !_.isEmpty(data[index])){
+        ar.push(data[index++][item.path.split(".#.")[1]]);
+    }
+  }
    // if(entity == 'Departure ports' || entity == 'Discharge ports' ){
    //   ar = ar.filter(function(item, pos) {
    //     return ar.indexOf(item) == pos;

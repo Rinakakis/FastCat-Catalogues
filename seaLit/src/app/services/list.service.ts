@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { INSTANCES } from '../templates';
 import { PARSER } from '../crewListRuoli_conf';
 import * as _ from 'lodash';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -19,21 +20,37 @@ export class ListService {
   constructor(private http:HttpClient) {
   }
 
-  getList(){
-    const res = this.http.get('http://192.168.1.18:8081/numberOfrecords/all')
+  // getEverything(record: string){
+  //   console.log(record)
+  //   return this.http.get('http://192.168.1.2:8081/record/'+record).toPromise()
+  //       .then(res => this.getCreListIT2(res));
+  // }
+
+  getNamesOfSources(): Observable<any>{
+    const res = this.http.get('http://192.168.1.2:8081/numberOfrecords/all');
     res.subscribe(list => this.Records = <any[]> list);
     return res;
   }
 
-  getEverything(record: string){
-    console.log(record)
-    return this.http.get('http://192.168.1.18:8081/record/'+record).toPromise()
-        .then(res => this.getCreListIT2(res));
+  getNameOfSource(title: string): Observable<any>{
+    return this.http.get('http://192.168.1.2:8081/numberOfrecords/'+title);
   }
 
-  getRecord(title: string): any{
+  getSourceList(record: string): Observable<any>{
+    console.log(record)
+    return this.http.get('http://192.168.1.2:8081/sourceRecordList/'+record);
+  }
 
-    return this.http.get('http://192.168.1.18:8081/numberOfrecords/'+title);
+  getTitlesofSourceRecords(title: string): Observable<any>{
+    return this.http.get('http://192.168.1.2:8081/sourceRecordTitles/'+title);
+  }
+
+  getTableFromSource(source: string,tableName: string): Observable<any>{
+    return this.http.get('http://192.168.1.2:8081/tableData?'+'source='+source+'&tableName='+tableName);
+  }
+
+  getrecordFromSource(source: string,id: string): Observable<any>{
+    return this.http.get('http://192.168.1.2:8081/tableData?'+'source='+source+'&id='+id);
   }
 
   getCreListIT2(a:any): object{

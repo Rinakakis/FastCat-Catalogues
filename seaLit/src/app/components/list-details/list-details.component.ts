@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-
-import { ListService } from 'src/app/services/list.service';
+import { trigger, transition, style, animate, state } from '@angular/animations';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormControl } from '@angular/forms';
 import { CellClickedEvent } from 'ag-grid-community';
-import { isEmpty, isObject, isPlainObject } from 'lodash';
+import { isObject } from 'lodash';
+
+import { ListService } from 'src/app/services/list.service';
 
 @Component({
   selector: 'app-list-details',
@@ -18,11 +19,12 @@ export class ListDetailsComponent implements OnInit {
   recordList: string[] = [];
   totalCount : number[] = [];
   record: any;
-  recordDataTitles!: string[];
+  recordDataTitles: string[] = [];
   showData: boolean = false;
   tableClicked: boolean = false;
   entityClicked: boolean = false;
-  title!: string;
+  state = "closed";
+  title: string = '';
   sourceType: object = {};
 
   tables: any[] = [];
@@ -31,8 +33,10 @@ export class ListDetailsComponent implements OnInit {
   selectedTable: boolean = false;
   nonLitsInfo: any[] = [];
   keysNonList: any[] = [];
-  entity: string = '';
+  TableName: string = '';
   keysList: any[] = [];selectedTableName: any;
+  gridApi: any;
+  recordTitlesWithId: any[] = [];
 ;
 
   constructor(
@@ -41,130 +45,96 @@ export class ListDetailsComponent implements OnInit {
     private router: Router
   ) { }
 
-  ngOnInit(): void {
-    const name = String(this.route.snapshot.paramMap.get('source'));
-
-    if(isEmpty(this.listservice.List)){
-      this.listservice.getEverything(name).then((CrewLitsIT : object)=>{
-        this.sourceType = CrewLitsIT;
-        this.getRecord(this.sourceType);
-      });
-    }else{
-      this.sourceType = this.listservice.List;
-      this.getRecord(this.sourceType);
-    }
-
-  }
-
-  columnDefs = [
+  columnDefs: any[] = [
   ];
 
   defaultColDef = {
     resizable: true,
   };
 
+  ngOnInit(): void {
+    const name = String(this.route.snapshot.paramMap.get('source'));
+    this.listservice.getSourceList(name).subscribe(list => this.initList(list));
+    this.listservice.getNameOfSource(name).subscribe(list => this.initTitle(list));
+    this.listservice.getTitlesofSourceRecords(name).subscribe(list =>this.initRecordDropdown(list));
+  }
+  initTitle(list: any): void {
+    console.log(list)
+    this.title = String(list[0].name) + ' ('+list[0].count +' records)';
+  }
+
+  initRecordDropdown(list: any) {
+    this.listservice.Titles = list.map((elem: any) => elem.title);
+    this.listservice.Ids = list.map((elem: any)=> elem.id);
+    this.recordTitlesWithId = list;
+    this.recordList = this.listservice.Titles.sort();
+  }
+
+  initList(list: any): void {
+    list.map((elem: any) => {
+      this.recordDataTitles.push(elem.name);
+      this.totalCount.push(elem.count);
+    })
+    this.showData = true;
+  }
+
+
   gridOptions = {
     // Add event handlers
     onCellClicked: ((event: CellClickedEvent) =>{
         var source = String(this.route.snapshot.paramMap.get('source'));
         var data = event.data;
-        var entity = this.entity.replace('/','-');
+        var entity = this.TableName.replace('/','-');
         var name = ''
         Object.keys(data).forEach(k =>{
           if(typeof data[k] == 'string' && k!= 'value-type')
             name =data[k];
         });
         this.listservice.EntityData = data;
-        this.router.navigate(['list/'+source+'/'+entity+'/'+name]);
+        console.log(data)
+        var query = '';
+        for (const key in data) {
+          if(!isObject(data[key]) && key!='value-type' && key!='lenght')
+              query += '&'+key+'='+data[key];
+        }
+        console.log(query);
+        this.router.navigate(['list/'+source+'?'+'Table='+entity+query]);
     })
   }
 
-  getRecord(CrewLitsIT: object): void {
+  displaytable(entity:string): void{
+    const source = String(this.route.snapshot.paramMap.get('source'));
 
-    const name = String(this.route.snapshot.paramMap.get('source'));
-    console.log(name)
-    this.listservice.getRecord(name).subscribe((list: any) =>{
-      this.record = list[0];
-      console.log(this.record)
-      if(this.record != undefined){
-        this.title = String(this.record.name) + ' ('+this.record.count +' records)';
-        var tempList = this.listservice.Titles;
-        this.recordList = tempList.sort().map(data => data[0]);
-      }
-       this.getTypes(CrewLitsIT);
-    });
+    if(entity !== this.TableName){
+      this.listservice.getTableFromSource(source,entity).subscribe((table:any)=>{
+        console.log(table);
 
-  }
-
-  getTypes(CrewLitsIT: any): void{
-
-    var res = this.listservice.getTypes(CrewLitsIT); // counting
-    console.log(res);
-    this.totalCount = res.count;
-    this.recordDataTitles = res.titles;
-    this.showData = true;
-  }
-
-  getLength(element: any): number{
-    return Object.values(element).length;
-  }
-
-  isEmpty(obj: Object) {
-    for(var key in obj) {
-        if(obj.hasOwnProperty(key))
-            return false;
-    }
-    return true;
-  }
-
-  table(entity:string): void{
-    if(this.selectedTable)
-      this.selectedTable = !this.selectedTable;
-
-    if(this.tableClicked){
-      if(entity == this.entity)
-        return;
+        this.TableName = entity;
+        this.columnDefs = this.formatTableTitles(table);
+        this.rowData = table;
+        if(!this.tableClicked)
+          this.tableClicked = !this.tableClicked;
+      })
+    }else{
       this.tableClicked = !this.tableClicked;
     }
 
-    this.entity = entity;
-    this.rowData = this.getSelectedType(entity);
-    this.tableClicked = !this.tableClicked;
   }
 
-  getSelectedType(entity: string): any{
+  formatTableTitles(table: any[]): any[]{
 
-    var source = this.sourceType;
-
-    var temp: any = Object.values(source).map((val) => {
-      return val[entity];
-    });
-
-    var titles: any =  this.getTitles(temp[0]);
-
+    var titles: any =  this.getTitles(table[0]);
     var titleFormat = titles.map((val: string) => {
         return {'field': val, 'sortable': true, 'filter': true};
     });
 
-
-    this.columnDefs = titleFormat;
     console.log(titleFormat);
-
-    var res = temp;
-    if(temp[0]["value-type"] == 'list')
-      res = this.listservice.formatList(temp);
-    else
-      res = this.listservice.removeDuplicates(res);
-
-    this.listservice.replaceEmptyValues(res);
-
-    return res;
+    return titleFormat;
   }
 
-
-
-  displaySelected(title:string): void {
-    var id = this.listservice.getIdfromTitle(title);
+  displaySelectedRecord(title:string): void {
+    var record = this.recordTitlesWithId.filter(elem => elem.title === title)
+    var id = record[0].id
     const name = String(this.route.snapshot.paramMap.get('source'));
     this.router.navigate(['list/'+name+'/'+id]);
   }
@@ -172,7 +142,7 @@ export class ListDetailsComponent implements OnInit {
   getTitles(temp: any): string[]{
     var titles: string[] = [];
     for (const [key, value] of Object.entries(temp)) {
-      if(!isPlainObject(value) && key!='value-type' && key!='lenght')
+      if(!isObject(value) && key!='value-type' && key!='lenght')
         titles.push(key);
     }
     return titles;
