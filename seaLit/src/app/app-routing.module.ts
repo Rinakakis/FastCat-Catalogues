@@ -9,8 +9,8 @@ const routes: Routes = [
   { path: '', redirectTo: '/list', pathMatch: 'full' },
   { path: 'list', component: ListComponent },
   { path: 'list/:source', component: ListDetailsComponent },
-  { path: 'list/:source/:id', component: RecordDetailsComponent },
-  { path: 'list/:source/:entity/:name', component: EntityDetailsComponent }
+  { path: 'list/:source/Table/:name', component: EntityDetailsComponent },
+  { path: 'list/:source/:id', component: RecordDetailsComponent }
 ];
 
 @NgModule({

@@ -4,6 +4,7 @@ var app = express();
 var fs = require("fs");
 var cors = require('cors');
 const { format } = require('path/posix');
+const e = require('express');
 
 app.use(cors());
 
@@ -101,19 +102,57 @@ app.get('/numberOfrecords/:name', function(req, res){
 })
 
 app.get('/tableData', function (req, res) {
+      var query = JSON.parse(JSON.stringify(req.query));
       var source = req.query.source;
       var tableName = req.query.tableName;
       var id = req.query.id;
       var myarray = [];
       
       if(id == null){
-          myarray = handleSingleTable(source,tableName); 
+          myarray = handleSingleTable(source,tableName);
+          delete query['source']
+          delete query['tableName'];
+          if(!_.isEmpty(query))
+            myarray = handleQueryTables(source,tableName,query,myarray);
       }else{
           myarray = handleRecordTables(source,id);
       }
 
       res.end(JSON.stringify(myarray));
 })
+
+function handleQueryTables(source,tableName,query,myarray){
+  var elem = myarray.filter(elem => {
+    var obj = JSON.parse(JSON.stringify(elem));
+    for (const key in obj) {
+      if(_.isObject(obj[key])) 
+        delete obj[key];               
+    }
+    if(_.isEqual(obj,query)){
+      return elem;
+    }
+  });
+  // return getlinkedTables(elem[0],source)
+  return (elem[0])
+}
+
+function getlinkedTables(elem, source){
+  for (const key in elem) {
+      const element = elem[key];
+      if(_.isObject(element)){
+        if(_.isArray(element)){
+          element.forEach(table=>{
+            var temp = handleRecordTables(source,table.Id);
+            // table = _.get(table, 'data[]' ) TODO
+          })
+        }
+        else{
+          handleRecordTables(source,element.Id);
+        }
+      }
+
+  }
+}
 
 function handleRecordTables(source,id){
   var myarray = [];

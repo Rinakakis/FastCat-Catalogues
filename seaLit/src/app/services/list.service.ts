@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { INSTANCES } from '../templates';
 import { PARSER } from '../crewListRuoli_conf';
 import * as _ from 'lodash';
@@ -37,7 +37,6 @@ export class ListService {
   }
 
   getSourceList(record: string): Observable<any>{
-    console.log(record)
     return this.http.get('http://192.168.1.2:8081/sourceRecordList/'+record);
   }
 
@@ -47,6 +46,17 @@ export class ListService {
 
   getTableFromSource(source: string,tableName: string): Observable<any>{
     return this.http.get('http://192.168.1.2:8081/tableData?'+'source='+source+'&tableName='+tableName);
+  }
+
+  getTablesFromSource(source: string, tableName: string, query: any): Observable<any>{
+    var httpParams = new HttpParams();
+    Object.keys(query).forEach((key: string) => {
+      httpParams = httpParams.append(key, query[key]);
+    });
+    httpParams = httpParams.append('source',source);
+    httpParams = httpParams.append('tableName',tableName);
+
+    return this.http.get('http://192.168.1.2:8081/tableData', { params: httpParams });
   }
 
   getrecordFromSource(source: string,id: string): Observable<any>{

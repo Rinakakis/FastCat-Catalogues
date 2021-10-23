@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Component, OnInit, Query } from '@angular/core';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { CellClickedEvent } from 'ag-grid-community';
 import { isPlainObject } from 'lodash';
 import { ListService } from 'src/app/services/list.service';
@@ -47,8 +47,12 @@ export class EntityDetailsComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    const name = String(this.route.snapshot.paramMap.get('entity'));
-    this.initData(name, this.listservice.EntityData);
+    const params = this.route.snapshot.params;
+    const query = this.route.snapshot.queryParams;
+    this.listservice.getTablesFromSource(params.source,params.name,query);
+    console.log(params);
+    console.log(query);
+    // this.initData(name, this.listservice.EntityData);
   }
 
   initData(name:string, data: any) {

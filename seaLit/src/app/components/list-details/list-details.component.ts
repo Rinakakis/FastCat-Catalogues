@@ -94,11 +94,13 @@ export class ListDetailsComponent implements OnInit {
         console.log(data)
         var query = '';
         for (const key in data) {
-          if(!isObject(data[key]) && key!='value-type' && key!='lenght')
-              query += '&'+key+'='+data[key];
+          if(isObject(data[key]) || key=='value-type' || key =='lenght')
+              delete data[key];
         }
-        console.log(query);
-        this.router.navigate(['list/'+source+'?'+'Table='+entity+query]);
+        console.log(data)
+
+        // console.log('list/'+source+'/Table?'+'Table='+entity+query);
+        this.router.navigate(['list/'+source+'/Table/'+entity], { queryParams:data });
     })
   }
 
