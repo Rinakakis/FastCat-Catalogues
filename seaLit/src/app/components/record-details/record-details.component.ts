@@ -41,7 +41,6 @@ export class RecordDetailsComponent implements OnInit {
       console.log(record);
       this.displaydata(record);
     })
-
   }
 
   columnDefs = [
@@ -54,17 +53,29 @@ export class RecordDetailsComponent implements OnInit {
   gridOptions = {
     // Add event handlers
     onCellClicked: ((event: CellClickedEvent) =>{
-        console.log(event)
         var source = String(this.route.snapshot.paramMap.get('source'));
         var data = event.data;
-        var entity = this.entity.replace('/','-');
+        var entity = event.colDef.colId;
         var name = ''
         Object.keys(data).forEach(k =>{
           if(typeof data[k] == 'string' && k!= 'value-type')
             name =data[k];
         });
         this.listservice.EntityData = data;
-        this.router.navigate(['list/'+source+'?'+''+'/'+name]);
+        console.log(event)
+        var query = '';
+        for (const key in data) {
+          if(isObject(data[key]) || key=='value-type' || key =='lenght')
+              delete data[key];
+        }
+        console.log(event);
+
+        // console.log('list/'+source+'/Table?'+'Table='+entity+query);
+        this.router.routeReuseStrategy.shouldReuseRoute = function () {
+          return false;
+        }
+        this.router.onSameUrlNavigation = 'reload';
+        this.router.navigate(['list/'+source+'/Table/'+entity], { queryParams:data });
     })
   }
 
@@ -98,7 +109,7 @@ export class RecordDetailsComponent implements OnInit {
         this.keysList.push(Object.keys(element).join());
         var titles = this.getTitles(data[0]);
         var titleFormat = titles.map((val: string) => {
-          return {'field': val, 'sortable': true, 'filter': true};
+          return {'field': val,'colId':Object.keys(element).join(), 'sortable': true, 'filter': true};
         });
         this.tablesTitles.push(titleFormat);
         this.tables.push(data);

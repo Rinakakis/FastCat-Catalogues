@@ -1,16 +1,18 @@
-<h1>lala</h1>
-<div class="record-container">
+<div class="record-container" *ngIf="selectedTable">
+  <h3 class="title">{{sourceName}}: {{title}}</h3>
   <div class="nocol-grid">
     <div class="nontable" >
       <h3 class="notable-title">{{title}} </h3>
-      <p *ngFor="let data of noTableData; index as i;"> <b>{{data.key}}</b> : {{data.name}} </p>
+      <p *ngFor="let item of nonLitsInfo">
+        <b>{{item.key}}</b> : {{item.value}}
+      </p>
     </div>
   </div>
 
-  <div class="tables" *ngIf="displayTable">
-    <div class="table" *ngFor="let tableg of tableArray; index as i;">
-      <h3 class="table-title">{{keysList[i]}}</h3>
-      <ag-grid-angular
+  <div class="tables">
+      <div class="table" *ngFor="let tableg of tables; index as i;">
+        <h3 class="table-title">{{keysList[i]}}</h3>
+        <ag-grid-angular
         style="height: 500px; width: auto;"
         class="ag-theme-alpine"
         [rowData]="tableg"
@@ -21,7 +23,8 @@
         [gridOptions]="gridOptions"
         >
       </ag-grid-angular>
+    </div>
 
     </div>
-  </div>
 </div>
+

@@ -3,8 +3,6 @@ var express = require('express');
 var app = express();
 var fs = require("fs");
 var cors = require('cors');
-const { format } = require('path/posix');
-const e = require('express');
 
 app.use(cors());
 
@@ -112,46 +110,68 @@ app.get('/tableData', function (req, res) {
           myarray = handleSingleTable(source,tableName);
           delete query['source']
           delete query['tableName'];
-          if(!_.isEmpty(query))
+          if(!_.isEmpty(query)){
+            // console.log(myarray);
             myarray = handleQueryTables(source,tableName,query,myarray);
+          }
       }else{
           myarray = handleRecordTables(source,id);
       }
-
+      // console.log(myarray);
       res.end(JSON.stringify(myarray));
 })
 
 function handleQueryTables(source,tableName,query,myarray){
+  // console.log(query)
   var elem = myarray.filter(elem => {
     var obj = JSON.parse(JSON.stringify(elem));
     for (const key in obj) {
-      if(_.isObject(obj[key])) 
+      if(_.isObject(obj[key])){
         delete obj[key];               
+        delete obj['lenght'];               
+        delete obj['value-type'];               
+      } 
     }
     if(_.isEqual(obj,query)){
       return elem;
     }
   });
-  // return getlinkedTables(elem[0],source)
-  return (elem[0])
+  // console.log(elem)
+  return getlinkedTables(elem[0],source)
+  // return (elem[0])
 }
 
 function getlinkedTables(elem, source){
+  // console.log(elem)
   for (const key in elem) {
-      const element = elem[key];
+      var element = elem[key];
       if(_.isObject(element)){
         if(_.isArray(element)){
-          element.forEach(table=>{
+          var newtable = element.map(table=>{
             var temp = handleRecordTables(source,table.Id);
-            // table = _.get(table, 'data[]' ) TODO
+            var lala  = temp.data.filter(elem =>{
+              if(Object.keys(elem).join() == table.link)
+                return elem;
+            })
+            return Object.values(lala[0])[0][0];
+          });
+          // console.log(newtable)
+          elem[key] = newtable;
+
+        }else{
+          console.log(element)
+          var temp = handleRecordTables(source,element.Id);
+          var lala = temp.data.filter(obj =>{
+            if(Object.keys(obj).join() == element.link)
+              return obj;
           })
-        }
-        else{
-          handleRecordTables(source,element.Id);
+          elem[key] = Object.values(lala[0])[0]; 
         }
       }
-
-  }
+      
+    }
+    // console.log(elem)
+  return elem;
 }
 
 function handleRecordTables(source,id){
@@ -435,7 +455,8 @@ function formatObject(data, config){
  }
 
  function removeDuplicates(data){
-   // console.log(data)
+  //  console.log(data)
+   if(data.length == 0) return data;
    if(Object.values(data[0]).filter(val => typeof val == 'string' && val !='list').length == 1){ //if table has only one value
 
      var newarray = [];

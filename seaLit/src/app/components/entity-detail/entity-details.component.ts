@@ -1,7 +1,7 @@
 import { Component, OnInit, Query } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { CellClickedEvent } from 'ag-grid-community';
-import { isPlainObject } from 'lodash';
+import { isArray, isObject, isPlainObject, isString } from 'lodash';
 import { ListService } from 'src/app/services/list.service';
 @Component({
   selector: 'app-entity-details',
@@ -9,29 +9,36 @@ import { ListService } from 'src/app/services/list.service';
   styleUrls: ['./entity-details.component.css']
 })
 export class EntityDetailsComponent implements OnInit {
+  sourceId: string ='';
+  Id: string ='';
+  sourceName: string ='';
 
+  rowData = [];
+  entityClicked: boolean = false;
   title: string = '';
-  entity: string = '';
-  noTableData: any[] = [];
-  tableArray: any[] = [];
+
+  tables: any[] = [];
   tablesTitles: any[] = [];
-  displayTable: boolean = false;
+  tablesCount: number = 0;
+  selectedTable: boolean = false;
+  nonLitsInfo: any[] = [];
+  keysNonList: any[] = [];
+  entity: string = '';
   keysList: any[] = [];
 
-  gridOptions = {
-    // Add event handlers
-    onCellClicked: ((event: CellClickedEvent) =>{
-        var source = String(this.route.snapshot.paramMap.get('source'));
-        var data = event.data;
-        var entity = this.entity.replace('/','-');
-        var name = ''
-        Object.keys(data).forEach(k =>{
-          if(typeof data[k] == 'string' && k!= 'value-type')
-            name =data[k];
-        });
-        this.listservice.EntityData = data;
-        this.router.navigate(['list/'+source+'/'+entity+'/'+name]);
-    })
+  constructor(
+    private route: ActivatedRoute,
+    private listservice : ListService,
+    private router: Router
+  ) { }
+
+  ngOnInit(): void {
+    const params = this.route.snapshot.params;
+    const query = this.route.snapshot.queryParams;
+    this.listservice.getTablesFromSource(params.source,params.name,query).subscribe(list =>{
+      console.log(list);
+      this.displaydata(params,list);
+    });
   }
 
   columnDefs = [
@@ -40,85 +47,88 @@ export class EntityDetailsComponent implements OnInit {
   defaultColDef = {
     resizable: true,
   };
-  constructor(
-    private listservice : ListService,
-    private route: ActivatedRoute,
-    private router: Router
-  ) {}
 
-  ngOnInit(): void {
-    const params = this.route.snapshot.params;
-    const query = this.route.snapshot.queryParams;
-    this.listservice.getTablesFromSource(params.source,params.name,query);
-    console.log(params);
-    console.log(query);
-    // this.initData(name, this.listservice.EntityData);
-  }
-
-  initData(name:string, data: any) {
-    console.log(name);
-    console.log(this.listservice.EntityData);
-    this.initTitle(name);
-    this.initNotableData(data);
-    this.initTableData(data);
-  }
-
-  initNotableData(data: any) {
-    Object.keys(data).forEach(k =>{
-      if(typeof data[k] == 'string' && k != 'value-type')
-        this.noTableData.push({'key':k,'name':data[k]});
-    })
-    console.log(this.noTableData)
-  }
-
-  initTableData(data: any) {
-    this.tablesTitles = [];
-    this.tableArray = [];
-    this.keysList = [];
-    var temp: any[] = [];
-
-    Object.keys(data).forEach(k =>{
-      if(typeof data[k] == 'object')
-        temp.push({'key':k,'name':data[k]});
-    })
-    console.log(temp)
-    temp.forEach(table => {
-      var lala = table.name.map((elem: any) => {
-        var link = elem['link'];
-        var id = elem['Id'];
-        this.keysList.push(link);
-        return this.listservice.getTableFromRecordWithId(id,link);
-      })
-
-      if(lala[0]["value-type"] == 'list')
-        lala = this.listservice.formatList(lala);
-      else
-        lala = this.listservice.removeDuplicates(lala);
-
-        var titles = this.getTitles(lala[0]);
-        var titleFormat = titles.map((val: string) => {
-          return {'field': val, 'sortable': true, 'filter': true};
+  gridOptions = {
+    // Add event handlers
+    onCellClicked: ((event: CellClickedEvent) =>{
+        var source = String(this.route.snapshot.paramMap.get('source'));
+        var data = event.data;
+        var entity = event.colDef.colId;
+        var name = ''
+        Object.keys(data).forEach(k =>{
+          if(typeof data[k] == 'string' && k!= 'value-type')
+            name =data[k];
         });
-        this.tablesTitles.push(titleFormat);
-        this.tableArray.push(lala);
+        this.listservice.EntityData = data;
+        console.log(event)
+        var query = '';
+        for (const key in data) {
+          if(isObject(data[key]) || key=='value-type' || key =='lenght')
+              delete data[key];
+        }
+        console.log(event);
+
+        // console.log('list/'+source+'/Table?'+'Table='+entity+query);
+        this.router.routeReuseStrategy.shouldReuseRoute = function () {
+          return false;
+        }
+        this.router.onSameUrlNavigation = 'reload';
+        this.router.navigate(['list/'+source+'/Table/'+entity], { queryParams:data });
     })
-    console.log(this.tableArray);
-    this.keysList = [...new Set(this.keysList)];
-    console.log(this.keysList);
-    this.displayTable = !this.displayTable;
   }
 
-  initTitle(name: string) {
-    this.title = name;
+  displaydata(params: any,record: any): void {
+    var length = Object.keys(record).length;
+    this.tablesCount = length;
+    this.tablesTitles = [];
+    this.tables = [];
+    this.nonLitsInfo = [];
+    this.keysList = [];
+    this.keysNonList = [];
+
+    this.title = params.name;
+    this.sourceName = params.source;
+
+    // this.Id = record.id;
+    // this.sourceId = record.sourceId;
+
+    for (const key in record) {
+      const element = record[key];
+      if(!isArray(element)){
+        if(key !== 'value-type' && key !== 'lenght')
+          this.nonLitsInfo.push({'key':key, 'value':element});
+      }else{
+        this.keysList.push(key);
+        console.log(element)
+        var titles = this.getTitles(element[0]);
+        var titleFormat = titles.map((val: string) => {
+          return {'field': val,'colId':key, 'sortable': true, 'filter': true};
+        });
+        // var hm = [
+        //   {
+        //     headerName: key,
+        //     marryChildren: true,
+        //     children: titleFormat
+        //   }
+        // ]
+        this.tablesTitles.push(titleFormat);
+        this.tables.push(element);
+
+      }
+    }
+    console.log(this.tables)
+    if(!this.selectedTable)
+      this.selectedTable = !this.selectedTable;
   }
 
   getTitles(temp: any): string[]{
     var titles: string[] = [];
     for (const [key, value] of Object.entries(temp)) {
-      if(!isPlainObject(value) && key!='value-type' && key!='lenght')
+      if(!isObject(value) && key!='value-type' && key!='lenght')
         titles.push(key);
     }
     return titles;
+
   }
 
 }
