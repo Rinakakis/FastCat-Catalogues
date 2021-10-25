@@ -54,10 +54,20 @@ export class ListDetailsComponent implements OnInit {
 
   ngOnInit(): void {
     const name = String(this.route.snapshot.paramMap.get('source'));
-    this.listservice.getSourceList(name).subscribe(list => this.initList(list));
+    this.listservice.getSourceList(name).subscribe(list =>{
+      if (list) {
+        this.hideloader();
+      }
+      this.initList(list);
+    });
     this.listservice.getNameOfSource(name).subscribe(list => this.initTitle(list));
     this.listservice.getTitlesofSourceRecords(name).subscribe(list =>this.initRecordDropdown(list));
   }
+
+  hideloader() {
+    (<HTMLInputElement>document.getElementById('loading')).style.display = 'none';
+  }
+
   initTitle(list: any): void {
     console.log(list)
     this.title = String(list[0].name) + ' ('+list[0].count +' records)';

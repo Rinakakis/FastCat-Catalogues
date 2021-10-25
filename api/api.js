@@ -3,6 +3,7 @@ var express = require('express');
 var app = express();
 var fs = require("fs");
 var cors = require('cors');
+const { isArray, isObject } = require('lodash');
 
 app.use(cors());
 
@@ -111,7 +112,6 @@ app.get('/tableData', function (req, res) {
           delete query['source']
           delete query['tableName'];
           if(!_.isEmpty(query)){
-            // console.log(myarray);
             myarray = handleQueryTables(source,tableName,query,myarray);
           }
       }else{
@@ -136,17 +136,31 @@ function handleQueryTables(source,tableName,query,myarray){
       return elem;
     }
   });
-  // console.log(elem)
-  return getlinkedTables(elem[0],source)
-  // return (elem[0])
+  elem = removeDuplicateLinks(elem[0]);
+  
+  return getlinkedTables(elem,source)
+}
+
+function removeDuplicateLinks(elem){
+  for (const key in elem) {
+    var element = elem[key];
+    if(isArray(element)){
+      var noduplicates = [...new Map(element.map(item => [item.Id, item])).values()]
+      elem[key] = noduplicates;
+    }
+  }
+  return elem;
 }
 
 function getlinkedTables(elem, source){
   // console.log(elem)
+  var linkArray = [];
   for (const key in elem) {
       var element = elem[key];
       if(_.isObject(element)){
         if(_.isArray(element)){
+          element.forEach(obj => linkArray.push(obj.Id));
+          
           var newtable = element.map(table=>{
             var temp = handleRecordTables(source,table.Id);
             var lala  = temp.data.filter(elem =>{
@@ -159,7 +173,8 @@ function getlinkedTables(elem, source){
           elem[key] = newtable;
 
         }else{
-          console.log(element)
+          // console.log(element)
+          linkArray.push(element.link);
           var temp = handleRecordTables(source,element.Id);
           var lala = temp.data.filter(obj =>{
             if(Object.keys(obj).join() == element.link)
@@ -170,7 +185,14 @@ function getlinkedTables(elem, source){
       }
       
     }
-    // console.log(elem)
+    linkArray = linkArray.filter(function(item, pos) {
+      return linkArray.indexOf(item) == pos;
+    })
+    // console.log(linkArray)
+    var record = templates.find(obj => obj.name == source);
+
+    elem.FastCat = {'name':record.name, 'id':record.id, 'data':linkArray};
+
   return elem;
 }
 
@@ -320,71 +342,12 @@ function formatObject(data, config){
   if(objArray[0]["value-type"] == 'list')
     objArray = formatList(objArray);
   else
-  objArray = removeDuplicates(objArray);
+    objArray = removeDuplicates(objArray);
 
   replaceEmptyValues(objArray);
   
   return objArray;
  }
-
-//  formatRecord(record, config){
-//   const mydata: any[] = a;
-//   var objArray: any = {};
-
-//   for (const key in mapp) { // for every source type
-//     if(key == mydata[0].docs[0].template){ // for now, only for crew list IT
-//       var temp = parser[mapp[key]];
-//       // console.log(temp)
-//       console.log(mydata.length)
-//       for (let i = 0; i < mydata.length; i++){
-//         var fake = JSON.parse(JSON.stringify(temp));
-//         // we dublicate the structure of the parser so we can
-//         // change the path to actual data
-
-//         for(const entity in temp){ // entity --> array name e.g. Ship owners
-//             var table = temp[entity]; // the table object with columns
-
-//             if(table['value-type'] == undefined){
-//               for(const column in table){
-//                   var item = table[column]; // path from parser
-//                   if(item.path != undefined){ // undefined -> links
-//                     var data = _.get(mydata[i], item.path);
-//                     fake[entity][column] = data;
-
-//                   }else if(item.link != undefined){
-//                     var data = item.link;
-//                     fake[entity][column].link = data;
-//                     fake[entity][column].Id = _.get(mydata[i], item.Id);
-//                   }
-//               }
-//             }else{
-//               for(const column in table){
-//                 var item = table[column]; // path from parser
-//                 if(item != 'list'){
-//                   if(item.path != undefined){ // undefined -> links
-//                     var ret: string[] = this.addListData(entity, item, mydata[i]);
-//                     fake[entity][column] = ret;
-//                     fake[entity]['lenght'] = ret.length;
-
-//                   }else if(item.link != undefined){
-//                     var data = item.link;
-//                     fake[entity][column].link = data;
-//                     fake[entity][column].Id = _.get(mydata[i], item.Id);
-//                   }
-//                 }
-//               }
-//             }
-
-//         }
-//         objArray[mydata[i].docs[0]._id] = fake;
-//       }
-//     }
-//   }
-//   this.List = objArray;
-//   // console.log(objArray);
-//   return objArray;
-// }
-
 
  function addListData(item, mydata){
   var index = 0;

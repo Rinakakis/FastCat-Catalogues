@@ -1,25 +1,30 @@
+<div class="d-flex justify-content-center">
+  <div class="spinner-border" role="status">
+      <span class="sr-only" id="loading"></span>
+  </div>
+</div>
 <div class="archival-container">
-    <h3>Explore archival sources of Maritime History</h3>
+  <h3>Explore archival sources of Maritime History</h3>
 
-    <ul class="archival">
-        <li *ngFor="let item of list; index as i;">
-            <div class="list-container">
-                <div class="title">
-                    <a
-                        routerLink="/list/{{item.name}}">
-                        {{item.name}} ({{item.count}} records)
-                    </a>
-                </div>
-                <div class="info">
-                    <button class="info-button" mat-icon-button aria-label="info" (click)="showInfo(i)" title="info">
-                        <mat-icon class="material-icons-outlined">info_outline</mat-icon>
-                    </button>
-                </div>
-            </div>
-            <div *ngIf="id == i" class="info-container">
-                {{item.description}}
-            </div>
-        </li>
-    </ul>
+  <ul class="archival">
+      <li *ngFor="let item of list; index as i;">
+          <div class="list-container">
+              <div class="title">
+                  <a
+                      routerLink="/list/{{item.name}}">
+                      {{item.name}} ({{item.count}} records)
+                  </a>
+              </div>
+              <div class="info">
+                  <button class="info-button" mat-icon-button aria-label="info" (click)="showInfo(i)" title="info">
+                      <mat-icon class="material-icons-outlined">info_outline</mat-icon>
+                  </button>
+              </div>
+          </div>
+          <div *ngIf="id == i" class="info-container">
+              {{item.description}}
+          </div>
+      </li>
+  </ul>
 </div>
 <div></div>

@@ -21,7 +21,16 @@ export class ListComponent implements OnInit {
 
   getList(): void{
     this.listservice.getNamesOfSources()
-      .subscribe(list => this.list = list);
+      .subscribe(list =>{
+        if (list) {
+          this.hideloader();
+        }
+       this.list = list;
+      });
+  }
+
+  hideloader() {
+    (<HTMLInputElement>document.getElementById('loading')).style.display = 'none';
   }
 
   showInfo(id: number) :void{

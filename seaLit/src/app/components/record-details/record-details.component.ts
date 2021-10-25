@@ -39,6 +39,9 @@ export class RecordDetailsComponent implements OnInit {
     console.log(source,id);
     this.listservice.getrecordFromSource(source,id).subscribe(record=>{
       console.log(record);
+      if (record) {
+        this.hideloader();
+      }
       this.displaydata(record);
     })
   }
@@ -49,6 +52,10 @@ export class RecordDetailsComponent implements OnInit {
   defaultColDef = {
     resizable: true,
   };
+
+  hideloader() {
+    (<HTMLInputElement>document.getElementById('loading')).style.display = 'none';
+  }
 
   gridOptions = {
     // Add event handlers

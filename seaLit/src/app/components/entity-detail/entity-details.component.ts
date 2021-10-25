@@ -1,8 +1,9 @@
 import { Component, OnInit, Query } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { CellClickedEvent } from 'ag-grid-community';
-import { isArray, isObject, isPlainObject, isString } from 'lodash';
+import { isArray, isArrayLike, isObject, isObjectLike, isPlainObject, isString, map } from 'lodash';
 import { ListService } from 'src/app/services/list.service';
+
 @Component({
   selector: 'app-entity-details',
   templateUrl: './entity-details.component.html',
@@ -36,9 +37,16 @@ export class EntityDetailsComponent implements OnInit {
     const params = this.route.snapshot.params;
     const query = this.route.snapshot.queryParams;
     this.listservice.getTablesFromSource(params.source,params.name,query).subscribe(list =>{
+      if (list) {
+        this.hideloader();
+      }
       console.log(list);
       this.displaydata(params,list);
     });
+  }
+
+  hideloader() {
+    (<HTMLInputElement>document.getElementById('loading')).style.display = 'none';
   }
 
   columnDefs = [
@@ -93,32 +101,35 @@ export class EntityDetailsComponent implements OnInit {
     // this.sourceId = record.sourceId;
 
     for (const key in record) {
-      const element = record[key];
-      if(!isArray(element)){
+      var element = record[key];
+      if(isObjectLike(element)){
+        if(!isPlainObject(element)){
+          // element = this.formatLinks(element)
+          this.keysList.push(key);
+          console.log(element)
+          var titles = this.getTitles(element[0]);
+          var titleFormat = titles.map((val: string) => {
+            return {'field': val,'colId':key, 'sortable': true, 'filter': true};
+          });
+          this.tablesTitles.push(titleFormat);
+          this.tables.push(element);
+        }
+
+      }else{
         if(key !== 'value-type' && key !== 'lenght')
           this.nonLitsInfo.push({'key':key, 'value':element});
-      }else{
-        this.keysList.push(key);
-        console.log(element)
-        var titles = this.getTitles(element[0]);
-        var titleFormat = titles.map((val: string) => {
-          return {'field': val,'colId':key, 'sortable': true, 'filter': true};
-        });
-        // var hm = [
-        //   {
-        //     headerName: key,
-        //     marryChildren: true,
-        //     children: titleFormat
-        //   }
-        // ]
-        this.tablesTitles.push(titleFormat);
-        this.tables.push(element);
-
       }
     }
-    console.log(this.tables)
     if(!this.selectedTable)
       this.selectedTable = !this.selectedTable;
+  }
+
+  formatLinks(element: any) {
+    // "https://isl.ics.forth.gr/FastCatTeam/templates/{{sourceId}}.html?name={{Id}}&templateTitle={{sourceName}}&mode=teamView"
+    var data: string[] = element.data;
+    return data.map(id => {
+      return 'https://isl.ics.forth.gr/FastCatTeam/templates/'+element.id+'.html?name='+id+'&templateTitle='+element.name+'&mode=teamView'
+    })
   }
 
   getTitles(temp: any): string[]{
