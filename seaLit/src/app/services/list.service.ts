@@ -21,25 +21,25 @@ export class ListService {
   }
 
   getNamesOfSources(): Observable<any>{
-    const res = this.http.get('http://192.168.1.2:8081/numberOfrecords/all');
+    const res = this.http.get('http://192.168.1.10:8081/numberOfrecords/all');
     res.subscribe(list => this.Records = <any[]> list);
     return res;
   }
 
   getNameOfSource(title: string): Observable<any>{
-    return this.http.get('http://192.168.1.2:8081/numberOfrecords/'+title);
+    return this.http.get('http://192.168.1.10:8081/numberOfrecords/'+title);
   }
 
   getSourceList(record: string): Observable<any>{
-    return this.http.get('http://192.168.1.2:8081/sourceRecordList/'+record);
+    return this.http.get('http://192.168.1.10:8081/sourceRecordList/'+record);
   }
 
   getTitlesofSourceRecords(title: string): Observable<any>{
-    return this.http.get('http://192.168.1.2:8081/sourceRecordTitles/'+title);
+    return this.http.get('http://192.168.1.10:8081/sourceRecordTitles/'+title);
   }
 
   getTableFromSource(source: string,tableName: string): Observable<any>{
-    return this.http.get('http://192.168.1.2:8081/tableData?'+'source='+source+'&tableName='+tableName);
+    return this.http.get('http://192.168.1.10:8081/tableData?'+'source='+source+'&tableName='+tableName);
   }
 
   getTablesFromSource(source: string, tableName: string, query: any): Observable<any>{
@@ -50,11 +50,11 @@ export class ListService {
     httpParams = httpParams.append('source',source);
     httpParams = httpParams.append('tableName',tableName);
 
-    return this.http.get('http://192.168.1.2:8081/tableData', { params: httpParams });
+    return this.http.get('http://192.168.1.10:8081/tableData', { params: httpParams });
   }
 
   getrecordFromSource(source: string,id: string): Observable<any>{
-    return this.http.get('http://192.168.1.2:8081/tableData?'+'source='+source+'&id='+id);
+    return this.http.get('http://192.168.1.10:8081/tableData?'+'source='+source+'&id='+id);
   }
 
   getCreListIT2(a:any): object{

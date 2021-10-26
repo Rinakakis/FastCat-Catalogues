@@ -53,9 +53,7 @@ app.get('/record/:name', function (req, res) {
 
 app.get('/sourceRecordList/:name/', function (req, res){
 
-   var tableNames = getTableNames(req);
    var config = getConfig(req.params.name);
-   var record = templates.find(obj => obj.name == req.params.name);
    var myarray = [];
    var count = [];
    var fullpath = path + req.params.name.replaceAll(' ', '_');
@@ -174,7 +172,7 @@ function getlinkedTables(elem, source){
 
         }else{
           // console.log(element)
-          linkArray.push(element.link);
+          linkArray.push(element.Id);
           var temp = handleRecordTables(source,element.Id);
           var lala = temp.data.filter(obj =>{
             if(Object.keys(obj).join() == element.link)
@@ -188,10 +186,16 @@ function getlinkedTables(elem, source){
     linkArray = linkArray.filter(function(item, pos) {
       return linkArray.indexOf(item) == pos;
     })
-    // console.log(linkArray)
-    var record = templates.find(obj => obj.name == source);
+    
+    var IdsWithTitles = [];
+    linkArray.map(id=>{
+      var record = getTitleOfId(source,id);
+      IdsWithTitles.push({'id':record.id,'title':record.title});
+    })
 
-    elem.FastCat = {'name':record.name, 'id':record.id, 'data':linkArray};
+    var recordTemplate = templates.find(obj => obj.name == source);
+
+    elem.FastCat = {'name':recordTemplate.name, 'id':recordTemplate.id, 'data':IdsWithTitles};
 
   return elem;
 }
@@ -222,6 +226,21 @@ function handleRecordTables(source,id){
   obj.sourceName = recordconf.name; 
 
   return obj;
+}
+function getTitleOfId(source,id){
+  var myarray = [];
+  var fullpath = path + source.replaceAll(' ', '_');
+  
+  fs.readdirSync(fullpath)
+  .map(name => {
+    var file = fs.readFileSync(fullpath+'/'+name, 'utf8');
+    var record = JSON.parse(file.trim());
+    if(record.docs[0]._id == id)
+      myarray.push(record);
+  });
+  
+  var obj = getTitlesofRecords(myarray,source);
+  return obj[0];
 }
 
 function handleSingleTable(source,tableName){

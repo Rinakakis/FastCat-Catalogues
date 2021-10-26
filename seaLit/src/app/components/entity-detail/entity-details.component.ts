@@ -97,14 +97,11 @@ export class EntityDetailsComponent implements OnInit {
     this.title = params.name;
     this.sourceName = params.source;
 
-    // this.Id = record.id;
-    // this.sourceId = record.sourceId;
-
     for (const key in record) {
       var element = record[key];
       if(isObjectLike(element)){
-        if(!isPlainObject(element)){
-          // element = this.formatLinks(element)
+          if(key == 'FastCat')
+            element = this.formatLinks(element);
           this.keysList.push(key);
           console.log(element)
           var titles = this.getTitles(element[0]);
@@ -113,8 +110,6 @@ export class EntityDetailsComponent implements OnInit {
           });
           this.tablesTitles.push(titleFormat);
           this.tables.push(element);
-        }
-
       }else{
         if(key !== 'value-type' && key !== 'lenght')
           this.nonLitsInfo.push({'key':key, 'value':element});
@@ -127,8 +122,8 @@ export class EntityDetailsComponent implements OnInit {
   formatLinks(element: any) {
     // "https://isl.ics.forth.gr/FastCatTeam/templates/{{sourceId}}.html?name={{Id}}&templateTitle={{sourceName}}&mode=teamView"
     var data: string[] = element.data;
-    return data.map(id => {
-      return 'https://isl.ics.forth.gr/FastCatTeam/templates/'+element.id+'.html?name='+id+'&templateTitle='+element.name+'&mode=teamView'
+    return data.map((map: any) => {
+      return {'title':map.title,'FastCat':'https://isl.ics.forth.gr/FastCatTeam/templates/'+element.id+'.html?name='+map.id+'&templateTitle='+element.name+'&mode=teamView'};
     })
   }
 
