@@ -1,7 +1,7 @@
-import { Component, OnInit, Query } from '@angular/core';
-import { ActivatedRoute, Params, Router } from '@angular/router';
+import { Component, OnInit} from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CellClickedEvent } from 'ag-grid-community';
-import { isArray, isArrayLike, isObject, isObjectLike, isPlainObject, isString, map } from 'lodash';
+import { isObject, isObjectLike } from 'lodash';
 import { ListService } from 'src/app/services/list.service';
 
 @Component({
@@ -10,21 +10,16 @@ import { ListService } from 'src/app/services/list.service';
   styleUrls: ['./entity-details.component.css']
 })
 export class EntityDetailsComponent implements OnInit {
-  sourceId: string ='';
-  Id: string ='';
-  sourceName: string ='';
 
+  sourceName: string ='';
   rowData = [];
-  entityClicked: boolean = false;
   title: string = '';
 
   tables: any[] = [];
   tablesTitles: any[] = [];
-  tablesCount: number = 0;
   selectedTable: boolean = false;
   nonLitsInfo: any[] = [];
   keysNonList: any[] = [];
-  entity: string = '';
   keysList: any[] = [];
 
   constructor(
@@ -40,7 +35,7 @@ export class EntityDetailsComponent implements OnInit {
       if (list) {
         this.hideloader();
       }
-      console.log(list);
+      // console.log(list);
       this.displaydata(params,list);
     });
   }
@@ -59,6 +54,11 @@ export class EntityDetailsComponent implements OnInit {
   gridOptions = {
     // Add event handlers
     onCellClicked: ((event: CellClickedEvent) =>{
+
+        if(event.data.FastCat != undefined){
+          window.open(event.data.FastCat, "_blank");
+          return;
+        }
         var source = String(this.route.snapshot.paramMap.get('source'));
         var data = event.data;
         var entity = event.colDef.colId;
@@ -67,14 +67,12 @@ export class EntityDetailsComponent implements OnInit {
           if(typeof data[k] == 'string' && k!= 'value-type')
             name =data[k];
         });
-        this.listservice.EntityData = data;
-        console.log(event)
-        var query = '';
+        // console.log(event)
         for (const key in data) {
           if(isObject(data[key]) || key=='value-type' || key =='lenght')
               delete data[key];
         }
-        console.log(event);
+        // console.log(event);
 
         // console.log('list/'+source+'/Table?'+'Table='+entity+query);
         this.router.routeReuseStrategy.shouldReuseRoute = function () {
@@ -86,8 +84,6 @@ export class EntityDetailsComponent implements OnInit {
   }
 
   displaydata(params: any,record: any): void {
-    var length = Object.keys(record).length;
-    this.tablesCount = length;
     this.tablesTitles = [];
     this.tables = [];
     this.nonLitsInfo = [];
@@ -103,10 +99,18 @@ export class EntityDetailsComponent implements OnInit {
           if(key == 'FastCat')
             element = this.formatLinks(element);
           this.keysList.push(key);
-          console.log(element)
+          // console.log(element)
           var titles = this.getTitles(element[0]);
           var titleFormat = titles.map((val: string) => {
-            return {'field': val,'colId':key, 'sortable': true, 'filter': true};
+            if(val == 'FastCat'){
+              return {width: 60, resizable: false, tooltipField: val,
+                cellRenderer: function() {
+                  return '<i class="material-icons" style="vertical-align: middle">info</i>'
+                }
+              }
+            }else{
+                return {'field': val,'colId':key, 'sortable': true, 'filter': true, tooltipField: val }
+            }
           });
           this.tablesTitles.push(titleFormat);
           this.tables.push(element);
@@ -120,10 +124,9 @@ export class EntityDetailsComponent implements OnInit {
   }
 
   formatLinks(element: any) {
-    // "https://isl.ics.forth.gr/FastCatTeam/templates/{{sourceId}}.html?name={{Id}}&templateTitle={{sourceName}}&mode=teamView"
     var data: string[] = element.data;
     return data.map((map: any) => {
-      return {'title':map.title,'FastCat':'https://isl.ics.forth.gr/FastCatTeam/templates/'+element.id+'.html?name='+map.id+'&templateTitle='+element.name+'&mode=teamView'};
+      return {'FastCat':'https://isl.ics.forth.gr/FastCatTeam/templates/'+element.id+'.html?name='+map.id+'&templateTitle='+element.name+'&mode=teamView','title':map.title};
     })
   }
 

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CellClickedEvent } from 'ag-grid-community';
-import { isObject, isPlainObject } from 'lodash';
+import { isObject } from 'lodash';
 import { ListService } from 'src/app/services/list.service';
 
 @Component({
@@ -15,7 +15,6 @@ export class RecordDetailsComponent implements OnInit {
   sourceName: string ='';
 
   rowData = [];
-  entityClicked: boolean = false;
   title: string = '';
 
   tables: any[] = [];
@@ -36,9 +35,9 @@ export class RecordDetailsComponent implements OnInit {
   ngOnInit(): void {
     const source = String(this.route.snapshot.paramMap.get('source'));
     const id = String(this.route.snapshot.paramMap.get('id'));
-    console.log(source,id);
+    // console.log(source,id);
     this.listservice.getrecordFromSource(source,id).subscribe(record=>{
-      console.log(record);
+      // console.log(record);
       if (record) {
         this.hideloader();
       }
@@ -68,14 +67,12 @@ export class RecordDetailsComponent implements OnInit {
           if(typeof data[k] == 'string' && k!= 'value-type')
             name =data[k];
         });
-        this.listservice.EntityData = data;
-        console.log(event)
-        var query = '';
+        // console.log(event)
         for (const key in data) {
           if(isObject(data[key]) || key=='value-type' || key =='lenght')
               delete data[key];
         }
-        console.log(event);
+        // console.log(event);
 
         // console.log('list/'+source+'/Table?'+'Table='+entity+query);
         this.router.routeReuseStrategy.shouldReuseRoute = function () {
@@ -87,8 +84,6 @@ export class RecordDetailsComponent implements OnInit {
   }
 
   displaydata(record: any): void {
-    var length = Object.keys(record).length;
-    this.tablesCount = length;
     this.tablesTitles = [];
     this.tables = [];
     this.nonLitsInfo = [];
@@ -116,14 +111,14 @@ export class RecordDetailsComponent implements OnInit {
         this.keysList.push(Object.keys(element).join());
         var titles = this.getTitles(data[0]);
         var titleFormat = titles.map((val: string) => {
-          return {'field': val,'colId':Object.keys(element).join(), 'sortable': true, 'filter': true};
+          return {'field': val,'colId':Object.keys(element).join(), 'sortable': true, 'filter': true, tooltipField: val};
         });
         this.tablesTitles.push(titleFormat);
         this.tables.push(data);
       }
     });
 
-    console.log(this.tables)
+    // console.log(this.tables)
     if(!this.selectedTable)
       this.selectedTable = !this.selectedTable;
   }

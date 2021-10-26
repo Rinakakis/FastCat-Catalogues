@@ -461,9 +461,7 @@ function formatObject(data, config){
      // var lala = temp.reduce(function (acc, curr) {
      //   return acc[curr] ? ++acc[curr] : acc[curr] = 1, acc
      // }, {});
-     // console.log(lala)
-     // console.log(count)
-   //   console.log(count.filter(Boolean).length)
+
      for (let i = 0; i < data.length; i++){
        var element = data[i];
        if(count[i] == true){

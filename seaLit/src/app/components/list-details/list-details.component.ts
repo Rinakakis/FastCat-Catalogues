@@ -18,24 +18,19 @@ export class ListDetailsComponent implements OnInit {
   records = new FormControl();
   recordList: string[] = [];
   totalCount : number[] = [];
-  record: any;
   recordDataTitles: string[] = [];
   showData: boolean = false;
   tableClicked: boolean = false;
-  entityClicked: boolean = false;
   state = "closed";
   title: string = '';
-  sourceType: object = {};
 
   tables: any[] = [];
   tablesTitles: any[] = [];
   tablesCount: number = 0;
-  selectedTable: boolean = false;
   nonLitsInfo: any[] = [];
   keysNonList: any[] = [];
   TableName: string = '';
-  keysList: any[] = [];selectedTableName: any;
-  gridApi: any;
+  keysList: any[] = [];
   recordTitlesWithId: any[] = [];
 ;
 
@@ -69,13 +64,13 @@ export class ListDetailsComponent implements OnInit {
   }
 
   initTitle(list: any): void {
-    console.log(list)
+    // console.log(list)
     this.title = String(list[0].name) + ' ('+list[0].count +' records)';
   }
 
   initRecordDropdown(list: any) {
     this.listservice.Titles = list.map((elem: any) => elem.title);
-    this.listservice.Ids = list.map((elem: any)=> elem.id);
+    // this.listservice.Ids = list.map((elem: any)=> elem.id);
     this.recordTitlesWithId = list;
     this.recordList = this.listservice.Titles.sort();
   }
@@ -100,14 +95,13 @@ export class ListDetailsComponent implements OnInit {
           if(typeof data[k] == 'string' && k!= 'value-type')
             name =data[k];
         });
-        this.listservice.EntityData = data;
-        console.log(data)
-        var query = '';
+        // console.log(data)
+
         for (const key in data) {
           if(isObject(data[key]) || key=='value-type' || key =='lenght')
               delete data[key];
         }
-        console.log(data)
+        // console.log(data)
 
         // console.log('list/'+source+'/Table?'+'Table='+entity+query);
         this.router.navigate(['list/'+source+'/Table/'+entity], { queryParams:data });
@@ -119,7 +113,7 @@ export class ListDetailsComponent implements OnInit {
 
     if(entity !== this.TableName){
       this.listservice.getTableFromSource(source,entity).subscribe((table:any)=>{
-        console.log(table);
+        // console.log(table);
 
         this.TableName = entity;
         this.columnDefs = this.formatTableTitles(table);
@@ -137,10 +131,10 @@ export class ListDetailsComponent implements OnInit {
 
     var titles: any =  this.getTitles(table[0]);
     var titleFormat = titles.map((val: string) => {
-        return {'field': val, 'sortable': true, 'filter': true};
+        return {'field': val, 'sortable': true, 'filter': true, tooltipField: val};
     });
 
-    console.log(titleFormat);
+    // console.log(titleFormat);
     return titleFormat;
   }
 

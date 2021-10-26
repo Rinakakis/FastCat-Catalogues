@@ -16,7 +16,6 @@ import { AppComponent } from './app.component';
 import { HeaderComponent } from './components/header/header.component';
 import { ListComponent } from './components/list/list.component';
 import { ListDetailsComponent } from './components/list-details/list-details.component';
-import { TablesComponent } from './components/tables/tables.component';
 import { EntityDetailsComponent } from './components/entity-detail/entity-details.component';
 import { RecordDetailsComponent } from './components/record-details/record-details.component';
 
@@ -27,7 +26,6 @@ import { RecordDetailsComponent } from './components/record-details/record-detai
     HeaderComponent,
     ListComponent,
     ListDetailsComponent,
-    TablesComponent,
     EntityDetailsComponent,
     RecordDetailsComponent
   ],
