@@ -16,7 +16,7 @@
   */
 
   body{
-    background: url(../src/assets/background.png);
+    background: url(assets/background.png);
     background-repeat: repeat;
     background-size: 40%;
     display: block;
