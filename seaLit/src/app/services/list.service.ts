@@ -34,6 +34,7 @@ export class ListService {
   }
 
   getTablesFromSource(source: string, tableName: string, query: any): Observable<any>{
+    console.log(query)
     var httpParams = new HttpParams();
     Object.keys(query).forEach((key: string) => {
       httpParams = httpParams.append(key, query[key]);

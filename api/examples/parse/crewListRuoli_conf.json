@@ -16,12 +16,19 @@
          "Registry number":{
             "path":"docs[0].data.ship_records.registry_number"
          },
+         "Registry port":{
+            "path":"docs[0].data.ship_records.registry_port"
+         },
          "Ship owners":{
             "link":"Ship owners",
             "Id": "docs[0]._id"
          },
          "Crew members":{
             "link":"Crew members",
+            "Id": "docs[0]._id"
+         },
+         "Departure ports":{
+            "link":"Departure ports",
             "Id": "docs[0]._id"
          }
       },

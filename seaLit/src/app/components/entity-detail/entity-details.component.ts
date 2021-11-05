@@ -35,7 +35,7 @@ export class EntityDetailsComponent implements OnInit {
       if (list) {
         this.hideloader();
       }
-      // console.log(list);
+      console.log(list);
       this.displaydata(params,list);
     });
   }

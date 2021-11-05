@@ -44,7 +44,7 @@ var server = app.listen(8081, function () {
 
 app.get('/record/:name', function (req, res) {
    var record =req.params.name;
-   record = record.replaceAll(' ', '_');
+   record = record.replAll(' ', '_');
    var myarray = [];
    var fullpath = path + record;
    myarray = getallRecordFiles(fullpath);
@@ -56,7 +56,7 @@ app.get('/sourceRecordList/:name/', function (req, res){
    var config = getConfig(req.params.name);
    var myarray = [];
    var count = [];
-   var fullpath = path + req.params.name.replaceAll(' ', '_');
+   var fullpath = path + req.params.name.replAll(' ', '_');
       
    myarray = getallRecordFiles(fullpath);
 
@@ -72,7 +72,7 @@ app.get('/sourceRecordList/:name/', function (req, res){
 
 app.get('/sourceRecordTitles/:name/', function (req, res){
    var myarray = [];
-   var fullpath = path + req.params.name.replaceAll(' ', '_');
+   var fullpath = path + req.params.name.replAll(' ', '_');
       
    myarray = getallRecordFiles(fullpath);
    var titles = getTitlesofRecords(myarray,req.params.name);
@@ -87,7 +87,7 @@ app.get('/numberOfrecords/:name', function(req, res){
    .map(name => {
       var dir = path + name;
       var len = fs.readdirSync(dir);
-      var record = templates.find(obj => obj.name == name.replaceAll('_', ' '));
+      var record = templates.find(obj => obj.name == name.replAll('_', ' '));
       record.count = len.length;
       return record;
    });
@@ -107,9 +107,11 @@ app.get('/tableData', function (req, res) {
       
       if(id == null){
           myarray = handleSingleTable(source,tableName);
-          delete query['source']
+          // console.log(myarray);
+          delete query['source'];
           delete query['tableName'];
           if(!_.isEmpty(query)){
+            // console.log(query)
             myarray = handleQueryTables(source,tableName,query,myarray);
           }
       }else{
@@ -134,14 +136,28 @@ function handleQueryTables(source,tableName,query,myarray){
       return elem;
     }
   });
-  elem = removeDuplicateLinks(elem[0]);
+
+  if(elem.length > 1){
+    var temp = [];
+    for (let i = 1; i < elem.length; i++) {
+      temp = merge(elem[0],elem[i])
+    }
+    elem.push(temp);
+  }
   
-  return getlinkedTables(elem,source)
+  console.log('lalala');
+  console.log(elem);
+  elem = removeDuplicateLinks(elem[0],source);
+  console.log('lalala2');
+  console.log(elem);
+  return getlinkedTables(elem,source);
 }
 
-function removeDuplicateLinks(elem){
-  for (const key in elem) {
+function removeDuplicateLinks(elem,source){
+
+  for (const key in elem){
     var element = elem[key];
+    // console.log(element)
     if(isArray(element)){
       var noduplicates = [...new Map(element.map(item => [item.Id, item])).values()]
       elem[key] = noduplicates;
@@ -202,7 +218,7 @@ function getlinkedTables(elem, source){
 
 function handleRecordTables(source,id){
   var myarray = [];
-  var fullpath = path + source.replaceAll(' ', '_');
+  var fullpath = path + source.replAll(' ', '_');
   var config = getConfig(source);
   
   fs.readdirSync(fullpath)
@@ -229,7 +245,7 @@ function handleRecordTables(source,id){
 }
 function getTitleOfId(source,id){
   var myarray = [];
-  var fullpath = path + source.replaceAll(' ', '_');
+  var fullpath = path + source.replAll(' ', '_');
   
   fs.readdirSync(fullpath)
   .map(name => {
@@ -245,7 +261,7 @@ function getTitleOfId(source,id){
 
 function handleSingleTable(source,tableName){
   var myarray = [];
-  var fullpath = path + source.replaceAll(' ', '_');
+  var fullpath = path + source.replAll(' ', '_');
   var config = getConfigEntity(source,tableName);
   
   fs.readdirSync(fullpath)
@@ -520,3 +536,8 @@ function getTableNames(req){
    config = _.get(config,record.name);
    return JSON.stringify(Object.keys(config));
 }
+
+String.prototype.replAll = function(search, replacement) {
+  var target = this;
+  return target.split(search).join(replacement);
+};
