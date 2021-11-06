@@ -3,7 +3,7 @@ import { trigger, transition, style, animate, state } from '@angular/animations'
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormControl } from '@angular/forms';
 import { CellClickedEvent } from 'ag-grid-community';
-import { isObject } from 'lodash';
+import { isObject, isString } from 'lodash';
 
 import { ListService } from 'src/app/services/list.service';
 
@@ -50,10 +50,9 @@ export class ListDetailsComponent implements OnInit {
   ngOnInit(): void {
     const name = String(this.route.snapshot.paramMap.get('source'));
     this.listservice.getSourceList(name).subscribe(list =>{
-      if (list) {
+      if(list){
         this.hideloader();
       }
-
       this.initList(list);
     });
     this.listservice.getNameOfSource(name).subscribe(list => this.initTitle(list));
@@ -115,7 +114,40 @@ export class ListDetailsComponent implements OnInit {
     if(entity !== this.TableName){
       this.listservice.getTableFromSource(source,entity).subscribe((table:any)=>{
         // console.log(table);
-      console.log(table);
+        console.log(table);
+        /**/
+        // if(entity == 'Ship owners'){
+
+        //   table.forEach((row:any) =>{
+        //     if(row["Owner name"].includes('\n')){
+        //       console.log(row)
+        //       var clone = JSON.parse(JSON.stringify(row));
+        //       for (const key in row) {
+        //         if(isString(row[key])){
+        //           var names = row[key].split('\n');
+        //           // console.log(names);
+
+        //           row[key] = names[0];
+        //           clone[key] = names[1];
+
+        //           if(names[0] == ' ')
+        //             row[key] = 'Unknown';
+        //           if(names[1] == ' ')
+        //             clone[key] = 'Unknown'
+
+        //         }else{
+        //           clone[key] = row[key];
+        //         }
+
+        //       }
+        //       table.push(clone)
+        //       console.log(row)
+        //       console.log(clone)
+        //     }
+        //   })
+
+        // }
+        /**/
         this.TableName = entity;
         this.columnDefs = this.formatTableTitles(table);
         this.rowData = table;

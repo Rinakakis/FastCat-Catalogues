@@ -95,8 +95,9 @@
          "Profession":{
             "path":"docs[0].data.crew_list.#.crew_profession_type"
          },
-         "Embarkation port":{
-            "path":"docs[0].data.crew_list.#.embarkation_port"
+         "Embarkation ports":{
+            "link":"Embarkation ports",
+            "Id": "docs[0]._id"
          },
          "Embarkation date":{
             "path":"docs[0].data.crew_list.#.embarkation_date"
@@ -117,6 +118,7 @@
          "Port":{
            "path":"docs[0].data.crew_list.#.embarkation_port"
          },
+         
          "Crew members":{
             "link":"Crew members",
             "Id": "docs[0]._id"

@@ -455,13 +455,15 @@ function formatObject(data, config){
  function removeDuplicates(data){
   //  console.log(data)
    if(data.length == 0) return data;
-   if(Object.values(data[0]).filter(val => typeof val == 'string' && val !='list').length == 1){ //if table has only one value
+  //  if(Object.values(data[0]).filter(val => typeof val == 'string' && val !='list').length == 1){ //if table has only one value
 
      var newarray = [];
 
      var temp = data.map(val =>{
        return Object.values(val).filter(val => typeof val == 'string' && val !='list').join();
      })
+    //  console.log(456);
+    //  console.log(temp);
      // var temp:any[] = data.map(val =>{
      //   return Object.values(val).join(',').slice(0, -15);
      // })
@@ -483,6 +485,7 @@ function formatObject(data, config){
        if(count[i] == true){
          newarray.push(element)
        }else{
+         console.log(element);
          var name = temp[i];
          var index = findIndexOfName(name,newarray);
          newarray[index] = merge(newarray[index], element);
@@ -490,7 +493,7 @@ function formatObject(data, config){
      }
    //   console.log(newarray)
      return newarray;
-   }
+  //  }
 
    return data;
  }
