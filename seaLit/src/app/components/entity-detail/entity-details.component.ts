@@ -72,8 +72,8 @@ export class EntityDetailsComponent implements OnInit {
           if(isObject(data[key]) || key=='value-type' || key =='lenght')
               delete data[key];
         }
-        // console.log(event);
-
+        console.log(entity);
+        console.log(data)
         // console.log('list/'+source+'/Table?'+'Table='+entity+query);
         this.router.routeReuseStrategy.shouldReuseRoute = function () {
           return false;
@@ -90,8 +90,13 @@ export class EntityDetailsComponent implements OnInit {
     this.keysList = [];
     this.keysNonList = [];
 
-    this.title = params.name;
     this.sourceName = params.source;
+
+    if(params.name.charAt(params.name.length - 1) == '2')
+      this.title = params.name.slice(0, -1);
+    else
+      this.title = params.name;
+
 
     for (const key in record) {
       var element = record[key];

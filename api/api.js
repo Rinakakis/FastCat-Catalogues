@@ -167,8 +167,10 @@ app.get('/sourceRecordList/:name/', function (req, res){
    
    for (const key in config) {
       const tableconfig = config[key];
-      var obj = {'name': key,'count':formatObject(myarray, tableconfig).length}
-      count.push(obj);
+      // if(key != 'Embarkation ports2' && key != 'Discharge ports2'){
+        var obj = {'name': key,'count':formatObject(myarray, tableconfig).length}
+        count.push(obj);
+      // }
    }
    
    res.end(JSON.stringify(count));
@@ -226,7 +228,7 @@ app.get('/tableData', function (req, res) {
 })
 
 function handleQueryTables(source,tableName,query,myarray){
-  // console.log(query)
+  // console.log(myarray);
   var elem = myarray.filter(elem => {
     var obj = JSON.parse(JSON.stringify(elem));
     for (const key in obj) {
@@ -240,7 +242,7 @@ function handleQueryTables(source,tableName,query,myarray){
       return elem;
     }
   });
-  // console.log(elem)
+  console.log(elem)
   // console.log(elem[0]['Ship']);
   // console.log(elem.length);
   if(elem.length > 1){
@@ -328,7 +330,6 @@ function getlinkedTables(elem, source){
     var recordTemplate = templates.find(obj => obj.name == source);
 
     elem.FastCat = {'name':recordTemplate.name, 'id':recordTemplate.id, 'data':IdsWithTitles};
-
   return elem;
 }
 

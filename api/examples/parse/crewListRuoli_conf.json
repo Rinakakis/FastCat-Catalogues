@@ -96,17 +96,12 @@
             "path":"docs[0].data.crew_list.#.crew_profession_type"
          },
          "Embarkation ports":{
-            "link":"Embarkation ports",
+            "link":"Embarkation ports2",
             "Id": "docs[0]._id"
          },
-         "Embarkation date":{
-            "path":"docs[0].data.crew_list.#.embarkation_date"
-         },
-         "Discharge port":{
-            "path":"docs[0].data.crew_list.#.discharge_port"
-         },
-         "Discharge date":{
-            "path":"docs[0].data.crew_list.#.discharge_date"
+         "Discharge ports":{
+            "link":"Discharge ports2",
+            "Id": "docs[0]._id"
          },
          "Ship":{
             "link":"Ship",
@@ -118,7 +113,23 @@
          "Port":{
            "path":"docs[0].data.crew_list.#.embarkation_port"
          },
-         
+         "Crew members":{
+            "link":"Crew members",
+            "Id": "docs[0]._id"
+         },
+         "Ship":{
+            "link":"Ship",
+            "Id": "docs[0]._id"
+         }
+      },
+      "Embarkation ports2":{
+         "value-type":"list",
+         "Port":{
+           "path":"docs[0].data.crew_list.#.embarkation_port"
+         },
+         "Embarkation date":{
+            "path":"docs[0].data.crew_list.#.embarkation_date"
+         },
          "Crew members":{
             "link":"Crew members",
             "Id": "docs[0]._id"
@@ -132,6 +143,23 @@
          "value-type":"list",
          "Port":{
            "path": "docs[0].data.crew_list.#.discharge_port"
+         },
+         "Crew members":{
+            "link":"Crew members",
+            "Id": "docs[0]._id"
+         },
+         "Ship":{
+            "link":"Ship",
+            "Id": "docs[0]._id"
+         }
+      },
+      "Discharge ports2":{
+         "value-type":"list",
+         "Port":{
+           "path": "docs[0].data.crew_list.#.discharge_port"
+         },
+         "Discharge date":{
+            "path":"docs[0].data.crew_list.#.discharge_date"
          },
          "Crew members":{
             "link":"Crew members",
