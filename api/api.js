@@ -240,7 +240,7 @@ function handleQueryTables(source,tableName,query,myarray){
       return elem;
     }
   });
-  console.log(elem)
+  // console.log(elem)
   // console.log(elem[0]['Ship']);
   // console.log(elem.length);
   if(elem.length > 1){
@@ -254,8 +254,8 @@ function handleQueryTables(source,tableName,query,myarray){
   // console.log('lalala');
   // console.log(elem);
   elem = removeDuplicateLinks(elem[0],source);
-  console.log('lalala2');
-  console.log(elem);
+  // console.log('lalala2');
+  // console.log(elem);
   return getlinkedTables(elem,source);
 }
 
@@ -298,9 +298,7 @@ function getlinkedTables(elem, source){
               return Object.values(lala[0])[0];
 
           });
-          console.log('em')
           newtable = [].concat(...newtable); // make 2d array to 1d array
-            console.log('am')
 
           elem[key] = removeDuplicates(newtable);
 

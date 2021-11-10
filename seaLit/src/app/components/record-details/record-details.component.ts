@@ -42,7 +42,7 @@ export class RecordDetailsComponent implements OnInit {
         this.hideloader();
       }
       this.displaydata(record);
-      console.log(record)
+      // console.log(record)
     })
   }
 
