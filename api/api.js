@@ -4,6 +4,7 @@ var app = express();
 var fs = require("fs");
 var cors = require('cors');
 const { isArray, isObject } = require('lodash');
+const { table } = require('console');
 
 app.use(cors());
 
@@ -14,26 +15,129 @@ const templates = [
       "id":"Accounts book",
       "name":"Accounts book",
       "description":"A description of the template",
-      "configuration":"accountsBook.json"
+      "configuration":"accountsbook_conf.json"
    },
    {
       "id":"Census_LaCiotat",
       "name":"Census La Ciotat",
       "description":"A description of the template",
-      "configuration":"censusLaCiotat.json"
+      "configuration":"censuslaciotat_conf.json"
    },
    {
       "id":"Crew List",
       "name":"Crew and displacement list (Roll)",
       "description":"A description of the template",
-      "configuration":"mydataRoll.json"
+      "configuration":"crewlistroll_conf.json"
    },
    {
       "id":"Crew List_IT",
       "name":"Crew List (Ruoli di Equipaggio)",
       "description":"A description of the template",
       "configuration":"crewListRuoli_conf.json"
-   }
+   },
+   {
+      "id":"Civil Register",
+      "name":"Civil Register",
+      "description":"A description of the template",
+      "configuration":"civilregister_conf.json"
+   },
+   {
+      "id":"Messageries_Maritimes",
+      "name":"Employment records, Shipyards of Messageries Maritimes, La Ciotat",
+      "description":"A description of the template",
+      "configuration":"messageriesmaritimes_conf.json"
+   },
+   {
+      "id":"Messageries_Maritimes",
+      "name":"Employment records, Shipyards of Messageries Maritimes, La Ciotat",
+      "description":"A description of the template",
+      "configuration":"messageriesmaritimes_conf.json"
+   },
+   {
+      "id":"Census Odessa",
+      "name":"First national all-Russian census of the Russian Empire",
+      "description":"A description of the template",
+      "configuration":"censusodessa_conf.json"
+   },
+   {
+      "id":"Crew_List_ES",
+      "name":"General Spanish Crew List",
+      "description":"A description of the template",
+      "configuration":"CrewListES_conf.json"
+   },
+   {
+      "id":"Inscription_Maritime",
+      "name":"Inscription Maritime - Maritime Register of the State for La Ciotat",
+      "description":"A description of the template",
+      "configuration":"Inscription_Maritime_conf.json"
+   },
+   {
+      "id":"Ship_List",
+      "name":"List of ships",
+      "description":"A description of the template",
+      "configuration":"Ship_List_conf.json"
+   },
+   {
+      "id":"Logbook",
+      "name":"Logbook",
+      "description":"A description of the template",
+      "configuration":"Logbook_conf.json"
+   },
+   {
+      "id":"Register_of_Ships",
+      "name":"Naval Ship Register List",
+      "description":"A description of the template",
+      "configuration":"Register_of_Ships_conf.json"
+   },
+   {
+      "id":"Notarial Deeds",
+      "name":"Notarial Deeds",
+      "description":"A description of the template",
+      "configuration":"Notarial_Deeds_conf.json"
+   },
+   {
+      "id":"Payroll",
+      "name":"Payroll",
+      "description":"A description of the template",
+      "configuration":"Payroll_conf.json"
+   },
+   {
+      "id":"Payroll_RU",
+      "name":"Payroll of Russian Steam Navigation and Trading Company",
+      "description":"A description of the template",
+      "configuration":"Payroll_RU_conf.json"
+   },
+   {
+      "id":"Maritime_Register_ES",
+      "name":"Register of Maritime personel",
+      "description":"A description of the template",
+      "configuration":"Maritime_Register_ES_conf.json"
+   },
+   {
+      "id":"Maritime Workers_IT",
+      "name":"Register of Maritime workers (Matricole della gente di mare)",
+      "description":"A description of the template",
+      "configuration":"Maritime Workers_IT_conf.json"
+   },
+   {
+      "id":"Sailors_Register",
+      "name":"Sailors register (Libro de registro de marineros)",
+      "description":"A description of the template",
+      "configuration":"Sailors_Register_conf.json"
+   },
+   {
+      "id":"Seagoing_Personel",
+      "name":"Seagoing Personel",
+      "description":"A description of the template",
+      "configuration":"Seagoing_Personel_conf.json"
+   },
+   {
+      "id":"Students Register",
+      "name":"Students Register",
+      "description":"A description of the template",
+      "configuration":"Students_Register_conf.json"
+   },
+
 ];
 
 var server = app.listen(8081, function () {
@@ -136,7 +240,9 @@ function handleQueryTables(source,tableName,query,myarray){
       return elem;
     }
   });
-
+  console.log(elem)
+  // console.log(elem[0]['Ship']);
+  // console.log(elem.length);
   if(elem.length > 1){
     var temp = [];
     for (let i = 1; i < elem.length; i++) {
@@ -145,8 +251,8 @@ function handleQueryTables(source,tableName,query,myarray){
     elem.push(temp);
   }
   
-  console.log('lalala');
-  console.log(elem);
+  // console.log('lalala');
+  // console.log(elem);
   elem = removeDuplicateLinks(elem[0],source);
   console.log('lalala2');
   console.log(elem);
@@ -178,13 +284,25 @@ function getlinkedTables(elem, source){
           var newtable = element.map(table=>{
             var temp = handleRecordTables(source,table.Id);
             var lala  = temp.data.filter(elem =>{
-              if(Object.keys(elem).join() == table.link)
+              if(Object.keys(elem).join() == table.link){
+                // if(table.link == 'Crew members')
+                //     console.log(elem)
                 return elem;
+
+              }
             })
-            return Object.values(lala[0])[0][0];
+            
+            if(Object.values(lala[0])[0].length == 1)
+              return Object.values(lala[0])[0][0];
+            else
+              return Object.values(lala[0])[0];
+
           });
-          // console.log(newtable)
-          elem[key] = newtable;
+          console.log('em')
+          newtable = [].concat(...newtable); // make 2d array to 1d array
+            console.log('am')
+
+          elem[key] = removeDuplicates(newtable);
 
         }else{
           // console.log(element)
@@ -485,7 +603,7 @@ function formatObject(data, config){
        if(count[i] == true){
          newarray.push(element)
        }else{
-         console.log(element);
+        //  console.log(element);
          var name = temp[i];
          var index = findIndexOfName(name,newarray);
          newarray[index] = merge(newarray[index], element);
