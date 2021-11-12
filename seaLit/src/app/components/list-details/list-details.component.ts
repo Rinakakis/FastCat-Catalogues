@@ -113,7 +113,7 @@ export class ListDetailsComponent implements OnInit {
 
     if(entity !== this.TableName){
       this.listservice.getTableFromSource(source,entity).subscribe((table:any)=>{
-        // console.log(table);
+        console.log(table);
         // console.log(table);
         /**/
         // if(entity == 'Ship owners'){
@@ -181,7 +181,7 @@ export class ListDetailsComponent implements OnInit {
   getTitles(temp: any): string[]{
     var titles: string[] = [];
     for (const [key, value] of Object.entries(temp)) {
-      if(!isObject(value) && key!='value-type' && key!='lenght')
+      if(!isObject(value) && key!='value-type' && key!='lenght' && key!='listIds')
         titles.push(key);
     }
     return titles;

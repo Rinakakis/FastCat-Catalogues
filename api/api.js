@@ -167,10 +167,10 @@ app.get('/sourceRecordList/:name/', function (req, res){
    
    for (const key in config) {
       const tableconfig = config[key];
-      // if(key != 'Embarkation ports2' && key != 'Discharge ports2'){
+      if(key != 'Embarkation ports2' && key != 'Discharge ports2'){
         var obj = {'name': key,'count':formatObject(myarray, tableconfig).length}
         count.push(obj);
-      // }
+      }
    }
    
    res.end(JSON.stringify(count));
@@ -242,7 +242,7 @@ function handleQueryTables(source,tableName,query,myarray){
       return elem;
     }
   });
-  console.log(elem)
+  console.log(elem);
   // console.log(elem[0]['Ship']);
   // console.log(elem.length);
   if(elem.length > 1){
@@ -258,7 +258,7 @@ function handleQueryTables(source,tableName,query,myarray){
   elem = removeDuplicateLinks(elem[0],source);
   // console.log('lalala2');
   // console.log(elem);
-  return getlinkedTables(elem,source);
+  return getlinkedTables(elem,source,tableName);
 }
 
 function removeDuplicateLinks(elem,source){
@@ -274,26 +274,44 @@ function removeDuplicateLinks(elem,source){
   return elem;
 }
 
-function getlinkedTables(elem, source){
+function getlinkedTables(elem, source, tableName){
   // console.log(elem)
   var linkArray = [];
   for (const key in elem) {
       var element = elem[key];
       if(_.isObject(element)){
         if(_.isArray(element)){
-          element.forEach(obj => linkArray.push(obj.Id));
-          
+          element.forEach(obj => linkArray.push(obj.Id));          
           var newtable = element.map(table=>{
             var temp = handleRecordTables(source,table.Id);
-            var lala  = temp.data.filter(elem =>{
-              if(Object.keys(elem).join() == table.link){
-                // if(table.link == 'Crew members')
-                //     console.log(elem)
-                return elem;
+            // console.log('temp')
+            // console.log(temp)
+            var lala  = temp.data.filter(elem2 =>{
+              if(Object.keys(elem2).join() == table.link){
+                if(table.link == 'Embarkation ports2' || table.link == 'Discharge ports2'){
+                  var crewmembers = temp.data.filter(val => Object.keys(val).join() == tableName);  
+                  
+                  var hm = crewmembers[0]['Crew members'].filter((crew,index) => {
+                    var temp1 = Object.values(crew).filter(val => typeof val == 'string' && val !='list').join();
+                    var temp2 = Object.values(elem).filter(val => typeof val == 'string' && val !='list').join();
+                    
+                    if(_.isEqual(temp1, temp2)){
+                      // console.log(index);
+                      // console.log(elem2[table.link][index]);
+                      return elem2[table.link][index];
+                    }
+                  })
+                  console.log('temp.data[tableName]');
+                  return hm
+                  // console.log('temp.data[tableName]');
+                  
+                  // console.log(elem2);
 
+                }else{
+                  return elem2;
+                }
               }
-            })
-            
+            })            
             if(Object.values(lala[0])[0].length == 1)
               return Object.values(lala[0])[0][0];
             else
@@ -475,8 +493,9 @@ function formatObject(data, config){
           if (item != 'list') {
               if (item.path != undefined) { // undefined -> links
                 var ret = addListData(item, mydata2);
-                fake[column] = ret;
+                fake[column] = arrayColumn(ret,0);
                 fake['lenght'] = ret.length;
+                // fake['listIds'] = arrayColumn(ret,1);
               } else if (item.link != undefined) {
                 var data = item.link;
                 fake[column].link = data;
@@ -490,7 +509,10 @@ function formatObject(data, config){
     objArray.push(fake);
   }
   // this.List = objArray;
+  // console.log('objArraylala');
   // console.log(objArray);
+  // console.log('objArraylala2');
+
   if(objArray[0]["value-type"] == 'list')
     objArray = formatList(objArray);
   else
@@ -511,10 +533,10 @@ function formatObject(data, config){
     while(data0[index]!= undefined && !_.isEmpty(data0[index])){
       ar.push(data0[index][item.path[0].split(".#.")[1]] +', '+ data1[index++][item.path[1].split(".#.")[1]]);
     }
-    }else{
+  }else{
       var data = _.get(mydata, item.path.split(".#.")[0]);
       while(data[index]!= undefined && !_.isEmpty(data[index])){
-        ar.push(data[index++][item.path.split(".#.")[1]]);
+        ar.push([data[index][item.path.split(".#.")[1]], index++]);
     }
   }
    // if(entity == 'Departure ports' || entity == 'Discharge ports' ){
@@ -523,10 +545,13 @@ function formatObject(data, config){
    //   })
    //   // console.log(ar)
    // }
-   // console.log(ar)
+  //  console.log('ar')
+  //  console.log(ar)
    return ar;
  }
 
+ const arrayColumn = (arr, n) => arr.map(x => x[n]);
+ 
  function formatList(temp) {
    var array = [];
    var totalCount = 0;

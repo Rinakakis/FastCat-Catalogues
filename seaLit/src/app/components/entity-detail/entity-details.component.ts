@@ -35,7 +35,7 @@ export class EntityDetailsComponent implements OnInit {
       if (list) {
         this.hideloader();
       }
-      // console.log(list);
+      console.log(list);
       this.displaydata(params,list);
     });
   }
@@ -104,7 +104,7 @@ export class EntityDetailsComponent implements OnInit {
           if(key == 'FastCat')
             element = this.formatLinks(element);
           this.keysList.push(key);
-          // console.log(element)
+          console.log(element)
           var titles = this.getTitles(element[0]);
           var titleFormat = titles.map((val: string) => {
             if(val == 'FastCat'){
@@ -137,8 +137,9 @@ export class EntityDetailsComponent implements OnInit {
 
   getTitles(temp: any): string[]{
     var titles: string[] = [];
+    console.log(temp)
     for (const [key, value] of Object.entries(temp)) {
-      if(!isObject(value) && key!='value-type' && key!='lenght')
+      if(!isObject(value) && key!='value-type' && key!='lenght' &&key!='listIds')
         titles.push(key);
     }
     return titles;

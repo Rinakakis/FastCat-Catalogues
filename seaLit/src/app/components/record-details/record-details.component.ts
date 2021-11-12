@@ -37,7 +37,7 @@ export class RecordDetailsComponent implements OnInit {
     const id = String(this.route.snapshot.paramMap.get('id'));
     // console.log(source,id);
     this.listservice.getrecordFromSource(source,id).subscribe(record=>{
-      // console.log(record);
+      console.log(record);
       if (record) {
         this.hideloader();
       }
@@ -127,7 +127,7 @@ export class RecordDetailsComponent implements OnInit {
   getTitles(temp: any): string[]{
     var titles: string[] = [];
     for (const [key, value] of Object.entries(temp)) {
-      if(!isObject(value) && key!='value-type' && key!='lenght')
+      if(!isObject(value) && key!='value-type' && key!='lenght' && key!='listIds')
         titles.push(key);
     }
     return titles;

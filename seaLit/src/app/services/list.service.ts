@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
 export class ListService {
 
   Titles: any[] = [];
-  Ip: string = '192.168.1.14';
+  Ip: string = '192.168.1.5';
 
   constructor(private http:HttpClient) {
   }
