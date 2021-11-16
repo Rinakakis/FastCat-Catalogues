@@ -1,8 +1,10 @@
 import { Component, OnInit} from '@angular/core';
+import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CellClickedEvent } from 'ag-grid-community';
 import { isObject, isObjectLike } from 'lodash';
 import { ListService } from 'src/app/services/list.service';
+import { saveAs } from 'file-saver';
 
 @Component({
   selector: 'app-entity-details',
@@ -22,10 +24,16 @@ export class EntityDetailsComponent implements OnInit {
   keysNonList: any[] = [];
   keysList: any[] = [];
 
+  gridApi: any;
+  gridColumnApi: any;
+  filename: any;
+  fileUrl: any;
+
   constructor(
     private route: ActivatedRoute,
     private listservice : ListService,
-    private router: Router
+    private router: Router,
+    private sanitizer: DomSanitizer
   ) { }
 
   ngOnInit(): void {
@@ -69,7 +77,7 @@ export class EntityDetailsComponent implements OnInit {
         });
         // console.log(event)
         for (const key in data) {
-          if(isObject(data[key]) || key=='value-type' || key =='lenght')
+          if(isObject(data[key]) || key=='value-type' || key =='listLength')
               delete data[key];
         }
         console.log(entity);
@@ -80,7 +88,8 @@ export class EntityDetailsComponent implements OnInit {
         }
         this.router.onSameUrlNavigation = 'reload';
         this.router.navigate(['list/'+source+'/Table/'+entity], { queryParams:data });
-    })
+    }),
+    suppressExcelExport: true
   }
 
   displaydata(params: any,record: any): void {
@@ -120,7 +129,7 @@ export class EntityDetailsComponent implements OnInit {
           this.tablesTitles.push(titleFormat);
           this.tables.push(element);
       }else{
-        if(key !== 'value-type' && key !== 'lenght')
+        if(key !== 'value-type' && key !== 'listLength')
           this.nonLitsInfo.push({'key':key, 'value':element});
       }
     }
@@ -139,11 +148,18 @@ export class EntityDetailsComponent implements OnInit {
     var titles: string[] = [];
     console.log(temp)
     for (const [key, value] of Object.entries(temp)) {
-      if(!isObject(value) && key!='value-type' && key!='lenght' &&key!='listIds')
+      if(!isObject(value) && key!='value-type' && key!='listLength' &&key!='listIds')
         titles.push(key);
     }
     return titles;
-
   }
+
+  onBtnExport(tableg: any){
+    // console.log(tableg);
+    console.log(this.listservice.ConvertToCSV(tableg))
+    var blob = new Blob([this.listservice.ConvertToCSV(tableg)], {type: 'text/csv' });
+    saveAs(blob, "export.csv");
+  }
+
 
 }

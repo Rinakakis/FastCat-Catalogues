@@ -167,6 +167,7 @@ app.get('/sourceRecordList/:name/', function (req, res){
    
    for (const key in config) {
       const tableconfig = config[key];
+      // console.dir(tableconfig, { depth: null });
       if(key != 'Embarkation ports2' && key != 'Discharge ports2'){
         var obj = {'name': key,'count':formatObject(myarray, tableconfig).length}
         count.push(obj);
@@ -224,6 +225,7 @@ app.get('/tableData', function (req, res) {
           myarray = handleRecordTables(source,id);
       }
       // console.log(myarray);
+      filterData(myarray)
       res.end(JSON.stringify(myarray));
 })
 
@@ -251,9 +253,7 @@ function handleQueryTables(source,tableName,query,myarray){
     }
     elem.push(temp);
   }
-  // console.log(elem);
-  
-  // console.log('lalala');
+
   // console.log(elem);
   elem = removeDuplicateLinks(elem[0],source);
   // console.log('lalala2');
@@ -275,9 +275,9 @@ function removeDuplicateLinks(elem,source){
 }
 
 function getlinkedTables(elem, source, tableName){
-  console.log('elem')
-  console.log(elem)
-  console.log('elem')
+  // console.log('elem')
+  // console.log(elem)
+  // console.log('elem')
   var linkArray = [];
   for (const key in elem) {
     var element = elem[key];
@@ -329,7 +329,7 @@ function getlinkedTables(elem, source, tableName){
 
 function handleLinks(table, elem, tableName, source){
   var temp;
-  if((table.link == 'Embarkation ports2' || table.link == 'Discharge ports2' || table.link == 'Crew members'))
+  if(table.listLink == true)
     temp = handleRecordTables(source,table.Id, false);
   else
     temp = handleRecordTables(source,table.Id);
@@ -337,7 +337,7 @@ function handleLinks(table, elem, tableName, source){
   var lala  = [];
   temp.data.forEach(elem2 =>{
     if(Object.keys(elem2).join() == table.link){
-      if(table.link == 'Embarkation ports2' || table.link == 'Discharge ports2' || table.link == 'Crew members'){
+      if(table.listLink == true){
 
         var crewmembers = temp.data.filter(val => Object.keys(val).join() == tableName);
 
@@ -476,6 +476,7 @@ function formatObject(data, config, remv = true){
   const mydata = data;
   var objArray = [];
   var mydata2;
+  var splitarray = [];
   for (let i = 0; i < mydata.length; i++) {
     var fake = JSON.parse(JSON.stringify(config));
     // we dublicate the structure of the parser so we can
@@ -490,12 +491,26 @@ function formatObject(data, config, remv = true){
           var item = config[column]; // path from parser
           if (item.path != undefined) { // undefined -> links
               var data = _.get(mydata2, item.path);
-              fake[column] = data;
+              if(data.includes("\n")){
+                var temp = splitData(data);
+                fake[column] = temp;                
+                fake['value-type'] = 'list';    
+                fake['listLength'] = temp.length;
+              }else{
+                fake[column] = data;
+              }
           } else if (item.link != undefined) { // we have link
               var data = item.link;
               fake[column].link = data;
               fake[column].Id = _.get(mydata2, item.Id);
           }
+        }
+        if(fake['value-type'] != undefined){
+          delete fake['value-type'];
+          fake['listLength'];
+          // console.log(fake);
+          splitarray = formatList(fake);
+          // console.log(yes);
         }
     } else {
         for (const column in config) {
@@ -505,8 +520,7 @@ function formatObject(data, config, remv = true){
                 var ret = addListData(item, mydata2);
                 fake[column] = arrayColumn(ret,0);
                 fake['listLength'] = ret.length;
-                // fake['listIds'] = {'recordId': mydata2.docs[0]._id, 'lId': arrayColumn(ret,1)};
-                // fake['listIds'] = arrayColumn(ret,1);
+
               } else if (item.link != undefined) {
                 var data = item.link;
                 fake[column].link = data;
@@ -515,9 +529,18 @@ function formatObject(data, config, remv = true){
           }
         }
     }
+    if(splitarray.length != 0){
+      console.log('fake')
+      console.log(fake)
+      console.log('splitarray')
+      console.log(splitarray)
+      splitarray.forEach(elem=> objArray.push(elem))
+      splitarray = [];
+    }else{
+      objArray.push(fake);
+    }
 
     // this.mapTitle(mydata[i]);
-    objArray.push(fake);
   }
   // this.List = objArray;
   // console.log('objArraylala');
@@ -534,6 +557,17 @@ function formatObject(data, config, remv = true){
   
   return objArray;
  }
+
+function splitData(data) {
+  var names = data.split('\n');
+  return names.map(val =>{
+    if(val == ' ') 
+      return 'Unknown';
+    
+      return val;
+  });
+
+}
 
  function addListData(item, mydata){
   var index = 0;
@@ -617,7 +651,7 @@ function formatObject(data, config, remv = true){
        return Object.values(val).filter(val => typeof val == 'string' && val !='list').join();
      })
     //  console.log(456);
-    //  console.log(temp);
+    //  console.dir(temp, { depth: null });
      // var temp:any[] = data.map(val =>{
      //   return Object.values(val).join(',').slice(0, -15);
      // })
@@ -698,3 +732,15 @@ String.prototype.replAll = function(search, replacement) {
   var target = this;
   return target.split(search).join(replacement);
 };
+
+function filterData(myarray){
+  myarray.forEach(elem => {
+    for (const key in elem) {
+      const element = elem[key];
+      if(typeof element != 'string')
+        delete elem[key];
+    }
+  })
+  console.dir(myarray, { depth: null });
+
+}

@@ -45,3 +45,8 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
   }
+
+  .download-div{
+    margin-top: 5px;
+    text-align: right;
+  }

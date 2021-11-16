@@ -97,10 +97,12 @@
          },
          "Embarkation ports":{
             "link":"Embarkation ports2",
+            "listLink": true,
             "Id": "docs[0]._id"
          },
          "Discharge ports":{
             "link":"Discharge ports2",
+            "listLink": true,
             "Id": "docs[0]._id"
          },
          "Ship":{
@@ -115,6 +117,7 @@
          },
          "Crew members":{
             "link":"Crew members",
+            "listLink": true,
             "Id": "docs[0]._id"
          },
          "Ship":{
@@ -132,6 +135,7 @@
          },
          "Crew members":{
             "link":"Crew members",
+            "listLink": true,
             "Id": "docs[0]._id"
          },
          "Ship":{
@@ -146,6 +150,7 @@
          },
          "Crew members":{
             "link":"Crew members",
+            "listLink": true,
             "Id": "docs[0]._id"
          },
          "Ship":{
@@ -163,6 +168,7 @@
          },
          "Crew members":{
             "link":"Crew members",
+            "listLink": true,
             "Id": "docs[0]._id"
          },
          "Ship":{

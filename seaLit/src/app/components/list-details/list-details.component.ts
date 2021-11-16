@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { trigger, transition, style, animate, state } from '@angular/animations';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormControl } from '@angular/forms';
 import { CellClickedEvent } from 'ag-grid-community';
-import { isObject, isString } from 'lodash';
+import { isObject } from 'lodash';
 
 import { ListService } from 'src/app/services/list.service';
 
@@ -32,7 +31,12 @@ export class ListDetailsComponent implements OnInit {
   TableName: string = '';
   keysList: any[] = [];
   recordTitlesWithId: any[] = [];
-;
+  
+  gridApi: any;
+  gridColumnApi: any;
+
+  // private popupParent;
+  // private rowData;
 
   constructor(
     private route: ActivatedRoute,
@@ -98,7 +102,7 @@ export class ListDetailsComponent implements OnInit {
         // console.log(data)
 
         for (const key in data) {
-          if(isObject(data[key]) || key=='value-type' || key =='lenght')
+          if(isObject(data[key]) || key=='value-type' || key =='listLength')
               delete data[key];
         }
         // console.log(data)
@@ -106,6 +110,7 @@ export class ListDetailsComponent implements OnInit {
         // console.log('list/'+source+'/Table?'+'Table='+entity+query);
         this.router.navigate(['list/'+source+'/Table/'+entity], { queryParams:data });
     })
+
   }
 
   displaytable(entity:string): void{
@@ -114,40 +119,6 @@ export class ListDetailsComponent implements OnInit {
     if(entity !== this.TableName){
       this.listservice.getTableFromSource(source,entity).subscribe((table:any)=>{
         console.log(table);
-        // console.log(table);
-        /**/
-        // if(entity == 'Ship owners'){
-
-        //   table.forEach((row:any) =>{
-        //     if(row["Owner name"].includes('\n')){
-        //       console.log(row)
-        //       var clone = JSON.parse(JSON.stringify(row));
-        //       for (const key in row) {
-        //         if(isString(row[key])){
-        //           var names = row[key].split('\n');
-        //           // console.log(names);
-
-        //           row[key] = names[0];
-        //           clone[key] = names[1];
-
-        //           if(names[0] == ' ')
-        //             row[key] = 'Unknown';
-        //           if(names[1] == ' ')
-        //             clone[key] = 'Unknown'
-
-        //         }else{
-        //           clone[key] = row[key];
-        //         }
-
-        //       }
-        //       table.push(clone)
-        //       console.log(row)
-        //       console.log(clone)
-        //     }
-        //   })
-
-        // }
-        /**/
         this.TableName = entity;
         this.columnDefs = this.formatTableTitles(table);
         this.rowData = table;
@@ -181,12 +152,20 @@ export class ListDetailsComponent implements OnInit {
   getTitles(temp: any): string[]{
     var titles: string[] = [];
     for (const [key, value] of Object.entries(temp)) {
-      if(!isObject(value) && key!='value-type' && key!='lenght' && key!='listIds')
+      if(!isObject(value) && key!='value-type' && key!='listLength' && key!='listIds')
         titles.push(key);
     }
     return titles;
-
   }
+
+  onBtnExport(tableg: any){
+    // console.log(tableg);
+    console.log(this.listservice.ConvertToCSV(tableg))
+    var blob = new Blob([this.listservice.ConvertToCSV(tableg)], {type: 'text/csv' });
+    saveAs(blob, "export.csv");
+  }
+
+  
 
 }
 

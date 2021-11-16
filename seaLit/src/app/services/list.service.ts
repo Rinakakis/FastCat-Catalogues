@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { isObject } from 'lodash';
 
 @Injectable({
   providedIn: 'root'
@@ -8,7 +9,7 @@ import { Observable } from 'rxjs';
 export class ListService {
 
   Titles: any[] = [];
-  Ip: string = '192.168.1.5';
+  Ip: string = '192.168.1.2';
 
   constructor(private http:HttpClient) {
   }
@@ -48,4 +49,27 @@ export class ListService {
     return this.http.get('http://'+this.Ip+':8081/tableData?'+'source='+source+'&id='+id);
   }
 
+  ConvertToCSV(table: any){
+
+    var data = table.map((elem: object) =>{
+      return Object.values(elem)
+      .filter(col => typeof col == 'string' && col != 'list')
+      .map(elem2=>  '"'+elem2+'"')
+      .join(',');
+    })
+    var titles = this.getTitles(table[0]).map(elem2=>  '"'+elem2+'"').join(',');
+    data.unshift(titles)
+
+    return data.join('\n');
+  }
+  
+    getTitles(temp: any): string[]{
+      var titles: string[] = [];
+      console.log(temp)
+      for (const [key, value] of Object.entries(temp)) {
+        if(!isObject(value) && key!='value-type' && key!='listLength' &&key!='listIds')
+          titles.push(key);
+      }
+      return titles;
+    }
 }

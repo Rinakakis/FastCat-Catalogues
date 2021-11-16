@@ -70,7 +70,7 @@ export class RecordDetailsComponent implements OnInit {
         });
         // console.log(event)
         for (const key in data) {
-          if(isObject(data[key]) || key=='value-type' || key =='lenght')
+          if(isObject(data[key]) || key=='value-type' || key =='listLength')
               delete data[key];
         }
         // console.log(event);
@@ -104,7 +104,7 @@ export class RecordDetailsComponent implements OnInit {
         this.keysNonList.push(Object.keys(element).join());
         var lala = JSON.parse(JSON.stringify(data[0]));
         Object.keys(lala).forEach(k => {
-          if(typeof lala[k] == 'object' || k =='lenght' || k == 'value-type')
+          if(typeof lala[k] == 'object' || k =='listLength' || k == 'value-type')
             delete lala[k];
         })
         this.nonLitsInfo.push(lala);
@@ -127,11 +127,18 @@ export class RecordDetailsComponent implements OnInit {
   getTitles(temp: any): string[]{
     var titles: string[] = [];
     for (const [key, value] of Object.entries(temp)) {
-      if(!isObject(value) && key!='value-type' && key!='lenght' && key!='listIds')
+      if(!isObject(value) && key!='value-type' && key!='listLength' && key!='listIds')
         titles.push(key);
     }
     return titles;
 
+  }
+  
+  onBtnExport(tableg: any){
+    // console.log(tableg);
+    console.log(this.listservice.ConvertToCSV(tableg))
+    var blob = new Blob([this.listservice.ConvertToCSV(tableg)], {type: 'text/csv' });
+    saveAs(blob, "export.csv");
   }
 
 }
