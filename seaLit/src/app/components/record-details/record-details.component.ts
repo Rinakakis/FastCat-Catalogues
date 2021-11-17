@@ -98,24 +98,26 @@ export class RecordDetailsComponent implements OnInit {
     this.sourceName = record.sourceName;
 
     record.data.forEach((element: any) => {
-      var data: any[] = Object.values(element);
-      data = data[0];
-      if(data.length == 1){
-        this.keysNonList.push(Object.keys(element).join());
-        var lala = JSON.parse(JSON.stringify(data[0]));
-        Object.keys(lala).forEach(k => {
-          if(typeof lala[k] == 'object' || k =='listLength' || k == 'value-type')
-            delete lala[k];
-        })
-        this.nonLitsInfo.push(lala);
-      }else{
-        this.keysList.push(Object.keys(element).join());
-        var titles = this.getTitles(data[0]);
-        var titleFormat = titles.map((val: string) => {
-          return {'field': val,'colId':Object.keys(element).join(), 'sortable': true, 'filter': true, tooltipField: val};
-        });
-        this.tablesTitles.push(titleFormat);
-        this.tables.push(data);
+      if(element != null){
+        var data: any[] = Object.values(element);
+        data = data[0];
+        if(data.length == 1){
+          this.keysNonList.push(Object.keys(element).join());
+          var lala = JSON.parse(JSON.stringify(data[0]));
+          Object.keys(lala).forEach(k => {
+            if(typeof lala[k] == 'object' || k =='listLength' || k == 'value-type')
+              delete lala[k];
+          })
+          this.nonLitsInfo.push(lala);
+        }else{
+          this.keysList.push(Object.keys(element).join());
+          var titles = this.getTitles(data[0]);
+          var titleFormat = titles.map((val: string) => {
+            return {'field': val,'colId':Object.keys(element).join(), 'sortable': true, 'filter': true, tooltipField: val};
+          });
+          this.tablesTitles.push(titleFormat);
+          this.tables.push(data);
+        }
       }
     });
 

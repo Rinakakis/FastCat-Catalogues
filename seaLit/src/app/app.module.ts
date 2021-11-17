@@ -27,7 +27,7 @@ import { RecordDetailsComponent } from './components/record-details/record-detai
     ListComponent,
     ListDetailsComponent,
     EntityDetailsComponent,
-    RecordDetailsComponent
+    RecordDetailsComponent,
   ],
   imports: [
     BrowserModule,

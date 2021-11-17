@@ -322,8 +322,8 @@ function getlinkedTables(elem, source, tableName){
 
   elem.FastCat = {'name':recordTemplate.name, 'id':recordTemplate.id, 'data':IdsWithTitles};
 
-  console.log('final')
-  console.dir(elem, { depth: null });
+  // console.log('final')
+  // console.dir(elem, { depth: null });
   return elem;
 }
 
@@ -471,7 +471,6 @@ function getTitlesofRecords(myarray, name){
 }
 
 function formatObject(data, config, remv = true){
-   // console.log(config);
   
   const mydata = data;
   var objArray = [];
@@ -513,13 +512,28 @@ function formatObject(data, config, remv = true){
           // console.log(yes);
         }
     } else {
-        for (const column in config) {
+        var count = 0;
+        for (const column of Object.keys(config)) {
           var item = config[column]; // path from parser
+          // console.log(item)
+          
           if (item != 'list') {
               if (item.path != undefined) { // undefined -> links
-                var ret = addListData(item, mydata2);
-                fake[column] = arrayColumn(ret,0);
-                fake['listLength'] = ret.length;
+                if(item['value-type'] == undefined){
+                  var ret = addListData(item, mydata2);
+                  count = ret.length;
+                  fake[column] = arrayColumn(ret,0);
+                  fake['listLength'] = ret.length;
+                }else{
+                  // console.log(count)
+                  var data = _.get(mydata2, item.path);
+                  var temp = [];
+                  for(let i = 0; i<count; i++){
+                    temp.push(data);
+                  }
+                  fake[column] = temp;
+                  fake['listLength'] = ret.length;
+                }
 
               } else if (item.link != undefined) {
                 var data = item.link;
@@ -530,10 +544,10 @@ function formatObject(data, config, remv = true){
         }
     }
     if(splitarray.length != 0){
-      console.log('fake')
-      console.log(fake)
-      console.log('splitarray')
-      console.log(splitarray)
+      // console.log('fake')
+      // console.log(fake)
+      // console.log('splitarray')
+      // console.log(splitarray)
       splitarray.forEach(elem=> objArray.push(elem))
       splitarray = [];
     }else{
@@ -734,13 +748,33 @@ String.prototype.replAll = function(search, replacement) {
 };
 
 function filterData(myarray){
-  myarray.forEach(elem => {
+  if(isArray(myarray)){
+    deleteObjects(myarray);
+  }else{
+    for (const key in myarray) {
+      const element = myarray[key];
+      if(key == 'data'){
+        element.forEach((ar, index)=>{
+          var key = Object.keys(ar).join();
+          if(key == 'Embarkation ports2' || key == 'Discharge ports2')
+            delete element[index];
+          else
+            deleteObjects(ar[key]);
+
+        })
+      }else if(isObject(element) && key!='FastCat'){
+        deleteObjects(element);
+      }
+    }
+  }
+}
+
+function deleteObjects(element){
+  element.forEach(elem => {
     for (const key in elem) {
-      const element = elem[key];
-      if(typeof element != 'string')
+      const element2 = elem[key];
+      if(typeof element2 != 'string')
         delete elem[key];
     }
   })
-  console.dir(myarray, { depth: null });
-
 }

@@ -70,14 +70,9 @@ export class EntityDetailsComponent implements OnInit {
         var source = String(this.route.snapshot.paramMap.get('source'));
         var data = event.data;
         var entity = event.colDef.colId;
-        var name = ''
-        Object.keys(data).forEach(k =>{
-          if(typeof data[k] == 'string' && k!= 'value-type')
-            name =data[k];
-        });
         // console.log(event)
         for (const key in data) {
-          if(isObject(data[key]) || key=='value-type' || key =='listLength')
+          if(isObject(data[key]) || key=='value-type' || key =='listLength' || key == 'Embarkation date' || key == 'Discharge date' || key == 'Ship name')
               delete data[key];
         }
         console.log(entity);
