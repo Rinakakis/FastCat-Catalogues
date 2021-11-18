@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { CellClickedEvent } from 'ag-grid-community';
 import { isObject } from 'lodash';
 import { ListService } from 'src/app/services/list.service';
+import { trigger, state, style, transition, animate, group } from '@angular/animations';
 
 @Component({
   selector: 'app-record-details',
@@ -25,6 +26,8 @@ export class RecordDetailsComponent implements OnInit {
   keysNonList: any[] = [];
   entity: string = '';
   keysList: any[] = [];
+  visibleId: string = '-1';
+  
 
   constructor(
     private route: ActivatedRoute,
@@ -129,7 +132,7 @@ export class RecordDetailsComponent implements OnInit {
   getTitles(temp: any): string[]{
     var titles: string[] = [];
     for (const [key, value] of Object.entries(temp)) {
-      if(!isObject(value) && key!='value-type' && key!='listLength' && key!='listIds')
+      if(!isObject(value) && key!='value-type' && key!='listLength' && key!='listIds' && key!='display')
         titles.push(key);
     }
     return titles;
@@ -141,6 +144,16 @@ export class RecordDetailsComponent implements OnInit {
     console.log(this.listservice.ConvertToCSV(tableg))
     var blob = new Blob([this.listservice.ConvertToCSV(tableg)], {type: 'text/csv' });
     saveAs(blob, "export.csv");
+  }
+
+  show(id: any){
+    if(id != this.visibleId){
+      this.visibleId = id;
+      (<HTMLInputElement>document.getElementById(id)).style.animation = 'hide 0.4s linear forwards';
+    } else {
+      this.visibleId = '-1';
+      (<HTMLInputElement>document.getElementById(id)).style.animation = 'show 0.4s linear forwards';
+    }
   }
 
 }

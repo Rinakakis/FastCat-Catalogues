@@ -32,24 +32,15 @@
             "Id": "docs[0]._id"
          }
       },
-      "Ship2":{
-         "Name":{
+      "Ship's departure date":{
+         "display": "no",
+         "value-type":"list",
+         "Departure date":{
+            "path":"docs[0].data.route.#.departure_date"
+         },
+         "Ship name":{
+            "value-type":"nolist",
             "path":"docs[0].data.ship_records.ship_name"
-         },
-         "Type":{
-            "path":"docs[0].data.ship_records.ship_type"
-         },
-         "Construction location":{
-           "path":"docs[0].data.ship_records.construction_location"
-         },
-         "Construction date":{
-            "path":"docs[0].data.ship_records.construction_location_date"
-         },
-         "Registry number":{
-            "path":"docs[0].data.ship_records.registry_number"
-         },
-         "Registry port":{
-            "path":"docs[0].data.ship_records.registry_port"
          },
          "Ship owners":{
             "link":"Ship owners",
@@ -102,8 +93,9 @@
          "Port":{
             "path":"docs[0].data.route.#.departure_port"
          },
-         "Ship":{
-            "link":"Ship",
+         "Ship's departure date":{
+            "link":"Ship's departure date",
+            "listLink": true,
             "Id": "docs[0]._id"
          }
       },
@@ -163,6 +155,30 @@
             "Id": "docs[0]._id"
          }
       },
+      "Voyages":{
+         "Ship name":{
+            "path":"docs[0].data.ship_records.ship_name"
+         },
+         "Navigation: From":{
+            "path":"docs[0].data.ports_of_call.date_from"
+         },
+         "Months":{
+            "path":"docs[0].data.ports_of_call.total_duration_months"
+         },
+         "Days":{
+            "path":"docs[0].data.ports_of_call.total_duration_years"
+         },
+         "First planned destinations":{
+            "path":"docs[0].data.ports_of_call.first_planned_destinations"
+         },
+         "Total crew number (Captain included)":{
+            "path":"docs[0].data.ports_of_call.total_crew_number"
+         },
+         "Ship":{
+            "link":"Ship",
+            "Id": "docs[0]._id"
+         }
+      },
       "Embarkation ports":{
          "value-type":"list",
          "Port":{
@@ -179,6 +195,7 @@
          }
       },
       "Embarkation ports2":{
+         "display": "no",
          "value-type":"list",
          "Port":{
            "path":"docs[0].data.crew_list.#.embarkation_port"
@@ -212,6 +229,7 @@
          }
       },
       "Discharge ports2":{
+         "display": "no",
          "value-type":"list",
          "Port":{
            "path": "docs[0].data.crew_list.#.discharge_port"

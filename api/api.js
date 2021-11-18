@@ -168,7 +168,7 @@ app.get('/sourceRecordList/:name/', function (req, res){
    for (const key in config) {
       const tableconfig = config[key];
       // console.dir(tableconfig, { depth: null });
-      if(key != 'Embarkation ports2' && key != 'Discharge ports2'){
+      if(tableconfig.display == undefined){
         var obj = {'name': key,'count':formatObject(myarray, tableconfig).length}
         count.push(obj);
       }
@@ -517,7 +517,7 @@ function formatObject(data, config, remv = true){
           var item = config[column]; // path from parser
           // console.log(item)
           
-          if (item != 'list') {
+          if (item != 'list' && column != 'display') {
               if (item.path != undefined) { // undefined -> links
                 if(item['value-type'] == undefined){
                   var ret = addListData(item, mydata2);
@@ -756,7 +756,8 @@ function filterData(myarray){
       if(key == 'data'){
         element.forEach((ar, index)=>{
           var key = Object.keys(ar).join();
-          if(key == 'Embarkation ports2' || key == 'Discharge ports2')
+          // console.log(ar[key][0].display)
+          if(ar[key][0].display != undefined)
             delete element[index];
           else
             deleteObjects(ar[key]);

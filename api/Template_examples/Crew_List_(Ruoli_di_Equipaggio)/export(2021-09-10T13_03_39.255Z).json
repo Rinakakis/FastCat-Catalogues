@@ -1,1 +1,247 @@
-﻿{"docs": [{"_id":"2018-03-20T13:39:33.445Z_7","template":"Crew List_IT","status":"Public","data":{"record_information":{"catalogue_id":"7","date_from":"2018-03-20","date_until":"2019-08-29T11:57:55","name":"Beatrice","surname":"Corradi","role_in_project":""},"source_identity":{"archive_library":"Archivio di stato","archive_library_location":"Genova","register_number":"14","number_of_document":"6772","date_of_document":"1861-01-24","issuing_authority":"Direzione marittima","issuing_authority_location":"Genova","note":"","comment":""},"ship_records":{"ship_name":"Angiolina","ship_type":"brigantino","ship_tonnage":"161","construction_location":"Varazze","construction_location_date":"1846","ammunition_type":"","ammunition_quantity_value":"","ammunition_quantity_unit":"","registry_port":"Genova","registry_number":"986","owner_name":"Fortunato","owner_surname":"Olivari","owner_fathers_name":"","note":"","comment":""},"ports_of_call":{"date_from":"1861-01-24","date_to":"1861-07-17","total_duration_months":"5","total_duration_years":"24","first_planned_destinations":"Mola di Gaeta","total_crew_number":"Nove","note":"","comment":""},"crew_list":{"0":{"embarkation_port":"Genova","embarkation_date":"1861-01-24","discharge_port":"Livorno","discharge_date":"1861-07-17","crew_surname":"Degregori","crew_name":"Antonio","crew_birth_location":"Camogli","crew_birth_date":"1818","crew_serial_number":"2201","crew_profession_type":"Capitano di Seconda classe","crew_profession_months":"5","crew_profession_days":"24","crew_profession_pension_funds":"20,30"},"1":{"embarkation_port":"Genova","embarkation_date":"1861-01-24","discharge_port":"Livorno","discharge_date":"1861-07-17","crew_surname":"Repetto","crew_name":"Angelo Tommaso","crew_birth_location":"Nervi","crew_birth_date":"1836","crew_serial_number":"7926","crew_profession_type":"Secondo","crew_profession_wage":"Italian Lira","crew_profession_value":"60","crew_profession_months":"5","crew_profession_days":"24","crew_profession_pension_funds":"8,70"},"2":{"embarkation_port":"Genova","embarkation_date":"1861-01-24","discharge_port":"Livorno","discharge_date":"1861-07-17","crew_surname":"Magnasco","crew_name":"Emmanuele","crew_birth_location":"Camogli","crew_birth_date":"1841","crew_serial_number":"10801","crew_profession_type":"Nostromo","crew_profession_wage":"Italian Lira","crew_profession_value":"80","crew_profession_months":"5","crew_profession_days":"24","crew_profession_pension_funds":"8,70"},"3":{"embarkation_port":"Genova","embarkation_date":"1861-01-24","discharge_port":"Livorno","discharge_date":"1861-07-17","crew_surname":"Medusei","crew_name":"Franco","crew_birth_location":"Lerici","crew_birth_date":"1826","crew_serial_number":"2354","crew_profession_type":"Dispensiere","crew_profession_wage":"Italian Lira","crew_profession_value":"68","crew_profession_months":"5","crew_profession_days":"24","crew_profession_pension_funds":"6,38"},"4":{"embarkation_port":"Genova","embarkation_date":"1861-01-24","discharge_port":"Livorno","discharge_date":"1861-07-17","crew_surname":"Molinetti","crew_name":"Gaetano","crew_birth_location":"Sanremo","crew_birth_date":"1833","crew_serial_number":"3623","crew_profession_type":"Marinaio","crew_profession_wage":"Italian Lira","crew_profession_value":"60","crew_profession_months":"5","crew_profession_days":"24","crew_profession_pension_funds":"6,38"},"5":{"embarkation_port":"Genova","embarkation_date":"1861-01-24","discharge_port":"Livorno","discharge_date":"1861-07-17","crew_surname":"Pozzodiborgo","crew_name":"Giovanni","crew_birth_location":"Corsica","crew_birth_date":"1833","crew_profession_type":"Marinaio","crew_profession_wage":"Italian Lira","crew_profession_value":"60","crew_profession_months":"5","crew_profession_days":"24","crew_profession_pension_funds":"6,38"},"6":{"embarkation_port":"Genova","embarkation_date":"1861-01-24","discharge_port":"Livorno","discharge_date":"1861-07-17","crew_surname":"Gimelli","crew_name":"Emanuele","crew_birth_location":"Portofino","crew_birth_date":"1843","crew_serial_number":"7082","crew_profession_type":"Mozzo","crew_profession_wage":"Italian Lira","crew_profession_value":"20","crew_profession_months":"5","crew_profession_days":"24","crew_profession_pension_funds":"4,64"},"7":{"embarkation_port":"Genova","embarkation_date":"1861-01-24","discharge_port":"Livorno","discharge_date":"1861-07-17","crew_surname":"Graffione","crew_name":"Agostino","crew_birth_location":"Camogli","crew_birth_date":"1846","crew_serial_number":"14308","crew_profession_type":"Mozzo","crew_profession_wage":"Italian Lira","crew_profession_value":"20","crew_profession_months":"5","crew_profession_days":"24","crew_profession_pension_funds":"4,64"},"8":{"embarkation_port":"Genova","embarkation_date":"1861-01-24","discharge_port":"Livorno","discharge_date":"1861-07-17","crew_surname":"Reforzo","crew_name":"Girolamo","crew_birth_location":"Sanremo","crew_birth_date":"1840","crew_serial_number":"3798","crew_profession_type":"Marinaio","crew_profession_wage":"Italian Lira","crew_profession_value":"60","crew_profession_months":"5","crew_profession_days":"24","crew_profession_pension_funds":"6,38"},"9":{},"10":{},"11":{},"12":{},"13":{},"14":{}},"route":{"0":{"departure_port":"Malta","departure_date":"1861-03-29"},"1":{"departure_port":"Costantinopoli","departure_date":"1861-04-26"},"2":{"departure_port":"Kertch","departure_date":"1861-05-05"},"3":{"departure_port":"Taganrog","departure_date":"1861-06-07"},"4":{"departure_port":"Costantinopoli","departure_date":"1861-06-17"},"5":{},"6":{},"7":{},"8":{},"9":{},"10":{},"11":{},"12":{},"13":{},"14":{}}}}]}
+﻿{
+    "docs": [
+        {
+            "_id": "2018-03-20T13:39:33.445Z_7",
+            "template": "Crew List_IT",
+            "status": "Public",
+            "data": {
+                "record_information": {
+                    "catalogue_id": "7",
+                    "date_from": "2018-03-20",
+                    "date_until": "2019-08-29T11:57:55",
+                    "name": "Beatrice",
+                    "surname": "Corradi",
+                    "role_in_project": ""
+                },
+                "source_identity": {
+                    "archive_library": "Archivio di stato",
+                    "archive_library_location": "Genova",
+                    "register_number": "14",
+                    "number_of_document": "6772",
+                    "date_of_document": "1861-01-24",
+                    "issuing_authority": "Direzione marittima",
+                    "issuing_authority_location": "Genova",
+                    "note": "",
+                    "comment": ""
+                },
+                "ship_records": {
+                    "ship_name": "Angiolina",
+                    "ship_type": "brigantino",
+                    "ship_tonnage": "161",
+                    "construction_location": "Varazze",
+                    "construction_location_date": "1846",
+                    "ammunition_type": "",
+                    "ammunition_quantity_value": "",
+                    "ammunition_quantity_unit": "",
+                    "registry_port": "Genova",
+                    "registry_number": "986",
+                    "owner_name": "Fortunato",
+                    "owner_surname": "Olivari",
+                    "owner_fathers_name": "",
+                    "note": "",
+                    "comment": ""
+                },
+                "ports_of_call": {
+                    "date_from": "1861-01-24",
+                    "date_to": "1861-07-17",
+                    "total_duration_months": "5",
+                    "total_duration_years": "24",
+                    "first_planned_destinations": "Mola di Gaeta",
+                    "total_crew_number": "Nove",
+                    "note": "",
+                    "comment": ""
+                },
+                "crew_list": {
+                    "0": {
+                        "embarkation_port": "Genova",
+                        "embarkation_date": "1861-01-24",
+                        "discharge_port": "Livorno",
+                        "discharge_date": "1861-07-17",
+                        "crew_surname": "Degregori",
+                        "crew_name": "Antonio",
+                        "crew_birth_location": "Camogli",
+                        "crew_birth_date": "1818",
+                        "crew_serial_number": "2201",
+                        "crew_profession_type": "Capitano di Seconda classe",
+                        "crew_profession_months": "5",
+                        "crew_profession_days": "24",
+                        "crew_profession_pension_funds": "20,30"
+                    },
+                    "1": {
+                        "embarkation_port": "Genova",
+                        "embarkation_date": "1861-01-24",
+                        "discharge_port": "Livorno",
+                        "discharge_date": "1861-07-17",
+                        "crew_surname": "Repetto",
+                        "crew_name": "Angelo Tommaso",
+                        "crew_birth_location": "Nervi",
+                        "crew_birth_date": "1836",
+                        "crew_serial_number": "7926",
+                        "crew_profession_type": "Secondo",
+                        "crew_profession_wage": "Italian Lira",
+                        "crew_profession_value": "60",
+                        "crew_profession_months": "5",
+                        "crew_profession_days": "24",
+                        "crew_profession_pension_funds": "8,70"
+                    },
+                    "2": {
+                        "embarkation_port": "Genova",
+                        "embarkation_date": "1861-01-24",
+                        "discharge_port": "Livorno",
+                        "discharge_date": "1861-07-17",
+                        "crew_surname": "Magnasco",
+                        "crew_name": "Emmanuele",
+                        "crew_birth_location": "Camogli",
+                        "crew_birth_date": "1841",
+                        "crew_serial_number": "10801",
+                        "crew_profession_type": "Nostromo",
+                        "crew_profession_wage": "Italian Lira",
+                        "crew_profession_value": "80",
+                        "crew_profession_months": "5",
+                        "crew_profession_days": "24",
+                        "crew_profession_pension_funds": "8,70"
+                    },
+                    "3": {
+                        "embarkation_port": "Genova",
+                        "embarkation_date": "1861-01-24",
+                        "discharge_port": "Livorno",
+                        "discharge_date": "1861-07-17",
+                        "crew_surname": "Medusei",
+                        "crew_name": "Franco",
+                        "crew_birth_location": "Lerici",
+                        "crew_birth_date": "1826",
+                        "crew_serial_number": "2354",
+                        "crew_profession_type": "Dispensiere",
+                        "crew_profession_wage": "Italian Lira",
+                        "crew_profession_value": "68",
+                        "crew_profession_months": "5",
+                        "crew_profession_days": "24",
+                        "crew_profession_pension_funds": "6,38"
+                    },
+                    "4": {
+                        "embarkation_port": "Genova",
+                        "embarkation_date": "1861-01-24",
+                        "discharge_port": "Livorno",
+                        "discharge_date": "1861-07-17",
+                        "crew_surname": "Molinetti",
+                        "crew_name": "Gaetano",
+                        "crew_birth_location": "Sanremo",
+                        "crew_birth_date": "1833",
+                        "crew_serial_number": "3623",
+                        "crew_profession_type": "Marinaio",
+                        "crew_profession_wage": "Italian Lira",
+                        "crew_profession_value": "60",
+                        "crew_profession_months": "5",
+                        "crew_profession_days": "24",
+                        "crew_profession_pension_funds": "6,38"
+                    },
+                    "5": {
+                        "embarkation_port": "Genova",
+                        "embarkation_date": "1861-01-24",
+                        "discharge_port": "Livorno",
+                        "discharge_date": "1861-07-17",
+                        "crew_surname": "Pozzodiborgo",
+                        "crew_name": "Giovanni",
+                        "crew_birth_location": "Corsica",
+                        "crew_birth_date": "1833",
+                        "crew_profession_type": "Marinaio",
+                        "crew_profession_wage": "Italian Lira",
+                        "crew_profession_value": "60",
+                        "crew_profession_months": "5",
+                        "crew_profession_days": "24",
+                        "crew_profession_pension_funds": "6,38"
+                    },
+                    "6": {
+                        "embarkation_port": "Genova",
+                        "embarkation_date": "1861-01-24",
+                        "discharge_port": "Livorno",
+                        "discharge_date": "1861-07-17",
+                        "crew_surname": "Gimelli",
+                        "crew_name": "Emanuele",
+                        "crew_birth_location": "Portofino",
+                        "crew_birth_date": "1843",
+                        "crew_serial_number": "7082",
+                        "crew_profession_type": "Mozzo",
+                        "crew_profession_wage": "Italian Lira",
+                        "crew_profession_value": "20",
+                        "crew_profession_months": "5",
+                        "crew_profession_days": "24",
+                        "crew_profession_pension_funds": "4,64"
+                    },
+                    "7": {
+                        "embarkation_port": "Genova",
+                        "embarkation_date": "1861-01-24",
+                        "discharge_port": "Livorno",
+                        "discharge_date": "1861-07-17",
+                        "crew_surname": "Graffione",
+                        "crew_name": "Agostino",
+                        "crew_birth_location": "Camogli",
+                        "crew_birth_date": "1846",
+                        "crew_serial_number": "14308",
+                        "crew_profession_type": "Mozzo",
+                        "crew_profession_wage": "Italian Lira",
+                        "crew_profession_value": "20",
+                        "crew_profession_months": "5",
+                        "crew_profession_days": "24",
+                        "crew_profession_pension_funds": "4,64"
+                    },
+                    "8": {
+                        "embarkation_port": "Genova",
+                        "embarkation_date": "1861-01-24",
+                        "discharge_port": "Livorno",
+                        "discharge_date": "1861-07-17",
+                        "crew_surname": "Reforzo",
+                        "crew_name": "Girolamo",
+                        "crew_birth_location": "Sanremo",
+                        "crew_birth_date": "1840",
+                        "crew_serial_number": "3798",
+                        "crew_profession_type": "Marinaio",
+                        "crew_profession_wage": "Italian Lira",
+                        "crew_profession_value": "60",
+                        "crew_profession_months": "5",
+                        "crew_profession_days": "24",
+                        "crew_profession_pension_funds": "6,38"
+                    },
+                    "9": {},
+                    "10": {},
+                    "11": {},
+                    "12": {},
+                    "13": {},
+                    "14": {}
+                },
+                "route": {
+                    "0": {
+                        "departure_port": "Malta",
+                        "departure_date": "1861-03-29"
+                    },
+                    "1": {
+                        "departure_port": "Costantinopoli",
+                        "departure_date": "1861-04-26"
+                    },
+                    "2": {
+                        "departure_port": "Kertch",
+                        "departure_date": "1861-05-05"
+                    },
+                    "3": {
+                        "departure_port": "Taganrog",
+                        "departure_date": "1861-06-07"
+                    },
+                    "4": {
+                        "departure_port": "Costantinopoli",
+                        "departure_date": "1861-06-17"
+                    },
+                    "5": {},
+                    "6": {},
+                    "7": {},
+                    "8": {},
+                    "9": {},
+                    "10": {},
+                    "11": {},
+                    "12": {},
+                    "13": {},
+                    "14": {}
+                }
+            }
+        }
+    ]
+}

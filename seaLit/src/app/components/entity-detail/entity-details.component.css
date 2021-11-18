@@ -35,3 +35,9 @@ h3{
   border-color: #babfc7;
 }
 
+.table-title{
+  /* padding: 4px 0px 4px 18px; */
+  margin-bottom: 0px;
+  color: white;
+}
+

@@ -122,8 +122,9 @@ export class ListDetailsComponent implements OnInit {
         this.TableName = entity;
         this.columnDefs = this.formatTableTitles(table);
         this.rowData = table;
-        if(!this.tableClicked)
+        if(!this.tableClicked){
           this.tableClicked = !this.tableClicked;
+        }
       })
     }else{
       this.tableClicked = !this.tableClicked;

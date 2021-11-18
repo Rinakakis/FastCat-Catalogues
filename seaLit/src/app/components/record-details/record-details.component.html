@@ -21,8 +21,12 @@
     </div>
 
     <div class="table" *ngFor="let tableg of tables; index as i;">
-      <h3 class="table-title">{{keysList[i]}}</h3>
+      <div class="title-download-div">
+        <h3 class="table-title" (click)="show(i)">{{keysList[i]}}</h3>
+        <button class="download-but" mat-button title="Download CSV file" (click)="onBtnExport(tableg)"><mat-icon id="downicon">download</mat-icon></button>
+      </div>
       <ag-grid-angular
+        [id]="i"
         style="height: 500px; width: auto;"
         class="ag-theme-alpine"
         [rowData]="tableg"
@@ -33,9 +37,6 @@
         [gridOptions]="gridOptions"
         >
       </ag-grid-angular>
-      <div class="download-div">
-        <button class="download-but" mat-stroked-button (click)="onBtnExport(tableg)">Download CSV file <mat-icon>download</mat-icon></button>
-      </div>
     </div>
   </div>
 </div>

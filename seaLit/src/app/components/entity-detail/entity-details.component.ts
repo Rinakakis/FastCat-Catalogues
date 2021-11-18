@@ -28,6 +28,7 @@ export class EntityDetailsComponent implements OnInit {
   gridColumnApi: any;
   filename: any;
   fileUrl: any;
+  visibleId: string = '-1';
 
   constructor(
     private route: ActivatedRoute,
@@ -70,9 +71,9 @@ export class EntityDetailsComponent implements OnInit {
         var source = String(this.route.snapshot.paramMap.get('source'));
         var data = event.data;
         var entity = event.colDef.colId;
-        // console.log(event)
+        console.log(event);
         for (const key in data) {
-          if(isObject(data[key]) || key=='value-type' || key =='listLength' || key == 'Embarkation date' || key == 'Discharge date' || key == 'Ship name')
+          if(key=='value-type' || key =='listLength' || key == 'Embarkation date' || key == 'Discharge date' || key == 'Ship name' || key == 'Departure date' || key == 'display')
               delete data[key];
         }
         console.log(entity);
@@ -142,8 +143,8 @@ export class EntityDetailsComponent implements OnInit {
   getTitles(temp: any): string[]{
     var titles: string[] = [];
     console.log(temp)
-    for (const [key, value] of Object.entries(temp)) {
-      if(!isObject(value) && key!='value-type' && key!='listLength' &&key!='listIds')
+    for (const [key] of Object.entries(temp)) {
+      if(key!='value-type' && key!='listLength' && key!='listIds' && key!='display')
         titles.push(key);
     }
     return titles;
@@ -156,5 +157,14 @@ export class EntityDetailsComponent implements OnInit {
     saveAs(blob, "export.csv");
   }
 
-
+  show(id: any){
+    if(id != this.visibleId){
+      this.visibleId = id;
+      (<HTMLInputElement>document.getElementById(id)).style.animation = 'hide 0.4s linear forwards';
+    } else {
+      this.visibleId = '-1';
+      (<HTMLInputElement>document.getElementById(id)).style.animation = 'show 0.4s linear forwards';
+    }
+  }
+  
 }

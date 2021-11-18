@@ -41,12 +41,71 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   animation: spin 2s linear infinite;
   }
 
+  
+  .title-download-div{
+    height: 40px;
+    display: flex;
+    flex-direction: row;            
+    flex-wrap: nowrap;              
+    justify-content: space-between;
+    background-color: #3B678E;
+  }
+  
+  .download-but{
+    background-color: #366288;
+    color: #F0F0F0;
+    margin: 0px;
+    /* padding: 5px 18px 5px 0; */
+    text-align: center;
+  }
+  
+  .table{
+    margin-top: 20px;
+  }
+  
+  .table-title{
+    /* background-color: #366288; */
+    cursor: pointer;
+    padding: 5px 18px 5px 18px;
+  }
+  .table-title:hover{
+    text-decoration: underline;
+    background-color: #366288;
+  }
+  
+  #downicon{
+    padding-bottom: 4px;
+  }
+  
+  @keyframes hide {
+    0% {
+      opacity: 1;
+      transform-origin: top;
+    }
+    
+    100% {
+      opacity: 0;
+      transform-origin: top;
+      height: 0px;
+      /* display: none; */
+    }
+  }
+  
+  @keyframes show {
+    0% {
+      opacity: 0;
+      height: 0px;
+      transform-origin: top;
+    }
+    
+    100% {
+      opacity: 1;
+      height: 500px;
+      transform-origin: bottom;
+    }
+  }
+  
   @keyframes spin {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
-  }
-
-  .download-div{
-    margin-top: 5px;
-    text-align: right;
   }

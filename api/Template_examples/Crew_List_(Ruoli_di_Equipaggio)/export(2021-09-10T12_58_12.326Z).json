@@ -1,1 +1,393 @@
-﻿{"docs": [{"_id":"2018-03-27T15:41:17.679Z_24","template":"Crew List_IT","status":"Public","data":{"record_information":{"catalogue_id":"24","date_from":"2018-03-27","date_until":"2020-09-22T20:50:46","name":"Carolina","surname":"Gaggero ","role_in_project":""},"source_identity":{"archive_library":"Archivio di Stato di Genova","archive_library_location":"Genova","register_number":"14","number_of_document":"9593","date_of_document":"1862-02-26","date_of_document_to":"","issuing_authority":"Direzione marittima di Genova","issuing_authority_location":"Genova","source_type_name":"","fond_number":"","fond_title":"","fond_series_number":"","file_number":"","file_tile":"","note":"","comment":""},"ship_records":{"ship_name":"S. Francesco","ship_type":"Brigantino","ship_tonnage":"195,13","construction_location":"Varazze","construction_location_date":"1851","ammunition_type":"","ammunition_quantity_value":"","ammunition_quantity_unit":"","registry_port":"Genova","registry_number":"1372","organization_name":"","owner_name":"Francesco","owner_surname":"Massone","owner_fathers_name":"","note":"","comment":""},"ports_of_call":{"date_from":"1862-02-25","date_to":"1862-10-27","total_duration_months":"6","total_duration_years":"26","first_planned_destinations":"Azov","total_crew_number":"11","note":"","comment":""},"crew_list":{"0":{"embarkation_port":"Genova","embarkation_date":"1862-02-25","discharge_port":"Genova","discharge_date":"1862-10-27","crew_surname":"Massone","crew_name":"Gaetano","crew_birth_location":"Genova","crew_birth_date":"1821","crew_serial_number":"570","crew_profession_type":"Capitano di seconda classe","crew_profession_wage":"Italian Lira","crew_profession_months":"6","crew_profession_days":"26","crew_profession_pension_funds":"24,03"},"1":{"embarkation_port":"Genova","embarkation_date":"1862-02-25","discharge_port":"Genova","discharge_date":"1862-10-27","crew_surname":"Molfino","crew_name":"Lorenzo","crew_birth_location":"Genova","crew_birth_date":"1841","crew_serial_number":"10919","crew_profession_type":"Secondo","crew_profession_wage":"Italian Lira","crew_profession_value":"90","crew_profession_months":"6","crew_profession_days":"26","crew_profession_pension_funds":"10,30"},"2":{"embarkation_port":"Genova","embarkation_date":"1862-02-25","discharge_port":"Genova","discharge_date":"1862-10-27","crew_surname":"Fasce","crew_name":"Giacomo","crew_birth_location":"Genova","crew_birth_date":"1829","crew_serial_number":"358","crew_profession_type":"Nostromo","crew_profession_wage":"Italian Lira","crew_profession_value":"80","crew_profession_months":"6","crew_profession_days":"26","crew_profession_pension_funds":"10,30"},"3":{"embarkation_port":"Genova","embarkation_date":"1862-02-25","discharge_port":"Genova","discharge_date":"1862-10-27","crew_surname":"Carbone","crew_name":"Ilario","crew_birth_location":"Genova","crew_birth_date":"1824","crew_serial_number":"2700","crew_profession_type":"Dispensiere","crew_profession_wage":"Italian Lira","crew_profession_value":"69","crew_profession_months":"6","crew_profession_days":"26","crew_profession_pension_funds":"7,55"},"4":{"embarkation_port":"Genova","embarkation_date":"1862-02-25","discharge_port":"Genova","discharge_date":"1862-06-02","crew_surname":"Viacava","crew_name":"Emanuele","crew_birth_location":"Genova","crew_birth_date":"1821","crew_serial_number":"8230","crew_profession_type":"Marinaio","crew_profession_wage":"Italian Lira","crew_profession_value":"60","crew_profession_months":"3","crew_profession_days":"8","crew_profession_pension_funds":"3,59"},"5":{"embarkation_port":"Genova","embarkation_date":"1862-02-25","discharge_port":"Genova","discharge_date":"1862-06-02","crew_surname":"Moglia","crew_name":"Giovanni","crew_birth_location":"Genova","crew_birth_date":"1814","crew_serial_number":"755","crew_profession_type":"Marinaio","crew_profession_wage":"Italian Lira","crew_profession_value":"60","crew_profession_months":"3","crew_profession_days":"8","crew_profession_pension_funds":"3,59"},"6":{"embarkation_port":"Genova","embarkation_date":"1862-02-25","discharge_port":"Genova","discharge_date":"1862-06-02","crew_surname":"Testolina","crew_name":"Pietro","crew_birth_location":"Venezia","crew_birth_date":"[22]","crew_profession_type":"Marinaio","crew_profession_wage":"Italian Lira","crew_profession_value":"60","crew_profession_months":"3","crew_profession_days":"8","crew_profession_pension_funds":"3,59"},"7":{"embarkation_port":"Genova","embarkation_date":"1862-02-25","discharge_port":"Genova","discharge_date":"1862-06-02","crew_surname":"Rebecco","crew_name":"Emanuele","crew_birth_location":"Genova","crew_birth_date":"1847","crew_serial_number":"14168","crew_profession_type":"Mozzo","crew_profession_wage":"Italian Lira","crew_profession_value":"25","crew_profession_months":"3","crew_profession_days":"8","crew_profession_pension_funds":"2,61"},"8":{"embarkation_port":"Genova","embarkation_date":"1862-02-25","discharge_port":"Genova","discharge_date":"1862-10-27","crew_surname":"Sacco","crew_name":"Angelo","crew_birth_location":"Genova","crew_birth_date":"1848","crew_serial_number":"16092","crew_profession_type":"Mozzo","crew_profession_wage":"Italian Lira","crew_profession_value":"20","crew_profession_months":"6","crew_profession_days":"26","crew_profession_pension_funds":"5,49"},"9":{"embarkation_port":"Genova","embarkation_date":"1862-02-25","discharge_port":"Genova","discharge_date":"1862-10-27","crew_surname":"Turnia","crew_name":"Emanuele","crew_birth_location":"Genova","crew_birth_date":"1841","crew_serial_number":"10983","crew_profession_type":"Marinaio","crew_profession_wage":"Italian Lira","crew_profession_value":"60","crew_profession_months":"6","crew_profession_days":"26","crew_profession_pension_funds":"7,55"},"10":{"embarkation_port":"Genova","embarkation_date":"1862-02-25","discharge_port":"Genova","discharge_date":"1862-06-02","crew_surname":"Segalerba","crew_name":"Luigi","crew_birth_location":"Genova","crew_birth_date":"1828","crew_serial_number":"1561","crew_profession_type":"Marinaio","crew_profession_wage":"Italian Lira","crew_profession_value":"60","crew_profession_months":"3","crew_profession_days":"8","crew_profession_pension_funds":"3,59"},"11":{"embarkation_port":"Genova","embarkation_date":"1862-07-10","discharge_port":"Genova","discharge_date":"1862-10-27","crew_surname":"Firpo","crew_name":"Emanuele","crew_birth_location":"Genova","crew_birth_date":"1823","crew_serial_number":"13687","crew_profession_type":"Marinaio","crew_profession_wage":"Italian Lira","crew_profession_value":"56","crew_profession_months":"3","crew_profession_days":"18","crew_profession_pension_funds":"3,96"},"12":{"embarkation_port":"Genova","embarkation_date":"1862-07-10","discharge_port":"Genova","discharge_date":"1862-10-27","crew_surname":"Molfino","crew_name":"Francesco","crew_birth_location":"Genova","crew_birth_date":"1842","crew_serial_number":"11650","crew_profession_type":"Marinaio","crew_profession_wage":"Italian Lira","crew_profession_value":"56","crew_profession_months":"3","crew_profession_days":"18","crew_profession_pension_funds":"3,96"},"13":{"embarkation_port":"Genova","embarkation_date":"1862-07-10","discharge_port":"Genova","discharge_date":"1862-10-27","crew_surname":"Gallo","crew_name":"Domenico","crew_birth_location":"Genova","crew_birth_date":"1843","crew_serial_number":"11669","crew_profession_type":"Marinaio","crew_profession_wage":"Italian Lira","crew_profession_value":"56","crew_profession_months":"3","crew_profession_days":"18","crew_profession_pension_funds":"3,96"},"14":{"embarkation_port":"Genova","embarkation_date":"1862-07-10","discharge_port":"Genova","discharge_date":"1862-10-27","crew_surname":"Dean","crew_name":"Stefano","crew_birth_location":"Zara","crew_birth_date":"[20]","crew_profession_type":"Marinaio","crew_profession_wage":"Italian Lira","crew_profession_value":"56","crew_profession_months":"3","crew_profession_days":"18","crew_profession_pension_funds":"3,96"},"15":{"embarkation_port":"Genova","embarkation_date":"1862-07-10","discharge_port":"Genova","discharge_date":"1862-10-27","crew_surname":"Drago","crew_name":"Giacomo","crew_birth_location":"Genova","crew_birth_date":"1849","crew_serial_number":"16297","crew_profession_type":"Mozzo","crew_profession_wage":"Italian Lira","crew_profession_value":"20","crew_profession_months":"3","crew_profession_days":"18","crew_profession_pension_funds":"2,88"},"16":{},"17":{},"18":{},"19":{}},"route":{"0":{"departure_port":"Genova","departure_date":"1862-02-25"},"1":{"departure_port":"Milo","departure_date":"1862-03-25"},"2":{"departure_port":"Costantinopoli","departure_date":"1962-04-01"},"3":{"departure_port":"Berdiansk","departure_date":"1862-04-26"},"4":{"departure_port":"Costantinopoli","departure_date":"1862-05-05"},"5":{"departure_port":"Genova","departure_date":"1862-07-10"},"6":{"departure_port":"Costantinopoli","departure_date":"1862-08-12"},"7":{"departure_port":"Berdiansk","departure_date":"1862-09-24"},"8":{"departure_port":"Costantinopoli","departure_date":"1862-10-04"},"9":{"departure_port":"Messina","departure_date":"1862-10-13"},"10":{"departure_port":"Pozzuoli","departure_date":"1862-10-22"},"11":{"arrival_port":"Genova","arrival_date":"1862-10-27"},"12":{},"13":{},"14":{}}}}]}
+﻿{
+    "docs": [
+        {
+            "_id": "2018-03-27T15:41:17.679Z_24",
+            "template": "Crew List_IT",
+            "status": "Public",
+            "data": {
+                "record_information": {
+                    "catalogue_id": "24",
+                    "date_from": "2018-03-27",
+                    "date_until": "2020-09-22T20:50:46",
+                    "name": "Carolina",
+                    "surname": "Gaggero ",
+                    "role_in_project": ""
+                },
+                "source_identity": {
+                    "archive_library": "Archivio di Stato di Genova",
+                    "archive_library_location": "Genova",
+                    "register_number": "14",
+                    "number_of_document": "9593",
+                    "date_of_document": "1862-02-26",
+                    "date_of_document_to": "",
+                    "issuing_authority": "Direzione marittima di Genova",
+                    "issuing_authority_location": "Genova",
+                    "source_type_name": "",
+                    "fond_number": "",
+                    "fond_title": "",
+                    "fond_series_number": "",
+                    "file_number": "",
+                    "file_tile": "",
+                    "note": "",
+                    "comment": ""
+                },
+                "ship_records": {
+                    "ship_name": "S. Francesco",
+                    "ship_type": "Brigantino",
+                    "ship_tonnage": "195,13",
+                    "construction_location": "Varazze",
+                    "construction_location_date": "1851",
+                    "ammunition_type": "",
+                    "ammunition_quantity_value": "",
+                    "ammunition_quantity_unit": "",
+                    "registry_port": "Genova",
+                    "registry_number": "1372",
+                    "organization_name": "",
+                    "owner_name": "Francesco",
+                    "owner_surname": "Massone",
+                    "owner_fathers_name": "",
+                    "note": "",
+                    "comment": ""
+                },
+                "ports_of_call": {
+                    "date_from": "1862-02-25",
+                    "date_to": "1862-10-27",
+                    "total_duration_months": "6",
+                    "total_duration_years": "26",
+                    "first_planned_destinations": "Azov",
+                    "total_crew_number": "11",
+                    "note": "",
+                    "comment": ""
+                },
+                "crew_list": {
+                    "0": {
+                        "embarkation_port": "Genova",
+                        "embarkation_date": "1862-02-25",
+                        "discharge_port": "Genova",
+                        "discharge_date": "1862-10-27",
+                        "crew_surname": "Massone",
+                        "crew_name": "Gaetano",
+                        "crew_birth_location": "Genova",
+                        "crew_birth_date": "1821",
+                        "crew_serial_number": "570",
+                        "crew_profession_type": "Capitano di seconda classe",
+                        "crew_profession_wage": "Italian Lira",
+                        "crew_profession_months": "6",
+                        "crew_profession_days": "26",
+                        "crew_profession_pension_funds": "24,03"
+                    },
+                    "1": {
+                        "embarkation_port": "Genova",
+                        "embarkation_date": "1862-02-25",
+                        "discharge_port": "Genova",
+                        "discharge_date": "1862-10-27",
+                        "crew_surname": "Molfino",
+                        "crew_name": "Lorenzo",
+                        "crew_birth_location": "Genova",
+                        "crew_birth_date": "1841",
+                        "crew_serial_number": "10919",
+                        "crew_profession_type": "Secondo",
+                        "crew_profession_wage": "Italian Lira",
+                        "crew_profession_value": "90",
+                        "crew_profession_months": "6",
+                        "crew_profession_days": "26",
+                        "crew_profession_pension_funds": "10,30"
+                    },
+                    "2": {
+                        "embarkation_port": "Genova",
+                        "embarkation_date": "1862-02-25",
+                        "discharge_port": "Genova",
+                        "discharge_date": "1862-10-27",
+                        "crew_surname": "Fasce",
+                        "crew_name": "Giacomo",
+                        "crew_birth_location": "Genova",
+                        "crew_birth_date": "1829",
+                        "crew_serial_number": "358",
+                        "crew_profession_type": "Nostromo",
+                        "crew_profession_wage": "Italian Lira",
+                        "crew_profession_value": "80",
+                        "crew_profession_months": "6",
+                        "crew_profession_days": "26",
+                        "crew_profession_pension_funds": "10,30"
+                    },
+                    "3": {
+                        "embarkation_port": "Genova",
+                        "embarkation_date": "1862-02-25",
+                        "discharge_port": "Genova",
+                        "discharge_date": "1862-10-27",
+                        "crew_surname": "Carbone",
+                        "crew_name": "Ilario",
+                        "crew_birth_location": "Genova",
+                        "crew_birth_date": "1824",
+                        "crew_serial_number": "2700",
+                        "crew_profession_type": "Dispensiere",
+                        "crew_profession_wage": "Italian Lira",
+                        "crew_profession_value": "69",
+                        "crew_profession_months": "6",
+                        "crew_profession_days": "26",
+                        "crew_profession_pension_funds": "7,55"
+                    },
+                    "4": {
+                        "embarkation_port": "Genova",
+                        "embarkation_date": "1862-02-25",
+                        "discharge_port": "Genova",
+                        "discharge_date": "1862-06-02",
+                        "crew_surname": "Viacava",
+                        "crew_name": "Emanuele",
+                        "crew_birth_location": "Genova",
+                        "crew_birth_date": "1821",
+                        "crew_serial_number": "8230",
+                        "crew_profession_type": "Marinaio",
+                        "crew_profession_wage": "Italian Lira",
+                        "crew_profession_value": "60",
+                        "crew_profession_months": "3",
+                        "crew_profession_days": "8",
+                        "crew_profession_pension_funds": "3,59"
+                    },
+                    "5": {
+                        "embarkation_port": "Genova",
+                        "embarkation_date": "1862-02-25",
+                        "discharge_port": "Genova",
+                        "discharge_date": "1862-06-02",
+                        "crew_surname": "Moglia",
+                        "crew_name": "Giovanni",
+                        "crew_birth_location": "Genova",
+                        "crew_birth_date": "1814",
+                        "crew_serial_number": "755",
+                        "crew_profession_type": "Marinaio",
+                        "crew_profession_wage": "Italian Lira",
+                        "crew_profession_value": "60",
+                        "crew_profession_months": "3",
+                        "crew_profession_days": "8",
+                        "crew_profession_pension_funds": "3,59"
+                    },
+                    "6": {
+                        "embarkation_port": "Genova",
+                        "embarkation_date": "1862-02-25",
+                        "discharge_port": "Genova",
+                        "discharge_date": "1862-06-02",
+                        "crew_surname": "Testolina",
+                        "crew_name": "Pietro",
+                        "crew_birth_location": "Venezia",
+                        "crew_birth_date": "[22]",
+                        "crew_profession_type": "Marinaio",
+                        "crew_profession_wage": "Italian Lira",
+                        "crew_profession_value": "60",
+                        "crew_profession_months": "3",
+                        "crew_profession_days": "8",
+                        "crew_profession_pension_funds": "3,59"
+                    },
+                    "7": {
+                        "embarkation_port": "Genova",
+                        "embarkation_date": "1862-02-25",
+                        "discharge_port": "Genova",
+                        "discharge_date": "1862-06-02",
+                        "crew_surname": "Rebecco",
+                        "crew_name": "Emanuele",
+                        "crew_birth_location": "Genova",
+                        "crew_birth_date": "1847",
+                        "crew_serial_number": "14168",
+                        "crew_profession_type": "Mozzo",
+                        "crew_profession_wage": "Italian Lira",
+                        "crew_profession_value": "25",
+                        "crew_profession_months": "3",
+                        "crew_profession_days": "8",
+                        "crew_profession_pension_funds": "2,61"
+                    },
+                    "8": {
+                        "embarkation_port": "Genova",
+                        "embarkation_date": "1862-02-25",
+                        "discharge_port": "Genova",
+                        "discharge_date": "1862-10-27",
+                        "crew_surname": "Sacco",
+                        "crew_name": "Angelo",
+                        "crew_birth_location": "Genova",
+                        "crew_birth_date": "1848",
+                        "crew_serial_number": "16092",
+                        "crew_profession_type": "Mozzo",
+                        "crew_profession_wage": "Italian Lira",
+                        "crew_profession_value": "20",
+                        "crew_profession_months": "6",
+                        "crew_profession_days": "26",
+                        "crew_profession_pension_funds": "5,49"
+                    },
+                    "9": {
+                        "embarkation_port": "Genova",
+                        "embarkation_date": "1862-02-25",
+                        "discharge_port": "Genova",
+                        "discharge_date": "1862-10-27",
+                        "crew_surname": "Turnia",
+                        "crew_name": "Emanuele",
+                        "crew_birth_location": "Genova",
+                        "crew_birth_date": "1841",
+                        "crew_serial_number": "10983",
+                        "crew_profession_type": "Marinaio",
+                        "crew_profession_wage": "Italian Lira",
+                        "crew_profession_value": "60",
+                        "crew_profession_months": "6",
+                        "crew_profession_days": "26",
+                        "crew_profession_pension_funds": "7,55"
+                    },
+                    "10": {
+                        "embarkation_port": "Genova",
+                        "embarkation_date": "1862-02-25",
+                        "discharge_port": "Genova",
+                        "discharge_date": "1862-06-02",
+                        "crew_surname": "Segalerba",
+                        "crew_name": "Luigi",
+                        "crew_birth_location": "Genova",
+                        "crew_birth_date": "1828",
+                        "crew_serial_number": "1561",
+                        "crew_profession_type": "Marinaio",
+                        "crew_profession_wage": "Italian Lira",
+                        "crew_profession_value": "60",
+                        "crew_profession_months": "3",
+                        "crew_profession_days": "8",
+                        "crew_profession_pension_funds": "3,59"
+                    },
+                    "11": {
+                        "embarkation_port": "Genova",
+                        "embarkation_date": "1862-07-10",
+                        "discharge_port": "Genova",
+                        "discharge_date": "1862-10-27",
+                        "crew_surname": "Firpo",
+                        "crew_name": "Emanuele",
+                        "crew_birth_location": "Genova",
+                        "crew_birth_date": "1823",
+                        "crew_serial_number": "13687",
+                        "crew_profession_type": "Marinaio",
+                        "crew_profession_wage": "Italian Lira",
+                        "crew_profession_value": "56",
+                        "crew_profession_months": "3",
+                        "crew_profession_days": "18",
+                        "crew_profession_pension_funds": "3,96"
+                    },
+                    "12": {
+                        "embarkation_port": "Genova",
+                        "embarkation_date": "1862-07-10",
+                        "discharge_port": "Genova",
+                        "discharge_date": "1862-10-27",
+                        "crew_surname": "Molfino",
+                        "crew_name": "Francesco",
+                        "crew_birth_location": "Genova",
+                        "crew_birth_date": "1842",
+                        "crew_serial_number": "11650",
+                        "crew_profession_type": "Marinaio",
+                        "crew_profession_wage": "Italian Lira",
+                        "crew_profession_value": "56",
+                        "crew_profession_months": "3",
+                        "crew_profession_days": "18",
+                        "crew_profession_pension_funds": "3,96"
+                    },
+                    "13": {
+                        "embarkation_port": "Genova",
+                        "embarkation_date": "1862-07-10",
+                        "discharge_port": "Genova",
+                        "discharge_date": "1862-10-27",
+                        "crew_surname": "Gallo",
+                        "crew_name": "Domenico",
+                        "crew_birth_location": "Genova",
+                        "crew_birth_date": "1843",
+                        "crew_serial_number": "11669",
+                        "crew_profession_type": "Marinaio",
+                        "crew_profession_wage": "Italian Lira",
+                        "crew_profession_value": "56",
+                        "crew_profession_months": "3",
+                        "crew_profession_days": "18",
+                        "crew_profession_pension_funds": "3,96"
+                    },
+                    "14": {
+                        "embarkation_port": "Genova",
+                        "embarkation_date": "1862-07-10",
+                        "discharge_port": "Genova",
+                        "discharge_date": "1862-10-27",
+                        "crew_surname": "Dean",
+                        "crew_name": "Stefano",
+                        "crew_birth_location": "Zara",
+                        "crew_birth_date": "[20]",
+                        "crew_profession_type": "Marinaio",
+                        "crew_profession_wage": "Italian Lira",
+                        "crew_profession_value": "56",
+                        "crew_profession_months": "3",
+                        "crew_profession_days": "18",
+                        "crew_profession_pension_funds": "3,96"
+                    },
+                    "15": {
+                        "embarkation_port": "Genova",
+                        "embarkation_date": "1862-07-10",
+                        "discharge_port": "Genova",
+                        "discharge_date": "1862-10-27",
+                        "crew_surname": "Drago",
+                        "crew_name": "Giacomo",
+                        "crew_birth_location": "Genova",
+                        "crew_birth_date": "1849",
+                        "crew_serial_number": "16297",
+                        "crew_profession_type": "Mozzo",
+                        "crew_profession_wage": "Italian Lira",
+                        "crew_profession_value": "20",
+                        "crew_profession_months": "3",
+                        "crew_profession_days": "18",
+                        "crew_profession_pension_funds": "2,88"
+                    },
+                    "16": {},
+                    "17": {},
+                    "18": {},
+                    "19": {}
+                },
+                "route": {
+                    "0": {
+                        "departure_port": "Genova",
+                        "departure_date": "1862-02-25"
+                    },
+                    "1": {
+                        "departure_port": "Milo",
+                        "departure_date": "1862-03-25"
+                    },
+                    "2": {
+                        "departure_port": "Costantinopoli",
+                        "departure_date": "1962-04-01"
+                    },
+                    "3": {
+                        "departure_port": "Berdiansk",
+                        "departure_date": "1862-04-26"
+                    },
+                    "4": {
+                        "departure_port": "Costantinopoli",
+                        "departure_date": "1862-05-05"
+                    },
+                    "5": {
+                        "departure_port": "Genova",
+                        "departure_date": "1862-07-10"
+                    },
+                    "6": {
+                        "departure_port": "Costantinopoli",
+                        "departure_date": "1862-08-12"
+                    },
+                    "7": {
+                        "departure_port": "Berdiansk",
+                        "departure_date": "1862-09-24"
+                    },
+                    "8": {
+                        "departure_port": "Costantinopoli",
+                        "departure_date": "1862-10-04"
+                    },
+                    "9": {
+                        "departure_port": "Messina",
+                        "departure_date": "1862-10-13"
+                    },
+                    "10": {
+                        "departure_port": "Pozzuoli",
+                        "departure_date": "1862-10-22"
+                    },
+                    "11": {
+                        "arrival_port": "Genova",
+                        "arrival_date": "1862-10-27"
+                    },
+                    "12": {},
+                    "13": {},
+                    "14": {}
+                }
+            }
+        }
+    ]
+}
