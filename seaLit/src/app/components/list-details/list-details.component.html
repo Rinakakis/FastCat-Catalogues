@@ -29,7 +29,7 @@
     <div class="table" *ngIf="tableClicked">
       <div class="title-download-div">
           <h3 class="table-title">{{TableName}} </h3>
-          <button class="download-but" mat-button title="Download CSV file" (click)="onBtnExport(rowData)"><mat-icon id="downicon">download</mat-icon></button>
+          <button class="download-but" mat-button color="success" title="Download CSV file" (click)="onBtnExport(rowData)"><mat-icon id="downicon">download</mat-icon></button>
       </div>
       <ag-grid-angular
       style="height: 500px; width:100%;"

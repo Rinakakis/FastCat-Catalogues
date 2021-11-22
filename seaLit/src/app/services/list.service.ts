@@ -72,4 +72,10 @@ export class ListService {
       }
       return titles;
     }
+
+    arrayRemove(arr: string[], value: string): string[] { 
+      return arr.filter(function(ele){ 
+          return ele != value; 
+      });
+    }
 }

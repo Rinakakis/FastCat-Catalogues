@@ -230,6 +230,7 @@ app.get('/tableData', function (req, res) {
 })
 
 function handleQueryTables(source,tableName,query,myarray){
+  // console.log(query);
   // console.log(myarray);
   var elem = myarray.filter(elem => {
     var obj = JSON.parse(JSON.stringify(elem));
@@ -238,6 +239,7 @@ function handleQueryTables(source,tableName,query,myarray){
         delete obj[key];               
         delete obj['listLength'];               
         delete obj['value-type'];               
+        delete obj['display'];         
       } 
     }
     if(_.isEqual(obj,query)){
@@ -490,12 +492,13 @@ function formatObject(data, config, remv = true){
           var item = config[column]; // path from parser
           if (item.path != undefined) { // undefined -> links
               var data = _.get(mydata2, item.path);
-              if(data.includes("\n")){
+              if(data.includes("\n") && column != 'First planned destinations'){
                 var temp = splitData(data);
                 fake[column] = temp;                
                 fake['value-type'] = 'list';    
                 fake['listLength'] = temp.length;
               }else{
+                if(data.includes("\n")) data = data.replAll("\n", ", ")
                 fake[column] = data;
               }
           } else if (item.link != undefined) { // we have link
@@ -516,7 +519,6 @@ function formatObject(data, config, remv = true){
         for (const column of Object.keys(config)) {
           var item = config[column]; // path from parser
           // console.log(item)
-          
           if (item != 'list' && column != 'display') {
               if (item.path != undefined) { // undefined -> links
                 if(item['value-type'] == undefined){

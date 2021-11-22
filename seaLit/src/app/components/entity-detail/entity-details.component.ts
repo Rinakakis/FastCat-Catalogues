@@ -28,7 +28,7 @@ export class EntityDetailsComponent implements OnInit {
   gridColumnApi: any;
   filename: any;
   fileUrl: any;
-  visibleId: string = '-1';
+  visibleId: string[] = [];
 
   constructor(
     private route: ActivatedRoute,
@@ -44,7 +44,7 @@ export class EntityDetailsComponent implements OnInit {
       if (list) {
         this.hideloader();
       }
-      console.log(list);
+      // console.log(list);
       this.displaydata(params,list);
     });
   }
@@ -71,13 +71,13 @@ export class EntityDetailsComponent implements OnInit {
         var source = String(this.route.snapshot.paramMap.get('source'));
         var data = event.data;
         var entity = event.colDef.colId;
-        console.log(event);
+        // console.log(event);
         for (const key in data) {
-          if(key=='value-type' || key =='listLength' || key == 'Embarkation date' || key == 'Discharge date' || key == 'Ship name' || key == 'Departure date' || key == 'display')
+          if(key=='value-type' || key =='listLength' || key == 'Embarkation date' || key == 'Discharge date' || key == 'Ship name' /*|| key == 'Departure date'*/ || key == 'display')
               delete data[key];
         }
-        console.log(entity);
-        console.log(data)
+        // console.log(entity);
+        // console.log(data);
         // console.log('list/'+source+'/Table?'+'Table='+entity+query);
         this.router.routeReuseStrategy.shouldReuseRoute = function () {
           return false;
@@ -109,7 +109,7 @@ export class EntityDetailsComponent implements OnInit {
           if(key == 'FastCat')
             element = this.formatLinks(element);
           this.keysList.push(key);
-          console.log(element)
+          // console.log(element)
           var titles = this.getTitles(element[0]);
           var titleFormat = titles.map((val: string) => {
             if(val == 'FastCat'){
@@ -125,7 +125,7 @@ export class EntityDetailsComponent implements OnInit {
           this.tablesTitles.push(titleFormat);
           this.tables.push(element);
       }else{
-        if(key !== 'value-type' && key !== 'listLength')
+        if(key !== 'value-type' && key !== 'listLength' && key!=='display')
           this.nonLitsInfo.push({'key':key, 'value':element});
       }
     }
@@ -142,7 +142,7 @@ export class EntityDetailsComponent implements OnInit {
 
   getTitles(temp: any): string[]{
     var titles: string[] = [];
-    console.log(temp)
+    // console.log(temp)
     for (const [key] of Object.entries(temp)) {
       if(key!='value-type' && key!='listLength' && key!='listIds' && key!='display')
         titles.push(key);
@@ -152,19 +152,20 @@ export class EntityDetailsComponent implements OnInit {
 
   onBtnExport(tableg: any){
     // console.log(tableg);
-    console.log(this.listservice.ConvertToCSV(tableg))
+    // console.log(this.listservice.ConvertToCSV(tableg))
     var blob = new Blob([this.listservice.ConvertToCSV(tableg)], {type: 'text/csv' });
     saveAs(blob, "export.csv");
   }
 
   show(id: any){
-    if(id != this.visibleId){
-      this.visibleId = id;
+    if(!this.visibleId.includes(id)){
+      this.visibleId.push(id);
       (<HTMLInputElement>document.getElementById(id)).style.animation = 'hide 0.4s linear forwards';
-    } else {
-      this.visibleId = '-1';
+    } else{
+      this.visibleId = this.listservice.arrayRemove(this.visibleId, id);
       (<HTMLInputElement>document.getElementById(id)).style.animation = 'show 0.4s linear forwards';
     }
   }
   
+
 }

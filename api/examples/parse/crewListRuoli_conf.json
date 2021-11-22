@@ -23,6 +23,10 @@
             "link":"Ship owners",
             "Id": "docs[0]._id"
          },
+         "Voyages":{
+            "link":"Voyages",
+            "Id": "docs[0]._id"
+         },
          "Crew members":{
             "link":"Crew members",
             "Id": "docs[0]._id"
@@ -32,26 +36,61 @@
             "Id": "docs[0]._id"
          }
       },
-      "Ship's departure date":{
+      "Ship and Departure date":{
          "display": "no",
          "value-type":"list",
          "Departure date":{
             "path":"docs[0].data.route.#.departure_date"
          },
-         "Ship name":{
+         "Name":{
             "value-type":"nolist",
             "path":"docs[0].data.ship_records.ship_name"
+         },
+         "Type":{
+            "value-type":"nolist",
+            "path":"docs[0].data.ship_records.ship_type"
+         },
+         "Construction location":{
+            "value-type":"nolist",
+           "path":"docs[0].data.ship_records.construction_location"
+         },
+         "Construction date":{
+            "value-type":"nolist",
+            "path":"docs[0].data.ship_records.construction_location_date"
+         },
+         "Registry number":{
+            "value-type":"nolist",
+            "path":"docs[0].data.ship_records.registry_number"
+         },
+         "Registry port":{
+            "value-type":"nolist",
+            "path":"docs[0].data.ship_records.registry_port"
+         },
+         "Ship":{
+            "link":"Ship",
+            "Id": "docs[0]._id"
          },
          "Ship owners":{
             "link":"Ship owners",
             "Id": "docs[0]._id"
+         }
+      },
+      "Ship and Arrival date":{
+         "display": "no",
+         "value-type":"list",
+         "Arrival date":{
+            "path":"docs[0].data.route.#.arrival_date"
          },
-         "Crew members":{
-            "link":"Crew members",
+         "Ship's name":{
+            "value-type":"nolist",
+            "path":"docs[0].data.ship_records.ship_name"
+         },
+         "Ship":{
+            "link":"Ship",
             "Id": "docs[0]._id"
          },
-         "Departure ports":{
-            "link":"Departure ports",
+         "Ship owners":{
+            "link":"Ship owners",
             "Id": "docs[0]._id"
          }
       },
@@ -93,8 +132,8 @@
          "Port":{
             "path":"docs[0].data.route.#.departure_port"
          },
-         "Ship's departure date":{
-            "link":"Ship's departure date",
+         "Ship and Departure date":{
+            "link":"Ship and Departure date",
             "listLink": true,
             "Id": "docs[0]._id"
          }
@@ -104,8 +143,9 @@
          "Port":{
             "path":"docs[0].data.route.#.arrival_port"
          },
-         "Ship2":{
-            "link":"Ship2",
+         "Ship and Arrival date":{
+            "link":"Ship and Arrival date",
+            "listLink": true,
             "Id": "docs[0]._id"
          }
       },
@@ -156,7 +196,7 @@
          }
       },
       "Voyages":{
-         "Ship name":{
+         "Ship's name":{
             "path":"docs[0].data.ship_records.ship_name"
          },
          "Navigation: From":{

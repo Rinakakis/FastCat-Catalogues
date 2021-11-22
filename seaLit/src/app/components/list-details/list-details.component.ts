@@ -118,7 +118,7 @@ export class ListDetailsComponent implements OnInit {
 
     if(entity !== this.TableName){
       this.listservice.getTableFromSource(source,entity).subscribe((table:any)=>{
-        console.log(table);
+        // console.log(table);
         this.TableName = entity;
         this.columnDefs = this.formatTableTitles(table);
         this.rowData = table;
@@ -161,7 +161,7 @@ export class ListDetailsComponent implements OnInit {
 
   onBtnExport(tableg: any){
     // console.log(tableg);
-    console.log(this.listservice.ConvertToCSV(tableg))
+    // console.log(this.listservice.ConvertToCSV(tableg))
     var blob = new Blob([this.listservice.ConvertToCSV(tableg)], {type: 'text/csv' });
     saveAs(blob, "export.csv");
   }

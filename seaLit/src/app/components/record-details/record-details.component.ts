@@ -26,8 +26,7 @@ export class RecordDetailsComponent implements OnInit {
   keysNonList: any[] = [];
   entity: string = '';
   keysList: any[] = [];
-  visibleId: string = '-1';
-  
+  visibleId: string[] = [];
 
   constructor(
     private route: ActivatedRoute,
@@ -40,7 +39,7 @@ export class RecordDetailsComponent implements OnInit {
     const id = String(this.route.snapshot.paramMap.get('id'));
     // console.log(source,id);
     this.listservice.getrecordFromSource(source,id).subscribe(record=>{
-      console.log(record);
+      // console.log(record);
       if (record) {
         this.hideloader();
       }
@@ -141,17 +140,17 @@ export class RecordDetailsComponent implements OnInit {
   
   onBtnExport(tableg: any){
     // console.log(tableg);
-    console.log(this.listservice.ConvertToCSV(tableg))
+    // console.log(this.listservice.ConvertToCSV(tableg))
     var blob = new Blob([this.listservice.ConvertToCSV(tableg)], {type: 'text/csv' });
     saveAs(blob, "export.csv");
   }
 
   show(id: any){
-    if(id != this.visibleId){
-      this.visibleId = id;
+    if(!this.visibleId.includes(id)){
+      this.visibleId.push(id);
       (<HTMLInputElement>document.getElementById(id)).style.animation = 'hide 0.4s linear forwards';
-    } else {
-      this.visibleId = '-1';
+    } else{
+      this.visibleId = this.listservice.arrayRemove(this.visibleId, id);
       (<HTMLInputElement>document.getElementById(id)).style.animation = 'show 0.4s linear forwards';
     }
   }
