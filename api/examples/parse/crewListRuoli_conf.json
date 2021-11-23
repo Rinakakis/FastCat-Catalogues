@@ -34,6 +34,10 @@
          "Departure ports":{
             "link":"Departure ports",
             "Id": "docs[0]._id"
+         },
+         "Arrival ports":{
+            "link":"Arrival ports",
+            "Id": "docs[0]._id"
          }
       },
       "Ship and Departure date":{
@@ -81,9 +85,29 @@
          "Arrival date":{
             "path":"docs[0].data.route.#.arrival_date"
          },
-         "Ship's name":{
+         "Name":{
             "value-type":"nolist",
             "path":"docs[0].data.ship_records.ship_name"
+         },
+         "Type":{
+            "value-type":"nolist",
+            "path":"docs[0].data.ship_records.ship_type"
+         },
+         "Construction location":{
+            "value-type":"nolist",
+           "path":"docs[0].data.ship_records.construction_location"
+         },
+         "Construction date":{
+            "value-type":"nolist",
+            "path":"docs[0].data.ship_records.construction_location_date"
+         },
+         "Registry number":{
+            "value-type":"nolist",
+            "path":"docs[0].data.ship_records.registry_number"
+         },
+         "Registry port":{
+            "value-type":"nolist",
+            "path":"docs[0].data.ship_records.registry_port"
          },
          "Ship":{
             "link":"Ship",
@@ -202,6 +226,9 @@
          "Navigation: From":{
             "path":"docs[0].data.ports_of_call.date_from"
          },
+         "Navigation: To":{
+            "path":"docs[0].data.ports_of_call.date_to"
+         },
          "Months":{
             "path":"docs[0].data.ports_of_call.total_duration_months"
          },
@@ -224,13 +251,52 @@
          "Port":{
            "path":"docs[0].data.crew_list.#.embarkation_port"
          },
-         "Crew members":{
-            "link":"Crew members",
+         "Crew members and Embarkation date":{
+            "link":"Crew members and Embarkation date",
             "listLink": true,
             "Id": "docs[0]._id"
          },
          "Ship":{
             "link":"Ship",
+            "Id": "docs[0]._id"
+         }
+      },
+      "Crew members and Embarkation date":{
+         "display":"no",
+         "value-type":"list",
+         "Embarkation date":{
+            "path":"docs[0].data.crew_list.#.embarkation_date"
+         },
+         "Surname":{
+            "path":"docs[0].data.crew_list.#.crew_surname"
+         },
+         "Name":{
+            "path":"docs[0].data.crew_list.#.crew_name"
+         },
+         "Location of Residence":{
+            "path":"docs[0].data.crew_list.#.crew_birth_location"
+         },
+         "Birth date":{
+            "path":"docs[0].data.crew_list.#.crew_birth_date"
+         },
+         "Serial number":{
+            "path":"docs[0].data.crew_list.#.crew_serial_number"
+         },
+         "Profession":{
+            "path":"docs[0].data.crew_list.#.crew_profession_type"
+         },
+         "Ship":{
+            "link":"Ship",
+            "Id": "docs[0]._id"
+         },
+         "Embarkation ports":{
+            "link":"Embarkation ports2",
+            "listLink": true,
+            "Id": "docs[0]._id"
+         },
+         "Discharge ports":{
+            "link":"Discharge ports2",
+            "listLink": true,
             "Id": "docs[0]._id"
          }
       },
@@ -258,13 +324,52 @@
          "Port":{
            "path": "docs[0].data.crew_list.#.discharge_port"
          },
-         "Crew members":{
-            "link":"Crew members",
+         "Crew members and Discharge date":{
+            "link":"Crew members and Discharge date",
             "listLink": true,
             "Id": "docs[0]._id"
          },
          "Ship":{
             "link":"Ship",
+            "Id": "docs[0]._id"
+         }
+      },
+      "Crew members and Discharge date":{
+         "display":"no",
+         "value-type":"list",
+         "Discharge date":{
+            "path":"docs[0].data.crew_list.#.discharge_date"
+         },
+         "Surname":{
+            "path":"docs[0].data.crew_list.#.crew_surname"
+         },
+         "Name":{
+            "path":"docs[0].data.crew_list.#.crew_name"
+         },
+         "Location of Residence":{
+            "path":"docs[0].data.crew_list.#.crew_birth_location"
+         },
+         "Birth date":{
+            "path":"docs[0].data.crew_list.#.crew_birth_date"
+         },
+         "Serial number":{
+            "path":"docs[0].data.crew_list.#.crew_serial_number"
+         },
+         "Profession":{
+            "path":"docs[0].data.crew_list.#.crew_profession_type"
+         },
+         "Ship":{
+            "link":"Ship",
+            "Id": "docs[0]._id"
+         },
+         "Discharge ports":{
+            "link":"Discharge ports2",
+            "listLink": true,
+            "Id": "docs[0]._id"
+         },
+         "Embarkation ports":{
+            "link":"Embarkation ports2",
+            "listLink": true,
             "Id": "docs[0]._id"
          }
       },

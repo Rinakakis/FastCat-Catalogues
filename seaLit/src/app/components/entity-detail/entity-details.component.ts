@@ -69,11 +69,14 @@ export class EntityDetailsComponent implements OnInit {
           return;
         }
         var source = String(this.route.snapshot.paramMap.get('source'));
+        var table = String(this.route.snapshot.paramMap.get('name'));
         var data = event.data;
         var entity = event.colDef.colId;
-        // console.log(event);
+        console.log(source, table);
+
         for (const key in data) {
-          if(key=='value-type' || key =='listLength' || key == 'Embarkation date' || key == 'Discharge date' || key == 'Ship name' /*|| key == 'Departure date'*/ || key == 'display')
+          if(key=='value-type' || key =='listLength' || key == 'display' || (key == 'Embarkation date' && (table=='Crew members'|| table== 'Crew members and Embarkation date')) 
+            || (key == 'Discharge date' && (table=='Crew members'|| table== 'Crew members and Discharge date')) || key == 'Ship name' )
               delete data[key];
         }
         // console.log(entity);
@@ -153,7 +156,7 @@ export class EntityDetailsComponent implements OnInit {
   onBtnExport(tableg: any){
     // console.log(tableg);
     // console.log(this.listservice.ConvertToCSV(tableg))
-    var blob = new Blob([this.listservice.ConvertToCSV(tableg)], {type: 'text/csv' });
+    var blob = new Blob([this.listservice.ConvertToCSV(tableg)], {type: 'text/csv;charset=utf-8' });
     saveAs(blob, "export.csv");
   }
 

@@ -4,7 +4,6 @@ var app = express();
 var fs = require("fs");
 var cors = require('cors');
 const { isArray, isObject } = require('lodash');
-const { table } = require('console');
 
 app.use(cors());
 
@@ -305,6 +304,7 @@ function getlinkedTables(elem, source, tableName){
       }else{
         linkArray.push(element.Id);
         var lala = handleLinks(element,elem,tableName,source);
+        // console.log(lala)
         elem[key] = Object.values(lala[0]); 
       }
     }
@@ -487,12 +487,20 @@ function formatObject(data, config, remv = true){
     else
       mydata2 = mydata[i];
 
+      // console.dir(_.get(mydata2,'docs[0].data.ship_records.owner_surname_Β'), { depth: null });
     if (config['value-type'] == undefined) {
         for (const column in config) {
           var item = config[column]; // path from parser
           if (item.path != undefined) { // undefined -> links
               var data = _.get(mydata2, item.path);
-              if(data.includes("\n") && column != 'First planned destinations'){
+              // if(item.path == 'docs[0].data.ship_records.owner_surname_Β'){
+                // console.log(item.path)
+                // console.log(data)
+                // console.log(mydata2.docs[0]._id)
+              // }
+              if(data == undefined){
+                fake[column] = 'Unknown';
+              }else if(data.includes("\n") && column != 'First planned destinations'){
                 var temp = splitData(data);
                 fake[column] = temp;                
                 fake['value-type'] = 'list';    

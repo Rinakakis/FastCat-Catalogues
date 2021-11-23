@@ -1,0 +1,936 @@
+﻿{
+    "docs": [
+        {
+            "_id": "2018-02-16T22:34:21.845Z_3",
+            "template": "Crew List",
+            "data": {
+                "record_information": {
+                    "catalogue_id": "3",
+                    "date_from": "2018-02-16",
+                    "date_until": "2020-03-06T16:43:54",
+                    "name": "Jordi\nJordi",
+                    "surname": "Ibarz\nIbarz",
+                    "role_in_project": "Research assistant\nSupervisor"
+                },
+                "source_identity": {
+                    "archive_library": "Archivo General de la Marina",
+                    "archive_library_location": "Viso del Marques",
+                    "inventory_title": "CG",
+                    "inventory_number": "1178",
+                    "date_from": "",
+                    "date_to": "",
+                    "issuing_authority_department": "",
+                    "issuing_authority_location": "",
+                    "note": "",
+                    "comment": ""
+                },
+                "ship_records": {
+                    "ship_identity_source_page": "9430",
+                    "ship_name": "Estrella",
+                    "ship_previous_names": "",
+                    "ship_type": "Laud",
+                    "construction_location_country": "",
+                    "construction_location_shipyard": "",
+                    "construction_location_date": "",
+                    "owner_name": "Jose\nVicente\nAndres",
+                    "owner_surname_A": "Dols\nGassi\nCorbeto",
+                    "owner_surname_B": " \n \n ",
+                    "owner_residence": " \n \n ",
+                    "organization_name": "",
+                    "organization_location": "",
+                    "registration_folio": "23",
+                    "registration_list": "1",
+                    "registration_location": "Santa Pola",
+                    "certificate_of_register_number": "823",
+                    "certificate_of_register_date": "1860-09-11",
+                    "certificate_of_register_location": "Santa Pola",
+                    "tonnage_type": "Toneladas",
+                    "tonnage_value": "25",
+                    "ship_measurement_type": "",
+                    "ship_measurement_value": "",
+                    "horsepower_type": "",
+                    "horsepower_value": "",
+                    "navigation_type": "",
+                    "telegraphic_code": "",
+                    "date_of_delivery": "",
+                    "company_name": "",
+                    "company_location": "",
+                    "agency_category": "",
+                    "transcription_note": "",
+                    "note": "Los nombres de los propietarios transcitos en segundo y tercer lugar estan tachados",
+                    "comment": ""
+                },
+                "free_text_introduction": {
+                    "free_text_source_page": "",
+                    "survey_existence": "",
+                    "survey_transcription": "",
+                    "survey_note": "",
+                    "mercantile_register_location": "",
+                    "mercantile_register_date": "",
+                    "mercantile_register_book_title": "",
+                    "mercantile_register_book_volume": "",
+                    "mercantile_register_book_folio": "",
+                    "mercantile_register_book_page": "",
+                    "crew_alimentation_kind": "",
+                    "crew_alimentation_kind_contract_date": "",
+                    "crew_conditions_existence": "",
+                    "crew_conditions_transcription": "",
+                    "crew_conditions_note": "",
+                    "attached_documentation_existence": "",
+                    "attached_documentation_transcription": "",
+                    "attached_documentation_note": "",
+                    "note": "",
+                    "comment": ""
+                },
+                "ports_of_call": {
+                    "0": {
+                        "ports_of_call_source_page": "9431",
+                        "arrival_port": "Santa Pola",
+                        "departure_destination_port": "Tetuan",
+                        "departure_date": "1861-01-31",
+                        "departure_number_crew": "8",
+                        "departure_cargo_type": "vino\nefectos",
+                        "departure_cargo_quantity_value": "\n",
+                        "departure_cargo_quantity_unit": "\n"
+                    },
+                    "1": {
+                        "ports_of_call_source_page": "9432",
+                        "arrival_port": "Tetuan",
+                        "departure_destination_port": "Santa Pola",
+                        "departure_date": "1861-07-12",
+                        "departure_number_crew": "7",
+                        "departure_number_passengers": "9",
+                        "departure_cargo_type": "pipas varias"
+                    },
+                    "2": {
+                        "ports_of_call_source_page": "9432",
+                        "arrival_port": "Santa Pola",
+                        "departure_destination_port": "Palma",
+                        "departure_date": "1861-07-24",
+                        "departure_number_crew": "6",
+                        "departure_number_passengers": "3",
+                        "departure_cargo_type": "frutos del pais",
+                        "observation_note": "Dice los nombres de los tres pasajeros"
+                    },
+                    "3": {
+                        "ports_of_call_source_page": "9432",
+                        "arrival_port": "Palma",
+                        "departure_destination_port": "Cartagena",
+                        "departure_date": "1861-08-16",
+                        "departure_cargo_type": "carbon\nefectos",
+                        "departure_cargo_quantity_value": "\n",
+                        "departure_cargo_quantity_unit": "\n"
+                    },
+                    "4": {
+                        "ports_of_call_source_page": "9432",
+                        "arrival_port": "Santa Pola",
+                        "departure_destination_port": "Palma",
+                        "departure_date": "1861-09-07",
+                        "departure_number_crew": "5",
+                        "departure_cargo_type": "esparto\nfruta",
+                        "departure_cargo_quantity_value": "\n",
+                        "departure_cargo_quantity_unit": "\n"
+                    },
+                    "5": {
+                        "ports_of_call_source_page": "9432",
+                        "arrival_port": "Palma",
+                        "departure_destination_port": "Valencia",
+                        "departure_date": "1861-09-19",
+                        "departure_number_crew": "5",
+                        "departure_cargo_type": "lastre"
+                    },
+                    "6": {
+                        "ports_of_call_source_page": "9433",
+                        "arrival_port": "Valencia",
+                        "departure_destination_port": "Santa Pola",
+                        "departure_date": "1861-09-24",
+                        "departure_number_crew": "5",
+                        "departure_cargo_type": "lastre"
+                    },
+                    "7": {
+                        "ports_of_call_source_page": "9433",
+                        "arrival_port": "Cartagena",
+                        "departure_destination_port": "Jabea",
+                        "departure_date": "1861-09-28",
+                        "departure_number_crew": "5",
+                        "departure_cargo_type": "algarrobas"
+                    },
+                    "8": {
+                        "ports_of_call_source_page": "9433",
+                        "arrival_port": "Santa Pola",
+                        "departure_destination_port": "Cadiz",
+                        "departure_date": "1861-11-05",
+                        "departure_number_crew": "6",
+                        "departure_cargo_type": "vino\nefectos",
+                        "departure_cargo_quantity_value": " \n ",
+                        "departure_cargo_quantity_unit": " \n "
+                    },
+                    "9": {
+                        "ports_of_call_source_page": "9433",
+                        "arrival_port": "Puerto de Mazarron",
+                        "departure_destination_port": "Cadiz",
+                        "departure_date": "1861-11-13",
+                        "departure_number_crew": "6",
+                        "departure_cargo_type": "vino\nefectos",
+                        "departure_cargo_quantity_value": " \n ",
+                        "departure_cargo_quantity_unit": " \n "
+                    },
+                    "10": {
+                        "ports_of_call_source_page": "9433",
+                        "arrival_port": "Algeciras",
+                        "departure_destination_port": "Cadiz",
+                        "departure_date": "1861-11-25",
+                        "departure_cargo_type": "vino\nefectos",
+                        "departure_cargo_quantity_value": "\n",
+                        "departure_cargo_quantity_unit": "\n",
+                        "observation_note": "Ha dejado parte del cargo"
+                    },
+                    "11": {
+                        "ports_of_call_source_page": "9433",
+                        "arrival_port": "Gibraltar",
+                        "departure_destination_port": "Tetuan",
+                        "departure_date": "1862-01-06",
+                        "departure_number_crew": "6",
+                        "departure_cargo_type": "vino\nefectos"
+                    },
+                    "12": {
+                        "ports_of_call_source_page": "9433",
+                        "arrival_port": "Tetuan",
+                        "departure_destination_port": "Santa Pola",
+                        "departure_date": "1862-05-05",
+                        "departure_number_crew": "6",
+                        "departure_cargo_type": "lastre"
+                    },
+                    "13": {
+                        "ports_of_call_source_page": "9433",
+                        "arrival_port": "Santa Pola",
+                        "departure_destination_port": "Argel",
+                        "departure_date": "1862-07-27",
+                        "departure_number_crew": "8",
+                        "departure_cargo_type": "vino\nfrutas",
+                        "departure_cargo_quantity_value": " \n ",
+                        "departure_cargo_quantity_unit": " \n ",
+                        "observation_note": "Hay una relacion nominal del patron y marineros que se embarcan, con datos de filiación"
+                    },
+                    "14": {
+                        "ports_of_call_source_page": "9434",
+                        "arrival_port": "Argel",
+                        "arrival_date": "1862-08-03",
+                        "arrival_number_crew": "8",
+                        "departure_destination_port": "Santa Pola",
+                        "departure_date": "1862-09-01",
+                        "departure_number_crew": "8",
+                        "departure_cargo_type": "pipas vacias"
+                    },
+                    "15": {
+                        "ports_of_call_source_page": "9434",
+                        "arrival_port": "Santa Pola",
+                        "departure_destination_port": "Argel",
+                        "departure_date": "1862-09-20",
+                        "departure_number_crew": "8",
+                        "departure_cargo_type": "uvas",
+                        "observation_note": "Hay indicacion de los marineros que son baja y de los incorporados, con datos de filiación"
+                    },
+                    "16": {
+                        "ports_of_call_source_page": "9434",
+                        "arrival_port": "Argel",
+                        "arrival_date": "1862-09-26",
+                        "departure_destination_port": "Oran",
+                        "departure_date": "1862-09-26",
+                        "observation_note": "Sale immediatamente sin hacer operacion de comercio"
+                    },
+                    "17": {
+                        "ports_of_call_source_page": "9434",
+                        "arrival_port": "Argel",
+                        "departure_destination_port": "Santa Pola",
+                        "departure_date": "1862-10-01",
+                        "departure_number_crew": "8",
+                        "departure_cargo_type": "lastre",
+                        "observation_note": "No tuvo efecto su salida para Oran y despues de descargado sale para Santa Pola"
+                    },
+                    "18": {
+                        "ports_of_call_source_page": "9434",
+                        "arrival_port": "Santa Pola",
+                        "departure_destination_port": "Alicante",
+                        "departure_date": "1863-02-19",
+                        "departure_number_crew": "6",
+                        "departure_cargo_type": "lastre",
+                        "observation_note": "Hay una relacion nominal del patron y marineros que se embarcan, con datos de filiacion"
+                    },
+                    "19": {
+                        "ports_of_call_source_page": "9434",
+                        "arrival_port": "Alicante",
+                        "departure_destination_port": "Santa Pola",
+                        "departure_date": "1863-02-23",
+                        "departure_number_crew": "6",
+                        "departure_cargo_type": "ilegible"
+                    },
+                    "20": {
+                        "ports_of_call_source_page": "9435",
+                        "arrival_port": "Santa Pola",
+                        "departure_destination_port": "Oran",
+                        "departure_date": "1863-02-24",
+                        "departure_number_crew": "7",
+                        "departure_cargo_type": "lastre"
+                    },
+                    "21": {
+                        "ports_of_call_source_page": "9435",
+                        "arrival_port": "Oran",
+                        "departure_destination_port": "Alicante",
+                        "departure_date": "1863-03-09",
+                        "departure_number_crew": "7",
+                        "departure_cargo_type": "carbon vegetal"
+                    },
+                    "22": {
+                        "ports_of_call_source_page": "9435",
+                        "arrival_port": "Cartagena",
+                        "departure_destination_port": "Oran",
+                        "departure_date": "1863-04-09",
+                        "departure_number_crew": "6",
+                        "departure_cargo_type": "lastre"
+                    },
+                    "23": {
+                        "ports_of_call_source_page": "9435",
+                        "arrival_port": "Oran",
+                        "departure_destination_port": "Cartagena",
+                        "departure_date": "1863-04-24",
+                        "departure_number_crew": "7",
+                        "departure_cargo_type": "carbon",
+                        "observation_note": "Nº 86"
+                    },
+                    "24": {
+                        "ports_of_call_source_page": "9435",
+                        "arrival_port": "Cartagena",
+                        "departure_destination_port": "Almeria",
+                        "departure_date": "1863-05-06",
+                        "departure_number_crew": "7",
+                        "departure_cargo_type": "carbon"
+                    },
+                    "25": {
+                        "ports_of_call_source_page": "9435",
+                        "arrival_port": "Puerto de Mazarron",
+                        "departure_destination_port": "Almeria",
+                        "departure_date": "1863-05-08",
+                        "departure_number_crew": "7",
+                        "departure_cargo_type": "carbon",
+                        "observation_note": "Sigue para su destino con parte de cargo"
+                    },
+                    "26": {
+                        "ports_of_call_source_page": "9435",
+                        "arrival_port": "Aguilas",
+                        "departure_destination_port": "Alicante",
+                        "departure_date": "1863-05-16",
+                        "departure_number_crew": "7",
+                        "departure_cargo_type": "marmol\nmelva?",
+                        "departure_cargo_quantity_value": " \n ",
+                        "departure_cargo_quantity_unit": " \n "
+                    },
+                    "27": {
+                        "ports_of_call_source_page": "9435",
+                        "arrival_port": "Alicante",
+                        "departure_destination_port": "Aguilas",
+                        "departure_date": "1863-05-22",
+                        "departure_number_crew": "8",
+                        "departure_cargo_type": "lastre",
+                        "observation_note": "Datos de la filiacion de un nuevo marinero"
+                    },
+                    "28": {
+                        "ports_of_call_source_page": "9435",
+                        "arrival_port": "Aguilas",
+                        "departure_destination_port": "Alicante",
+                        "departure_date": "1863-06-01",
+                        "departure_number_crew": "8",
+                        "departure_cargo_type": "melva?\nSalpresa",
+                        "departure_cargo_quantity_value": " \n ",
+                        "departure_cargo_quantity_unit": " \n "
+                    },
+                    "29": {
+                        "ports_of_call_source_page": "9435",
+                        "arrival_port": "Alicante",
+                        "departure_destination_port": "Aguilas",
+                        "departure_date": "1863-06-09",
+                        "departure_number_crew": "7",
+                        "departure_cargo_type": "lastre"
+                    },
+                    "30": {
+                        "ports_of_call_source_page": "9436",
+                        "arrival_port": "Valencia",
+                        "departure_destination_port": "Gandia",
+                        "departure_date": "1863-06-20",
+                        "departure_number_crew": "7",
+                        "departure_cargo_type": "ilegible"
+                    },
+                    "31": {
+                        "ports_of_call_source_page": "9436",
+                        "arrival_port": "Gandia",
+                        "departure_destination_port": "Valencia",
+                        "departure_date": "1863-06-23",
+                        "departure_number_crew": "7",
+                        "departure_cargo_type": "lastre"
+                    },
+                    "32": {
+                        "ports_of_call_source_page": "9436",
+                        "arrival_port": "Gandia",
+                        "departure_destination_port": "Mallorca",
+                        "departure_date": "1863-06-26",
+                        "departure_number_crew": "7",
+                        "departure_cargo_type": "patatas\nfrutos del pais",
+                        "departure_cargo_quantity_value": "\n",
+                        "departure_cargo_quantity_unit": "\n",
+                        "observation_note": "Ho ha tenido efecto la anterior salida"
+                    },
+                    "33": {
+                        "ports_of_call_source_page": "9436",
+                        "arrival_provenance_port": "Gandia",
+                        "arrival_port": "Palma",
+                        "arrival_date": "1863-06-30",
+                        "departure_destination_port": "Valencia",
+                        "departure_date": "1863-07-13",
+                        "departure_number_crew": "7",
+                        "departure_cargo_type": "lastre"
+                    },
+                    "34": {
+                        "ports_of_call_source_page": "9436",
+                        "arrival_port": "Valencia",
+                        "departure_destination_port": "Palma",
+                        "departure_date": "1863-07-22",
+                        "departure_number_crew": "7",
+                        "departure_cargo_type": "frutas"
+                    },
+                    "35": {
+                        "ports_of_call_source_page": "9436",
+                        "arrival_provenance_port": "Valencia",
+                        "arrival_port": "Palma",
+                        "arrival_date": "1863-07-26",
+                        "arrival_number_crew": "7",
+                        "departure_destination_port": "Felanitx",
+                        "departure_date": "1863-08-05",
+                        "departure_number_crew": "7",
+                        "departure_cargo_type": "lastre"
+                    },
+                    "36": {
+                        "ports_of_call_source_page": "9436",
+                        "arrival_port": "Felanitx",
+                        "departure_destination_port": "Barcelona",
+                        "departure_date": "1863-08-11",
+                        "departure_number_crew": "7",
+                        "departure_cargo_type": "carbon\ncorteza de encina",
+                        "departure_cargo_quantity_value": "\n",
+                        "departure_cargo_quantity_unit": "\n"
+                    },
+                    "37": {
+                        "ports_of_call_source_page": "9436",
+                        "arrival_port": "Barcelona",
+                        "departure_destination_port": "Palma",
+                        "departure_date": "1863-08-28",
+                        "departure_number_crew": "7",
+                        "departure_cargo_type": "efectos\nlastre",
+                        "departure_cargo_quantity_value": "\n",
+                        "departure_cargo_quantity_unit": "\n"
+                    },
+                    "38": {
+                        "ports_of_call_source_page": "9437",
+                        "arrival_provenance_port": "Barcelona",
+                        "arrival_port": "Palma",
+                        "arrival_date": "1863-09-02",
+                        "arrival_number_crew": "7",
+                        "departure_destination_port": "Cartagena",
+                        "departure_date": "1863-09-12",
+                        "departure_number_crew": "7",
+                        "departure_cargo_type": "carbon\nleña",
+                        "departure_cargo_quantity_value": " \n ",
+                        "departure_cargo_quantity_unit": " \n "
+                    },
+                    "39": {},
+                    "40": {},
+                    "41": {},
+                    "42": {},
+                    "43": {},
+                    "44": {},
+                    "45": {}
+                },
+                "crew_list": {
+                    "0": {
+                        "crew_list_source_page": "9431",
+                        "embarkation_port": "Santa Pola",
+                        "embarkation_date": "1861-01-31",
+                        "crew_name": "Andres",
+                        "crew_surname_A": "Corbeto",
+                        "crew_fathers_name": "Joaquin",
+                        "crew_folio": "614",
+                        "crew_list": "Santa Pola, Hab",
+                        "crew_profession_type": "Patron"
+                    },
+                    "1": {
+                        "crew_list_source_page": "9431",
+                        "embarkation_port": "Santa Pola",
+                        "embarkation_date": "1861-01-31",
+                        "crew_name": "Jose",
+                        "crew_surname_A": "Hernandez",
+                        "crew_fathers_name": "Mariano",
+                        "crew_folio": "87",
+                        "crew_list": "Santa Pola. Pat",
+                        "crew_discharge_port": "Tetuan",
+                        "crew_discharge_date": "1861-07-12"
+                    },
+                    "2": {
+                        "crew_list_source_page": "9431",
+                        "embarkation_port": "Santa Pola",
+                        "embarkation_date": "1861-01-31",
+                        "crew_name": "Cayetano",
+                        "crew_surname_A": "Lledo",
+                        "crew_fathers_name": "otro",
+                        "crew_folio": "794",
+                        "crew_list": "Santa Pola, Hab"
+                    },
+                    "3": {
+                        "crew_list_source_page": "9431",
+                        "embarkation_port": "Santa Pola",
+                        "embarkation_date": "1861-01-31",
+                        "crew_name": "Vicente",
+                        "crew_surname_A": "Molina",
+                        "crew_fathers_name": "otro",
+                        "crew_folio": "29",
+                        "crew_list": "Santa Pola, Hab"
+                    },
+                    "4": {
+                        "crew_list_source_page": "9431",
+                        "embarkation_port": "Santa Pola",
+                        "embarkation_date": "1861-01-31",
+                        "crew_name": "Pedro Vicente",
+                        "crew_surname_A": "Sanjuan",
+                        "crew_fathers_name": "Isidro",
+                        "crew_folio": "717",
+                        "crew_list": "Santa Pola, Hab"
+                    },
+                    "5": {
+                        "crew_list_source_page": "9431",
+                        "embarkation_port": "Santa Pola",
+                        "embarkation_date": "1861-01-31",
+                        "crew_name": "Antonio",
+                        "crew_surname_A": "Molina",
+                        "crew_fathers_name": "Jacinto?",
+                        "crew_folio": "24",
+                        "crew_list": "Santa Pola, Hab"
+                    },
+                    "6": {
+                        "crew_list_source_page": "9431",
+                        "embarkation_port": "Santa Pola",
+                        "embarkation_date": "1861-01-31",
+                        "crew_name": "Manuel",
+                        "crew_surname_A": "Jaen",
+                        "crew_fathers_name": "Antonio",
+                        "crew_folio": "14",
+                        "crew_list": "Santa Pola, Jov?"
+                    },
+                    "7": {
+                        "crew_list_source_page": "9431",
+                        "embarkation_port": "Santa Pola",
+                        "embarkation_date": "1861-01-31",
+                        "crew_name": "Antonio",
+                        "crew_surname_A": "Florencio",
+                        "crew_fathers_name": "Andres",
+                        "crew_folio": "8",
+                        "crew_list": "Santa Pola, Jov?"
+                    },
+                    "8": {
+                        "crew_list_source_page": "9431",
+                        "embarkation_port": "Santa Pola",
+                        "embarkation_date": "1861-01-31",
+                        "crew_name": "Juan Bautista",
+                        "crew_surname_A": "Moliner",
+                        "crew_fathers_name": "Joaquin",
+                        "crew_folio": "334",
+                        "crew_list": "Santa Pola, Hab"
+                    },
+                    "9": {
+                        "crew_list_source_page": "9431",
+                        "embarkation_port": "Santa Pola",
+                        "embarkation_date": "1861-01-31",
+                        "crew_name": "Ignacio Rafael",
+                        "crew_surname_A": "Llit",
+                        "crew_fathers_name": "Cayetano",
+                        "crew_folio": "3",
+                        "crew_list": "Santa Pola, Hab"
+                    },
+                    "10": {
+                        "crew_list_source_page": "9431",
+                        "embarkation_port": "Santa Pola",
+                        "embarkation_date": "1861-01-31",
+                        "crew_name": "Jose Nicolas",
+                        "crew_surname_A": "Gandolfo",
+                        "crew_fathers_name": "Antonio?",
+                        "crew_folio": "1",
+                        "crew_list": "Santa Pola, Hab"
+                    },
+                    "11": {
+                        "crew_list_source_page": "9431",
+                        "embarkation_port": "Santa Pola",
+                        "embarkation_date": "1861-01-31",
+                        "crew_name": "Juan Bautista",
+                        "crew_surname_A": "Molina",
+                        "crew_fathers_name": "otro",
+                        "crew_folio": "13",
+                        "crew_list": "Santa Pola, Jov"
+                    },
+                    "12": {
+                        "crew_list_source_page": "9431",
+                        "embarkation_port": "Santa Pola",
+                        "embarkation_date": "1861-01-31",
+                        "crew_name": "Juan Enrique",
+                        "crew_surname_A": "Zaragoza",
+                        "crew_folio": "16",
+                        "crew_list": "Vilajoyosa, Hab"
+                    },
+                    "13": {
+                        "crew_list_source_page": "9432",
+                        "crew_name": "Jose",
+                        "crew_surname_A": "Hernandez",
+                        "crew_discharge_port": "Tetuan",
+                        "crew_discharge_date": "1861-07-12"
+                    },
+                    "14": {
+                        "crew_list_source_page": "9432",
+                        "crew_name": "Cayetano",
+                        "crew_surname_A": "Lledo",
+                        "crew_discharge_port": "Santa Pola",
+                        "crew_discharge_date": "1861-07-24"
+                    },
+                    "15": {
+                        "crew_list_source_page": "9432",
+                        "crew_name": "Vicente",
+                        "crew_surname_A": "Molina",
+                        "crew_discharge_port": "Santa Pola",
+                        "crew_discharge_date": "1861-07-24"
+                    },
+                    "16": {
+                        "crew_list_source_page": "9432",
+                        "crew_name": "Pedro Vicente",
+                        "crew_surname_A": "Sanjuan",
+                        "crew_discharge_port": "Santa Pola",
+                        "crew_discharge_date": "1861-07-24"
+                    },
+                    "17": {
+                        "crew_list_source_page": "9432",
+                        "crew_name": "Antonio",
+                        "crew_surname_A": "Florencio",
+                        "crew_discharge_port": "Santa Pola",
+                        "crew_discharge_date": "1861-07-24"
+                    },
+                    "18": {
+                        "crew_list_source_page": "9432",
+                        "crew_name": "Antonio",
+                        "crew_surname_A": "Molina",
+                        "crew_discharge_port": "Santa Pola",
+                        "crew_discharge_date": "1861-09-07"
+                    },
+                    "19": {
+                        "crew_list_source_page": "9432",
+                        "crew_name": "Jose Nicolas",
+                        "crew_surname_A": "Gandolfo",
+                        "crew_discharge_port": "Santa Pola",
+                        "crew_discharge_date": "1861-09-07"
+                    },
+                    "20": {
+                        "crew_list_source_page": "9433",
+                        "embarkation_port": "Santa Pola",
+                        "embarkation_date": "1861-11-05",
+                        "crew_name": "Jose",
+                        "crew_surname_A": "Lopez",
+                        "crew_fathers_name": "otro",
+                        "crew_folio": "62",
+                        "crew_list": "Santa Pola, habiles",
+                        "crew_profession_type": "Patron"
+                    },
+                    "21": {
+                        "crew_list_source_page": "9433",
+                        "embarkation_port": "Santa Pola",
+                        "embarkation_date": "1861-11-05",
+                        "crew_name": "Vicente",
+                        "crew_surname_A": "Molina",
+                        "crew_surname_B": "Botella",
+                        "crew_folio": "534",
+                        "crew_list": "Santa Pola, habiles"
+                    },
+                    "22": {
+                        "crew_list_source_page": "9433",
+                        "embarkation_port": "Santa Pola",
+                        "embarkation_date": "1861-11-05",
+                        "crew_name": "Ramon",
+                        "crew_surname_A": "Molina",
+                        "crew_surname_B": "Campillo",
+                        "crew_folio": "7",
+                        "crew_list": "Santa Pola, habiles"
+                    },
+                    "23": {
+                        "crew_list_source_page": "9433",
+                        "embarkation_port": "Santa Pola",
+                        "embarkation_date": "1861-11-05",
+                        "crew_name": "Juan Bautista",
+                        "crew_surname_A": "Molina",
+                        "crew_surname_B": "Campillo",
+                        "crew_list": "Santa Pola, joven"
+                    },
+                    "24": {
+                        "crew_list_source_page": "9433",
+                        "embarkation_port": "Santa Pola",
+                        "embarkation_date": "1861-11-05",
+                        "crew_name": "Ignacio Rafael",
+                        "crew_surname_A": "Lopez",
+                        "crew_surname_B": "Molina",
+                        "crew_list": "Santa Pola, joven"
+                    },
+                    "25": {
+                        "crew_list_source_page": "9433",
+                        "embarkation_port": "Santa Pola",
+                        "embarkation_date": "1861-11-05",
+                        "crew_name": "Juan Bautista",
+                        "crew_surname_A": "Molina",
+                        "crew_surname_B": "Botella",
+                        "crew_folio": "335",
+                        "crew_list": "Santa Pola, Hab"
+                    },
+                    "26": {
+                        "crew_list_source_page": "9433",
+                        "embarkation_port": "Santa Pola",
+                        "embarkation_date": "1862-07-27",
+                        "crew_surname_A": "Garri",
+                        "crew_profession_type": "Patron"
+                    },
+                    "27": {
+                        "crew_list_source_page": "9433",
+                        "embarkation_port": "Santa Pola",
+                        "embarkation_date": "1862-07-27",
+                        "crew_name": "Andres",
+                        "crew_surname_A": "Andreu",
+                        "crew_fathers_name": "Vicente",
+                        "crew_folio": "86",
+                        "crew_list": "Santa Pola, habiles"
+                    },
+                    "28": {
+                        "crew_list_source_page": "9433",
+                        "embarkation_port": "Santa Pola",
+                        "embarkation_date": "1862-07-27",
+                        "crew_name": "Ramon",
+                        "crew_surname_A": "Vicente",
+                        "crew_surname_B": "Segarra",
+                        "crew_fathers_name": "Jose",
+                        "crew_folio": "18",
+                        "crew_list": "Santa Pola, habiles"
+                    },
+                    "29": {
+                        "crew_list_source_page": "9433",
+                        "embarkation_port": "Santa Pola",
+                        "embarkation_date": "1862-07-27",
+                        "crew_name": "Jose",
+                        "crew_surname_A": "Mateo",
+                        "crew_surname_B": "Botella",
+                        "crew_fathers_name": "Miguel",
+                        "crew_folio": "330",
+                        "crew_list": "Santa Pola, habiles"
+                    },
+                    "30": {
+                        "crew_list_source_page": "9433",
+                        "embarkation_port": "Santa Pola",
+                        "embarkation_date": "1862-07-27",
+                        "crew_name": "Vicente",
+                        "crew_surname_A": "Molina",
+                        "crew_fathers_name": "Ramon",
+                        "crew_folio": "537",
+                        "crew_list": "Santa Pola, habiles"
+                    },
+                    "31": {
+                        "crew_list_source_page": "9433",
+                        "embarkation_port": "Santa Pola",
+                        "embarkation_date": "1862-07-27",
+                        "crew_name": "Vicente",
+                        "crew_surname_A": "Pena",
+                        "crew_fathers_name": "Manuel",
+                        "crew_folio": "538",
+                        "crew_list": "Santa Pola, habiles"
+                    },
+                    "32": {
+                        "crew_list_source_page": "9433",
+                        "embarkation_port": "Santa Pola",
+                        "embarkation_date": "1862-07-27",
+                        "crew_name": "Jose",
+                        "crew_surname_A": "Mas",
+                        "crew_fathers_name": "Rafael",
+                        "crew_folio": "9",
+                        "crew_list": "Santa Pola, joven"
+                    },
+                    "33": {
+                        "crew_list_source_page": "9433",
+                        "embarkation_port": "Santa Pola",
+                        "embarkation_date": "1862-07-27",
+                        "crew_name": "Juan Bau(tis)ta",
+                        "crew_surname_A": "Botella",
+                        "crew_fathers_name": "Jose",
+                        "crew_folio": "11",
+                        "crew_list": "Aguilas, habiles"
+                    },
+                    "34": {
+                        "crew_list_source_page": "9434",
+                        "crew_name": "Jose",
+                        "crew_surname_A": "Hernandez",
+                        "crew_fathers_name": "Mariano",
+                        "crew_folio": "87",
+                        "crew_list": "Santa Pola. Pat",
+                        "crew_discharge_port": "Santa Pola",
+                        "crew_discharge_date": "1862-09-20"
+                    },
+                    "35": {
+                        "crew_list_source_page": "9434",
+                        "crew_name": "Antonio",
+                        "crew_surname_A": "Molina",
+                        "crew_fathers_name": "Jacinto?",
+                        "crew_folio": "24",
+                        "crew_list": "Santa Pola, Hab",
+                        "crew_discharge_port": "Santa Pola",
+                        "crew_discharge_date": "1862-09-20"
+                    },
+                    "36": {
+                        "crew_list_source_page": "9434",
+                        "embarkation_port": "Santa Pola",
+                        "embarkation_date": "1862-09-20",
+                        "crew_name": "Miguel",
+                        "crew_surname_A": "Martin",
+                        "crew_fathers_name": "Franc(is)co",
+                        "crew_folio": "418",
+                        "crew_list": "Santa Pola, Habiles"
+                    },
+                    "37": {
+                        "crew_list_source_page": "9434",
+                        "embarkation_port": "Santa Pola",
+                        "embarkation_date": "1862-09-20",
+                        "crew_name": "Antonio",
+                        "crew_surname_A": "Andreu",
+                        "crew_fathers_name": "Vicente",
+                        "crew_folio": "388",
+                        "crew_list": "Santa Pola, Habiles"
+                    },
+                    "38": {
+                        "crew_list_source_page": "9434",
+                        "embarkation_port": "Santa Pola",
+                        "embarkation_date": "1863-02-19",
+                        "crew_name": "Jose",
+                        "crew_surname_A": "Dols",
+                        "crew_folio": "354",
+                        "crew_list": "Santa Pola, Habiles",
+                        "crew_profession_type": "Patron"
+                    },
+                    "39": {
+                        "crew_list_source_page": "9434",
+                        "embarkation_port": "Santa Pola",
+                        "embarkation_date": "1863-02-19",
+                        "crew_name": "Jose Ramon",
+                        "crew_surname_A": "Bayle",
+                        "crew_fathers_name": "Joan",
+                        "crew_folio": "37",
+                        "crew_list": "Malaga, patrones"
+                    },
+                    "40": {
+                        "crew_list_source_page": "9434",
+                        "embarkation_port": "Santa Pola",
+                        "embarkation_date": "1863-02-19",
+                        "crew_name": "Miguel",
+                        "crew_surname_A": "Gonzalez",
+                        "crew_fathers_name": "Jose",
+                        "crew_folio": "10",
+                        "crew_list": "Santa Pola, Habiles"
+                    },
+                    "41": {
+                        "crew_list_source_page": "9434",
+                        "embarkation_port": "Santa Pola",
+                        "embarkation_date": "1863-02-19",
+                        "crew_name": "Jose Ramon",
+                        "crew_surname_A": "Aleman",
+                        "crew_fathers_name": "Andres",
+                        "crew_folio": "1",
+                        "crew_list": "Santa Pola, Habiles"
+                    },
+                    "42": {
+                        "crew_list_source_page": "9434",
+                        "embarkation_port": "Santa Pola",
+                        "embarkation_date": "1863-02-19",
+                        "crew_name": "Manuel",
+                        "crew_surname_A": "Dols",
+                        "crew_fathers_name": "Fran(cis)co",
+                        "crew_folio": "1",
+                        "crew_list": "Santa Pola, Habiles"
+                    },
+                    "43": {
+                        "crew_list_source_page": "9434",
+                        "embarkation_port": "Santa Pola",
+                        "embarkation_date": "1863-02-19",
+                        "crew_name": "Franc(is)co",
+                        "crew_surname_A": "Bonsecuti?",
+                        "crew_fathers_name": "Blas",
+                        "crew_folio": "20",
+                        "crew_list": "Santa Pola, joven"
+                    },
+                    "44": {
+                        "crew_list_source_page": "9434",
+                        "crew_name": "Vicente",
+                        "crew_surname_A": "Garcia",
+                        "crew_profession_type": "patron",
+                        "crew_discharge_port": "Santa Pola",
+                        "crew_discharge_date": "1863-02-23"
+                    },
+                    "45": {
+                        "crew_list_source_page": "9345",
+                        "embarkation_port": "Santa Pola",
+                        "embarkation_date": "1863-02-19",
+                        "crew_name": "Fran(cis)co",
+                        "crew_surname_A": "Bayle",
+                        "crew_fathers_name": "Jose",
+                        "crew_folio": "8",
+                        "crew_list": "Santa Pola, Habiles"
+                    },
+                    "46": {
+                        "crew_list_source_page": "9345",
+                        "crew_name": "Jose Ramon",
+                        "crew_surname_A": "Bayle",
+                        "crew_folio": "37",
+                        "crew_list": "Malaga, patrones",
+                        "crew_discharge_port": "Cartagena",
+                        "crew_discharge_date": "1863-04-09"
+                    },
+                    "47": {
+                        "crew_list_source_page": "9435",
+                        "embarkation_port": "Oran",
+                        "embarkation_date": "1863-04-24",
+                        "crew_name": "Francisco",
+                        "crew_surname_A": "Dols",
+                        "crew_folio": "1127",
+                        "crew_list": "Santa Pola, Habiles",
+                        "crew_observation_date": "1863-04-24",
+                        "crew_observation_note": "procedente del Laud S. Salvador"
+                    },
+                    "48": {
+                        "crew_list_source_page": "9435",
+                        "embarkation_port": "Alicante",
+                        "embarkation_date": "1863-05-22",
+                        "crew_name": "Juan Enrique",
+                        "crew_surname_A": "Zaragoza",
+                        "crew_folio": "16",
+                        "crew_list": "Villajoyosa"
+                    },
+                    "49": {
+                        "crew_list_source_page": "9435",
+                        "crew_name": "Fran(cis)co",
+                        "crew_surname_A": "Dols",
+                        "crew_folio": "1127",
+                        "crew_discharge_port": "Alicante",
+                        "crew_discharge_date": "1863-06-10"
+                    },
+                    "50": {},
+                    "51": {},
+                    "52": {},
+                    "53": {},
+                    "54": {}
+                }
+            }
+        }
+    ]
+}

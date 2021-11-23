@@ -50,7 +50,6 @@ export class ListService {
   }
 
   ConvertToCSV(table: any){
-
     var data = table.map((elem: object) =>{
       return Object.values(elem)
       .filter(col => typeof col == 'string' && col != 'list')
@@ -58,7 +57,7 @@ export class ListService {
       .join(',');
     })
     var titles = this.getTitles(table[0]).map(elem2=>  '"'+elem2+'"').join(',');
-    data.unshift(titles)
+    data.unshift(titles);
 
     return data.join('\n');
   }
