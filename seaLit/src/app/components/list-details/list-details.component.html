@@ -4,14 +4,19 @@
   </div>
 </div>
 <div class="record-container">
-    <h3>{{title}}</h3>
-    <div class="record-details">
+  <h3>{{title}}</h3>
+  
+  <div class="error-message" *ngIf="error">
+    <p>{{errorMessage}}</p>
+  </div>
+
+  <div class="record-details" *ngIf="showform">
       <div class="filter">
         <span class="fltr">Filter by record:</span>
         <mat-form-field appearance="outline">
           <mat-label>All records</mat-label>
           <mat-select [formControl]="records" (selectionChange)="displaySelectedRecord($event.value)">
-            <mat-option *ngFor="let record of recordList" [value]="record">{{record}}</mat-option>
+            <mat-option *ngFor="let record of recordList" [value]="record" [title]="record">{{record}}</mat-option>
           </mat-select>
         </mat-form-field>
       </div>
@@ -24,7 +29,7 @@
         </ul>
       </div>
     </div>
-
+    
 
     <div class="table" *ngIf="tableClicked">
       <div class="title-download-div">

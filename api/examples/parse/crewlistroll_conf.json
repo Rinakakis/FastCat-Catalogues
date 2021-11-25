@@ -1,197 +1,472 @@
 {
-    "Crew and displacement list (Roll)":{
-        "Ship":{
-            "Name":{
-                "path":"docs[0].data.ship_records.ship_name"
+    "Crew and displacement list (Roll)": {
+        "Ship": {
+            "Name": {
+                "path": "docs[0].data.ship_records.ship_name"
             },
-            "Type":{
-                "path":"docs[0].data.ship_records.ship_type"
+            "Type": {
+                "path": "docs[0].data.ship_records.ship_type"
             },
-            "Construction Location":{
-                "path":"docs[0].data.ship_records.construction_location_country"
+            "Construction Location": {
+                "path": "docs[0].data.ship_records.construction_location_country"
             },
-            "Construction Date":{
-                "path":"docs[0].data.ship_records.construction_location_date"
+            "Construction Date": {
+                "path": "docs[0].data.ship_records.construction_location_date"
             },
-            "Registry Location":{
-                "path":"docs[0].data.ship_records.registration_location"
+            "Registry Location": {
+                "path": "docs[0].data.ship_records.registration_location"
             },
-            "Registry Folio":{
-                "path":"docs[0].data.ship_records.registration_folio"
+            "Registry Folio": {
+                "path": "docs[0].data.ship_records.registration_folio"
             },
-            "Registry List":{
-                "path":"docs[0].data.ship_records.registration_list"
+            "Registry List": {
+                "path": "docs[0].data.ship_records.registration_list"
             },
-            "Ship Owners (Persons)":{
-                "link":"Ship owners (Persons)",
-                "Id": "docs[0]._id" 
+            "Ship Owners (Persons)": {
+                "link": "Ship Owners (Persons)",
+                "Id": "docs[0]._id"
             },
-            "Ship Owners (Organisations)":{
-                "link":"Ship owners (Organisations)",
-                "Id": "docs[0]._id" 
+            "Ship Owners (Organisations)": {
+                "link": "Ship Owners (Organisations)",
+                "Id": "docs[0]._id"
             },
-            "Companies (Singed by)":{
-                "link":"Companies (Singed by)",
-                "Id": "docs[0]._id" 
+            "Companies (Singed by)": {
+                "link": "Companies (Singed by)",
+                "Id": "docs[0]._id"
             },
-            "Ports of Provenance":{
-                "link":"Ports of Provenance",
-                "Id": "docs[0]._id" 
+            "Crew Members": {
+                "link": "Crew Members",
+                "Id": "docs[0]._id"
             },
-            "Arrival Ports":{
-                "link":"Arrival Ports",
-                "Id": "docs[0]._id" 
+            "Ports of Provenance": {
+                "link": "Ports of Provenance",
+                "Id": "docs[0]._id"
             },
-            "Destination Ports":{
-                "link":"Destination Ports",
-                "Id": "docs[0]._id" 
-            }
-        },
-        "Ship owners (Persons)":{
-            "Name":{
-                "path":"docs[0].data.ship_records.owner_name"
+            "Arrival Ports": {
+                "link": "Arrival Ports",
+                "Id": "docs[0]._id"
             },
-            "Surname A":{
-                "path":"docs[0].data.ship_records.owner_surname_A"
-            },
-            "Residence":{
-                "path":"docs[0].data.ship_records.owner_residence"
-            },
-            "Ship":{
-                "link":"Ship",
-                "Id": "docs[0]._id" 
-            }
-        },
-        "Ship owners (Organisations)":{
-            "Name":{
-                "path":"docs[0].data.ship_records.organization_name"
-            },
-            "Headquarters Location":{
-                "path":"docs[0].data.ship_records.organization_location"
-            },
-            "Ship":{
-                "link":"Ship",
-                "Id": "docs[0]._id" 
-            }
-        },
-        "Ship construction locations":{
-            "Construction Location":{
-                "path":"docs[0].data.ship_records.construction_location_country"
-            },
-            "Ship":{
-                "link":"Ship",
-                "Id": "docs[0]._id" 
-            }
-        },
-        "Ship registration locations":{
-            "Registry Location":{
-                "path":"docs[0].data.ship_records.registration_location"
-            },
-            "Ship":{
-                "link":"Ship",
-                "Id": "docs[0]._id" 
-            }
-        },
-        "Companies (Singed by)":{
-            "Company Name":{
-                "path":"docs[0].data.ship_records.company_name"
-            },
-            "Headquarter Location":{
-                "path":"docs[0].data.ship_records.company_location"
-            },
-            "Category of Agency":{
-                "path":"docs[0].data.ship_records.agency_category"
-            },
-            "Ship":{
-                "link":"Ship",
-                "Id": "docs[0]._id" 
-            }
-        },
-        "Ports of Provenance":{
-            "value-type":"list",
-            "Port":{
-                "path":"docs[0].data.ports_of_call.#.arrival_provenance_port"
-            },
-            "Ship":{
-                "link":"Ship",
+            "Destination Ports": {
+                "link": "Destination Ports",
                 "Id": "docs[0]._id"
             }
         },
-        "Arrival Ports":{
-            "value-type":"list",
-            "Port":{
-                "path":"docs[0].data.ports_of_call.#.arrival_port"
+        "Ship Owners (Persons)": {
+            "Name": {
+                "path": "docs[0].data.ship_records.owner_name"
             },
-            "Ship":{
-                "link":"Ship",
+            "Surname A": {
+                "path": "docs[0].data.ship_records.owner_surname_A"
+            },
+            "Residence": {
+                "path": "docs[0].data.ship_records.owner_residence"
+            },
+            "Ship": {
+                "link": "Ship",
                 "Id": "docs[0]._id"
             }
         },
-        "Destination Ports":{
-            "value-type":"list",
-            "Port":{
-                "path":"docs[0].data.ports_of_call.#.departure_destination_port"
+        "Ship Owners (Organisations)": {
+            "Name": {
+                "path": "docs[0].data.ship_records.organization_name"
             },
-            "Ship":{
-                "link":"Ship",
+            "Headquarters Location": {
+                "path": "docs[0].data.ship_records.organization_location"
+            },
+            "Ship": {
+                "link": "Ship",
                 "Id": "docs[0]._id"
             }
         },
-        "Crew members":{
-            "value-type":"list",
-            "Name":{
-                "path":"docs[0].data.crew_list.#.crew_name"
+        "Ship Construction Locations": {
+            "Construction Location": {
+                "path": "docs[0].data.ship_records.construction_location_country"
             },
-            "Surname A":{
-                "path":"docs[0].data.crew_list.#.crew_surname_A"
-            },
-            "Surname B":{
-                "path":"docs[0].data.crew_list.#.crew_surname_B"
-            },
-            "Father's Name":{
-                "path":"docs[0].data.crew_list.#.crew_fathers_name"
-            },
-            "Location of Birth":{
-                "path":"docs[0].data.crew_list.#.crew_birth_location"
-             },
-            "Location of Residence":{
-                "path":"docs[0].data.crew_list.#.crew_residence_location"
-             },
-            "Age":{
-                "path":"docs[0].data.crew_list.#.crew_age"
-            },
-            "Profession":{
-                "path":"docs[0].data.crew_list.#.crew_profession_type"
-            },
-            "Ship":{
-                "link":"Ship",
+            "Ship": {
+                "link": "Ship",
                 "Id": "docs[0]._id"
             }
         },
-        "Location of Residence":{
-            "value-type":"list",
-            "Location of Residence":{
-               "path":"docs[0].data.crew_list.#.crew_residence_location"
+        "Ship Registration Locations": {
+            "Registry Location": {
+                "path": "docs[0].data.ship_records.registration_location"
             },
-            "Crew members":{
-               "link":"Crew members",
-               "listLink": true,
-               "Id": "docs[0]._id"
+            "Ship": {
+                "link": "Ship",
+                "Id": "docs[0]._id"
             }
         },
-        "Location of Birth":{
-            "value-type":"list",
-            "Location of Birth":{
-               "path":"docs[0].data.crew_list.#.crew_birth_location"
+        "Companies (Singed by)": {
+            "Company Name": {
+                "path": "docs[0].data.ship_records.company_name"
             },
-            "Crew members":{
-               "link":"Crew members",
-               "listLink": true,
-               "Id": "docs[0]._id"
+            "Headquarter Location": {
+                "path": "docs[0].data.ship_records.company_location"
+            },
+            "Category of Agency": {
+                "path": "docs[0].data.ship_records.agency_category"
+            },
+            "Ship": {
+                "link": "Ship",
+                "Id": "docs[0]._id"
+            }
+        },
+        "Ports of Provenance": {
+            "value-type": "list",
+            "Port": {
+                "path": "docs[0].data.ports_of_call.#.arrival_provenance_port"
+            },
+            "Ship": {
+                "link": "Ship",
+                "Id": "docs[0]._id"
+            }
+        },
+        "Arrival Ports": {
+            "value-type": "list",
+            "Port": {
+                "path": "docs[0].data.ports_of_call.#.arrival_port"
+            },
+            "Ship": {
+                "link": "Ship",
+                "Id": "docs[0]._id"
+            }
+        },
+        "Destination Ports": {
+            "value-type": "list",
+            "Port": {
+                "path": "docs[0].data.ports_of_call.#.departure_destination_port"
+            },
+            "Ship and Departure Date": {
+                "link": "Ship and Departure Date",
+                "listLink": true,
+                "Id": "docs[0]._id"
+            }
+        },
+        "Ship and Departure Date": {
+            "display": "no",
+            "value-type": "list",
+            "Departure Date": {
+                "path": "docs[0].data.ports_of_call.#.departure_date"
+            },
+            "Name": {
+                "value-type": "nolist",
+                "path": "docs[0].data.ship_records.ship_name"
+            },
+            "Type": {
+                "value-type": "nolist",
+                "path": "docs[0].data.ship_records.ship_type"
+            },
+            "Construction Location": {
+                "value-type": "nolist",
+                "path": "docs[0].data.ship_records.construction_location_country"
+            },
+            "Construction Date": {
+                "value-type": "nolist",
+                "path": "docs[0].data.ship_records.construction_location_date"
+            },
+            "Registry Location": {
+                "value-type": "nolist",
+                "path": "docs[0].data.ship_records.registration_location"
+            },
+            "Registry Folio": {
+                "value-type": "nolist",
+                "path": "docs[0].data.ship_records.registration_folio"
+            },
+            "Registry List": {
+                "value-type": "nolist",
+                "path": "docs[0].data.ship_records.registration_list"
+            },
+            "Ship": {
+                "link": "Ship",
+                "Id": "docs[0]._id"
+            },
+            "Ship Owners (Persons)": {
+                "link": "Ship Owners (Persons)",
+                "Id": "docs[0]._id"
+            },
+            "Ship Owners (Organisations)": {
+                "link": "Ship Owners (Organisations)",
+                "Id": "docs[0]._id"
+            },
+            "Companies (Singed by)": {
+                "link": "Companies (Singed by)",
+                "Id": "docs[0]._id"
+            }
+        },
+        "Ship and Arrival Date": {
+            "display": "no",
+            "value-type": "list",
+            "Arrival Date": {
+                "path": "docs[0].data.ports_of_call.#.arrival_date"
+            },
+            "Name": {
+                "value-type": "nolist",
+                "path": "docs[0].data.ship_records.ship_name"
+            },
+            "Type": {
+                "value-type": "nolist",
+                "path": "docs[0].data.ship_records.ship_type"
+            },
+            "Construction Location": {
+                "value-type": "nolist",
+                "path": "docs[0].data.ship_records.construction_location_country"
+            },
+            "Construction Date": {
+                "value-type": "nolist",
+                "path": "docs[0].data.ship_records.construction_location_date"
+            },
+            "Registry Location": {
+                "value-type": "nolist",
+                "path": "docs[0].data.ship_records.registration_location"
+            },
+            "Registry Folio": {
+                "value-type": "nolist",
+                "path": "docs[0].data.ship_records.registration_folio"
+            },
+            "Registry List": {
+                "value-type": "nolist",
+                "path": "docs[0].data.ship_records.registration_list"
+            },
+            "Ship": {
+                "link": "Ship",
+                "Id": "docs[0]._id"
+            },
+            "Ship Owners (Persons)": {
+                "link": "Ship Owners (Persons)",
+                "Id": "docs[0]._id"
+            },
+            "Ship Owners (Organisations)": {
+                "link": "Ship Owners (Organisations)",
+                "Id": "docs[0]._id"
+            },
+            "Companies (Singed by)": {
+                "link": "Companies (Singed by)",
+                "Id": "docs[0]._id"
+            }
+        },
+        "Crew Members": {
+            "value-type": "list",
+            "Name": {
+                "path": "docs[0].data.crew_list.#.crew_name"
+            },
+            "Surname A": {
+                "path": "docs[0].data.crew_list.#.crew_surname_A"
+            },
+            "Surname B": {
+                "path": "docs[0].data.crew_list.#.crew_surname_B"
+            },
+            "Father's Name": {
+                "path": "docs[0].data.crew_list.#.crew_fathers_name"
+            },
+            "Location of Birth": {
+                "path": "docs[0].data.crew_list.#.crew_birth_location"
+            },
+            "Location of Residence": {
+                "path": "docs[0].data.crew_list.#.crew_residence_location"
+            },
+            "Age": {
+                "path": "docs[0].data.crew_list.#.crew_age"
+            },
+            "Profession": {
+                "path": "docs[0].data.crew_list.#.crew_profession_type"
+            },
+            "Embarkation Ports": {
+                "link": "Embarkation Ports2",
+                "listLink": true,
+                "Id": "docs[0]._id"
+            },
+            "Discharge Ports": {
+                "link": "Discharge Ports2",
+                "listLink": true,
+                "Id": "docs[0]._id"
+            },
+            "Ship": {
+                "link": "Ship",
+                "Id": "docs[0]._id"
+            }
+        },
+        "Location of Residence": {
+            "value-type": "list",
+            "Location of Residence": {
+                "path": "docs[0].data.crew_list.#.crew_residence_location"
+            },
+            "Crew Members": {
+                "link": "Crew Members",
+                "listLink": true,
+                "Id": "docs[0]._id"
+            }
+        },
+        "Location of Birth": {
+            "value-type": "list",
+            "Location of Birth": {
+                "path": "docs[0].data.crew_list.#.crew_birth_location"
+            },
+            "Crew Members": {
+                "link": "Crew Members",
+                "listLink": true,
+                "Id": "docs[0]._id"
+            }
+        },
+        "Embarkation Ports": {
+            "value-type": "list",
+            "Port": {
+                "path": "docs[0].data.crew_list.#.embarkation_port"
+            },
+            "Crew Members and Embarkation Date": {
+                "link": "Crew Members and Embarkation Date",
+                "listLink": true,
+                "Id": "docs[0]._id"
+            },
+            "Ship": {
+                "link": "Ship",
+                "Id": "docs[0]._id"
+            }
+        },
+        "Crew Members and Embarkation Date": {
+            "display": "no",
+            "value-type": "list",
+            "Embarkation Date": {
+                "path": "docs[0].data.crew_list.#.embarkation_date"
+            },
+            "Name": {
+                "path": "docs[0].data.crew_list.#.crew_name"
+            },
+            "Surname A": {
+                "path": "docs[0].data.crew_list.#.crew_surname_A"
+            },
+            "Surname B": {
+                "path": "docs[0].data.crew_list.#.crew_surname_B"
+            },
+            "Father's Name": {
+                "path": "docs[0].data.crew_list.#.crew_fathers_name"
+            },
+            "Location of Birth": {
+                "path": "docs[0].data.crew_list.#.crew_birth_location"
+            },
+            "Location of Residence": {
+                "path": "docs[0].data.crew_list.#.crew_residence_location"
+            },
+            "Age": {
+                "path": "docs[0].data.crew_list.#.crew_age"
+            },
+            "Profession": {
+                "path": "docs[0].data.crew_list.#.crew_profession_type"
+            },
+            "Ship": {
+                "link": "Ship",
+                "Id": "docs[0]._id"
+            },
+            "Embarkation Ports": {
+                "link": "Embarkation Ports2",
+                "listLink": true,
+                "Id": "docs[0]._id"
+            },
+            "Discharge Ports": {
+                "link": "Discharge Ports2",
+                "listLink": true,
+                "Id": "docs[0]._id"
+            }
+        },
+        "Embarkation Ports2": {
+            "display": "no",
+            "value-type": "list",
+            "Port": {
+                "path": "docs[0].data.crew_list.#.embarkation_port"
+            },
+            "Embarkation Date": {
+                "path": "docs[0].data.crew_list.#.embarkation_date"
+            },
+            "Ship Name": {
+                "value-type": "nolist",
+                "path": "docs[0].data.ship_records.ship_name"
+            },
+            "Crew Members": {
+                "link": "Crew Members",
+                "listLink": true,
+                "Id": "docs[0]._id"
+            }
+        },
+        "Discharge Ports": {
+            "value-type": "list",
+            "Port": {
+                "path": "docs[0].data.crew_list.#.crew_discharge_port"
+            },
+            "Crew Members and Discharge Date": {
+                "link": "Crew Members and Discharge Date",
+                "listLink": true,
+                "Id": "docs[0]._id"
+            },
+            "Ship": {
+                "link": "Ship",
+                "Id": "docs[0]._id"
+            }
+        },
+        "Crew Members and Discharge Date": {
+            "display": "no",
+            "value-type": "list",
+            "Discharge Date": {
+                "path": "docs[0].data.crew_list.#.crew_discharge_date"
+            },
+            "Name": {
+                "path": "docs[0].data.crew_list.#.crew_name"
+            },
+            "Surname A": {
+                "path": "docs[0].data.crew_list.#.crew_surname_A"
+            },
+            "Surname B": {
+                "path": "docs[0].data.crew_list.#.crew_surname_B"
+            },
+            "Father's Name": {
+                "path": "docs[0].data.crew_list.#.crew_fathers_name"
+            },
+            "Location of Birth": {
+                "path": "docs[0].data.crew_list.#.crew_birth_location"
+            },
+            "Location of Residence": {
+                "path": "docs[0].data.crew_list.#.crew_residence_location"
+            },
+            "Age": {
+                "path": "docs[0].data.crew_list.#.crew_age"
+            },
+            "Profession": {
+                "path": "docs[0].data.crew_list.#.crew_profession_type"
+            },
+            "Ship": {
+                "link": "Ship",
+                "Id": "docs[0]._id"
+            },
+            "Discharge Ports": {
+                "link": "Discharge Ports2",
+                "listLink": true,
+                "Id": "docs[0]._id"
+            },
+            "Embarkation Ports": {
+                "link": "Embarkation Ports2",
+                "listLink": true,
+                "Id": "docs[0]._id"
+            }
+        },
+        "Discharge Ports2": {
+            "display": "no",
+            "value-type": "list",
+            "Port": {
+                "path": "docs[0].data.crew_list.#.crew_discharge_port"
+            },
+            "Discharge Date": {
+                "path": "docs[0].data.crew_list.#.crew_discharge_date"
+            },
+            "Ship Name": {
+                "value-type": "nolist",
+                "path": "docs[0].data.ship_records.ship_name"
+            },
+            "Crew Members": {
+                "link": "Crew Members",
+                "listLink": true,
+                "Id": "docs[0]._id"
             }
         }
     },
-    "Title":[
+    "Title": [
         "docs[0].data.ship_records.ship_type",
         "docs[0].data.ship_records.ship_name",
         "docs[0].data.ship_records.ship_name",
@@ -199,5 +474,5 @@
         "docs[0].data.record_information.name",
         "docs[0].data.record_information.surname",
         "docs[0].data.record_information.catalogue_id"
-     ]
+    ]
 }

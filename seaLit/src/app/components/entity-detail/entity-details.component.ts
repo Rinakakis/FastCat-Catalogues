@@ -75,8 +75,8 @@ export class EntityDetailsComponent implements OnInit {
         console.log(source, table);
 
         for (const key in data) {
-          if(key=='value-type' || key =='listLength' || key == 'display' || (key == 'Embarkation date' && (table=='Crew members'|| table== 'Crew members and Embarkation date')) 
-            || (key == 'Discharge date' && (table=='Crew members'|| table== 'Crew members and Discharge date')) || key == 'Ship name' )
+          if(key=='value-type' || key =='listLength' || key == 'display' || (key == 'Embarkation Date' && (table=='Crew Members'|| table== 'Crew Members and Embarkation Date')) 
+            || (key == 'Discharge Date' && (table=='Crew Members'|| table== 'Crew Members and Discharge Date')) || key == 'Ship Name' )
               delete data[key];
         }
         // console.log(entity);

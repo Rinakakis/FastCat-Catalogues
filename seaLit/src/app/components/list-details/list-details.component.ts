@@ -20,15 +20,17 @@ export class ListDetailsComponent implements OnInit {
   recordDataTitles: string[] = [];
   showData: boolean = false;
   tableClicked: boolean = false;
+  showform: boolean = false;
   state = "closed";
   title: string = '';
-
+  error: boolean = false;
   tables: any[] = [];
   tablesTitles: any[] = [];
   tablesCount: number = 0;
   nonLitsInfo: any[] = [];
   keysNonList: any[] = [];
   TableName: string = '';
+  errorMessage: string = '';
   keysList: any[] = [];
   recordTitlesWithId: any[] = [];
   
@@ -58,7 +60,15 @@ export class ListDetailsComponent implements OnInit {
         this.hideloader();
       }
       this.initList(list);
-    });
+    },
+    err => {
+      if(err.status == 404) {
+        this.hideloader();
+        this.error = true;
+        this.title = err.error;
+        this.errorMessage ='The requested page: "/'+ String(this.route.snapshot.params.source) + '" could not be found.';
+      }
+   });
     this.listservice.getNameOfSource(name).subscribe(list => this.initTitle(list));
     this.listservice.getTitlesofSourceRecords(name).subscribe(list =>this.initRecordDropdown(list));
   }
@@ -77,6 +87,7 @@ export class ListDetailsComponent implements OnInit {
     // this.listservice.Ids = list.map((elem: any)=> elem.id);
     this.recordTitlesWithId = list;
     this.recordList = this.listservice.Titles.sort();
+    this.showform = true;
   }
 
   initList(list: any): void {
@@ -144,8 +155,8 @@ export class ListDetailsComponent implements OnInit {
   }
 
   displaySelectedRecord(title:string): void {
-    var record = this.recordTitlesWithId.filter(elem => elem.title === title)
-    var id = record[0].id
+    var record = this.recordTitlesWithId.filter(elem => elem.title === title);
+    var id = record[0].id;
     const name = String(this.route.snapshot.paramMap.get('source'));
     this.router.navigate(['list/'+name+'/'+id]);
   }

@@ -145,65 +145,86 @@ var server = app.listen(8081, function () {
    console.log("Example app listening at http://%s:%s", host, port)
 });
 
-app.get('/record/:name', function (req, res) {
-   var record =req.params.name;
-   record = record.replAll(' ', '_');
-   var myarray = [];
-   var fullpath = path + record;
-   myarray = getallRecordFiles(fullpath);
-   res.end(JSON.stringify(myarray));
-})
-
+/** 
+ * returns the names of the tables that an
+ * entity has and how many of each there is
+ */
 app.get('/sourceRecordList/:name/', function (req, res){
-
-   var config = getConfig(req.params.name);
-   var myarray = [];
-   var count = [];
-   var fullpath = path + req.params.name.replAll(' ', '_');
+  var count = [];
+  var config = getConfig(req.params.name);
+  if(config.length == 0){
+    res.status(404).send('Page not found');
+    // res.send(config);
+  }else{
+    var myarray = [];
+    var fullpath = path + req.params.name.replAll(' ', '_');
       
-   myarray = getallRecordFiles(fullpath);
-
-   
-   for (const key in config) {
+    myarray = getallRecordFiles(fullpath); /*get every raw record from an entity*/
+    for (const key in config) {
       const tableconfig = config[key];
-      // console.dir(tableconfig, { depth: null });
       if(tableconfig.display == undefined){
         var obj = {'name': key,'count':formatObject(myarray, tableconfig).length}
         count.push(obj);
       }
-   }
-   
-   res.end(JSON.stringify(count));
+    }
+    res.send(JSON.stringify(count));
+  }
+
+  //  console.dir(count, { depth: null });
 })
 
+/**
+ * returns the titles of the records of an entity
+ */
 app.get('/sourceRecordTitles/:name/', function (req, res){
-   var myarray = [];
-   var fullpath = path + req.params.name.replAll(' ', '_');
-      
-   myarray = getallRecordFiles(fullpath);
-   var titles = getTitlesofRecords(myarray,req.params.name);
-   
-   res.end(JSON.stringify(titles));
+  var config = getConfig(req.params.name);
+  var titles = [];
+  if(config.length == 0){
+    res.status(404).send('Page not found');
+  }else{
+    var myarray = [];
+    var fullpath = path + req.params.name.replAll(' ', '_');      
+    myarray = getallRecordFiles(fullpath);
+    titles = getTitlesofRecords(myarray,req.params.name);
+    res.send(JSON.stringify(titles));
+  }
 })
 
+/**
+ * returns an object with the entities and the number of the records for each one
+ * or for a single entity
+ */
 app.get('/numberOfrecords/:name', function(req, res){
-   var record = req.params.name;
-   var myarray = [];
-   myarray = fs.readdirSync(path)
-   .map(name => {
-      var dir = path + name;
-      var len = fs.readdirSync(dir);
-      var record = templates.find(obj => obj.name == name.replAll('_', ' '));
-      record.count = len.length;
-      return record;
-   });
-   // console.log(myarray)
-   if(record!='all')
+  var record = req.params.name;
+  var myarray = [];
+
+    var config = getConfig(req.params.name);
+    if(config.length == 0 && record !='all'){
+      res.status(404).send('Page not found');
+      // res.send(config);
+      
+    }else{
+      myarray = fs.readdirSync(path)
+      .map(name => {
+        var dir = path + name;
+        var len = fs.readdirSync(dir);
+        var record = templates.find(obj => obj.name == name.replAll('_', ' '));
+        record.count = len.length;
+        return record;
+      });
+      if(record!='all')
       myarray = myarray.filter(obj => obj.name == record);
-   
-   res.end(JSON.stringify(myarray));
+      
+      // console.log(myarray)
+      res.send(JSON.stringify(myarray));
+    }
+
 })
 
+
+/**
+ * returns data for a table of for a record or fo an entity
+ */
 app.get('/tableData', function (req, res) {
       var query = JSON.parse(JSON.stringify(req.query));
       var source = req.query.source;
@@ -224,10 +245,18 @@ app.get('/tableData', function (req, res) {
           myarray = handleRecordTables(source,id);
       }
       // console.log(myarray);
-      filterData(myarray)
-      res.end(JSON.stringify(myarray));
+      filterData(myarray);
+      res.send(JSON.stringify(myarray));
 })
 
+/**
+ * Finds the query and returns its linked tables
+ * @param {string} source 
+ * @param {string} tableName 
+ * @param {object} query 
+ * @param {object[]} myarray 
+ * @returns returns the linked tables that needs to be shown for the query
+ */
 function handleQueryTables(source,tableName,query,myarray){
   // console.log(query);
   // console.log(myarray);
@@ -262,6 +291,12 @@ function handleQueryTables(source,tableName,query,myarray){
   return getlinkedTables(elem,source,tableName);
 }
 
+/**
+ * Remove links that are duplicate
+ * @param {*} elem 
+ * @param {*} source 
+ * @returns The object without the duplicate links
+ */
 function removeDuplicateLinks(elem,source){
 
   for (const key in elem){
@@ -274,7 +309,13 @@ function removeDuplicateLinks(elem,source){
   }
   return elem;
 }
-
+/**
+ * Turns links to tables
+ * @param {object} elem 
+ * @param {string} source 
+ * @param {string} tableName 
+ * @returns object with the linked tables
+ */
 function getlinkedTables(elem, source, tableName){
   // console.log('elem')
   // console.log(elem)
@@ -329,6 +370,14 @@ function getlinkedTables(elem, source, tableName){
   return elem;
 }
 
+/**
+ * Gets the tables form the links
+ * @param {*} table 
+ * @param {*} elem 
+ * @param {*} tableName 
+ * @param {*} source 
+ * @returns 
+ */
 function handleLinks(table, elem, tableName, source){
   var temp;
   if(table.listLink == true)
@@ -406,6 +455,12 @@ function getTitleOfId(source,id){
   return obj[0];
 }
 
+/**
+ * Rerurns raw data for one table of an entity
+ * @param {string} source  
+ * @param {*} tableName 
+ * @returns raw data for one table of an entity
+ */
 function handleSingleTable(source,tableName){
   var myarray = [];
   var fullpath = path + source.replAll(' ', '_');
@@ -421,6 +476,11 @@ function handleSingleTable(source,tableName){
   return formatObject(myarray, config);
 }
 
+/**
+ * Returns all the records from an entity
+ * @param {string} fullpath File path of the entity's location  
+ * @returns {object[]} Array with raw records in json format 
+ */
 function getallRecordFiles(fullpath){
    var myarray = [];
    fs.readdirSync(fullpath)
@@ -429,6 +489,7 @@ function getallRecordFiles(fullpath){
         var record = JSON.parse(file.trim());
         myarray.push(record);
       });
+      // console.dir(myarray, { depth: null });
    return myarray;
 }
 
@@ -442,8 +503,15 @@ function getConfigEntity(recordName,entity){
    return config;
 }
 
+/**
+ * Returns the configuration file of an entity 
+ * @param {string} recordName The name of the entity 
+ * @returns {object}  The configuration file of an entity 
+ */
 function getConfig(recordName){
    var record = templates.find(obj => obj.name == recordName);
+   if(record == undefined) return [];
+
    var config = fs.readFileSync('./examples/parse/'+record.configuration, 'utf8');
    config = JSON.parse(config);
    config = _.get(config,record.name);
@@ -458,6 +526,12 @@ function getConfigTitle(recordName){
    return config;
 }
 
+/**
+ * Gets the title for each record 
+ * @param {object[]} myarray reocrd array
+ * @param {string} name name of the entity
+ * @returns return the title for each record 
+ */
 function getTitlesofRecords(myarray, name){
    var titleConfig = getConfigTitle(name);
    var titlearray = [];
@@ -472,6 +546,13 @@ function getTitlesofRecords(myarray, name){
    })
 }
 
+/**
+ * Formats a records according to the configuration file each entity's 
+ * @param {object[]} data Array with the records of an entity
+ * @param {*} config The configuration file of an entity
+ * @param {*} remv Flag to remove the duplicates
+ * @returns The formated records of an entity according to the configuration file each entity's
+ */
 function formatObject(data, config, remv = true){
   
   const mydata = data;
@@ -493,11 +574,6 @@ function formatObject(data, config, remv = true){
           var item = config[column]; // path from parser
           if (item.path != undefined) { // undefined -> links
               var data = _.get(mydata2, item.path);
-              // if(item.path == 'docs[0].data.ship_records.owner_surname_Β'){
-                // console.log(item.path)
-                // console.log(data)
-                // console.log(mydata2.docs[0]._id)
-              // }
               if(data == undefined){
                 fake[column] = 'Unknown';
               }else if(data.includes("\n") && column != 'First planned destinations'){
@@ -534,7 +610,7 @@ function formatObject(data, config, remv = true){
                   count = ret.length;
                   fake[column] = arrayColumn(ret,0);
                   fake['listLength'] = ret.length;
-                }else{
+                }else{ // condition when a table that contains list data contains and non list data
                   // console.log(count)
                   var data = _.get(mydata2, item.path);
                   var temp = [];
@@ -544,8 +620,7 @@ function formatObject(data, config, remv = true){
                   fake[column] = temp;
                   fake['listLength'] = ret.length;
                 }
-
-              } else if (item.link != undefined) {
+              } else if (item.link != undefined){ 
                 var data = item.link;
                 fake[column].link = data;
                 fake[column].Id = _.get(mydata2, item.Id);
@@ -554,10 +629,6 @@ function formatObject(data, config, remv = true){
         }
     }
     if(splitarray.length != 0){
-      // console.log('fake')
-      // console.log(fake)
-      // console.log('splitarray')
-      // console.log(splitarray)
       splitarray.forEach(elem=> objArray.push(elem))
       splitarray = [];
     }else{
@@ -582,6 +653,11 @@ function formatObject(data, config, remv = true){
   return objArray;
  }
 
+/**
+ * If the string contains '\n' we split it in string array
+ * @param {string} data 
+ * @returns string[] with the splited data
+ */
 function splitData(data) {
   var names = data.split('\n');
   return names.map(val =>{
@@ -593,6 +669,12 @@ function splitData(data) {
 
 }
 
+/**
+ * Takes list data and formats them to an array
+ * @param {*} item 
+ * @param {*} mydata 
+ * @returns list data in an array 
+ */
  function addListData(item, mydata){
   var index = 0;
   var ar = [];
@@ -620,8 +702,19 @@ function splitData(data) {
    return ar;
  }
 
+ /**
+  * Returns the n'th column of an array
+  * @param {string[]} arr 
+  * @param {number} n 
+  * @returns The n'th column of an array 
+  */
  const arrayColumn = (arr, n) => arr.map(x => x[n]);
  
+ /**
+  * Takes the list data and formats them form string arrays to on object array
+  * @param {*} temp 
+  * @returns object array with list data
+  */
  function formatList(temp) {
    var array = [];
    var totalCount = 0;
@@ -664,11 +757,14 @@ function splitData(data) {
    // return array;
  }
 
+ /**
+  * Removes dublicate objects from an array
+  * @param {object[]} data 
+  * @returns The Array without dublicate objects  
+  */
  function removeDuplicates(data){
   //  console.log(data)
    if(data.length == 0) return data;
-  //  if(Object.values(data[0]).filter(val => typeof val == 'string' && val !='list').length == 1){ //if table has only one value
-
      var newarray = [];
 
      var temp = data.map(val =>{
@@ -697,22 +793,23 @@ function splitData(data) {
        if(count[i] == true){
          newarray.push(element)
        }else{
-        //  console.log(element);
          var name = temp[i];
          var index = findIndexOfName(name,newarray);
          newarray[index] = merge(newarray[index], element);
        }
      }
-   //   console.log(newarray)
      return newarray;
-  //  }
 
   //  return data;
  }
 
+ /**
+  * Merges duplicate object (their links)
+  * @param {*} father 
+  * @param {*} element 
+  * @returns merged objects
+  */
  function merge(father, element){
-  //  console.log(father)
-   // console.log(element)
    for (const key in father) {
      if(_.isObject(father[key])){
        if(_.isArray(father[key])){
@@ -733,6 +830,10 @@ function splitData(data) {
    return newarray.findIndex(data => Object.values(data).filter(val => typeof val == 'string' && val !='list').join() == name )
  }
 
+ /**
+  * If a value is empty of undefined replace it with 'Unknown' 
+  * @param {object[]} array 
+  */
 function replaceEmptyValues(array) {
    array.forEach(obj => {
       Object.keys(obj).forEach(function (key) {
@@ -743,15 +844,21 @@ function replaceEmptyValues(array) {
    });
 }
 
-function getTableNames(req){
-   var recordName = req.params.name;
-   var record = templates.find(obj => obj.name == recordName);
-   var config = fs.readFileSync('./examples/parse/'+record.configuration, 'utf8');
-   config = JSON.parse(config);
-   config = _.get(config,record.name);
-   return JSON.stringify(Object.keys(config));
-}
+// function getTableNames(req){
+//    var recordName = req.params.name;
+//    var record = templates.find(obj => obj.name == recordName);
+//    var config = fs.readFileSync('./examples/parse/'+record.configuration, 'utf8');
+//    config = JSON.parse(config);
+//    config = _.get(config,record.name);
+//    return JSON.stringify(Object.keys(config));
+// }
 
+/**
+ * The replAll() method returns a new string with all matches of a pattern replaced by a replacement
+ * @param {string} search 
+ * @param {string} replacement 
+ * @returns string with all matches of a pattern replaced by a replacement
+ */
 String.prototype.replAll = function(search, replacement) {
   var target = this;
   return target.split(search).join(replacement);
@@ -766,7 +873,6 @@ function filterData(myarray){
       if(key == 'data'){
         element.forEach((ar, index)=>{
           var key = Object.keys(ar).join();
-          // console.log(ar[key][0].display)
           if(ar[key][0].display != undefined)
             delete element[index];
           else
