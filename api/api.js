@@ -3,7 +3,7 @@ var express = require('express');
 var app = express();
 var fs = require("fs");
 var cors = require('cors');
-const { isArray, isObject } = require('lodash');
+const { isArray, isObject, identity } = require('lodash');
 
 app.use(cors());
 
@@ -575,7 +575,7 @@ function formatObject(data, config, remv = true){
           if (item.path != undefined) { // undefined -> links
               var data = _.get(mydata2, item.path);
               if(data == undefined){
-                fake[column] = 'Unknown';
+                fake[column] = '';
               }else if(data.includes("\n") && column != 'First planned destinations'){
                 var temp = splitData(data);
                 fake[column] = temp;                
@@ -635,20 +635,17 @@ function formatObject(data, config, remv = true){
       objArray.push(fake);
     }
 
-    // this.mapTitle(mydata[i]);
   }
-  // this.List = objArray;
-  // console.log('objArraylala');
-  // console.log(objArray);
-  // console.log('objArraylala2');
 
-  if(objArray[0]["value-type"] == 'list')
-    objArray = formatList(objArray);
+    if(objArray[0]["value-type"] != undefined)
+      objArray = formatList(objArray);
+    
+    if(remv == true)
+      objArray = removeDuplicates(objArray);
   
-  if(remv == true)
-    objArray = removeDuplicates(objArray);
+    replaceEmptyValues(objArray);
 
-  replaceEmptyValues(objArray);
+  // }
   
   return objArray;
  }
@@ -662,7 +659,7 @@ function splitData(data) {
   var names = data.split('\n');
   return names.map(val =>{
     if(val == ' ') 
-      return 'Unknown';
+      return '';
     
       return val;
   });
@@ -688,7 +685,10 @@ function splitData(data) {
   }else{
       var data = _.get(mydata, item.path.split(".#.")[0]);
       while(data[index]!= undefined && !_.isEmpty(data[index])){
-        ar.push([data[index][item.path.split(".#.")[1]], index++]);
+        // console.log([data[index][item.path.split(".#.")[1]],index]);
+        var data2 = [data[index][item.path.split(".#.")[1]], index++];
+        if(data2[0] == undefined) data2[0] = '';
+        ar.push(data2);
     }
   }
    // if(entity == 'Departure ports' || entity == 'Discharge ports' ){
