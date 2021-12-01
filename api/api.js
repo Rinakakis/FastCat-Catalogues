@@ -238,7 +238,7 @@ app.get('/tableData', function (req, res) {
           delete query['source'];
           delete query['tableName'];
           if(!_.isEmpty(query)){
-            // console.log(query)
+            console.log(query)
             myarray = handleQueryTables(source,tableName,query,myarray);
           }
       }else{
@@ -363,7 +363,7 @@ function getlinkedTables(elem, source, tableName){
 
   var recordTemplate = templates.find(obj => obj.name == source);
 
-  elem.FastCat = {'name':recordTemplate.name, 'id':recordTemplate.id, 'data':IdsWithTitles};
+  elem['FastCat Records'] = {'name':recordTemplate.name, 'id':recordTemplate.id, 'data':IdsWithTitles};
 
   // console.log('final')
   // console.dir(elem, { depth: null });
@@ -568,8 +568,8 @@ function formatObject(data, config, remv = true){
     else
       mydata2 = mydata[i];
 
-      // console.dir(_.get(mydata2,'docs[0].data.ship_records.owner_surname_Β'), { depth: null });
-    if (config['value-type'] == undefined) {
+    // console.dir(mydata2, { depth: null });
+    if (config['value-type'] == undefined){
         for (const column in config) {
           var item = config[column]; // path from parser
           if (item.path != undefined) { // undefined -> links
@@ -598,7 +598,7 @@ function formatObject(data, config, remv = true){
           splitarray = formatList(fake);
           // console.log(yes);
         }
-    } else {
+    }else if(config['value-type'] == 'list'){
         var count = 0;
         for (const column of Object.keys(config)) {
           var item = config[column]; // path from parser
@@ -617,6 +617,8 @@ function formatObject(data, config, remv = true){
                   for(let i = 0; i<count; i++){
                     temp.push(data);
                   }
+                  // delete fake[column];
+                  // fake = Object.assign({[column]: temp}, fake); // to put the non list item infont
                   fake[column] = temp;
                   fake['listLength'] = ret.length;
                 }
@@ -627,7 +629,11 @@ function formatObject(data, config, remv = true){
               }
           }
         }
+    }else{
+      fake = addNestedListData(config,item, mydata2);           
+      // console.log(fake);
     }
+
     if(splitarray.length != 0){
       splitarray.forEach(elem=> objArray.push(elem))
       splitarray = [];
@@ -635,17 +641,17 @@ function formatObject(data, config, remv = true){
       objArray.push(fake);
     }
 
+    // console.dir(objArray, { depth: null });
   }
-
-    if(objArray[0]["value-type"] != undefined)
-      objArray = formatList(objArray);
-    
-    if(remv == true)
-      objArray = removeDuplicates(objArray);
+  if(objArray[0]["value-type"] != undefined)
+  objArray = formatList(objArray);
   
-    replaceEmptyValues(objArray);
-
-  // }
+  if(remv == true)
+  objArray = removeDuplicates(objArray);
+  
+  replaceEmptyValues(objArray);
+  
+  
   
   return objArray;
  }
@@ -691,16 +697,52 @@ function splitData(data) {
         ar.push(data2);
     }
   }
-   // if(entity == 'Departure ports' || entity == 'Discharge ports' ){
-   //   ar = ar.filter(function(item, pos) {
-   //     return ar.indexOf(item) == pos;
-   //   })
-   //   // console.log(ar)
-   // }
-  //  console.log('ar')
-  //  console.log(ar)
+
    return ar;
  }
+  
+  function addNestedListData(config,item, mydata) {
+    var index = 0;
+    var fake = JSON.parse(JSON.stringify(config));
+    Object.keys(fake).forEach((key)=>{
+      if(key !='value-type' && fake[key].link == undefined)
+      fake[key] = [] 
+    });
+    // console.log(fake)
+    // console.log(fake)
+    
+    var path = config[Object.keys(config)[1]]['path'].split(".#.")[0];
+    // console.log(path)
+    
+    var data = _.get(mydata, path);
+    while (data[index] != undefined && !_.isEmpty(data[index])) {
+      var nest = 0;
+      while (data[index][nest] != undefined && !_.isEmpty(data[index][nest])) {
+        // console.log(data[index][nest]);
+        for (const column of Object.keys(config)){
+
+          if(column!= 'value-type'){
+            var item = config[column];
+            if(item.path!= undefined){
+              var data2 = [data[index][nest][item.path.split(".#.")[1]], index];
+              if (data2[0] == undefined) 
+                data2[0] = '';
+              fake[column].push(data2[0]);
+            }else{
+              fake[column].Id =  _.get(mydata, item.Id);
+            }
+
+            }
+        }
+        nest++;
+      }
+      index++;
+    }
+
+    var first = Object.keys(fake)[1];
+    fake['listLength'] = fake[first].length;
+    return fake;
+  }
 
  /**
   * Returns the n'th column of an array
@@ -831,14 +873,14 @@ function splitData(data) {
  }
 
  /**
-  * If a value is empty of undefined replace it with 'Unknown' 
+  * If a value is empty of undefined replace it with 'None or Unknown' 
   * @param {object[]} array 
   */
 function replaceEmptyValues(array) {
    array.forEach(obj => {
       Object.keys(obj).forEach(function (key) {
-         if (obj[key] === '' || obj[key] == undefined) {
-            obj[key] = 'Unknown';
+         if (obj[key] === '' || obj[key] == undefined){
+            obj[key] = 'None or Unknown';
          }
       });
    });
@@ -879,7 +921,7 @@ function filterData(myarray){
             deleteObjects(ar[key]);
 
         })
-      }else if(isObject(element) && key!='FastCat'){
+      }else if(isObject(element) && key!='FastCat Records'){
         deleteObjects(element);
       }
     }

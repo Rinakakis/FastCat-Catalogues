@@ -1,6 +1,6 @@
 {
    "Crew List (Ruoli di Equipaggio)": {
-      "Ship": {
+      "Ships": {
          "Name": {
             "path": "docs[0].data.ship_records.ship_name"
          },
@@ -40,7 +40,7 @@
             "Id": "docs[0]._id"
          }
       },
-      "Ship and Departure Date": {
+      "Ships and Departure Dates": {
          "display": "no",
          "value-type": "list",
          "Departure Date": {
@@ -70,8 +70,8 @@
             "value-type": "nolist",
             "path": "docs[0].data.ship_records.registry_port"
          },
-         "Ship": {
-            "link": "Ship",
+         "Ships": {
+            "link": "Ships",
             "Id": "docs[0]._id"
          },
          "Ship Owners": {
@@ -79,7 +79,7 @@
             "Id": "docs[0]._id"
          }
       },
-      "Ship and Arrival Date": {
+      "Ships and Arrival Dates": {
          "display": "no",
          "value-type": "list",
          "Arrival Date": {
@@ -109,8 +109,8 @@
             "value-type": "nolist",
             "path": "docs[0].data.ship_records.registry_port"
          },
-         "Ship": {
-            "link": "Ship",
+         "Ships": {
+            "link": "Ships",
             "Id": "docs[0]._id"
          },
          "Ship Owners": {
@@ -128,8 +128,8 @@
          "Owner Fathers Name": {
             "path": "docs[0].data.ship_records.owner_fathers_name"
          },
-         "Ship": {
-            "link": "Ship",
+         "Ships": {
+            "link": "Ships",
             "Id": "docs[0]._id"
          }
       },
@@ -137,8 +137,8 @@
          "Registry Port": {
             "path": "docs[0].data.ship_records.registry_port"
          },
-         "Ship": {
-            "link": "Ship",
+         "Ships": {
+            "link": "Ships",
             "Id": "docs[0]._id"
          }
       },
@@ -146,8 +146,8 @@
          "Construction Location": {
             "path": "docs[0].data.ship_records.construction_location"
          },
-         "Ship": {
-            "link": "Ship",
+         "Ships": {
+            "link": "Ships",
             "Id": "docs[0]._id"
          }
       },
@@ -156,8 +156,8 @@
          "Port": {
             "path": "docs[0].data.route.#.departure_port"
          },
-         "Ship and Departure Date": {
-            "link": "Ship and Departure Date",
+         "Ships and Departure Dates": {
+            "link": "Ships and Departure Dates",
             "listLink": true,
             "Id": "docs[0]._id"
          }
@@ -167,8 +167,8 @@
          "Port": {
             "path": "docs[0].data.route.#.arrival_port"
          },
-         "Ship and Arrival Date": {
-            "link": "Ship and Arrival Date",
+         "Ships and Arrival Dates": {
+            "link": "Ships and Arrival Dates",
             "listLink": true,
             "Id": "docs[0]._id"
          }
@@ -203,12 +203,12 @@
             "listLink": true,
             "Id": "docs[0]._id"
          },
-         "Ship": {
-            "link": "Ship",
+         "Ships": {
+            "link": "Ships",
             "Id": "docs[0]._id"
          }
       },
-      "Location of Residence": {
+      "Locations of Residence": {
          "value-type": "list",
          "Location of Residence": {
             "path": "docs[0].data.crew_list.#.crew_birth_location"
@@ -241,8 +241,8 @@
          "Total Crew Number (Captain Included)": {
             "path": "docs[0].data.ports_of_call.total_crew_number"
          },
-         "Ship": {
-            "link": "Ship",
+         "Ships": {
+            "link": "Ships",
             "Id": "docs[0]._id"
          }
       },
@@ -251,17 +251,17 @@
          "Port": {
             "path": "docs[0].data.crew_list.#.embarkation_port"
          },
-         "Crew Members and Embarkation Date": {
-            "link": "Crew Members and Embarkation Date",
+         "Crew Members and Embarkation Dates": {
+            "link": "Crew Members and Embarkation Dates",
             "listLink": true,
             "Id": "docs[0]._id"
          },
-         "Ship": {
-            "link": "Ship",
+         "Ships": {
+            "link": "Ships",
             "Id": "docs[0]._id"
          }
       },
-      "Crew Members and Embarkation Date": {
+      "Crew Members and Embarkation Dates": {
          "display": "no",
          "value-type": "list",
          "Embarkation Date": {
@@ -285,8 +285,8 @@
          "Profession": {
             "path": "docs[0].data.crew_list.#.crew_profession_type"
          },
-         "Ship": {
-            "link": "Ship",
+         "Ships": {
+            "link": "Ships",
             "Id": "docs[0]._id"
          },
          "Embarkation Ports": {
@@ -309,7 +309,7 @@
          "Embarkation Date": {
             "path": "docs[0].data.crew_list.#.embarkation_date"
          },
-         "Ship Name": {
+         "Ship's Name": {
             "value-type": "nolist",
             "path": "docs[0].data.ship_records.ship_name"
          },
@@ -324,17 +324,17 @@
          "Port": {
             "path": "docs[0].data.crew_list.#.discharge_port"
          },
-         "Crew Members and Discharge Date": {
-            "link": "Crew Members and Discharge Date",
+         "Crew Members and Discharge Dates": {
+            "link": "Crew Members and Discharge Dates",
             "listLink": true,
             "Id": "docs[0]._id"
          },
-         "Ship": {
-            "link": "Ship",
+         "Ships": {
+            "link": "Ships",
             "Id": "docs[0]._id"
          }
       },
-      "Crew Members and Discharge Date": {
+      "Crew Members and Discharge Dates": {
          "display": "no",
          "value-type": "list",
          "Discharge Date": {
@@ -358,8 +358,8 @@
          "Profession": {
             "path": "docs[0].data.crew_list.#.crew_profession_type"
          },
-         "Ship": {
-            "link": "Ship",
+         "Ships": {
+            "link": "Ships",
             "Id": "docs[0]._id"
          },
          "Discharge Ports": {
@@ -382,7 +382,7 @@
          "Discharge Date": {
             "path": "docs[0].data.crew_list.#.discharge_date"
          },
-         "Ship Name": {
+         "Ship's Name": {
             "value-type": "nolist",
             "path": "docs[0].data.ship_records.ship_name"
          },

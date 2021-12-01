@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { FormControl } from '@angular/forms';
 import { CellClickedEvent } from 'ag-grid-community';
 import { isObject } from 'lodash';
+import { Title } from '@angular/platform-browser';
 
 import { ListService } from 'src/app/services/list.service';
 
@@ -43,7 +44,8 @@ export class ListDetailsComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private listservice : ListService,
-    private router: Router
+    private router: Router,
+    private titleService: Title
   ) { }
 
   columnDefs: any[] = [
@@ -80,6 +82,8 @@ export class ListDetailsComponent implements OnInit {
   initTitle(list: any): void {
     // console.log(list)
     this.title = String(list[0].name) + ' ('+list[0].count +' records)';
+    this.titleService.setTitle('SeaLit - '+ this.title);
+    
   }
 
   initRecordDropdown(list: any) {

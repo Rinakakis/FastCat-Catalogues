@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { CellClickedEvent } from 'ag-grid-community';
 import { isObject } from 'lodash';
 import { ListService } from 'src/app/services/list.service';
-import { trigger, state, style, transition, animate, group } from '@angular/animations';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-record-details',
@@ -31,7 +31,8 @@ export class RecordDetailsComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private listservice : ListService,
-    private router: Router
+    private router: Router,
+    private titleService: Title
   ) { }
 
   ngOnInit(): void {
@@ -99,6 +100,7 @@ export class RecordDetailsComponent implements OnInit {
     this.sourceId = record.sourceId;
     this.sourceName = record.sourceName;
 
+    this.titleService.setTitle('SeaLit - '+this.sourceName+': '+ this.title);
     record.data.forEach((element: any) => {
       if(element != null){
         var data: any[] = Object.values(element);

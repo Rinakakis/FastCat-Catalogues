@@ -5,6 +5,7 @@ import { CellClickedEvent } from 'ag-grid-community';
 import { isObject, isObjectLike } from 'lodash';
 import { ListService } from 'src/app/services/list.service';
 import { saveAs } from 'file-saver';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-entity-details',
@@ -34,7 +35,8 @@ export class EntityDetailsComponent implements OnInit {
     private route: ActivatedRoute,
     private listservice : ListService,
     private router: Router,
-    private sanitizer: DomSanitizer
+    private sanitizer: DomSanitizer,
+    private titleService: Title
   ) { }
 
   ngOnInit(): void {
@@ -64,23 +66,21 @@ export class EntityDetailsComponent implements OnInit {
     // Add event handlers
     onCellClicked: ((event: CellClickedEvent) =>{
 
-        if(event.data.FastCat != undefined){
-          window.open(event.data.FastCat, "_blank");
+        if(event.data['FastCat Records'] != undefined){
+          window.open(event.data['FastCat Records'], "_blank");
           return;
         }
         var source = String(this.route.snapshot.paramMap.get('source'));
         var table = String(this.route.snapshot.paramMap.get('name'));
         var data = event.data;
         var entity = event.colDef.colId;
-        console.log(source, table);
 
         for (const key in data) {
-          if(key=='value-type' || key =='listLength' || key == 'display' || (key == 'Embarkation Date' && (table=='Crew Members'|| table== 'Crew Members and Embarkation Date')) 
-            || (key == 'Discharge Date' && (table=='Crew Members'|| table== 'Crew Members and Discharge Date')) || key == 'Ship Name' )
+          if(key=='value-type' || key =='listLength' || key == 'display' || (key == 'Embarkation Date' || key == 'Ship\'s Name' && (table=='Crew Members'|| table== 'Crew Members and Embarkation Dates')) 
+            || (key == 'Discharge Date' || key == 'Ship\'s Name' && (table=='Crew Members'|| table== 'Crew Members and Discharge Dates'))  )
               delete data[key];
         }
-        // console.log(entity);
-        // console.log(data);
+        console.log(data);
         // console.log('list/'+source+'/Table?'+'Table='+entity+query);
         this.router.routeReuseStrategy.shouldReuseRoute = function () {
           return false;
@@ -104,18 +104,20 @@ export class EntityDetailsComponent implements OnInit {
       this.title = params.name.slice(0, -1);
     else
       this.title = params.name;
-
+    
+    this.titleService.setTitle('SeaLit - '+this.sourceName+': '+ this.title);
+    
 
     for (const key in record) {
       var element = record[key];
       if(isObjectLike(element)){
-          if(key == 'FastCat')
+          if(key == 'FastCat Records')
             element = this.formatLinks(element);
           this.keysList.push(key);
           // console.log(element)
           var titles = this.getTitles(element[0]);
           var titleFormat = titles.map((val: string) => {
-            if(val == 'FastCat'){
+            if(val == 'FastCat Records'){
               return {width: 60, resizable: false, tooltipField: val,
                 cellRenderer: function() {
                   return '<i class="material-icons" style="vertical-align: middle">info</i>'
@@ -139,7 +141,7 @@ export class EntityDetailsComponent implements OnInit {
   formatLinks(element: any) {
     var data: string[] = element.data;
     return data.map((map: any) => {
-      return {'FastCat':'https://isl.ics.forth.gr/FastCatTeam/templates/'+element.id+'.html?name='+map.id+'&templateTitle='+element.name+'&mode=teamView','title':map.title};
+      return {'FastCat Records':'https://isl.ics.forth.gr/FastCatTeam/templates/'+element.id+'.html?name='+map.id+'&templateTitle='+element.name+'&mode=teamView','title':map.title};
     })
   }
 

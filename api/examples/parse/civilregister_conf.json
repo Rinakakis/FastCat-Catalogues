@@ -1,0 +1,46 @@
+{
+    "Civil Register": {
+        "Persons": {
+            "value-type": "list",
+            "Name": {
+                "path": "docs[0].data.death_registers.#.diseased_person_name"
+            },
+            "Surname A": {
+                "path": "docs[0].data.death_registers.#.diseased_person_surname_A"
+            },
+            "Surname B": {
+                "path": "docs[0].data.death_registers.#.diseased_person_surname_B"
+            },
+            "Locaiton of Origin": {
+                "path": "docs[0].data.death_registers.#.diseased_person_origin_location"
+            },
+            "Profession": {
+                "path": "docs[0].data.death_registers.#.profession"
+            },
+            "Age (Years)": {
+                "path": "docs[0].data.death_registers.#.diseased_person_age_years"
+            },
+            "Sex": {
+                "path": "docs[0].data.death_registers.#.diseased_person_age_sex"
+            },
+            "Marital Status": {
+                "path": "docs[0].data.death_registers.#.marital_status"
+            },
+            "Death Location": {
+                "path": "docs[0].data.death_registers.#.death_location"
+            },
+            "Death Reason": {
+                "path": "docs[0].data.death_registers.#.death_reason"
+            }
+        }
+    },
+    "Title": [
+        "docs[0].data.source_identity.book_number",
+        "docs[0].data.source_identity.book_type_of_register",
+        "docs[0].data.source_identity.book_year",
+        "docs[0].data.source_identity.book_topographic_signature",
+        "docs[0].data.record_information.name",
+        "docs[0].data.record_information.surname",
+        "docs[0].data.record_information.catalogue_id"
+    ]
+}

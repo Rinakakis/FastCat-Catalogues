@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 import { ListService } from 'src/app/services/list.service';
 
 @Component({
@@ -13,11 +14,14 @@ export class ListComponent implements OnInit {
 
   constructor(
     private listservice: ListService,
+    private titleService: Title
     ) { }
 
   ngOnInit(): void {
+    this.titleService.setTitle('SeaLit - Explore archival sources of Maritime History');
     this.getList();
   }
+
 
   getList(): void{
     this.listservice.getNamesOfSources()

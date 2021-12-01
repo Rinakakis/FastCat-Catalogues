@@ -1,0 +1,52 @@
+{
+    "Census La Ciotat": {
+        "Addresses": {
+            "value-type": "list",
+            "Address": {
+                "path": "docs[0].data.residencies_registry.#.registry_location"
+            },
+            "House Number": {
+                "path": "docs[0].data.residencies_registry.#.registry_house_number"
+            },
+            "Occupants": {
+                "link": "Occupants",
+                "listLink": true,
+                "Id": "docs[0]._id"
+            }
+        },
+        "Occupants": {
+            "value-type": "nested-list",
+            "Surname": {
+                "path": "docs[0].data.nominative_list_of_occupants.#.person_surname"
+            },
+            "Name": {
+                "path": "docs[0].data.nominative_list_of_occupants.#.person_name"
+            },
+            "Age": {
+                "path": "docs[0].data.nominative_list_of_occupants.#.person_age"
+            },
+            "Year of Birth": {
+                "path": "docs[0].data.nominative_list_of_occupants.#.person_year_of_birth"
+            },
+            "Place of Birth": {
+                "path": "docs[0].data.nominative_list_of_occupants.#.person_birth_location"
+            },
+            "Nationality": {
+                "path": "docs[0].data.nominative_list_of_occupants.#.person_nationality"
+            },
+            "Marital Status": {
+                "path": "docs[0].data.nominative_list_of_occupants.#.person_marital_status"
+            },
+            "Addresses": {
+                "link": "Addresses",
+                "Id": "docs[0]._id"
+            }
+        }
+    },
+    "Title": [
+        "docs[0].data.source_identity.book_date",
+        "docs[0].data.record_information.name",
+        "docs[0].data.record_information.surname",
+        "docs[0].data.record_information.catalogue_id"
+    ]
+}
