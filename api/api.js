@@ -238,7 +238,6 @@ app.get('/tableData', function (req, res) {
           delete query['source'];
           delete query['tableName'];
           if(!_.isEmpty(query)){
-            console.log(query)
             myarray = handleQueryTables(source,tableName,query,myarray);
           }
       }else{
@@ -259,7 +258,6 @@ app.get('/tableData', function (req, res) {
  */
 function handleQueryTables(source,tableName,query,myarray){
   // console.log(query);
-  // console.log(myarray);
   var elem = myarray.filter(elem => {
     var obj = JSON.parse(JSON.stringify(elem));
     for (const key in obj) {
@@ -271,11 +269,12 @@ function handleQueryTables(source,tableName,query,myarray){
       } 
     }
     if(_.isEqual(obj,query)){
+      // console.log(elem)
       return elem;
     }
   });
   // console.log(elem[0]['Ship']);
-  // console.log(elem.length);
+  // console.log(elem);
   if(elem.length > 1){
     var temp = [];
     for (let i = 1; i < elem.length; i++) {
@@ -283,10 +282,11 @@ function handleQueryTables(source,tableName,query,myarray){
     }
     elem.push(temp);
   }
-
-  // console.log(elem);
-  elem = removeDuplicateLinks(elem[0],source);
+  
+  // console.dir(elem, { depth: null });
+  elem = removeDuplicateLinks(elem[0]);
   // console.log('lalala2');
+  console.dir(elem, {depth:null});
   // console.log(elem);
   return getlinkedTables(elem,source,tableName);
 }
@@ -294,10 +294,9 @@ function handleQueryTables(source,tableName,query,myarray){
 /**
  * Remove links that are duplicate
  * @param {*} elem 
- * @param {*} source 
  * @returns The object without the duplicate links
  */
-function removeDuplicateLinks(elem,source){
+function removeDuplicateLinks(elem){
 
   for (const key in elem){
     var element = elem[key];
@@ -317,9 +316,6 @@ function removeDuplicateLinks(elem,source){
  * @returns object with the linked tables
  */
 function getlinkedTables(elem, source, tableName){
-  // console.log('elem')
-  // console.log(elem)
-  // console.log('elem')
   var linkArray = [];
   for (const key in elem) {
     var element = elem[key];
@@ -329,8 +325,6 @@ function getlinkedTables(elem, source, tableName){
         element.forEach(obj => linkArray.push(obj.Id));          
         var newtable = element.map(table=>{
           var lala = handleLinks(table,elem,tableName,source);
-          // console.log('lala')                      
-          // console.log(lala)                      
           if(Object.values(lala[0])[0].length == 1)
             return Object.values(lala[0])[0][0];
           else
@@ -378,27 +372,30 @@ function getlinkedTables(elem, source, tableName){
  * @param {*} source 
  * @returns 
  */
-function handleLinks(table, elem, tableName, source){
+function handleLinks(table, elem, tableName,source){
   var temp;
   if(table.listLink == true)
-    temp = handleRecordTables(source,table.Id, false);
+    temp = handleRecordTables(source,table.Id, false, true);
   else
     temp = handleRecordTables(source,table.Id);
+    
+    // console.dir(temp.data, { depth: null });
+    // console.dir(table.link);
+    // console.dir(temp.data);
+    
+    var lala  = [];
+    temp.data.forEach(elem2 =>{
 
-  var lala  = [];
-  temp.data.forEach(elem2 =>{
     if(Object.keys(elem2).join() == table.link){
       if(table.listLink == true){
-
-        var crewmembers = temp.data.filter(val => Object.keys(val).join() == tableName);
-
+        console.log(elem2)
+        var querytables = temp.data.filter(val => Object.keys(val).join() == tableName);
+        
         var hm = [];
-        crewmembers[0][tableName].forEach((crew,index) => {
-          var temp1 = Object.values(crew).filter(val => typeof val == 'string' && val !='list').join();
-          var temp2 = Object.values(elem).filter(val => typeof val == 'string' && val !='list').join();
-
+        querytables[0][tableName].forEach((crew,index) => {
+          var temp1 = Object.values(crew).filter(val => typeof val == 'string' && val !='list' && val !='nested-list').join();
+          var temp2 = Object.values(elem).filter(val => typeof val == 'string' && val !='list' && val !='nested-list').join();
           if(_.isEqual(temp1, temp2)){
-
             hm.push(elem2[table.link][index]);
           }
         });
@@ -408,10 +405,12 @@ function handleLinks(table, elem, tableName, source){
       }
     }
   })
+  // console.log('lala')
+  // console.log(lala)
   return lala;
 }
 
-function handleRecordTables(source,id, remv = true){
+function handleRecordTables(source,id, remv = true, nestedlink = false){
   var myarray = [];
   var fullpath = path + source.replAll(' ', '_');
   var config = getConfig(source);
@@ -429,7 +428,7 @@ function handleRecordTables(source,id, remv = true){
   var data = [];
   for (const tablename in config) {
     const tabeconfig = config[tablename];
-    data.push({[tablename]: formatObject(myarray, tabeconfig, remv)});
+    data.push({[tablename]: formatObject(myarray, tabeconfig, remv, nestedlink)});
   }
   obj.data = data;
   var recordconf = templates.find(elem => elem.name == source);
@@ -553,7 +552,7 @@ function getTitlesofRecords(myarray, name){
  * @param {*} remv Flag to remove the duplicates
  * @returns The formated records of an entity according to the configuration file each entity's
  */
-function formatObject(data, config, remv = true){
+function formatObject(data, config, remv = true, nestedlink = false){
   
   const mydata = data;
   var objArray = [];
@@ -630,7 +629,7 @@ function formatObject(data, config, remv = true){
           }
         }
     }else{
-      fake = addNestedListData(config,item, mydata2);           
+      fake = addNestedListData(config,item, mydata2, nestedlink);           
       // console.log(fake);
     }
 
@@ -701,19 +700,16 @@ function splitData(data) {
    return ar;
  }
   
-  function addNestedListData(config,item, mydata) {
+  function addNestedListData(config,item,mydata,nestedlink = false) {
     var index = 0;
     var fake = JSON.parse(JSON.stringify(config));
     Object.keys(fake).forEach((key)=>{
       if(key !='value-type' && fake[key].link == undefined)
-      fake[key] = [] 
+      fake[key] = []; 
     });
-    // console.log(fake)
-    // console.log(fake)
-    
+    fake['parent id'] = [];
     var path = config[Object.keys(config)[1]]['path'].split(".#.")[0];
-    // console.log(path)
-    
+
     var data = _.get(mydata, path);
     while (data[index] != undefined && !_.isEmpty(data[index])) {
       var nest = 0;
@@ -725,14 +721,18 @@ function splitData(data) {
             var item = config[column];
             if(item.path!= undefined){
               var data2 = [data[index][nest][item.path.split(".#.")[1]], index];
-              if (data2[0] == undefined) 
-                data2[0] = '';
-              fake[column].push(data2[0]);
+              if (data2[0] == undefined) data2[0] = '';
+              if(nestedlink== false){
+                fake[column].push(data2[0]);
+                // fake[column].push({data: data2[0], id: data2[1]});
+              }
+              else{
+                fake[column].push({data: data2[0], id: data2[1]});
+              }
             }else{
-              fake[column].Id =  _.get(mydata, item.Id);
+              fake[column].Id = _.get(mydata, item.Id);
             }
-
-            }
+          }
         }
         nest++;
       }
@@ -741,6 +741,9 @@ function splitData(data) {
 
     var first = Object.keys(fake)[1];
     fake['listLength'] = fake[first].length;
+
+    console.log(fake)
+
     return fake;
   }
 
