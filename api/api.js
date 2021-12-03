@@ -3,7 +3,7 @@ var express = require('express');
 var app = express();
 var fs = require("fs");
 var cors = require('cors');
-const { isArray, isObject, identity } = require('lodash');
+const { isArray, isObject } = require('lodash');
 
 app.use(cors());
 
@@ -553,7 +553,7 @@ function getTitlesofRecords(myarray, name){
  * @returns The formated records of an entity according to the configuration file each entity's
  */
 function formatObject(data, config, remv = true, nestedlink = false){
-  
+  // console.log(config)
   const mydata = data;
   var objArray = [];
   var mydata2;
@@ -598,59 +598,60 @@ function formatObject(data, config, remv = true, nestedlink = false){
           // console.log(yes);
         }
     }else if(config['value-type'] == 'list'){
-        var count = 0;
-        for (const column of Object.keys(config)) {
-          var item = config[column]; // path from parser
-          // console.log(item)
-          if (item != 'list' && column != 'display') {
-              if (item.path != undefined) { // undefined -> links
-                if(item['value-type'] == undefined){
-                  var ret = addListData(item, mydata2);
-                  count = ret.length;
-                  fake[column] = arrayColumn(ret,0);
-                  fake['listLength'] = ret.length;
-                }else{ // condition when a table that contains list data contains and non list data
-                  // console.log(count)
-                  var data = _.get(mydata2, item.path);
-                  var temp = [];
-                  for(let i = 0; i<count; i++){
-                    temp.push(data);
-                  }
-                  // delete fake[column];
-                  // fake = Object.assign({[column]: temp}, fake); // to put the non list item infont
-                  fake[column] = temp;
-                  fake['listLength'] = ret.length;
+      var count = 0;
+      for (const column of Object.keys(config)) {
+        var item = config[column]; // path from parser
+        // console.log(item)
+        if (item != 'list' && column != 'display') {
+            if (item.path != undefined) { // undefined -> links
+              if(item['value-type'] == undefined){
+                var ret = addListData(item, mydata2);
+                count = ret.length;
+                fake[column] = arrayColumn(ret,0);
+                fake['listLength'] = ret.length;
+              }else{ // condition when a table that contains list data contains and non list data
+                // console.log(count)
+                var data = _.get(mydata2, item.path);
+                var temp = [];
+                for(let i = 0; i<count; i++){
+                  temp.push(data);
                 }
-              } else if (item.link != undefined){ 
-                var data = item.link;
-                fake[column].link = data;
-                fake[column].Id = _.get(mydata2, item.Id);
+                // delete fake[column];
+                // fake = Object.assign({[column]: temp}, fake); // to put the non list item infont
+                fake[column] = temp;
+                fake['listLength'] = ret.length;
               }
-          }
+            } else if (item.link != undefined){ 
+              var data = item.link;
+              fake[column].link = data;
+              fake[column].Id = _.get(mydata2, item.Id);
+            }
         }
+      } 
     }else{
-      fake = addNestedListData(config,item, mydata2, nestedlink);           
-      // console.log(fake);
+      fake = addNestedListData(config, mydata2, nestedlink);       
     }
 
     if(splitarray.length != 0){
       splitarray.forEach(elem=> objArray.push(elem))
       splitarray = [];
     }else{
-      objArray.push(fake);
+      if(isArray(fake))
+        fake.forEach(element => objArray.push(element));
+      else{
+        objArray.push(fake);
+      }
     }
 
-    // console.dir(objArray, { depth: null });
   }
-  if(objArray[0]["value-type"] != undefined)
-  objArray = formatList(objArray);
+  if(objArray[0]["value-type"] !=  undefined)
+    objArray = formatList(objArray);
   
   if(remv == true)
-  objArray = removeDuplicates(objArray);
+    objArray = removeDuplicates(objArray);
   
   replaceEmptyValues(objArray);
-  
-  
+  // console.log(objArray); 
   
   return objArray;
  }
@@ -677,37 +678,29 @@ function splitData(data) {
  * @param {*} mydata 
  * @returns list data in an array 
  */
- function addListData(item, mydata){
-  var index = 0;
-  var ar = [];
-  
-  if(Array.isArray(item.path)){ // condition for Embarkation/Discharge ports OLD
-    var data0 = _.get(mydata, item.path[0].split(".#.")[0]);
-    var data1 = _.get(mydata, item.path[1].split(".#.")[0]);
-    while(data0[index]!= undefined && !_.isEmpty(data0[index])){
-      ar.push(data0[index][item.path[0].split(".#.")[1]] +', '+ data1[index++][item.path[1].split(".#.")[1]]);
-    }
-  }else{
+  function addListData(item, mydata){
+    var index = 0;
+    var ar = [];
       var data = _.get(mydata, item.path.split(".#.")[0]);
       while(data[index]!= undefined && !_.isEmpty(data[index])){
         // console.log([data[index][item.path.split(".#.")[1]],index]);
         var data2 = [data[index][item.path.split(".#.")[1]], index++];
         if(data2[0] == undefined) data2[0] = '';
         ar.push(data2);
-    }
-  }
+      }
+    
 
-   return ar;
- }
+    return ar;
+  }
   
-  function addNestedListData(config,item,mydata,nestedlink = false) {
+  function addNestedListData(config,mydata,nestedlink = false) {
     var index = 0;
     var fake = JSON.parse(JSON.stringify(config));
     Object.keys(fake).forEach((key)=>{
       if(key !='value-type' && fake[key].link == undefined)
       fake[key] = []; 
     });
-    fake['parent id'] = [];
+    // fake['parent id'] = [];
     var path = config[Object.keys(config)[1]]['path'].split(".#.")[0];
 
     var data = _.get(mydata, path);
@@ -738,14 +731,54 @@ function splitData(data) {
       }
       index++;
     }
-
     var first = Object.keys(fake)[1];
     fake['listLength'] = fake[first].length;
 
-    console.log(fake)
+    // console.log(fake)
 
-    return fake;
+    return fake;  
   }
+
+  // function addListData2(config,mydata) {
+  //   var index = 0;
+  //   var res = [];
+  //   var fake;
+  //   var listPathObject = '';
+  //   var keys = Object.keys(config);
+  //   for(const columnName of keys){
+  //     if(columnName!= 'display' && columnName != 'value-type'){
+  //       listPathObject = columnName;
+  //       break;
+  //     }
+  //   }
+  //   var path = config[listPathObject]['path'].split(".#.")[0];
+    
+  //   fake = JSON.parse(JSON.stringify(config));
+  //   var data = _.get(mydata, path);
+  //   while (data[index] != undefined && !_.isEmpty(data[index])) {
+  //     // console.log(data[index][nest]);
+  //     for (const column of keys){
+  //       if(column!= 'value-type' && column!= 'display'){
+  //         var item = config[column];
+  //         if(item['value-type'] == 'nolist'){
+  //           var data2 = _.get(mydata, item.path);
+  //           if (data2 == undefined) data2 = '';
+  //           fake[column] = data2;
+  //         }else if(item.path!= undefined){
+  //           var data2 = [data[index][item.path.split(".#.")[1]], index];
+  //           if (data2[0] == undefined) data2[0] = '';
+  //           fake[column] = data2[0];
+  //         }else{
+  //           fake[column].Id = _.get(mydata, item.Id);
+  //         }
+  //       }
+  //       res.push(Object.assign(fake));
+  //     }
+  //     index++;
+  //   }
+  //   // console.log(res)
+  //   return res;
+  // }
 
  /**
   * Returns the n'th column of an array
@@ -798,6 +831,7 @@ function splitData(data) {
        count++;
      }
    }
+  //  console.log(array)
    return array;
    // return array;
  }
@@ -815,24 +849,10 @@ function splitData(data) {
      var temp = data.map(val =>{
        return Object.values(val).filter(val => typeof val == 'string' && val !='list').join();
      })
-    //  console.log(456);
-    //  console.dir(temp, { depth: null });
-     // var temp:any[] = data.map(val =>{
-     //   return Object.values(val).join(',').slice(0, -15);
-     // })
-
-     // console.log(temp)
 
      const count = temp.map(function (item, pos) { //bool
        return temp.indexOf(item) == pos;
      })
-
-     // const count: boolean[] = temp.filter(Boolean).length;
-     // console.log(temp)
-     // var lala = temp.reduce(function (acc, curr) {
-     //   return acc[curr] ? ++acc[curr] : acc[curr] = 1, acc
-     // }, {});
-
      for (let i = 0; i < data.length; i++){
        var element = data[i];
        if(count[i] == true){
