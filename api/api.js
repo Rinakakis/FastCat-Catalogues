@@ -3,7 +3,9 @@ var express = require('express');
 var app = express();
 var fs = require("fs");
 var cors = require('cors');
-const { isArray, isObject } = require('lodash');
+const { isArray, isObject, isPlainObject } = require('lodash');
+const { count } = require('console');
+const e = require('express');
 
 app.use(cors());
 
@@ -231,15 +233,15 @@ app.get('/tableData', function (req, res) {
       var tableName = req.query.tableName;
       var id = req.query.id;
       var myarray = [];
-      
-      if(id == null){
+      // console.log(query)
+      if(id == null && Object.keys(query).length == 2){
           myarray = handleSingleTable(source,tableName);
-          // console.log(myarray);
+      }else if(id == null && Object.keys(query).length > 2){
           delete query['source'];
           delete query['tableName'];
-          if(!_.isEmpty(query)){
-            myarray = handleQueryTables(source,tableName,query,myarray);
-          }
+          myarray = handleSingleTable(source,tableName,true,true);
+          myarray = handleQueryTables(source,tableName,query,myarray);
+
       }else{
           myarray = handleRecordTables(source,id);
       }
@@ -257,23 +259,21 @@ app.get('/tableData', function (req, res) {
  * @returns returns the linked tables that needs to be shown for the query
  */
 function handleQueryTables(source,tableName,query,myarray){
-  // console.log(query);
+  // console.log(myarray);
+  // console.dir(myarray, { depth: null });
   var elem = myarray.filter(elem => {
-    var obj = JSON.parse(JSON.stringify(elem));
-    for (const key in obj) {
-      if(_.isObject(obj[key])){
-        delete obj[key];               
-        delete obj['listLength'];               
-        delete obj['value-type'];               
-        delete obj['display'];         
+    var obj = {}
+    for (const key in elem) {
+      if(!_.isObject(elem[key]) && key != 'listLength' && key != 'value-type' && key != 'display'){
+        Object.assign(obj, {[key]: elem[key]});        
       } 
     }
+    
     if(_.isEqual(obj,query)){
-      // console.log(elem)
+      // console.log(elem.ids);
       return elem;
     }
   });
-  // console.log(elem[0]['Ship']);
   // console.log(elem);
   if(elem.length > 1){
     var temp = [];
@@ -283,8 +283,12 @@ function handleQueryTables(source,tableName,query,myarray){
     elem.push(temp);
   }
   
+  // if(elem['value-type'] != 'nested-list')
   // console.dir(elem, { depth: null });
+  
   elem = removeDuplicateLinks(elem[0]);
+  elem = mergeDuplicateIdsForLinks(elem);
+  
   // console.log('lalala2');
   console.dir(elem, {depth:null});
   // console.log(elem);
@@ -297,15 +301,34 @@ function handleQueryTables(source,tableName,query,myarray){
  * @returns The object without the duplicate links
  */
 function removeDuplicateLinks(elem){
-
+  // console.log(elem)
   for (const key in elem){
     var element = elem[key];
-    // console.log(element)
-    if(isArray(element)){
+    if(isArray(element) && key != 'ids'){
       var noduplicates = [...new Map(element.map(item => [item.Id, item])).values()]
       elem[key] = noduplicates;
     }
   }
+  return elem;
+}
+function mergeDuplicateIdsForLinks(elem){
+  // console.log(elem)
+  var idArray = elem['ids'];
+  if (idArray == undefined) return elem;
+
+  for (const key in elem){
+    var element = elem[key];
+    if(isArray(element) && key != 'ids'){
+      element.forEach(linkObj => {
+        linkObj['ids'] = idArray.filter(idInfos => idInfos['recordId'] == linkObj['Id']); 
+      })
+    // }    elem[key] = noduplicates;
+    }else if(isPlainObject(element) && key != 'ids'){
+      // console.log(idArray);
+      element['ids'] = [idArray]; 
+    }
+  }
+  delete elem['ids'];
   return elem;
 }
 /**
@@ -323,8 +346,12 @@ function getlinkedTables(elem, source, tableName){
       if(_.isArray(element)){
         // console.log(element)
         element.forEach(obj => linkArray.push(obj.Id));          
+        
         var newtable = element.map(table=>{
-          var lala = handleLinks(table,elem,tableName,source);
+          // if(elem['value-type'] == 'nested-list'){
+            console.log('lala0')
+            var lala = handleLinks(table,elem,tableName,source);
+          // }
           if(Object.values(lala[0])[0].length == 1)
             return Object.values(lala[0])[0][0];
           else
@@ -338,8 +365,8 @@ function getlinkedTables(elem, source, tableName){
 
       }else{
         linkArray.push(element.Id);
+        console.log('lala1')
         var lala = handleLinks(element,elem,tableName,source);
-        // console.log(lala)
         elem[key] = Object.values(lala[0]); 
       }
     }
@@ -379,18 +406,21 @@ function handleLinks(table, elem, tableName,source){
   else
     temp = handleRecordTables(source,table.Id);
     
-    // console.dir(temp.data, { depth: null });
-    // console.dir(table.link);
-    // console.dir(temp.data);
+    // console.log(temp)
+    console.dir('table');
+    // console.dir(temp, { depth: null });
+    // console.dir(table);
+    // console.dir('table');
+    // console.dir(elem);
     
     var lala  = [];
     temp.data.forEach(elem2 =>{
-
     if(Object.keys(elem2).join() == table.link){
-      if(table.listLink == true){
-        console.log(elem2)
-        var querytables = temp.data.filter(val => Object.keys(val).join() == tableName);
+      // console.dir(elem2, {depth:null})
+      if(table.listLink == true && table['link-type'] == undefined){
         
+        var querytables = temp.data.filter(val => Object.keys(val).join() == tableName);
+        // console.log(querytables); 
         var hm = [];
         querytables[0][tableName].forEach((crew,index) => {
           var temp1 = Object.values(crew).filter(val => typeof val == 'string' && val !='list' && val !='nested-list').join();
@@ -399,6 +429,30 @@ function handleLinks(table, elem, tableName,source){
             hm.push(elem2[table.link][index]);
           }
         });
+        lala.push(hm);
+      }else if(table.listLink == true && table['link-type'] == 'nl-l'){
+        var hm = [];
+        table.ids.forEach(idsInfo => {
+          hm.push(elem2[table.link][idsInfo.Pid]);
+        })
+        lala.push(hm);
+      }else if(table.listLink == true && table['link-type'] == 'nl-nl'){
+        var hm = [];
+        table.ids.forEach(idsInfo => {
+          hm.push(elem2[table.link][idsInfo.Id]);
+        })
+        lala.push(hm);
+      }else if(table.listLink == true && table['link-type'] == 'l-nl'){
+        var hm = [];
+        // console.log(table)
+        table.ids.forEach(idsInfo => {
+          // console.log(elem2[table.link])
+          //foreach me pid == pid
+          elem2[table.link].forEach(tbl =>{
+            if(tbl['ids']['Pid'] == idsInfo.Pid)
+              hm.push(tbl);
+          })
+        })
         lala.push(hm);
       }else{
         lala.push(elem2[table.link]);
@@ -460,7 +514,7 @@ function getTitleOfId(source,id){
  * @param {*} tableName 
  * @returns raw data for one table of an entity
  */
-function handleSingleTable(source,tableName){
+function handleSingleTable(source,tableName,remv=true,nestedlink=false){
   var myarray = [];
   var fullpath = path + source.replAll(' ', '_');
   var config = getConfigEntity(source,tableName);
@@ -472,7 +526,7 @@ function handleSingleTable(source,tableName){
     myarray.push(record);
   });
   
-  return formatObject(myarray, config);
+  return formatObject(myarray, config, remv, nestedlink);
 }
 
 /**
@@ -603,11 +657,14 @@ function formatObject(data, config, remv = true, nestedlink = false){
         var item = config[column]; // path from parser
         // console.log(item)
         if (item != 'list' && column != 'display') {
+            fake['ids'];
             if (item.path != undefined) { // undefined -> links
               if(item['value-type'] == undefined){
                 var ret = addListData(item, mydata2);
                 count = ret.length;
                 fake[column] = arrayColumn(ret,0);
+                if(nestedlink)
+                  fake['ids'] = arrayColumn(ret,1);
                 fake['listLength'] = ret.length;
               }else{ // condition when a table that contains list data contains and non list data
                 // console.log(count)
@@ -644,14 +701,17 @@ function formatObject(data, config, remv = true, nestedlink = false){
     }
 
   }
-  if(objArray[0]["value-type"] !=  undefined)
-    objArray = formatList(objArray);
+  // objArray
   
+  if(objArray[0]["value-type"] !=  undefined)
+  objArray = formatList(objArray);
+  
+  // console.log('after'); 
+  // console.dir(objArray, { depth: null });
   if(remv == true)
     objArray = removeDuplicates(objArray);
   
   replaceEmptyValues(objArray);
-  // console.log(objArray); 
   
   return objArray;
  }
@@ -683,102 +743,57 @@ function splitData(data) {
     var ar = [];
       var data = _.get(mydata, item.path.split(".#.")[0]);
       while(data[index]!= undefined && !_.isEmpty(data[index])){
-        // console.log([data[index][item.path.split(".#.")[1]],index]);
-        var data2 = [data[index][item.path.split(".#.")[1]], index++];
+        // console.log(index);
+        var data2 = [data[index][item.path.split(".#.")[1]], {'Pid':index,'recordId': _.get(mydata, 'docs[0]._id')}];
         if(data2[0] == undefined) data2[0] = '';
         ar.push(data2);
+        index++
+        // console.log(data[index]);
       }
-    
-
     return ar;
   }
   
   function addNestedListData(config,mydata,nestedlink = false) {
     var index = 0;
+    var total = 0;
     var fake = JSON.parse(JSON.stringify(config));
     Object.keys(fake).forEach((key)=>{
       if(key !='value-type' && fake[key].link == undefined)
       fake[key] = []; 
     });
-    // fake['parent id'] = [];
+    if(nestedlink== true)
+      fake['ids'] = [];
     var path = config[Object.keys(config)[1]]['path'].split(".#.")[0];
 
     var data = _.get(mydata, path);
     while (data[index] != undefined && !_.isEmpty(data[index])) {
       var nest = 0;
-      while (data[index][nest] != undefined && !_.isEmpty(data[index][nest])) {
+      while (data[index][nest] != undefined /*&& !_.isEmpty(data[index][nest])*/) {
         // console.log(data[index][nest]);
         for (const column of Object.keys(config)){
-
           if(column!= 'value-type'){
             var item = config[column];
             if(item.path!= undefined){
               var data2 = [data[index][nest][item.path.split(".#.")[1]], index];
               if (data2[0] == undefined) data2[0] = '';
-              if(nestedlink== false){
                 fake[column].push(data2[0]);
-                // fake[column].push({data: data2[0], id: data2[1]});
-              }
-              else{
-                fake[column].push({data: data2[0], id: data2[1]});
-              }
             }else{
               fake[column].Id = _.get(mydata, item.Id);
             }
           }
         }
+        if(nestedlink == true)
+          fake['ids'].push({'Pid': index, 'Id': total, 'recordId': _.get(mydata, 'docs[0]._id')});
         nest++;
+        total++;
       }
       index++;
     }
     var first = Object.keys(fake)[1];
     fake['listLength'] = fake[first].length;
-
-    // console.log(fake)
-
+    // console.log(fake);
     return fake;  
   }
-
-  // function addListData2(config,mydata) {
-  //   var index = 0;
-  //   var res = [];
-  //   var fake;
-  //   var listPathObject = '';
-  //   var keys = Object.keys(config);
-  //   for(const columnName of keys){
-  //     if(columnName!= 'display' && columnName != 'value-type'){
-  //       listPathObject = columnName;
-  //       break;
-  //     }
-  //   }
-  //   var path = config[listPathObject]['path'].split(".#.")[0];
-    
-  //   fake = JSON.parse(JSON.stringify(config));
-  //   var data = _.get(mydata, path);
-  //   while (data[index] != undefined && !_.isEmpty(data[index])) {
-  //     // console.log(data[index][nest]);
-  //     for (const column of keys){
-  //       if(column!= 'value-type' && column!= 'display'){
-  //         var item = config[column];
-  //         if(item['value-type'] == 'nolist'){
-  //           var data2 = _.get(mydata, item.path);
-  //           if (data2 == undefined) data2 = '';
-  //           fake[column] = data2;
-  //         }else if(item.path!= undefined){
-  //           var data2 = [data[index][item.path.split(".#.")[1]], index];
-  //           if (data2[0] == undefined) data2[0] = '';
-  //           fake[column] = data2[0];
-  //         }else{
-  //           fake[column].Id = _.get(mydata, item.Id);
-  //         }
-  //       }
-  //       res.push(Object.assign(fake));
-  //     }
-  //     index++;
-  //   }
-  //   // console.log(res)
-  //   return res;
-  // }
 
  /**
   * Returns the n'th column of an array
