@@ -21,24 +21,24 @@
                 "link": "Ship Owners (Organisations)",
                 "Id": "docs[0]._id"
             },
-            "Companies (Singed by)": {
-                "link": "Companies (Singed by)",
+            "Voyages": {
+                "link": "Voyages",
                 "Id": "docs[0]._id"
             },
-            "Crew Members": {
-                "link": "Crew Members",
-                "Id": "docs[0]._id"
-            },
-            "Ports of Provenance": {
-                "link": "Ports of Provenance",
-                "Id": "docs[0]._id"
-            },
-            "Arrival Ports": {
-                "link": "Arrival Ports",
+            "Departure Ports": {
+                "link": "Departure Ports",
                 "Id": "docs[0]._id"
             },
             "Destination Ports": {
                 "link": "Destination Ports",
+                "Id": "docs[0]._id"
+            },
+            "Ports of Call": {
+                "link": "Ports of Call",
+                "Id": "docs[0]._id"
+            },
+            "Signed by Persons": {
+                "link": "Signed by Persons",
                 "Id": "docs[0]._id"
             }
         },
@@ -96,8 +96,14 @@
                 "value-type": "nolist",
                 "path": "docs[0].data.ship_records.ship_name"
             },
-            "Ships": {
-                "link": "Ships",
+            "Ports of Call": {
+                "link": "Ports of Call",
+                "listLink": true,
+                "Id": "docs[0]._id"
+            },
+            "Signed by Persons": {
+                "link": "Signed by Persons",
+                "listLink": true,
                 "Id": "docs[0]._id"
             }
         },
@@ -158,17 +164,49 @@
             },
             "Voyages": {
                 "link": "Voyages",
+                "link-type": "nl-l",
+                "listLink": true,
+                "Id": "docs[0]._id"
+            },
+            "Transaction Recording Locations": {
+                "link": "Transaction Recording Locations",
+                "link-type": "nl-nl",
+                "listLink": true,
+                "Id": "docs[0]._id"
+            },
+            "Transaction Suppliers/Providers": {
+                "link": "Transaction Suppliers/Providers",
+                "link-type": "nl-nl",
+                "listLink": true,
+                "Id": "docs[0]._id"
+            },
+            "Transaction Mediators": {
+                "link": "Transaction Mediators",
+                "link-type": "nl-nl",
+                "listLink": true,
+                "Id": "docs[0]._id"
+            },
+            "Transaction Receivers": {
+                "link": "Transaction Receivers",
+                "link-type": "nl-nl",
                 "listLink": true,
                 "Id": "docs[0]._id"
             }
         },
-        "Transaction Recording Locations": {
+        "Transaction Recording Locations":{
             "value-type": "nested-list",
-            "Type":{
+            "Location":{
                 "path": "docs[0].data.voyages_transactions.#.location"
             },
             "Voyages": {
                 "link": "Voyages",
+                "link-type": "nl-l",
+                "listLink": true,
+                "Id": "docs[0]._id"
+            },
+            "Transaction Types": {
+                "link": "Transaction Types",
+                "link-type": "nl-nl",
                 "listLink": true,
                 "Id": "docs[0]._id"
             }
@@ -183,6 +221,18 @@
             },
             "Status/Capacity/Role":{
                 "path": "docs[0].data.voyages_transactions.#.supplier_provider_status"
+            },
+            "Voyages": {
+                "link": "Voyages",
+                "link-type": "nl-l",
+                "listLink": true,
+                "Id": "docs[0]._id"
+            },
+            "Transaction Types": {
+                "link": "Transaction Types",
+                "link-type": "nl-nl",
+                "listLink": true,
+                "Id": "docs[0]._id"
             }
         },
         "Transaction Mediators": {
@@ -195,7 +245,19 @@
             },
             "Status/Capacity/Role":{
                 "path": "docs[0].data.voyages_transactions.#.mediator_status"
-            } 
+            },
+            "Voyages": {
+                "link": "Voyages",
+                "link-type": "nl-l",
+                "listLink": true,
+                "Id": "docs[0]._id"
+            },
+            "Transaction Types": {
+                "link": "Transaction Types",
+                "link-type": "nl-nl",
+                "listLink": true,
+                "Id": "docs[0]._id"
+            }
         },
         "Transaction Receivers": {
             "value-type": "nested-list",
@@ -207,9 +269,20 @@
             },
             "Status/Capacity/Role":{
                 "path": "docs[0].data.voyages_transactions.#.receiver_status"
-            } 
+            },
+            "Voyages": {
+                "link": "Voyages",
+                "link-type": "nl-l",
+                "listLink": true,
+                "Id": "docs[0]._id"
+            },
+            "Transaction Types": {
+                "link": "Transaction Types",
+                "link-type": "nl-nl",
+                "listLink": true,
+                "Id": "docs[0]._id"
+            }
         }
-
     },
     "Title": [
         "docs[0].data.ship_records.ship_name",

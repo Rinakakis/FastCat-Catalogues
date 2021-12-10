@@ -38,6 +38,7 @@ export class ListDetailsComponent implements OnInit {
   gridApi: any;
   gridColumnApi: any;
 
+  lala = 'height: 500px; width:100%';
   // private popupParent;
   // private rowData;
 
@@ -133,7 +134,7 @@ export class ListDetailsComponent implements OnInit {
 
     if(entity !== this.TableName){
       this.listservice.getTableFromSource(source,entity).subscribe((table:any)=>{
-        console.log(table);
+        // console.log(table);
         this.TableName = entity;
         this.columnDefs = this.formatTableTitles(table);
         this.rowData = table;

@@ -11,6 +11,7 @@
             "Occupants": {
                 "link": "Occupants",
                 "listLink": true,
+                "link-type": "l-nl",
                 "Id": "docs[0]._id"
             }
         },
@@ -48,6 +49,8 @@
             },
             "Addresses": {
                 "link": "Addresses",
+                "listLink": true,
+                "link-type": "nl-l",
                 "Id": "docs[0]._id"
             }
         },
@@ -58,6 +61,8 @@
             },
             "Occupants": {
                 "link": "Occupants",
+                "listLink": true,
+                "link-type": "nl-nl",
                 "Id": "docs[0]._id"
             }
         },
@@ -68,6 +73,8 @@
             },
             "Occupants": {
                 "link": "Occupants",
+                "listLink": true,
+                "link-type": "nl-nl",
                 "Id": "docs[0]._id"
             }
         },
@@ -78,6 +85,8 @@
             },
             "Occupants": {
                 "link": "Occupants",
+                "listLink": true,
+                "link-type": "nl-nl",
                 "Id": "docs[0]._id"
             }
         },
@@ -88,6 +97,8 @@
             },
             "Occupants": {
                 "link": "Occupants",
+                "listLink": true,
+                "link-type": "nl-nl",
                 "Id": "docs[0]._id"
             }
         },
@@ -101,6 +112,8 @@
             },
             "Occupants": {
                 "link": "Occupants",
+                "listLink": true,
+                "link-type": "nl-nl",
                 "Id": "docs[0]._id"
             }
         }

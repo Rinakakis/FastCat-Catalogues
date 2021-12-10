@@ -37,7 +37,7 @@
           <button class="download-but" mat-button color="success" title="Download CSV file" (click)="onBtnExport(rowData)"><mat-icon id="downicon">download</mat-icon></button>
       </div>
       <ag-grid-angular
-      style="height: 500px; width:100%;"
+      [style]="lala"
       class="ag-theme-alpine"
       [rowData]="rowData"
       [columnDefs]="columnDefs"

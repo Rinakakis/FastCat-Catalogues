@@ -80,7 +80,7 @@ export class EntityDetailsComponent implements OnInit {
             || (key == 'Discharge Date' || key == 'Ship\'s Name' && (table=='Crew Members'|| table== 'Crew Members and Discharge Dates'))  )
               delete data[key];
         }
-        console.log(data);
+        // console.log(data);
         // console.log('list/'+source+'/Table?'+'Table='+entity+query);
         this.router.routeReuseStrategy.shouldReuseRoute = function () {
           return false;

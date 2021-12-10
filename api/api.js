@@ -290,7 +290,7 @@ function handleQueryTables(source,tableName,query,myarray){
   elem = mergeDuplicateIdsForLinks(elem);
   
   // console.log('lalala2');
-  console.dir(elem, {depth:null});
+  // console.dir(elem, {depth:null});
   // console.log(elem);
   return getlinkedTables(elem,source,tableName);
 }
@@ -349,7 +349,6 @@ function getlinkedTables(elem, source, tableName){
         
         var newtable = element.map(table=>{
           // if(elem['value-type'] == 'nested-list'){
-            console.log('lala0')
             var lala = handleLinks(table,elem,tableName,source);
           // }
           if(Object.values(lala[0])[0].length == 1)
@@ -365,7 +364,7 @@ function getlinkedTables(elem, source, tableName){
 
       }else{
         linkArray.push(element.Id);
-        console.log('lala1')
+        // console.log('lala1')
         var lala = handleLinks(element,elem,tableName,source);
         elem[key] = Object.values(lala[0]); 
       }
@@ -407,7 +406,7 @@ function handleLinks(table, elem, tableName,source){
     temp = handleRecordTables(source,table.Id);
     
     // console.log(temp)
-    console.dir('table');
+    // console.dir('table');
     // console.dir(temp, { depth: null });
     // console.dir(table);
     // console.dir('table');
@@ -446,8 +445,6 @@ function handleLinks(table, elem, tableName,source){
         var hm = [];
         // console.log(table)
         table.ids.forEach(idsInfo => {
-          // console.log(elem2[table.link])
-          //foreach me pid == pid
           elem2[table.link].forEach(tbl =>{
             if(tbl['ids']['Pid'] == idsInfo.Pid)
               hm.push(tbl);
