@@ -360,17 +360,21 @@ function getlinkedTables(elem, source, tableName){
         
         newtable = [].concat(...newtable); // make 2d array to 1d array
         
-        elem[key] = removeDuplicates(newtable,elem);
-
+        // console.log('lala0')
+        // console.log(newtable)
+        elem[key] = removeDuplicates(newtable);
+        // elem[key] = newtable;
       }else{
         linkArray.push(element.Id);
         // console.log('lala1')
         var lala = handleLinks(element,elem,tableName,source);
-        elem[key] = Object.values(lala[0]); 
+        // console.log(lala)
+        elem[key] = removeDuplicates(Object.values(lala[0]));
       }
     }
       
   }
+  // console.log(elem)
   linkArray = linkArray.filter(function(item, pos) {
     return linkArray.indexOf(item) == pos;
   })
@@ -404,12 +408,14 @@ function handleLinks(table, elem, tableName,source){
     temp = handleRecordTables(source,table.Id, false, true);
   else
     temp = handleRecordTables(source,table.Id);
-    
-    // console.log(temp)
-    // console.dir('table');
+    // console.dir('τεμπ');
+    // console.log(temp.data['Transaction Types'])
+    // console.dir('τεπμ');
     // console.dir(temp, { depth: null });
+    // console.dir('table');
     // console.dir(table);
     // console.dir('table');
+    
     // console.dir(elem);
     
     var lala  = [];
@@ -438,16 +444,29 @@ function handleLinks(table, elem, tableName,source){
       }else if(table.listLink == true && table['link-type'] == 'nl-nl'){
         var hm = [];
         table.ids.forEach(idsInfo => {
-          hm.push(elem2[table.link][idsInfo.Id]);
+          if(idsInfo.Mid != undefined){ // an uparxei to mid sto query vale ola ta \n pou exoyn to idio id kai mid me auto h an den uparxei to mid vale ola ta \n
+            var rowsWithSameId = elem2[table.link].filter(elm => elm.ids.Id == idsInfo.Id);
+            rowsWithSameId.forEach(data => {
+              if(data.ids.Mid == idsInfo.Mid || data.ids.Mid == undefined){
+
+                hm.push(data);
+              }
+            });
+          }else{ // an den uparxei to mid sto query vale ola ta \n 
+            var rowsWithSameId = elem2[table.link].filter(elm => elm.ids.Id == idsInfo.Id);
+            rowsWithSameId.forEach(data => {
+              hm.push(data);
+            });
+          }
         })
         lala.push(hm);
       }else if(table.listLink == true && table['link-type'] == 'l-nl'){
         var hm = [];
-        // console.log(table)
         table.ids.forEach(idsInfo => {
           elem2[table.link].forEach(tbl =>{
-            if(tbl['ids']['Pid'] == idsInfo.Pid)
+            if(tbl['ids']['Pid'] == idsInfo.Pid){
               hm.push(tbl);
+            }
           })
         })
         lala.push(hm);
@@ -726,7 +745,6 @@ function splitData(data) {
     
       return val;
   });
-
 }
 
 /**
@@ -743,6 +761,10 @@ function splitData(data) {
         // console.log(index);
         var data2 = [data[index][item.path.split(".#.")[1]], {'Pid':index,'recordId': _.get(mydata, 'docs[0]._id')}];
         if(data2[0] == undefined) data2[0] = '';
+        if(data2[0].includes("\n")){
+          data2[0] = data2[0].replAll("\n", ", ");
+          console.log(data2[0])
+        }
         ar.push(data2);
         index++
         // console.log(data[index]);
@@ -753,6 +775,7 @@ function splitData(data) {
   function addNestedListData(config,mydata,nestedlink = false) {
     var index = 0;
     var total = 0;
+    var newLineCount = 0;
     var fake = JSON.parse(JSON.stringify(config));
     Object.keys(fake).forEach((key)=>{
       if(key !='value-type' && fake[key].link == undefined)
@@ -773,16 +796,32 @@ function splitData(data) {
             if(item.path!= undefined){
               var data2 = [data[index][nest][item.path.split(".#.")[1]], index];
               if (data2[0] == undefined) data2[0] = '';
+              if(data2[0].includes("\n")){
+                var arraydata2 = splitData(data2[0]);
+                newLineCount = arraydata2.length; 
+                arraydata2.forEach(element => {
+                  fake[column].push(element); 
+                });
+              }else
                 fake[column].push(data2[0]);
             }else{
               fake[column].Id = _.get(mydata, item.Id);
             }
           }
         }
-        if(nestedlink == true)
-          fake['ids'].push({'Pid': index, 'Id': total, 'recordId': _.get(mydata, 'docs[0]._id')});
+        if(nestedlink == true){
+          if(newLineCount == 0){
+            fake['ids'].push({'Pid': index, 'Id': total , 'recordId': _.get(mydata, 'docs[0]._id')});            
+          }else{
+            for (let i = 0; i < newLineCount; i++){
+              fake['ids'].push({'Pid': index, 'Id': total ,'Mid': i , 'recordId': _.get(mydata, 'docs[0]._id')});            
+            }
+          }
+        }
         nest++;
+        // total = total + newLineCount + 1;
         total++;
+        newLineCount = 0;
       }
       index++;
     }
@@ -806,6 +845,7 @@ function splitData(data) {
   * @returns object array with list data
   */
  function formatList(temp) {
+  //  console.log(temp)
    var array = [];
    var totalCount = 0;
    if(Array.isArray(temp)){
