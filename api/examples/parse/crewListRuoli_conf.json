@@ -219,6 +219,17 @@
             "Id": "docs[0]._id"
          }
       },
+      "Professions": {
+         "value-type": "list",
+         "Profession": {
+            "path": "docs[0].data.crew_list.#.crew_profession_type"
+         },
+         "Crew Members": {
+            "link": "Crew Members",
+            "listLink": true,
+            "Id": "docs[0]._id"
+         }
+      },
       "Voyages": {
          "Ship's Name": {
             "path": "docs[0].data.ship_records.ship_name"

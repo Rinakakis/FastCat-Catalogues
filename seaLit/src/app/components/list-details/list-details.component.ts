@@ -131,10 +131,12 @@ export class ListDetailsComponent implements OnInit {
 
   displaytable(entity:string): void{
     const source = String(this.route.snapshot.paramMap.get('source'));
-
     if(entity !== this.TableName){
+      this.showloader();
       this.listservice.getTableFromSource(source,entity).subscribe((table:any)=>{
         // console.log(table);
+        this.hideloader();
+
         this.TableName = entity;
         this.columnDefs = this.formatTableTitles(table);
         this.rowData = table;
@@ -145,7 +147,9 @@ export class ListDetailsComponent implements OnInit {
     }else{
       this.tableClicked = !this.tableClicked;
     }
-
+  }
+  showloader() {
+    (<HTMLInputElement>document.getElementById('loading')).style.display = 'flex';
   }
 
   formatTableTitles(table: any[]): any[]{

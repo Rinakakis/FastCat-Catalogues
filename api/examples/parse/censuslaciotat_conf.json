@@ -5,9 +5,6 @@
             "Address": {
                 "path": "docs[0].data.residencies_registry.#.registry_location"
             },
-            "House Number": {
-                "path": "docs[0].data.residencies_registry.#.registry_house_number"
-            },
             "Occupants": {
                 "link": "Occupants",
                 "listLink": true,
@@ -44,8 +41,11 @@
             "Role in Household": {
                 "path": "docs[0].data.nominative_list_of_occupants.#.person_household_role"
             },
-            "Profession": {
-                "path": "docs[0].data.nominative_list_of_occupants.#.person_nationality"
+            "Professions": {
+                "link": "Professions",
+                "listLink": true,
+                "link-type": "nl-nl",
+                "Id": "docs[0]._id"
             },
             "Addresses": {
                 "link": "Addresses",
@@ -81,7 +81,7 @@
         "Professions": {
             "value-type": "nested-list",
             "Profession": {
-                "path": "docs[0].data.nominative_list_of_occupants.#.person_nationality"
+                "path": "docs[0].data.nominative_list_of_occupants.#.person_profession_rank"
             },
             "Occupants": {
                 "link": "Occupants",
@@ -109,6 +109,18 @@
             },
             "Surname": {
                 "path": "docs[0].data.nominative_list_of_occupants.#.works_at_person_surname"
+            },
+            "Occupants": {
+                "link": "Occupants",
+                "listLink": true,
+                "link-type": "nl-nl",
+                "Id": "docs[0]._id"
+            }
+        },
+        "Household Roles": {
+            "value-type": "nested-list",
+            "Household Role": {
+                "path": "docs[0].data.nominative_list_of_occupants.#.person_household_role"
             },
             "Occupants": {
                 "link": "Occupants",

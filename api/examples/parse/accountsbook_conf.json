@@ -7,14 +7,12 @@
             "Type": {
                 "path": "docs[0].data.ship_records.ship_type"
             },
-            "Captain's Name": {
-                "path": "docs[0].data.ship_records.captain_name"
-            },
-            "Captain's Surename": {
-                "path": "docs[0].data.ship_records.captain_surname"
-            },
             "Ship Owners (Persons)": {
                 "link": "Ship Owners (Persons)",
+                "Id": "docs[0]._id"
+            },
+            "Captains": {
+                "link": "Captains",
                 "Id": "docs[0]._id"
             },
             "Ship Owners (Organisations)": {
@@ -96,6 +94,12 @@
                 "value-type": "nolist",
                 "path": "docs[0].data.ship_records.ship_name"
             },
+            "Transaction Types": {
+                "link": "Transaction Types",
+                "link-type": "l-nl",
+                "listLink": true,
+                "Id": "docs[0]._id"
+            },
             "Ports of Call": {
                 "link": "Ports of Call",
                 "listLink": true,
@@ -174,8 +178,8 @@
                 "listLink": true,
                 "Id": "docs[0]._id"
             },
-            "Transaction Suppliers/Providers": {
-                "link": "Transaction Suppliers/Providers",
+            "Transaction Suppliers-Providers": {
+                "link": "Transaction Suppliers-Providers",
                 "link-type": "nl-nl",
                 "listLink": true,
                 "Id": "docs[0]._id"
@@ -211,7 +215,7 @@
                 "Id": "docs[0]._id"
             }
         },
-        "Transaction Suppliers/Providers": {
+        "Transaction Suppliers-Providers": {
             "value-type": "nested-list",
             "Name":{
                 "path": "docs[0].data.voyages_transactions.#.supplier_provider_name"

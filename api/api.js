@@ -285,11 +285,11 @@ function handleQueryTables(source,tableName,query,myarray){
   
   // if(elem['value-type'] != 'nested-list')
   // console.dir(elem, { depth: null });
+  // console.log('lalala2');
   
   elem = removeDuplicateLinks(elem[0]);
   elem = mergeDuplicateIdsForLinks(elem);
   
-  // console.log('lalala2');
   // console.dir(elem, {depth:null});
   // console.log(elem);
   return getlinkedTables(elem,source,tableName);
@@ -443,17 +443,19 @@ function handleLinks(table, elem, tableName,source){
         lala.push(hm);
       }else if(table.listLink == true && table['link-type'] == 'nl-nl'){
         var hm = [];
+        // console.log(table)
         table.ids.forEach(idsInfo => {
+          // console.log(idsInfo)
           if(idsInfo.Mid != undefined){ // an uparxei to mid sto query vale ola ta \n pou exoyn to idio id kai mid me auto h an den uparxei to mid vale ola ta \n
-            var rowsWithSameId = elem2[table.link].filter(elm => elm.ids.Id == idsInfo.Id);
+            var rowsWithSameId = elem2[table.link].filter(elm => elm.ids.Id == idsInfo.Id && elm.ids.Pid == idsInfo.Pid);
             rowsWithSameId.forEach(data => {
               if(data.ids.Mid == idsInfo.Mid || data.ids.Mid == undefined){
-
                 hm.push(data);
               }
             });
           }else{ // an den uparxei to mid sto query vale ola ta \n 
-            var rowsWithSameId = elem2[table.link].filter(elm => elm.ids.Id == idsInfo.Id);
+            var rowsWithSameId = elem2[table.link].filter(elm => elm.ids.Id == idsInfo.Id && elm.ids.Pid == idsInfo.Pid);
+            // console.log(rowsWithSameId);  
             rowsWithSameId.forEach(data => {
               hm.push(data);
             });
@@ -763,7 +765,7 @@ function splitData(data) {
         if(data2[0] == undefined) data2[0] = '';
         if(data2[0].includes("\n")){
           data2[0] = data2[0].replAll("\n", ", ");
-          console.log(data2[0])
+          // console.log(data2[0])
         }
         ar.push(data2);
         index++
@@ -776,6 +778,7 @@ function splitData(data) {
     var index = 0;
     var total = 0;
     var newLineCount = 0;
+    var nest = 0;
     var fake = JSON.parse(JSON.stringify(config));
     Object.keys(fake).forEach((key)=>{
       if(key !='value-type' && fake[key].link == undefined)
@@ -787,7 +790,7 @@ function splitData(data) {
 
     var data = _.get(mydata, path);
     while (data[index] != undefined && !_.isEmpty(data[index])) {
-      var nest = 0;
+      
       while (data[index][nest] != undefined /*&& !_.isEmpty(data[index][nest])*/) {
         // console.log(data[index][nest]);
         for (const column of Object.keys(config)){
@@ -797,6 +800,7 @@ function splitData(data) {
               var data2 = [data[index][nest][item.path.split(".#.")[1]], index];
               if (data2[0] == undefined) data2[0] = '';
               if(data2[0].includes("\n")){
+                // console.log('lala')
                 var arraydata2 = splitData(data2[0]);
                 newLineCount = arraydata2.length; 
                 arraydata2.forEach(element => {
@@ -811,10 +815,10 @@ function splitData(data) {
         }
         if(nestedlink == true){
           if(newLineCount == 0){
-            fake['ids'].push({'Pid': index, 'Id': total , 'recordId': _.get(mydata, 'docs[0]._id')});            
+            fake['ids'].push({'Pid': index, 'Id': nest , 'recordId': _.get(mydata, 'docs[0]._id')});            
           }else{
             for (let i = 0; i < newLineCount; i++){
-              fake['ids'].push({'Pid': index, 'Id': total ,'Mid': i , 'recordId': _.get(mydata, 'docs[0]._id')});            
+              fake['ids'].push({'Pid': index, 'Id': nest ,'Mid': i , 'recordId': _.get(mydata, 'docs[0]._id')});            
             }
           }
         }
@@ -823,11 +827,11 @@ function splitData(data) {
         total++;
         newLineCount = 0;
       }
+      nest = 0;
       index++;
     }
     var first = Object.keys(fake)[1];
     fake['listLength'] = fake[first].length;
-    // console.log(fake);
     return fake;  
   }
 
@@ -954,7 +958,7 @@ function splitData(data) {
 function replaceEmptyValues(array) {
    array.forEach(obj => {
       Object.keys(obj).forEach(function (key) {
-         if (obj[key] === '' || obj[key] == undefined){
+         if (obj[key] === '' || obj[key] == undefined || obj[key] == ' '){
             obj[key] = 'None or Unknown';
          }
       });
