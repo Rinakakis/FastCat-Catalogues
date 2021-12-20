@@ -421,19 +421,25 @@ function handleLinks(table, elem, tableName,source){
     var lala  = [];
     temp.data.forEach(elem2 =>{
     if(Object.keys(elem2).join() == table.link){
-      // console.dir(elem2, {depth:null})
       if(table.listLink == true && table['link-type'] == undefined){
-        
-        var querytables = temp.data.filter(val => Object.keys(val).join() == tableName);
-        // console.log(querytables); 
-        var hm = [];
-        querytables[0][tableName].forEach((crew,index) => {
-          var temp1 = Object.values(crew).filter(val => typeof val == 'string' && val !='list' && val !='nested-list').join();
-          var temp2 = Object.values(elem).filter(val => typeof val == 'string' && val !='list' && val !='nested-list').join();
-          if(_.isEqual(temp1, temp2)){
-            hm.push(elem2[table.link][index]);
+        var hm = [];        
+        table.ids.forEach(idsInfo => {
+          if(idsInfo.Mid != undefined){ // an uparxei to mid sto query vale ola ta \n pou exoyn to idio id kai mid me auto h an den uparxei to mid vale ola ta \n
+            var rowsWithSameId = elem2[table.link].filter(elm => elm.ids.Id == idsInfo.Id);
+            // console.log(rowsWithSameId)
+            rowsWithSameId.forEach(data => {
+              if(data.ids.Mid == idsInfo.Mid || data.ids.Mid == undefined){
+                hm.push(data);
+              }
+            });
+          }else{ // an den uparxei to mid sto query vale ola ta \n 
+            var rowsWithSameId = elem2[table.link].filter(elm => elm.ids.Id == idsInfo.Id);
+            // console.log(rowsWithSameId);  
+            rowsWithSameId.forEach(data => {
+              hm.push(data);
+            });
           }
-        });
+        })
         lala.push(hm);
       }else if(table.listLink == true && table['link-type'] == 'nl-l'){
         var hm = [];
@@ -670,39 +676,7 @@ function formatObject(data, config, remv = true, nestedlink = false){
           // console.log(yes);
         }
     }else if(config['value-type'] == 'list'){
-      var count = 0;
-      for (const column of Object.keys(config)) {
-        var item = config[column]; // path from parser
-        // console.log(item)
-        if (item != 'list' && column != 'display') {
-            fake['ids'];
-            if (item.path != undefined) { // undefined -> links
-              if(item['value-type'] == undefined){
-                var ret = addListData(item, mydata2);
-                count = ret.length;
-                fake[column] = arrayColumn(ret,0);
-                if(nestedlink)
-                  fake['ids'] = arrayColumn(ret,1);
-                fake['listLength'] = ret.length;
-              }else{ // condition when a table that contains list data contains and non list data
-                // console.log(count)
-                var data = _.get(mydata2, item.path);
-                var temp = [];
-                for(let i = 0; i<count; i++){
-                  temp.push(data);
-                }
-                // delete fake[column];
-                // fake = Object.assign({[column]: temp}, fake); // to put the non list item infont
-                fake[column] = temp;
-                fake['listLength'] = ret.length;
-              }
-            } else if (item.link != undefined){ 
-              var data = item.link;
-              fake[column].link = data;
-              fake[column].Id = _.get(mydata2, item.Id);
-            }
-        }
-      } 
+       fake = addListData(config, mydata2,nestedlink);
     }else{
       fake = addNestedListData(config, mydata2, nestedlink);       
     }
@@ -755,23 +729,73 @@ function splitData(data) {
  * @param {*} mydata 
  * @returns list data in an array 
  */
-  function addListData(item, mydata){
-    var index = 0;
-    var ar = [];
-      var data = _.get(mydata, item.path.split(".#.")[0]);
-      while(data[index]!= undefined && !_.isEmpty(data[index])){
-        // console.log(index);
-        var data2 = [data[index][item.path.split(".#.")[1]], {'Pid':index,'recordId': _.get(mydata, 'docs[0]._id')}];
-        if(data2[0] == undefined) data2[0] = '';
-        if(data2[0].includes("\n")){
-          data2[0] = data2[0].replAll("\n", ", ");
-          // console.log(data2[0])
+  function addListData(config, mydata2, nestedlink) {
+    var count = 0;
+    var fake = JSON.parse(JSON.stringify(config));
+
+    for (const column of Object.keys(config)) {
+      var item = config[column]; // path from parser
+      // console.log(item)
+      if (column!= 'value-type' && column != 'display') {
+        fake['ids'];
+        if (item.path != undefined) { // undefined -> links
+          if (item['value-type'] == undefined) {
+            var index = 0;
+            var ar = [];
+            var newLineCount = 0;
+            var data = _.get(mydata2, item.path.split(".#.")[0]);
+            while (data[index] != undefined && !_.isEmpty(data[index])) {
+              // console.log(index);
+              var data2 = [data[index][item.path.split(".#.")[1]], { 'Id': index, 'recordId': _.get(mydata2, 'docs[0]._id') }];
+              if (data2[0] == undefined) data2[0] = '';
+              if (data2[0].includes("\n")) {
+                // data2[0] = data2[0].replAll("\n", ", ");
+                var arraydata2 = splitData(data2[0]);
+                // console.log(arraydata2);
+                newLineCount = arraydata2.length;
+                var idInfos = data2[1];
+                // console.log(arraydata2)
+                for (let i = 0; i < newLineCount; i++) {
+                  idInfos.Mid = i;
+                  // console.log(idInfos);
+                  // console.log(arraydata2[i]);
+                  ar.push([arraydata2[i], idInfos]);
+                }
+                newLineCount = 0;
+              } else {
+                // console.log(data2)
+                ar.push(data2);
+              }
+              index++
+            }
+            count = ar.length;
+            fake[column] = arrayColumn(ar, 0);
+            if (nestedlink)
+              fake['ids'] = arrayColumn(ar, 1);
+            fake['listLength'] = ar.length;
+          }else { // condition when a table that contains list data contains and non list data
+            // console.log(count)
+            var data = _.get(mydata2, item.path);
+            var temp = [];
+            for (let i = 0; i < count; i++) {
+              temp.push(data); 
+            }
+            // delete fake[column];
+            // fake = Object.assign({[column]: temp}, fake); // to put the non list item infont
+            fake[column] = temp;
+            fake['listLength'] = count;
+          }
+        } else if (item.link != undefined) {
+          var data = item.link;
+          fake[column].link = data;
+          fake[column].Id = _.get(mydata2, item.Id);
         }
-        ar.push(data2);
-        index++
-        // console.log(data[index]);
       }
-    return ar;
+    }
+
+
+    // console.log(ar);
+    return fake;
   }
   
   function addNestedListData(config,mydata,nestedlink = false) {
@@ -794,7 +818,7 @@ function splitData(data) {
       while (data[index][nest] != undefined /*&& !_.isEmpty(data[index][nest])*/) {
         // console.log(data[index][nest]);
         for (const column of Object.keys(config)){
-          if(column!= 'value-type'){
+          if(column!= 'value-type' && column != 'display'){
             var item = config[column];
             if(item.path!= undefined){
               var data2 = [data[index][nest][item.path.split(".#.")[1]], index];

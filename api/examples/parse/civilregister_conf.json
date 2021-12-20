@@ -31,6 +31,117 @@
             },
             "Death Reason": {
                 "path": "docs[0].data.death_registers.#.death_reason"
+            },    
+            "Related Persons & Type of Relation": {
+                "link": "Related Persons & Type of Relation",
+                "listLink": true,
+                "Id": "docs[0]._id"
+            }   
+        },
+        "Professions":{
+            "value-type": "list",
+            "Profession": {
+                "path": "docs[0].data.death_registers.#.profession"
+            },
+            "Persons": {
+                "link": "Persons",
+                "listLink": true,
+                "Id": "docs[0]._id"
+            }
+        },
+        "Origin Locations":{
+            "value-type": "list",
+            "Locaiton of Origin": {
+                "path": "docs[0].data.death_registers.#.diseased_person_origin_location"
+            },
+            "Persons": {
+                "link": "Persons",
+                "listLink": true,
+                "Id": "docs[0]._id"
+            }
+        },
+        "Death Locations":{
+            "value-type": "list",
+            "Death Location": {
+                "path": "docs[0].data.death_registers.#.death_location"
+            },
+            "Persons and Death Date": {
+                "link": "Persons and Death Date",
+                "listLink": true,
+                "Id": "docs[0]._id"
+            }
+        },
+        "Death Reasons":{
+            "value-type": "list",
+            "Death Reason": {
+                "path": "docs[0].data.death_registers.#.death_reason"
+            },
+            "Persons and Death Date": {
+                "link": "Persons and Death Date",
+                "listLink": true,
+                "Id": "docs[0]._id"
+            }
+        },
+        "Related Persons & Type of Relation":{
+            "value-type": "list",
+            "display":"no",
+            "Type of Relation": {
+                "path": "docs[0].data.death_registers.#.related_person_relation"
+            },
+            "Name": {
+                "path": "docs[0].data.death_registers.#.related_person_name"
+            },
+            "Surname A": {
+                "path": "docs[0].data.death_registers.#.related_person_surname_A"
+            },
+                "Surname B": {
+                    "path": "docs[0].data.death_registers.#.related_person_surname_B"
+                },
+            "Locaiton of Origin": {
+                "path": "docs[0].data.death_registers.#.related_person_origin_location"
+            },
+            "Location of Residence": {
+                "path": "docs[0].data.death_registers.#.related_person_residence_location"
+            },
+            "Profession": {
+                "path": "docs[0].data.death_registers.#.related_person_profession"
+            },
+            "Alive-Dead": {
+                "path": "docs[0].data.death_registers.#.related_person_alive_dead"
+            },
+            "Persons": {
+                "link": "Persons",
+                "listLink": true,
+                "Id": "docs[0]._id"
+            }
+        },
+        "Related Persons":{
+            "value-type": "list",
+            "Name": {
+                "path": "docs[0].data.death_registers.#.related_person_name"
+            },
+            "Surname A": {
+                "path": "docs[0].data.death_registers.#.related_person_surname_A"
+            },
+            "Surname B": {
+                "path": "docs[0].data.death_registers.#.related_person_surname_B"
+            },
+            "Locaiton of Origin": {
+                "path": "docs[0].data.death_registers.#.related_person_origin_location"
+            },
+            "Location of Residence": {
+                "path": "docs[0].data.death_registers.#.related_person_residence_location"
+            },
+            "Profession": {
+                "path": "docs[0].data.death_registers.#.related_person_profession"
+            },
+            "Alive-Dead": {
+                "path": "docs[0].data.death_registers.#.related_person_alive_dead"
+            },
+            "Persons": {
+                "link": "Persons",
+                "listLink": true,
+                "Id": "docs[0]._id"
             }
         },
         "Persons and Death Date": {
@@ -65,54 +176,20 @@
             },
             "Death Reason": {
                 "path": "docs[0].data.death_registers.#.death_reason"
-            },
+            },  
             "Death Date": {
                 "path": "docs[0].data.death_registers.#.death_date"
-            }
-        },
-        "Origin Locations":{
-            "value-type": "list",
-            "Locaiton of Origin": {
-                "path": "docs[0].data.death_registers.#.diseased_person_origin_location"
-            },
-            "Persons": {
-                "link": "Persons",
+            },  
+            "Professions": {
+                "link": "Professions",
                 "listLink": true,
                 "Id": "docs[0]._id"
-            }
-        },
-        "Professions":{
-            "value-type": "list",
-            "Profession": {
-                "path": "docs[0].data.death_registers.#.profession"
-            },
-            "Persons": {
-                "link": "Persons",
+            },   
+            "Related Persons & Type of Relation": {
+                "link": "Related Persons & Type of Relation",
                 "listLink": true,
                 "Id": "docs[0]._id"
-            }
-        },
-        "Death Locations":{
-            "value-type": "list",
-            "Death Location": {
-                "path": "docs[0].data.death_registers.#.death_location"
-            },
-            "Persons and Death Date": {
-                "link": "Persons and Death Date",
-                "listLink": true,
-                "Id": "docs[0]._id"
-            }
-        },
-        "Death Reasons":{
-            "value-type": "list",
-            "Death Reason": {
-                "path": "docs[0].data.death_registers.#.death_reason"
-            },
-            "Persons and Death Date": {
-                "link": "Persons and Death Date",
-                "listLink": true,
-                "Id": "docs[0]._id"
-            }
+            }   
         }
     },
     "Title": [

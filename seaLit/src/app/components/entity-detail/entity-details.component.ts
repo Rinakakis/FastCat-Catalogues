@@ -30,6 +30,8 @@ export class EntityDetailsComponent implements OnInit {
   filename: any;
   fileUrl: any;
   visibleId: string[] = [];
+  tableHeights: string[] = [];
+
 
   constructor(
     private route: ActivatedRoute,
@@ -128,6 +130,8 @@ export class EntityDetailsComponent implements OnInit {
             }
           });
           this.tablesTitles.push(titleFormat);
+          this.tableHeights.push(this.calculatetableHeight(element.length));
+          // console.log(this.tableHeights)
           this.tables.push(element);
       }else{
         if(key !== 'value-type' && key !== 'listLength' && key!=='display')
@@ -163,12 +167,45 @@ export class EntityDetailsComponent implements OnInit {
   }
 
   show(id: any){
+    // if(!this.visibleId.includes(id)){
+    //   this.visibleId.push(id);
+    //   (<HTMLInputElement>document.getElementById(id)).style.animation = 'hide 0.4s linear forwards';
+    // } else{
+    //   this.visibleId = this.listservice.arrayRemove(this.visibleId, id);
+    //   (<HTMLInputElement>document.getElementById(id)).style.animation = 'show 0.4s linear forwards';
+    // }
     if(!this.visibleId.includes(id)){
       this.visibleId.push(id);
-      (<HTMLInputElement>document.getElementById(id)).style.animation = 'hide 0.4s linear forwards';
+      (<HTMLInputElement>document.getElementById(id)).animate([
+        
+      ], {
+        // timing options
+        duration: 1000,
+        iterations: Infinity
+      });
     } else{
       this.visibleId = this.listservice.arrayRemove(this.visibleId, id);
       (<HTMLInputElement>document.getElementById(id)).style.animation = 'show 0.4s linear forwards';
+    }
+  }
+  calculatetableHeight(length: number): string{
+    if(length == 1){
+      var height = 155;
+      return 'height:'+ height+'px; width:100%';
+    }else if(length < 3){
+      var height = 100*length;
+      return 'height:'+ height+'px; width:100%';
+    }else if(length < 4){
+      var height = 80*length;
+      return 'height:'+ height+'px; width:100%';
+    }else if(length < 6){
+      var height = 70*length;
+      return 'height:'+ height+'px; width:100%';
+    }else if(length < 8){
+      var height = 62*length;
+      return 'height:'+ height+'px; width:100%';
+    }else{
+      return 'height: 500px; width:100%';
     }
   }
   

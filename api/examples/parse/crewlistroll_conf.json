@@ -268,8 +268,10 @@
             "Age": {
                 "path": "docs[0].data.crew_list.#.crew_age"
             },
-            "Profession": {
-                "path": "docs[0].data.crew_list.#.crew_profession_type"
+            "Professions": {
+                "link": "Professions",
+                "listLink": true,
+                "Id": "docs[0]._id"
             },
             "Embarkation Ports": {
                 "link": "Embarkation Ports2",

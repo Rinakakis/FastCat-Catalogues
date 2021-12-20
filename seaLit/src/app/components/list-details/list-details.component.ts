@@ -37,8 +37,7 @@ export class ListDetailsComponent implements OnInit {
   
   gridApi: any;
   gridColumnApi: any;
-
-  lala = 'height: 500px; width:100%';
+  tableHeight = 'height: 500px; width:100%';
   // private popupParent;
   // private rowData;
 
@@ -140,12 +139,30 @@ export class ListDetailsComponent implements OnInit {
         this.TableName = entity;
         this.columnDefs = this.formatTableTitles(table);
         this.rowData = table;
+        this.calculatetableHeight(table.length);
         if(!this.tableClicked){
           this.tableClicked = !this.tableClicked;
         }
       })
     }else{
       this.tableClicked = !this.tableClicked;
+    }
+  }
+  calculatetableHeight(length: number){
+    if(length < 3){
+      var height = 100*length;
+      this.tableHeight = 'height:'+ height+'px; width:100%';
+    }else if(length < 4){
+      var height = 80*length;
+      this.tableHeight = 'height:'+ height+'px; width:100%';
+    }else if(length < 6){
+      var height = 70*length;
+      this.tableHeight = 'height:'+ height+'px; width:100%';
+    }else if(length < 8){
+      var height = 62*length;
+      this.tableHeight = 'height:'+ height+'px; width:100%';
+    }else{
+      this.tableHeight = 'height: 500px; width:100%';
     }
   }
   showloader() {
