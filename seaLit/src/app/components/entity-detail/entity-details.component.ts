@@ -167,22 +167,9 @@ export class EntityDetailsComponent implements OnInit {
   }
 
   show(id: any){
-    // if(!this.visibleId.includes(id)){
-    //   this.visibleId.push(id);
-    //   (<HTMLInputElement>document.getElementById(id)).style.animation = 'hide 0.4s linear forwards';
-    // } else{
-    //   this.visibleId = this.listservice.arrayRemove(this.visibleId, id);
-    //   (<HTMLInputElement>document.getElementById(id)).style.animation = 'show 0.4s linear forwards';
-    // }
     if(!this.visibleId.includes(id)){
       this.visibleId.push(id);
-      (<HTMLInputElement>document.getElementById(id)).animate([
-        
-      ], {
-        // timing options
-        duration: 1000,
-        iterations: Infinity
-      });
+      (<HTMLInputElement>document.getElementById(id)).style.animation = 'hide 0.4s linear forwards';
     } else{
       this.visibleId = this.listservice.arrayRemove(this.visibleId, id);
       (<HTMLInputElement>document.getElementById(id)).style.animation = 'show 0.4s linear forwards';

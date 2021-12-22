@@ -81,11 +81,11 @@
             "Route (From)": {
                 "path": "docs[0].data.voyages.#.route_from"
             },
-            "Date (From)": {
-                "path": "docs[0].data.voyages.#.date_from"
-            },
             "Route (To)": {
                 "path": "docs[0].data.voyages.#.route_to"
+            },
+            "Date (From)": {
+                "path": "docs[0].data.voyages.#.date_from"
             },
             "Date (To)": {
                 "path": "docs[0].data.voyages.#.date_to"

@@ -350,6 +350,8 @@ function getlinkedTables(elem, source, tableName){
         var newtable = element.map(table=>{
           // if(elem['value-type'] == 'nested-list'){
             var lala = handleLinks(table,elem,tableName,source);
+            // console.log(table);
+
           // }
           if(Object.values(lala[0])[0].length == 1)
             return Object.values(lala[0])[0][0];
@@ -408,15 +410,6 @@ function handleLinks(table, elem, tableName,source){
     temp = handleRecordTables(source,table.Id, false, true);
   else
     temp = handleRecordTables(source,table.Id);
-    // console.dir('τεμπ');
-    // console.log(temp.data['Transaction Types'])
-    // console.dir('τεπμ');
-    // console.dir(temp, { depth: null });
-    // console.dir('table');
-    // console.dir(table);
-    // console.dir('table');
-    
-    // console.dir(elem);
     
     var lala  = [];
     temp.data.forEach(elem2 =>{
@@ -472,7 +465,8 @@ function handleLinks(table, elem, tableName,source){
         var hm = [];
         table.ids.forEach(idsInfo => {
           elem2[table.link].forEach(tbl =>{
-            if(tbl['ids']['Pid'] == idsInfo.Pid){
+            // console.log(tbl)
+            if(tbl['ids']['Pid'] == idsInfo.Id){
               hm.push(tbl);
             }
           })
