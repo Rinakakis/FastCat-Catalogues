@@ -9,7 +9,7 @@ import { isObject } from 'lodash';
 export class ListService {
 
   Titles: any[] = [];
-  Ip: string = '192.168.1.2';
+  Ip: string = '192.168.1.10';
 
   constructor(private http:HttpClient) {
   }

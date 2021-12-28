@@ -292,7 +292,7 @@
         "docs[0].data.ship_records.ship_name",
         "docs[0].data.ship_records.ship_type",
         "docs[0].data.source_identity.book_date_from",
-        "docs[0].data.source_identity.book_date_from",
+        "docs[0].data.source_identity.book_date_to",
         "docs[0].data.record_information.name",
         "docs[0].data.record_information.surname",
         "docs[0].data.record_information.catalogue_id"

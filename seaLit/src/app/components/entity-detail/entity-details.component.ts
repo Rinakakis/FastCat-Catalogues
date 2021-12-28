@@ -48,7 +48,7 @@ export class EntityDetailsComponent implements OnInit {
       if (list) {
         this.hideloader();
       }
-      // console.log(list);
+      console.log(list);
       this.displaydata(params,list);
     });
   }
@@ -113,26 +113,25 @@ export class EntityDetailsComponent implements OnInit {
     for (const key in record) {
       var element = record[key];
       if(isObjectLike(element)){
-          if(key == 'FastCat Records')
-            element = this.formatLinks(element);
-          this.keysList.push(key);
-          // console.log(element)
-          var titles = this.getTitles(element[0]);
-          var titleFormat = titles.map((val: string) => {
-            if(val == 'FastCat Records'){
-              return {width: 60, resizable: false, tooltipField: val,
-                cellRenderer: function() {
-                  return '<i class="material-icons" style="vertical-align: middle">info</i>'
-                }
+        if(key == 'FastCat Records')
+          element = this.formatLinks(element);
+        this.keysList.push(key);
+        var titles = this.getTitles(element[0]);
+        var titleFormat = titles.map((val: string) => {
+          if(val == 'FastCat Records'){
+            return {width: 60, resizable: false, tooltipField: val,
+              cellRenderer: function() {
+                return '<i class="material-icons" style="vertical-align: middle">info</i>'
               }
-            }else{
-                return {'field': val,'colId':key, 'sortable': true, 'filter': true, tooltipField: val }
             }
-          });
-          this.tablesTitles.push(titleFormat);
-          this.tableHeights.push(this.calculatetableHeight(element.length));
-          // console.log(this.tableHeights)
-          this.tables.push(element);
+          }else{
+              return {'field': val,'colId':key, 'sortable': true, 'filter': true, tooltipField: val }
+          }
+        });
+        this.tablesTitles.push(titleFormat);
+        this.tableHeights.push(this.calculatetableHeight(element.length));
+        // console.log(this.tableHeights)
+        this.tables.push(element);
       }else{
         if(key !== 'value-type' && key !== 'listLength' && key!=='display')
           this.nonLitsInfo.push({'key':key, 'value':element});
@@ -151,7 +150,6 @@ export class EntityDetailsComponent implements OnInit {
 
   getTitles(temp: any): string[]{
     var titles: string[] = [];
-    // console.log(temp)
     for (const [key] of Object.entries(temp)) {
       if(key!='value-type' && key!='listLength' && key!='listIds' && key!='display')
         titles.push(key);

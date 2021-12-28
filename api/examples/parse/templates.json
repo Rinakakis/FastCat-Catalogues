@@ -37,12 +37,6 @@
          "configuration":"messageriesmaritimes_conf.json"
       },
       {
-         "id":"Messageries_Maritimes",
-         "name":"Employment records, Shipyards of Messageries Maritimes, La Ciotat",
-         "description":"A description of the template",
-         "configuration":"messageriesmaritimes_conf.json"
-      },
-      {
          "id":"Census Odessa",
          "name":"First national all-Russian census of the Russian Empire",
          "description":"A description of the template",

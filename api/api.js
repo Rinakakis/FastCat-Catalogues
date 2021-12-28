@@ -3,7 +3,7 @@ var express = require('express');
 var app = express();
 var fs = require("fs");
 var cors = require('cors');
-const { isArray, isObject, isPlainObject } = require('lodash');
+const { isArray, isObject, isPlainObject, isString } = require('lodash');
 const { count } = require('console');
 const e = require('express');
 
@@ -41,12 +41,6 @@ const templates = [
       "name":"Civil Register",
       "description":"A description of the template",
       "configuration":"civilregister_conf.json"
-   },
-   {
-      "id":"Messageries_Maritimes",
-      "name":"Employment records, Shipyards of Messageries Maritimes, La Ciotat",
-      "description":"A description of the template",
-      "configuration":"messageriesmaritimes_conf.json"
    },
    {
       "id":"Messageries_Maritimes",
@@ -349,14 +343,20 @@ function getlinkedTables(elem, source, tableName){
         
         var newtable = element.map(table=>{
           // if(elem['value-type'] == 'nested-list'){
-            var lala = handleLinks(table,elem,tableName,source);
-            // console.log(table);
-
+          // console.log(table);
+          var lala = handleLinks(table,source);
+          // console.log(lala)
           // }
-          if(Object.values(lala[0])[0].length == 1)
+            // if(Object.values(lala[0])[0] == undefined)
+            //   return [];
+          if(Object.values(lala[0]).length == 0){
+            return [];  
+          }else if(Object.values(lala[0])[0].length == 1){
             return Object.values(lala[0])[0][0];
-          else
+          }else{
+
             return Object.values(lala[0]);
+          }
 
         });
         
@@ -364,19 +364,21 @@ function getlinkedTables(elem, source, tableName){
         
         // console.log('lala0')
         // console.log(newtable)
+
         elem[key] = removeDuplicates(newtable);
         // elem[key] = newtable;
       }else{
         linkArray.push(element.Id);
         // console.log('lala1')
-        var lala = handleLinks(element,elem,tableName,source);
+        var lala = handleLinks(element,source);
         // console.log(lala)
         elem[key] = removeDuplicates(Object.values(lala[0]));
       }
     }
+    if(elem[key].length == 0)
+      delete elem[key];
       
   }
-  // console.log(elem)
   linkArray = linkArray.filter(function(item, pos) {
     return linkArray.indexOf(item) == pos;
   })
@@ -404,16 +406,19 @@ function getlinkedTables(elem, source, tableName){
  * @param {*} source 
  * @returns 
  */
-function handleLinks(table, elem, tableName,source){
+function handleLinks(table,source){
   var temp;
   if(table.listLink == true)
     temp = handleRecordTables(source,table.Id, false, true);
   else
     temp = handleRecordTables(source,table.Id);
     
+    // console.dir(temp.data, { depth: null });
+    
     var lala  = [];
     temp.data.forEach(elem2 =>{
     if(Object.keys(elem2).join() == table.link){
+      // console.dir(elem2, {depth:null})
       if(table.listLink == true && table['link-type'] == undefined){
         var hm = [];        
         table.ids.forEach(idsInfo => {
@@ -465,8 +470,8 @@ function handleLinks(table, elem, tableName,source){
         var hm = [];
         table.ids.forEach(idsInfo => {
           elem2[table.link].forEach(tbl =>{
-            // console.log(tbl)
             if(tbl['ids']['Pid'] == idsInfo.Id){
+              // console.log(tbl)
               hm.push(tbl);
             }
           })
@@ -670,7 +675,7 @@ function formatObject(data, config, remv = true, nestedlink = false){
           // console.log(yes);
         }
     }else if(config['value-type'] == 'list'){
-       fake = addListData(config, mydata2,nestedlink);
+      fake = addListData(config, mydata2,nestedlink);
     }else{
       fake = addNestedListData(config, mydata2, nestedlink);       
     }
@@ -688,12 +693,12 @@ function formatObject(data, config, remv = true, nestedlink = false){
 
   }
   // objArray
+  // console.dir(objArray, { depth: null });
   
   if(objArray[0]["value-type"] !=  undefined)
-  objArray = formatList(objArray);
+    objArray = formatList(objArray);
   
   // console.log('after'); 
-  // console.dir(objArray, { depth: null });
   if(remv == true)
     objArray = removeDuplicates(objArray);
   
@@ -726,7 +731,6 @@ function splitData(data) {
   function addListData(config, mydata2, nestedlink) {
     var count = 0;
     var fake = JSON.parse(JSON.stringify(config));
-
     for (const column of Object.keys(config)) {
       var item = config[column]; // path from parser
       // console.log(item)
@@ -739,7 +743,7 @@ function splitData(data) {
             var newLineCount = 0;
             var data = _.get(mydata2, item.path.split(".#.")[0]);
             while (data[index] != undefined && !_.isEmpty(data[index])) {
-              // console.log(index);
+              // console.log(data[index]);
               var data2 = [data[index][item.path.split(".#.")[1]], { 'Id': index, 'recordId': _.get(mydata2, 'docs[0]._id') }];
               if (data2[0] == undefined) data2[0] = '';
               if (data2[0].includes("\n")) {
@@ -794,6 +798,7 @@ function splitData(data) {
   
   function addNestedListData(config,mydata,nestedlink = false) {
     var index = 0;
+    var i = 0;
     var total = 0;
     var newLineCount = 0;
     var nest = 0;
@@ -804,11 +809,20 @@ function splitData(data) {
     });
     if(nestedlink== true)
       fake['ids'] = [];
-    var path = config[Object.keys(config)[1]]['path'].split(".#.")[0];
 
-    var data = _.get(mydata, path);
-    while (data[index] != undefined && !_.isEmpty(data[index])) {
+      if(config[Object.keys(config)[1]]['path'] != undefined)
+      var path = config[Object.keys(config)[1]]['path'].split(".#.")[0];
+      else // in case we have display no the first value is on the 3rd index  
+      var path = config[Object.keys(config)[2]]['path'].split(".#.")[0];
       
+    // console.log(path)
+    var data = _.get(mydata, path);
+    // in case that the nested table doesn't start form index 1
+    // occurs in Messageries_Maritimes
+    var indexes = Object.keys(data);
+    // console.log(indexes)  
+    index = indexes[0];
+    while (data[index] != undefined && !_.isEmpty(data[index])){
       while (data[index][nest] != undefined /*&& !_.isEmpty(data[index][nest])*/) {
         // console.log(data[index][nest]);
         for (const column of Object.keys(config)){
@@ -833,10 +847,10 @@ function splitData(data) {
         }
         if(nestedlink == true){
           if(newLineCount == 0){
-            fake['ids'].push({'Pid': index, 'Id': nest , 'recordId': _.get(mydata, 'docs[0]._id')});            
+            fake['ids'].push({'Pid': Number(index), 'Id': nest , 'recordId': _.get(mydata, 'docs[0]._id')});            
           }else{
             for (let i = 0; i < newLineCount; i++){
-              fake['ids'].push({'Pid': index, 'Id': nest ,'Mid': i , 'recordId': _.get(mydata, 'docs[0]._id')});            
+              fake['ids'].push({'Pid': Number(index), 'Id': nest ,'Mid': i , 'recordId': _.get(mydata, 'docs[0]._id')});            
             }
           }
         }
@@ -846,10 +860,15 @@ function splitData(data) {
         newLineCount = 0;
       }
       nest = 0;
-      index++;
+      index = indexes[++i];
     }
     var first = Object.keys(fake)[1];
+
+    if(first == 'display' || first == 'value-type')
+      first = Object.keys(fake)[2];
+
     fake['listLength'] = fake[first].length;
+    // console.log(fake)
     return fake;  
   }
 
