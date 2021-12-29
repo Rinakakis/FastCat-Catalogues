@@ -78,8 +78,8 @@ export class EntityDetailsComponent implements OnInit {
         var entity = event.colDef.colId;
 
         for (const key in data) {
-          if(key=='value-type' || key =='listLength' || key == 'display' || (key == 'Embarkation Date' || key == 'Ship\'s Name' && (table=='Crew Members'|| table== 'Crew Members and Embarkation Dates')) 
-            || (key == 'Discharge Date' || key == 'Ship\'s Name' && (table=='Crew Members'|| table== 'Crew Members and Discharge Dates'))  )
+          if(key=='value-type' || key =='listLength' || key == 'display' || ((key == 'Embarkation Date' || key == 'Ship\'s Name') && (table=='Crew Members'|| table== 'Crew Members and Embarkation Dates')) 
+            || ((key == 'Discharge Date' || key == 'Ship\'s Name') && (table=='Crew Members'|| table== 'Crew Members and Discharge Dates'))  )
               delete data[key];
         }
         // console.log(data);

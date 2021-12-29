@@ -390,7 +390,7 @@
             "Embarkation Date": {
                 "path": "docs[0].data.crew_list.#.embarkation_date"
             },
-            "Ship Name": {
+            "Ship's Name": {
                 "value-type": "nolist",
                 "path": "docs[0].data.ship_records.ship_name"
             },
@@ -469,7 +469,7 @@
             "Discharge Date": {
                 "path": "docs[0].data.crew_list.#.crew_discharge_date"
             },
-            "Ship Name": {
+            "Ship's Name": {
                 "value-type": "nolist",
                 "path": "docs[0].data.ship_records.ship_name"
             },
@@ -482,7 +482,6 @@
     },
     "Title": [
         "docs[0].data.ship_records.ship_type",
-        "docs[0].data.ship_records.ship_name",
         "docs[0].data.ship_records.ship_name",
         "docs[0].data.ship_records.construction_location_country",
         "docs[0].data.record_information.name",

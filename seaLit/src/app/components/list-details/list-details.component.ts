@@ -150,7 +150,7 @@ export class ListDetailsComponent implements OnInit {
   }
   calculatetableHeight(length: number){
     if(length == 1){
-      var height = 150*length;
+      var height = 160*length;
       this.tableHeight = 'height:'+ height+'px; width:100%';
     }else if(length < 3){
       var height = 100*length;

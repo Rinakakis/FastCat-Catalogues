@@ -257,6 +257,10 @@
          "Ships": {
             "link": "Ships",
             "Id": "docs[0]._id"
+         },
+         "Crew Members": {
+            "link": "Crew Members",
+            "Id": "docs[0]._id"
          }
       },
       "Embarkation Ports": {

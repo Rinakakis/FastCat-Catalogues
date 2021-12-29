@@ -354,7 +354,6 @@ function getlinkedTables(elem, source, tableName){
           }else if(Object.values(lala[0])[0].length == 1){
             return Object.values(lala[0])[0][0];
           }else{
-
             return Object.values(lala[0]);
           }
 
@@ -431,8 +430,8 @@ function handleLinks(table,source){
               }
             });
           }else{ // an den uparxei to mid sto query vale ola ta \n 
+            // console.log(elem2[table.link]);  
             var rowsWithSameId = elem2[table.link].filter(elm => elm.ids.Id == idsInfo.Id);
-            // console.log(rowsWithSameId);  
             rowsWithSameId.forEach(data => {
               hm.push(data);
             });
@@ -831,15 +830,15 @@ function splitData(data) {
             if(item.path!= undefined){
               var data2 = [data[index][nest][item.path.split(".#.")[1]], index];
               if (data2[0] == undefined) data2[0] = '';
-              if(data2[0].includes("\n")){
-                // console.log('lala')
+              if(data2[0].includes("\n") && item.path.split(".#.")[1]!= 'person_name'){ //second condition beacause there's a \n in a colunm that takes single values
                 var arraydata2 = splitData(data2[0]);
                 newLineCount = arraydata2.length; 
                 arraydata2.forEach(element => {
                   fake[column].push(element); 
                 });
-              }else
+              }else{
                 fake[column].push(data2[0]);
+              }
             }else{
               fake[column].Id = _.get(mydata, item.Id);
             }
