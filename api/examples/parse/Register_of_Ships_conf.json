@@ -1,0 +1,140 @@
+{
+    "Naval Ship Register List":{
+        "Ships": {
+            "value-type": "list",
+            "Ship Name": {
+                "path": "docs[0].data.list_of_ships.#.ship_name"
+            },
+            "Ship Type": {
+                "path": "docs[0].data.list_of_ships.#.ship_type"
+            },
+            "Gross Tonnage (In Kg)": {
+                "path": "docs[0].data.list_of_ships.#.gross_tonnage_normalization_in_kg"
+            },
+            "Length (In Meter)": {
+                "path": "docs[0].data.list_of_ships.#.length_tonnage_normalization_in_meter"
+            },
+            "Width (In Meter)": {
+                "path": "docs[0].data.list_of_ships.#.width_tonnage_normalization_in_meter"
+            },
+            "Depth (In Meter)": {
+                "path": "docs[0].data.list_of_ships.#.depth_tonnage_normalization_in_meter"
+            },
+            "Construction Place": {
+                "path": "docs[0].data.list_of_ships.#.construction_person_location"
+            },
+            "Captains": {
+                "link": "Captains",
+                "listLink": true,
+                "Id": "docs[0]._id"
+            },
+            "Owners (Persons)": {
+                "link": "Owners (Persons)",
+                "listLink": true,
+                "Id": "docs[0]._id"
+            },
+            "Owners (Organization)": {
+                "link": "Owners (Organization)",
+                "listLink": true,
+                "Id": "docs[0]._id"
+            },
+            "Registration Locations": {
+                "link": "Registration Locations",
+                "listLink": true,
+                "Id": "docs[0]._id"
+            }
+        },
+        "Captains": {
+            "value-type": "list",
+            "Name": {
+                "path": "docs[0].data.list_of_ships.#.captain_name"
+            },
+            "Surname": {
+                "path": "docs[0].data.list_of_ships.#.captain_surname"
+            },
+            "Ships": {
+                "link": "Ships",
+                "listLink": true,
+                "Id": "docs[0]._id"
+            }
+        },
+        "Owners (Persons)":{
+            "value-type": "list",
+            "Name": {
+                "path": "docs[0].data.list_of_ships.#.owner_person_name"
+            },
+            "Surname A": {
+                "path": "docs[0].data.list_of_ships.#.owner_person_surname"
+            },
+            "Surname B": {
+                "path": "docs[0].data.list_of_ships.#.owner_person_surname_1"
+            },
+            "Profession": {
+                "path": "docs[0].data.list_of_ships.#.owner_person_profession"
+            },
+            "Ships": {
+                "link": "Ships",
+                "listLink": true,
+                "Id": "docs[0]._id"
+            },
+            "Construction Places": {
+                "link": "Construction Places",
+                "listLink": true,
+                "Id": "docs[0]._id"
+            }
+        },
+        "Owners (Organization)":{
+            "value-type": "list",
+            "Name": {
+                "path": "docs[0].data.list_of_ships.#.owner_organization_name"
+            },
+            "Type": {
+                "path": "docs[0].data.list_of_ships.#.owner_organization_type"
+            },
+            "Surname B": {
+                "path": "docs[0].data.list_of_ships.#.owner_person_surname_2"
+            },
+            "Headquarter Location": {
+                "path": "docs[0].data.list_of_ships.#.owner_hq_location"
+            },
+            "Ships": {
+                "link": "Ships",
+                "listLink": true,
+                "Id": "docs[0]._id"
+            }
+        },
+        "Registration Locations":{
+            "value-type": "list",
+            "Location": {
+                "path": "docs[0].data.list_of_ships.#.registration_location"
+            },
+            "Type": {
+                "path": "docs[0].data.list_of_ships.#.registration_type"
+            },
+            "Ships": {
+                "link": "Ships",
+                "listLink": true,
+                "Id": "docs[0]._id"
+            }
+        },
+        "Construction Places":{
+            "value-type": "list",
+            "Construction Place": {
+                "path": "docs[0].data.list_of_ships.#.construction_person_location"
+            },
+            "Ships": {
+                "link": "Ships",
+                "listLink": true,
+                "Id": "docs[0]._id"
+            }
+        }
+
+    },
+    "Title": [
+        "docs[0].data.source_identity.book_title",
+        "docs[0].data.source_identity.book_number",
+        "docs[0].data.record_information.name",
+        "docs[0].data.record_information.surname",
+        "docs[0].data.record_information.catalogue_id"
+    ]
+}
