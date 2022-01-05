@@ -741,27 +741,29 @@ function splitData(data) {
             var ar = [];
             var newLineCount = 0;
             var data = _.get(mydata2, item.path.split(".#.")[0]);
-            while (data[index] != undefined && !_.isEmpty(data[index])) {
-              // console.log(data[index]);
-              var data2 = [data[index][item.path.split(".#.")[1]], { 'Id': index, 'recordId': _.get(mydata2, 'docs[0]._id') }];
-              if (data2[0] == undefined) data2[0] = '';
-              if (data2[0].includes("\n")) {
-                // data2[0] = data2[0].replAll("\n", ", ");
-                var arraydata2 = splitData(data2[0]);
-                // console.log(arraydata2);
-                newLineCount = arraydata2.length;
-                var idInfos = data2[1];
-                // console.log(arraydata2)
-                for (let i = 0; i < newLineCount; i++) {
-                  idInfos.Mid = i;
-                  // console.log(idInfos);
-                  // console.log(arraydata2[i]);
-                  ar.push([arraydata2[i], idInfos]);
+            while (data[index] != undefined) {
+              if(!_.isEmpty(data[index])){
+                // var previusColumn = '';
+                var data2 = [data[index][item.path.split(".#.")[1]], { 'Id': index, 'recordId': _.get(mydata2, 'docs[0]._id') }];
+                if (data2[0] == undefined) data2[0] = '';
+                if (data2[0].includes("\n")) {
+                  // data2[0] = data2[0].replAll("\n", ", ");
+                  var arraydata2 = splitData(data2[0]);
+                  // console.log(arraydata2);
+                  newLineCount = arraydata2.length;
+                  var idInfos = data2[1];
+                  // console.log(arraydata2)
+                  for (let i = 0; i < newLineCount; i++) {
+                    idInfos.Mid = i;
+                    // console.log(idInfos);
+                    // console.log(arraydata2[i]);
+                    ar.push([arraydata2[i], idInfos]);
+                  }
+                  newLineCount = 0;
+                } else {
+                  // console.log(data2)
+                  ar.push(data2);
                 }
-                newLineCount = 0;
-              } else {
-                // console.log(data2)
-                ar.push(data2);
               }
               index++
             }
@@ -824,32 +826,44 @@ function splitData(data) {
     while (data[index] != undefined && !_.isEmpty(data[index])){
       while (data[index][nest] != undefined /*&& !_.isEmpty(data[index][nest])*/) {
         // console.log(data[index][nest]);
-        for (const column of Object.keys(config)){
-          if(column!= 'value-type' && column != 'display'){
-            var item = config[column];
-            if(item.path!= undefined){
-              var data2 = [data[index][nest][item.path.split(".#.")[1]], index];
-              if (data2[0] == undefined) data2[0] = '';
-              if(data2[0].includes("\n") && item.path.split(".#.")[1]!= 'person_name'){ //second condition beacause there's a \n in a colunm that takes single values
-                var arraydata2 = splitData(data2[0]);
-                newLineCount = arraydata2.length; 
-                arraydata2.forEach(element => {
-                  fake[column].push(element); 
-                });
+        if(!_.isEmpty(data[index][nest])){
+          var previusColumn = '';
+          for (const column of Object.keys(config)){
+            if(column!= 'value-type' && column != 'display'){
+              var item = config[column];
+              if(item.path!= undefined){
+                var data2 = [data[index][nest][item.path.split(".#.")[1]], index];
+                if (data2[0] == undefined) data2[0] = '';
+                if(data2[0].includes("\n") && item.path!= 'docs[0].data.nominative_list_of_occupants.#.person_name'){ //second condition beacause there's a \n in a colunm that takes single values. for First national all-Russian census of the Russian Empire
+                  var arraydata2 = splitData(data2[0]);
+                  newLineCount = arraydata2.length; 
+                  arraydata2.forEach(element => {
+                    fake[column].push(element);
+                    
+                  });
+                  if(previusColumn != ''){ // case for when a table that has \n has a data without \n. in that case we need to dublicate the data newLineCount-1 times. occured in Contracting Parties, Notarial Deeds
+                    for(let i = 0; i < newLineCount-1; i++){
+                      fake[previusColumn].push(fake[previusColumn][fake[previusColumn].length-1]);  
+                    }
+                    previusColumn = '';
+                  }
+                }else{
+                  fake[column].push(data2[0]);
+                  previusColumn = column;
+                }
               }else{
-                fake[column].push(data2[0]);
+                fake[column].Id = _.get(mydata, item.Id);
               }
-            }else{
-              fake[column].Id = _.get(mydata, item.Id);
+
             }
           }
-        }
-        if(nestedlink == true){
-          if(newLineCount == 0){
-            fake['ids'].push({'Pid': Number(index), 'Id': nest , 'recordId': _.get(mydata, 'docs[0]._id')});            
-          }else{
-            for (let i = 0; i < newLineCount; i++){
-              fake['ids'].push({'Pid': Number(index), 'Id': nest ,'Mid': i , 'recordId': _.get(mydata, 'docs[0]._id')});            
+          if(nestedlink == true){
+            if(newLineCount == 0){
+              fake['ids'].push({'Pid': Number(index), 'Id': nest , 'recordId': _.get(mydata, 'docs[0]._id')});            
+            }else{
+              for (let i = 0; i < newLineCount; i++){
+                fake['ids'].push({'Pid': Number(index), 'Id': nest ,'Mid': i , 'recordId': _.get(mydata, 'docs[0]._id')});            
+              }
             }
           }
         }
@@ -884,49 +898,49 @@ function splitData(data) {
   * @param {*} temp 
   * @returns object array with list data
   */
- function formatList(temp) {
+function formatList(temp) {
   //  console.log(temp)
-   var array = [];
-   var totalCount = 0;
-   if(Array.isArray(temp)){
-     temp.forEach((element) => {
-       var count = 0;
-       while(count<element.listLength){
-         var obj = {};
-         for (const key in element){
-           if(!Array.isArray(element[key])){
-             obj[key] = element[key];
-           }
-           else{
-             obj[key] = element[key][count];
-           }
-         }
-         array[totalCount++]= obj;
-         count++;
-       }
-     });
-   //   console.log(array);
-   }else{
-     var element = temp;
-     var count = 0;
-     while(count<element.listLength){
-       var obj = {};
-       for (const key in element){
-         if(!Array.isArray(element[key])){
-           obj[key] = element[key];
-         }
-         else{
-           obj[key] = element[key][count];
-         }
-       }
-       array[totalCount++]= obj;
-       count++;
-     }
-   }
+  var array = [];
+  var totalCount = 0;
+  if (Array.isArray(temp)) {
+    temp.forEach((element) => {
+      var count = 0;
+      while (count < element.listLength) {
+        var obj = {};
+        for (const key in element) {
+          if (!Array.isArray(element[key])) {
+            obj[key] = element[key];
+          }
+          else {
+            obj[key] = element[key][count];
+          }
+        }
+        array[totalCount++] = obj;
+        count++;
+      }
+    });
+    //   console.log(array);
+  } else {
+    var element = temp;
+    var count = 0;
+    while (count < element.listLength) {
+      var obj = {};
+      for (const key in element) {
+        if (!Array.isArray(element[key])) {
+          obj[key] = element[key];
+        }
+        else {
+          obj[key] = element[key][count];
+        }
+      }
+      array[totalCount++] = obj;
+      count++;
+    }
+  }
   //  console.log(array)
-   return array;
-   // return array;
- }
+  return array;
+  // return array;
+}
 
  /**
   * Removes dublicate objects from an array
@@ -1029,11 +1043,11 @@ function filterData(myarray){
       const element = myarray[key];
       if(key == 'data'){
         element.forEach((ar, index)=>{
-          var key = Object.keys(ar).join();
-          if(ar[key][0].display != undefined)
+          var key2 = Object.keys(ar).join();
+          if(ar[key2][0].display != undefined)
             delete element[index];
           else
-            deleteObjects(ar[key]);
+            deleteObjects(ar[key2]);
 
         })
       }else if(isObject(element) && key!='FastCat Records'){

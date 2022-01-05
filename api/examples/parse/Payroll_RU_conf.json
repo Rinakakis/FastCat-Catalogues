@@ -1,0 +1,320 @@
+{
+    "Payroll of Russian Steam Navigation and Trading Company":{
+        "Ships": {
+            "value-type": "list",
+            "Ship Name": {
+                "path": "docs[0].data.payroll.#.payroll_ship_name"
+            },
+            "Owner (Company)": {
+                "path": "docs[0].data.payroll.#.payroll_ship_owner"
+            },
+            "Persons": {
+                "link": "Persons",
+                "listLink": true,
+                "Id": "docs[0]._id"
+            },
+            "Recruitments": {
+                "link": "Recruitments",
+                "listLink": true,
+                "Id": "docs[0]._id"
+            }
+        },
+        "Ship owners (companies)": {
+            "value-type": "list",
+            "Owner (Company)": {
+                "path": "docs[0].data.payroll.#.payroll_ship_owner"
+            },
+            "Ships": {
+                "link": "Ships",
+                "listLink": true,
+                "Id": "docs[0]._id"
+            }
+        },
+        "Persons": {
+            "value-type": "list",
+            "Surname": {
+                "path": "docs[0].data.payroll.#.payroll_person_surname"
+            },
+            "Name": {
+                "path": "docs[0].data.payroll.#.payroll_person_name"
+            },
+            "Patronymic": {
+                "path": "docs[0].data.payroll.#.payroll_person_patronymic"
+            },
+            "Adult or Child": {
+                "path": "docs[0].data.payroll.#.payroll_person_age"
+            },
+            "Sex": {
+                "path": "docs[0].data.payroll.#.payroll_person_sex"
+            },
+            "Date of Birth": {
+                "path": "docs[0].data.payroll.#.payroll_person_date_birth"
+            },
+            "Estate (Social Class)": {
+                "path": "docs[0].data.payroll.#.payroll_person_estate"
+            },
+            "Ships": {
+                "link": "Ships",
+                "listLink": true,
+                "Id": "docs[0]._id"
+            },
+            "Recruitments": {
+                "link": "Recruitments",
+                "listLink": true,
+                "Id": "docs[0]._id"
+            },
+            "Person Registration Places": {
+                "link": "Person Registration Places",
+                "listLink": true,
+                "Id": "docs[0]._id"
+            }
+        },
+        "Person Estates (Social Classes)": {
+            "value-type": "list",
+            "Estate (Social Class)": {
+                "path": "docs[0].data.payroll.#.payroll_person_estate"
+            },
+            "Persons": {
+                "link": "Persons",
+                "listLink": true,
+                "Id": "docs[0]._id"
+            }
+        },
+        "Person Registration Places": {
+            "value-type": "list",
+            "Country": {
+                "path": "docs[0].data.payroll.#.payroll_person_country"
+            },
+            "Governorate": {
+                "path": "docs[0].data.payroll.#.payroll_person_governorate"
+            },
+            "District": {
+                "path": "docs[0].data.payroll.#.payroll_person_district"
+            },
+            "Township": {
+                "path": "docs[0].data.payroll.#.payroll_person_township"
+            },
+            "City": {
+                "path": "docs[0].data.payroll.#.payroll_person_city"
+            },
+            "Village": {
+                "path": "docs[0].data.payroll.#.payroll_person_village"
+            },
+            "Persons": {
+                "link": "Persons",
+                "listLink": true,
+                "Id": "docs[0]._id"
+            }
+        },
+        "Recruitments": {
+            "value-type": "list",
+            "Ship Name": {
+                "path": "docs[0].data.payroll.#.payroll_ship_name"
+            },
+            "Surname": {
+                "path": "docs[0].data.payroll.#.payroll_person_surname"
+            },
+            "Person's Name": {
+                "path": "docs[0].data.payroll.#.payroll_person_name"
+            },
+            "Person's Patronymic": {
+                "path": "docs[0].data.payroll.#.payroll_person_patronymic"
+            },
+            "Person's Sex": {
+                "path": "docs[0].data.payroll.#.payroll_person_sex"
+            },
+            "Person's Date of Birth": {
+                "path": "docs[0].data.payroll.#.payroll_person_date_birth"
+            },
+            "Recruitment Date": {
+                "path": "docs[0].data.payroll.#.payroll_recruitment_date"
+            },
+            "Recruitment Port": {
+                "path": "docs[0].data.payroll.#.payroll_recruitment_port"
+            },
+            "Recruitment Type of Document": {
+                "path": "docs[0].data.payroll.#.payroll_recruitment_document_type"
+            },
+            "Rank-Specialization": {
+                "path": "docs[0].data.payroll.#.payroll_rank_specialization"
+            },
+            "Salary per Month (Value)": {
+                "path": "docs[0].data.payroll.#.payroll_month_salary"
+            },
+            "Salary per Month (Unit)": {
+                "path": "docs[0].data.payroll.#.payroll_month_salary_unit"
+            },
+            "Persons": {
+                "link": "Persons",
+                "listLink": true,
+                "Id": "docs[0]._id"
+            },
+            "Ships": {
+                "link": "Ships",
+                "listLink": true,
+                "Id": "docs[0]._id"
+            }
+        },
+        "Recruitment Ports": {
+            "value-type": "list",
+            "Recruitment Port": {
+                "path": "docs[0].data.payroll.#.payroll_recruitment_port"
+            },
+            "Recruitments": {
+                "link": "Recruitments",
+                "listLink": true,
+                "Id": "docs[0]._id"
+            },
+            "Persons": {
+                "link": "Persons",
+                "listLink": true,
+                "Id": "docs[0]._id"
+            },
+            "Ships": {
+                "link": "Ships",
+                "listLink": true,
+                "Id": "docs[0]._id"
+            }
+        },
+        "Recruitment Type of Document": {
+            "value-type": "list",
+            "Recruitment Types of Document": {
+                "path": "docs[0].data.payroll.#.payroll_recruitment_document_type"
+            },
+            "Recruitments": {
+                "link": "Recruitments",
+                "listLink": true,
+                "Id": "docs[0]._id"
+            },
+            "Persons": {
+                "link": "Persons",
+                "listLink": true,
+                "Id": "docs[0]._id"
+            },
+            "Ships": {
+                "link": "Ships",
+                "listLink": true,
+                "Id": "docs[0]._id"
+            }
+        },
+        "Ranks/Specializations": {
+            "value-type": "list",
+            "Rank-Specialization": {
+                "path": "docs[0].data.payroll.#.payroll_rank_specialization"
+            },
+            "Recruitments": {
+                "link": "Recruitments",
+                "listLink": true,
+                "Id": "docs[0]._id"
+            },
+            "Persons": {
+                "link": "Persons",
+                "listLink": true,
+                "Id": "docs[0]._id"
+            },
+            "Ships": {
+                "link": "Ships",
+                "listLink": true,
+                "Id": "docs[0]._id"
+            }
+        },
+        "Document Issuing Authority Places": {
+            "value-type": "list",
+            "Country": {
+                "path": "docs[0].data.payroll.#.payroll_issuing_country"
+            },
+            "Governorate": {
+                "path": "docs[0].data.payroll.#.payroll_issuing_governorate"
+            },
+            "District": {
+                "path": "docs[0].data.payroll.#.payroll_issuing_district"
+            },
+            "Township": {
+                "path": "docs[0].data.payroll.#.payroll_issuing_township"
+            },
+            "City": {
+                "path": "docs[0].data.payroll.#.payroll_issuing_city"
+            },
+            "Village": {
+                "path": "docs[0].data.payroll.#.payroll_issuing_village"
+            },
+            "Recruitments": {
+                "link": "Recruitments",
+                "listLink": true,
+                "Id": "docs[0]._id"
+            },
+            "Persons": {
+                "link": "Persons",
+                "listLink": true,
+                "Id": "docs[0]._id"
+            }
+        },
+        "Ships of Previous Service in Company": {
+            "value-type": "list",
+            "Ship Name": {
+                "path": "docs[0].data.payroll.#.payroll_previous_ship_name"
+            },
+            "Ship Type": {
+                "path": "docs[0].data.payroll.#.payroll_previous_ship_type"
+            },
+            "Persons (Date of Dismissal)": {
+                "link": "Persons (Date of Dismissal)",
+                "listLink": true,
+                "Id": "docs[0]._id"
+            }
+        },
+        "Persons (Date of Dismissal)": {
+            "value-type": "list",
+            "display": "no",
+            "Date of Dismissal": {
+                "path": "docs[0].data.payroll.#.payroll_previous_dismissal_date"
+            },
+            "Surname": {
+                "path": "docs[0].data.payroll.#.payroll_person_surname"
+            },
+            "Name": {
+                "path": "docs[0].data.payroll.#.payroll_person_name"
+            },
+            "Patronymic": {
+                "path": "docs[0].data.payroll.#.payroll_person_patronymic"
+            },
+            "Adult or Child": {
+                "path": "docs[0].data.payroll.#.payroll_person_age"
+            },
+            "Sex": {
+                "path": "docs[0].data.payroll.#.payroll_person_sex"
+            },
+            "Date of Birth": {
+                "path": "docs[0].data.payroll.#.payroll_person_date_birth"
+            },
+            "Estate (Social Class)": {
+                "path": "docs[0].data.payroll.#.payroll_person_estate"
+            },
+            "Ships": {
+                "link": "Ships",
+                "listLink": true,
+                "Id": "docs[0]._id"
+            },
+            "Recruitments": {
+                "link": "Recruitments",
+                "listLink": true,
+                "Id": "docs[0]._id"
+            },
+            "Person Registration Places": {
+                "link": "Person Registration Places",
+                "listLink": true,
+                "Id": "docs[0]._id"
+            }
+        }
+     },
+    "Title": [
+        "docs[0].data.source_identity.fonds_number",
+        "docs[0].data.source_identity.series_number",
+        "docs[0].data.source_identity.file_number",
+        "docs[0].data.source_identity.file_date_from",
+        "docs[0].data.source_identity.file_date_to",
+        "docs[0].data.record_information.name",
+        "docs[0].data.record_information.surname",
+        "docs[0].data.record_information.catalogue_id"
+    ]
+}

@@ -7,12 +7,12 @@
             "Type": {
                 "path": "docs[0].data.ship_records.ship_type"
             },
-            "Ship Owners (Persons)": {
-                "link": "Ship Owners (Persons)",
-                "Id": "docs[0]._id"
-            },
             "Captains": {
                 "link": "Captains",
+                "Id": "docs[0]._id"
+            },
+            "Ship Owners (Persons)": {
+                "link": "Ship Owners (Persons)",
                 "Id": "docs[0]._id"
             },
             "Ship Owners (Organisations)": {
