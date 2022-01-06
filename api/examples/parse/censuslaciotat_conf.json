@@ -20,6 +20,10 @@
             "Name": {
                 "path": "docs[0].data.nominative_list_of_occupants.#.person_name"
             },
+            "House Number": {
+                "value-type": "list",
+                "path": "docs[0].data.residencies_registry.#.registry_house_number"
+            },
             "Age": {
                 "path": "docs[0].data.nominative_list_of_occupants.#.person_age"
             },

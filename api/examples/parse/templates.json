@@ -100,7 +100,7 @@
          "id":"Maritime Workers_IT",
          "name":"Register of Maritime workers (Matricole della gente di mare)",
          "description":"A description of the template",
-         "configuration":"Maritime Workers_IT_conf.json"
+         "configuration":"Maritime_Workers_IT_conf.json"
       },
       {
          "id":"Sailors_Register",

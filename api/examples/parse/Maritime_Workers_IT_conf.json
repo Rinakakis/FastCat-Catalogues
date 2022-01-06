@@ -154,7 +154,7 @@
             "Maritime Workers and Embarkation Date": {
                 "link": "Maritime Workers and Embarkation Date",
                 "listLink": true,
-                "link-type": "nl-l",
+                "link-type": "nl-nl",
                 "Id": "docs[0]._id"
             }
         },
@@ -172,7 +172,7 @@
             "Maritime Workers and Discharge Date": {
                 "link": "Maritime Workers and Discharge Date",
                 "listLink": true,
-                "link-type": "nl-l",
+                "link-type": "nl-nl",
                 "Id": "docs[0]._id"
             }
         },
@@ -196,38 +196,52 @@
         },
         "Maritime Workers and Embarkation Date": {
             "display": "no",
-            "value-type": "list",
+            "value-type": "nested-list",
+            "Embarkation Date": {
+                "path": "docs[0].data.displacement_list.#.displacement_embarkation_date"
+            },
             "Surname": {
+                "value-type": "list",
                 "path": "docs[0].data.maritime_workers_list.#.worker_surname"
             },
             "Name": {
+                "value-type": "list",
                 "path": "docs[0].data.maritime_workers_list.#.worker_name"
             },
             "Father's Name": {
+                "value-type": "list",
                 "path": "docs[0].data.maritime_workers_list.#.worker_fathers_name"
             },
             "Mother's Name": {
+                "value-type": "list",
                 "path": "docs[0].data.maritime_workers_list.#.worker_mothers_name"
             },
             "Mother's Surname": {
+                "value-type": "list",
                 "path": "docs[0].data.maritime_workers_list.#.worker_mothers_surname"
             },
             "Birth Location": {
+                "value-type": "list",
                 "path": "docs[0].data.maritime_workers_list.#.worker_birth_location"
             },
             "Birth Date": {
+                "value-type": "list",
                 "path": "docs[0].data.maritime_workers_list.#.worker_birth_date"
             },
             "Location of Residence": {
+                "value-type": "list",
                 "path": "docs[0].data.maritime_workers_list.#.worker_residence_location"
             },
             "Hair Color": {
+                "value-type": "list",
                 "path": "docs[0].data.maritime_workers_list.#.worker_hair_colour"
             },
             "Eyes Color": {
+                "value-type": "list",
                 "path": "docs[0].data.maritime_workers_list.#.worker_eyes_colour"
             },
             "Marital Status": {
+                "value-type": "list",
                 "path": "docs[0].data.maritime_workers_list.#.worker_marital_status"
             },
             "Professions-Ranks": {
@@ -238,44 +252,58 @@
             "Ships": {
                 "link": "Ships",
                 "listLink": true,
-                "link-type": "l-nl",
+                "link-type": "nl-nl",
                 "Id": "docs[0]._id"
             }
         },
         "Maritime Workers and Discharge Date": {
             "display": "no",
-            "value-type": "list",
+            "value-type": "nested-list",
+            "Discharge Date": {
+                "path": "docs[0].data.displacement_list.#.displacement_discharge_date"
+            },
             "Surname": {
+                "value-type": "list",
                 "path": "docs[0].data.maritime_workers_list.#.worker_surname"
             },
             "Name": {
+                "value-type": "list",
                 "path": "docs[0].data.maritime_workers_list.#.worker_name"
             },
             "Father's Name": {
+                "value-type": "list",
                 "path": "docs[0].data.maritime_workers_list.#.worker_fathers_name"
             },
             "Mother's Name": {
+                "value-type": "list",
                 "path": "docs[0].data.maritime_workers_list.#.worker_mothers_name"
             },
             "Mother's Surname": {
+                "value-type": "list",
                 "path": "docs[0].data.maritime_workers_list.#.worker_mothers_surname"
             },
             "Birth Location": {
+                "value-type": "list",
                 "path": "docs[0].data.maritime_workers_list.#.worker_birth_location"
             },
             "Birth Date": {
+                "value-type": "list",
                 "path": "docs[0].data.maritime_workers_list.#.worker_birth_date"
             },
             "Location of Residence": {
+                "value-type": "list",
                 "path": "docs[0].data.maritime_workers_list.#.worker_residence_location"
             },
             "Hair Color": {
+                "value-type": "list",
                 "path": "docs[0].data.maritime_workers_list.#.worker_hair_colour"
             },
             "Eyes Color": {
+                "value-type": "list",
                 "path": "docs[0].data.maritime_workers_list.#.worker_eyes_colour"
             },
             "Marital Status": {
+                "value-type": "list",
                 "path": "docs[0].data.maritime_workers_list.#.worker_marital_status"
             },
             "Professions-Ranks": {
@@ -286,7 +314,7 @@
             "Ships": {
                 "link": "Ships",
                 "listLink": true,
-                "link-type": "l-nl",
+                "link-type": "nl-nl",
                 "Id": "docs[0]._id"
             }
         }

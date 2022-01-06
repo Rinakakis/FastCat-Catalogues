@@ -118,8 +118,60 @@
             "Work Status Type": {
                 "path": "docs[0].data.employees_list.#.work_status_type"
             },
-            "Persons": {
-                "link": "Persons",
+            "Person and Start Date": {
+                "link": "Person and Start Date",
+                "listLink": true,
+                "Id": "docs[0]._id"
+            }
+        },
+        "Person and Start Date": {
+            "display": "no",
+            "value-type": "list",
+            "Start Date": {
+                "path": "docs[0].data.employees_list.#.work_status_start_date"
+            },
+            "Name": {
+                "path": "docs[0].data.employees_list.#.person_name"
+            },
+            "Surname": {
+                "path": "docs[0].data.employees_list.#.person_surname"
+            },
+            "Father's Name": {
+                "path": "docs[0].data.employees_list.#.person_fathers_name"
+            },
+            "Marital Status": {
+                "path": "docs[0].data.employees_list.#.military_service_organization"
+            },
+            "Birth Date": {
+                "path": "docs[0].data.employees_list.#.person_birth_date"
+            },
+            "Professions": {
+                "link": "Professions",
+                "listLink": true,
+                "Id": "docs[0]._id"
+            },
+            "Transient Professions": {
+                "link": "Transient Professions",
+                "listLink": true,
+                "Id": "docs[0]._id"
+            },
+            "Ships": {
+                "link": "Ships",
+                "listLink": true,
+                "Id": "docs[0]._id"
+            },
+            "Destinations": {
+                "link": "Destinations",
+                "listLink": true,
+                "Id": "docs[0]._id"
+            },
+            "End of Service Reasons": {
+                "link": "End of Service Reasons",
+                "listLink": true,
+                "Id": "docs[0]._id"
+            },
+            "Work Status Types": {
+                "link": "Work Status Types",
                 "listLink": true,
                 "Id": "docs[0]._id"
             }

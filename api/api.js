@@ -112,7 +112,7 @@ const templates = [
       "id":"Maritime Workers_IT",
       "name":"Register of Maritime workers (Matricole della gente di mare)",
       "description":"A description of the template",
-      "configuration":"Maritime Workers_IT_conf.json"
+      "configuration":"Maritime_Workers_IT_conf.json"
    },
    {
       "id":"Sailors_Register",
@@ -334,6 +334,8 @@ function mergeDuplicateIdsForLinks(elem){
  */
 function getlinkedTables(elem, source, tableName){
   var linkArray = [];
+
+  // console.log(elem)
   for (const key in elem) {
     var element = elem[key];
     if(_.isObject(element)){
@@ -378,7 +380,7 @@ function getlinkedTables(elem, source, tableName){
       delete elem[key];
       
   }
-  linkArray = linkArray.filter(function(item, pos) {
+  linkArray = linkArray.filter(function(item, pos){
     return linkArray.indexOf(item) == pos;
   })
   
@@ -413,6 +415,7 @@ function handleLinks(table,source){
     temp = handleRecordTables(source,table.Id);
     
     // console.dir(temp.data, { depth: null });
+    // console.dir(table, { depth: null });
     
     var lala  = [];
     temp.data.forEach(elem2 =>{
@@ -423,6 +426,7 @@ function handleLinks(table,source){
         table.ids.forEach(idsInfo => {
           if(idsInfo.Mid != undefined){ // an uparxei to mid sto query vale ola ta \n pou exoyn to idio id kai mid me auto h an den uparxei to mid vale ola ta \n
             var rowsWithSameId = elem2[table.link].filter(elm => elm.ids.Id == idsInfo.Id);
+            // console.log(idsInfo)
             // console.log(rowsWithSameId)
             rowsWithSameId.forEach(data => {
               if(data.ids.Mid == idsInfo.Mid || data.ids.Mid == undefined){
@@ -744,25 +748,24 @@ function splitData(data) {
             while (data[index] != undefined) {
               if(!_.isEmpty(data[index])){
                 // var previusColumn = '';
-                var data2 = [data[index][item.path.split(".#.")[1]], { 'Id': index, 'recordId': _.get(mydata2, 'docs[0]._id') }];
-                if (data2[0] == undefined) data2[0] = '';
-                if (data2[0].includes("\n")) {
+                var recordId =  _.get(mydata2, 'docs[0]._id');
+                var data2 = data[index][item.path.split(".#.")[1]];
+                if (data2 == undefined) data2 = '';
+                if (data2.includes("\n")) {
                   // data2[0] = data2[0].replAll("\n", ", ");
-                  var arraydata2 = splitData(data2[0]);
+                  var arraydata2 = splitData(data2);
                   // console.log(arraydata2);
                   newLineCount = arraydata2.length;
-                  var idInfos = data2[1];
                   // console.log(arraydata2)
                   for (let i = 0; i < newLineCount; i++) {
-                    idInfos.Mid = i;
                     // console.log(idInfos);
                     // console.log(arraydata2[i]);
-                    ar.push([arraydata2[i], idInfos]);
+                    ar.push([arraydata2[i], { 'Id': index, 'Mid': i, 'recordId': recordId }]);
                   }
                   newLineCount = 0;
                 } else {
                   // console.log(data2)
-                  ar.push(data2);
+                  ar.push([data2, { 'Id': index, 'recordId': recordId }]);
                 }
               }
               index++
@@ -772,6 +775,8 @@ function splitData(data) {
             if (nestedlink)
               fake['ids'] = arrayColumn(ar, 1);
             fake['listLength'] = ar.length;
+
+            // console.log(fake['ids'])
           }else { // condition when a table that contains list data contains and non list data
             // console.log(count)
             var data = _.get(mydata2, item.path);
@@ -832,14 +837,20 @@ function splitData(data) {
             if(column!= 'value-type' && column != 'display'){
               var item = config[column];
               if(item.path!= undefined){
-                var data2 = [data[index][nest][item.path.split(".#.")[1]], index];
-                if (data2[0] == undefined) data2[0] = '';
-                if(data2[0].includes("\n") && item.path!= 'docs[0].data.nominative_list_of_occupants.#.person_name'){ //second condition beacause there's a \n in a colunm that takes single values. for First national all-Russian census of the Russian Empire
-                  var arraydata2 = splitData(data2[0]);
+                if(item['value-type']== undefined)
+                  var data2 = data[index][nest][item.path.split(".#.")[1]];
+                else{
+                  var data2 = _.get(mydata, item.path.replace('#',index));
+                  // console.log(Listdata)
+                  // var data2 = [data[index][item.path.split(".#.")[1]], index];
+                }
+
+                if (data2 == undefined) data2 = '';
+                if(data2.includes("\n") && item.path!= 'docs[0].data.nominative_list_of_occupants.#.person_name'){ //second condition beacause there's a \n in a colunm that takes single values. for First national all-Russian census of the Russian Empire
+                  var arraydata2 = splitData(data2);
                   newLineCount = arraydata2.length; 
                   arraydata2.forEach(element => {
                     fake[column].push(element);
-                    
                   });
                   if(previusColumn != ''){ // case for when a table that has \n has a data without \n. in that case we need to dublicate the data newLineCount-1 times. occured in Contracting Parties, Notarial Deeds
                     for(let i = 0; i < newLineCount-1; i++){
@@ -848,7 +859,7 @@ function splitData(data) {
                     previusColumn = '';
                   }
                 }else{
-                  fake[column].push(data2[0]);
+                  fake[column].push(data2);
                   previusColumn = column;
                 }
               }else{
