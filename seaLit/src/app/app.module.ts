@@ -7,9 +7,11 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { MatCardModule } from '@angular/material/card';
 import {MatButtonModule} from '@angular/material/button';
-import { FormsModule,ReactiveFormsModule } from '@angular/forms';
+import {FormsModule,ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { AgGridModule } from 'ag-grid-angular';
+import { NgChartsModule } from 'ng2-charts';
+import { MatMenuModule} from '@angular/material/menu';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -42,7 +44,9 @@ import { RecordDetailsComponent } from './components/record-details/record-detai
     ReactiveFormsModule,
     HttpClientModule,
     MatCardModule,
-    AgGridModule.withComponents([])
+    NgChartsModule,
+    MatMenuModule,
+    AgGridModule.withComponents([]),
   ],
   providers: [
     Title

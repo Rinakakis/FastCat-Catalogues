@@ -1,11 +1,14 @@
-import { Component, OnInit} from '@angular/core';
+import { Component, OnInit, ViewChild} from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CellClickedEvent } from 'ag-grid-community';
-import { isObject, isObjectLike } from 'lodash';
+import { flatMap, isObject, isObjectLike } from 'lodash';
 import { ListService } from 'src/app/services/list.service';
 import { saveAs } from 'file-saver';
 import { Title } from '@angular/platform-browser';
+import { ChartConfiguration, ChartData, ChartType, Chart  } from 'chart.js';
+import { BaseChartDirective } from 'ng2-charts';
+import zoomPlugin from 'chartjs-plugin-zoom';
 
 @Component({
   selector: 'app-entity-details',
@@ -13,6 +16,7 @@ import { Title } from '@angular/platform-browser';
   styleUrls: ['./entity-details.component.css']
 })
 export class EntityDetailsComponent implements OnInit {
+  @ViewChild(BaseChartDirective) chart: BaseChartDirective | undefined;
 
   sourceName: string ='';
   rowData = [];
@@ -24,6 +28,7 @@ export class EntityDetailsComponent implements OnInit {
   nonLitsInfo: any[] = [];
   keysNonList: any[] = [];
   keysList: any[] = [];
+  columnTitles: any[] = [];
 
   gridApi: any;
   gridColumnApi: any;
@@ -31,6 +36,37 @@ export class EntityDetailsComponent implements OnInit {
   fileUrl: any;
   visibleId: string[] = [];
   tableHeights: string[] = [];
+  
+  chartOption: boolean[] = [];
+  barChartOptions: ChartConfiguration['options'] = {
+    responsive: true,
+    plugins: {
+      zoom: {
+        zoom: {
+          wheel: {
+            enabled: true,
+          },
+          pinch: {
+            enabled: true
+          },
+          mode: 'xy',
+        }
+      }
+    }
+  };
+  barChartLabels: ChartData[] = [];
+  barChartType: ChartType = 'bar';
+  barChartLegend = true;
+  barChartPlugins = [];
+  barChartDataArray: ChartData<'bar'>[] = []; 
+  barChartData: ChartData<'bar'> = {
+    labels: [],
+    datasets: [
+      { data: [],
+        label: ''
+      }
+    ]
+  };
 
 
   constructor(
@@ -42,13 +78,15 @@ export class EntityDetailsComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    Chart.register(zoomPlugin);
+
     const params = this.route.snapshot.params;
     const query = this.route.snapshot.queryParams;
     this.listservice.getTablesFromSource(params.source,params.name,query).subscribe(list =>{
       if (list) {
         this.hideloader();
       }
-      console.log(list);
+      // console.log(list);
       this.displaydata(params,list);
     });
   }
@@ -109,7 +147,6 @@ export class EntityDetailsComponent implements OnInit {
     
     this.titleService.setTitle('SeaLit - '+this.sourceName+': '+ this.title);
     
-
     for (const key in record) {
       var element = record[key];
       if(isObjectLike(element)){
@@ -125,13 +162,27 @@ export class EntityDetailsComponent implements OnInit {
               }
             }
           }else{
-              return {'field': val,'colId':key, 'sortable': true, 'filter': true, tooltipField: val }
+            if(this.listservice.NumColumns.includes(val))
+              return {'field': val,'colId':key, 'sortable': true, filter: 'agNumberColumnFilter', tooltipField: val }
+            else  
+              return {'field': val,'colId':key, 'sortable': true, filter: 'true', tooltipField: val }
           }
         });
         this.tablesTitles.push(titleFormat);
-        this.tableHeights.push(this.calculatetableHeight(element.length));
-        // console.log(this.tableHeights)
+        this.chartOption.push(false);
+        this.columnTitles.push(titleFormat.map(column=> column.field));
+        this.tableHeights.push(this.listservice.calculatetableHeight(element.length));
         this.tables.push(element);
+        this.barChartDataArray.push(
+          {
+            labels: [],
+            datasets: [
+              { data: [],
+                label: ''
+              }
+            ]
+          }
+        )
       }else{
         if(key !== 'value-type' && key !== 'listLength' && key!=='display')
           this.nonLitsInfo.push({'key':key, 'value':element});
@@ -173,24 +224,27 @@ export class EntityDetailsComponent implements OnInit {
       (<HTMLInputElement>document.getElementById(id)).style.animation = 'show 0.4s linear forwards';
     }
   }
-  calculatetableHeight(length: number): string{
-    if(length == 1){
-      var height = 155;
-      return 'height:'+ height+'px; width:100%';
-    }else if(length < 3){
-      var height = 100*length;
-      return 'height:'+ height+'px; width:100%';
-    }else if(length < 4){
-      var height = 80*length;
-      return 'height:'+ height+'px; width:100%';
-    }else if(length < 6){
-      var height = 70*length;
-      return 'height:'+ height+'px; width:100%';
-    }else if(length < 8){
-      var height = 62*length;
-      return 'height:'+ height+'px; width:100%';
+
+  calculateStats(rowdata: any, column: string | number, index: number){ 
+    if(String(column) != this.barChartDataArray[index].datasets[0].label){
+      // console.log('bmhka')
+      var values = rowdata.map((elem: { [x: string]: any; })=> elem[column]);
+      var stats = this.listservice.calculateStats(values);
+
+      this.barChartDataArray[index] = {
+        labels: Object.keys(stats),
+        datasets: [
+          { data: Object.values(stats),
+            label: String(column)
+          }
+        ]
+      };
+      if(!this.chartOption[index])
+        this.chartOption[index] = !this.chartOption[index];
+
+        this.chart?.update();
     }else{
-      return 'height: 500px; width:100%';
+        this.chartOption[index] = !this.chartOption[index];
     }
   }
   

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { isObject } from 'lodash';
+import { isObject, countBy } from 'lodash';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +10,64 @@ export class ListService {
 
   Titles: any[] = [];
   Ip: string = '192.168.1.10';
-
+  NumColumns: string[] = [
+    'Age',
+    'Age (Years)',
+    'House Number',
+    'Year of Birth',
+    'Construction Date',
+    'Registry Folio',
+    'Registry List',
+    'Registry Number',
+    'Birth Date',
+    'Serial Number',
+    'Months',
+    'Days',
+    'Total Crew Number (Captain Included)',
+    'Date of Birth',
+    'Tonnage', 
+    'Tonnage (Value)', 
+    'Year of Reagistry',
+    'Year of Constraction',
+    'Nominal Power',
+    'Indicated Power',
+    'Gross Tonnage (In Kg)',
+    'Length (In Meter)',
+    'Width (In Meter)',
+    'Depth (In Meter)',
+    'Year',
+    'Refrence Number',
+    'Total Days',
+    'Days at Sea',
+    'Days at Port',
+    'Overall Total Wages (Value)',
+    'Overall Pension Fund (Value)',
+    'Overall Net Wages (Value)',
+    'Salary per Month (Value)',
+    'Registration Number',
+    'Semester',
+    'From',
+    'To',
+    'Total Number of Students',
+  ];
+  DateColumns: string[] = [
+    'Date (From)',
+    'Embarkation Date',
+    'Discharge Date',
+    'Date (To)',
+    'Navigation: From',
+    'Navigation: To',
+    'Date of Death', 
+    'Date of Birth', // Inscription Maritime - Maritime Register of the State for La Ciotat, Payroll of Russian Steam Navigation and Trading Company, Sailors register (Libro de registro de marineros)
+    'Duration (From)',
+    'Duration (To)',
+    'Creation Date',
+    'Person\'s Date of Birth',
+    'Recruitment Date',
+    'Birth Date', // Register of Maritime personel , Register of Maritime workers (Matricole della gente di mare), Seagoing Personel
+    'Military Service Organisation Inscription Date',
+    'Military Service Start Date',
+  ];
   constructor(private http:HttpClient) {
   }
 
@@ -77,5 +134,32 @@ export class ListService {
           return ele != value; 
       });
     }
-    
+
+    calculatetableHeight(length: number): string{
+      if(length == 1){
+        var height = 160;
+        return 'height:'+ height+'px; width:100%';
+      }else if(length < 3){
+        var height = 100*length;
+        return 'height:'+ height+'px; width:100%';
+      }else if(length < 4){
+        var height = 80*length;
+        return 'height:'+ height+'px; width:100%';
+      }else if(length < 6){
+        var height = 70*length;
+        return 'height:'+ height+'px; width:100%';
+      }else if(length < 8){
+        var height = 62*length;
+        return 'height:'+ height+'px; width:100%';
+      }else{
+        return 'height:500px; width:100%';
+      }
+    }
+
+    calculateStats(data: string[]): object {
+      const count: object = countBy(data);
+      // console.log(Object.keys(count))
+      // console.log(Object.values(count))
+      return count;
+    }
 }

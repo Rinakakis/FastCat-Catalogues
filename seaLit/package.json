@@ -23,10 +23,13 @@
     "@angular/router": "~12.2.0",
     "ag-grid-angular": "^26.0.0",
     "ag-grid-community": "^26.0.0",
+    "chart.js": "^3.7.0",
+    "chartjs-plugin-zoom": "^1.2.0",
     "eslint": "^8.1.0",
     "file-saver": "^2.0.5",
     "json-server": "^0.16.3",
     "lodash": "^4.17.21",
+    "ng2-charts": "^3.0.6",
     "rxjs": "~6.6.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.11.4"

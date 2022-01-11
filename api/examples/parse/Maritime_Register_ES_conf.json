@@ -38,9 +38,6 @@
             "Military Service Organisation Inscription Date": {
                 "path": "docs[0].data.maritime_personnel.#.military_service_date"
             },
-            "Organisation": {
-                "path": "docs[0].data.maritime_personnel.#.military_service_date"
-            },
             "Military Service Start Date": {
                 "path": "docs[0].data.maritime_personnel.#.military_service_start_date"
             },

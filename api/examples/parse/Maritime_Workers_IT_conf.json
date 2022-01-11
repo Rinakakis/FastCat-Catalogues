@@ -112,9 +112,6 @@
             "Surname": {
                 "path": "docs[0].data.displacement_list.#.displacement_captain_surname"
             },
-            "Registration Number": {
-                "path": "docs[0].data.displacement_list.#.displacement_registration_number"
-            },
             "Ships": {
                 "link": "Ships",
                 "listLink": true,

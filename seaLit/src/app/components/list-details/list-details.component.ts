@@ -1,11 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormControl } from '@angular/forms';
 import { CellClickedEvent } from 'ag-grid-community';
 import { isObject } from 'lodash';
 import { Title } from '@angular/platform-browser';
+import { ChartConfiguration, ChartData, ChartType, Chart  } from 'chart.js';
+import { BaseChartDirective } from 'ng2-charts';
+import zoomPlugin from 'chartjs-plugin-zoom';
 
 import { ListService } from 'src/app/services/list.service';
+import { saveAs } from 'file-saver';
 
 @Component({
   selector: 'app-list-details',
@@ -13,14 +17,17 @@ import { ListService } from 'src/app/services/list.service';
   styleUrls: ['./list-details.component.css']
 })
 export class ListDetailsComponent implements OnInit {
+  @ViewChild(BaseChartDirective) chart: BaseChartDirective | undefined;
 
   rowData = [];
   records = new FormControl();
   recordList: string[] = [];
   totalCount : number[] = [];
+  columnTitles : number[] = [];
   recordDataTitles: string[] = [];
   showData: boolean = false;
   tableClicked: boolean = false;
+  chartOption: boolean = false;
   showform: boolean = false;
   state = "closed";
   title: string = '';
@@ -37,9 +44,37 @@ export class ListDetailsComponent implements OnInit {
   
   gridApi: any;
   gridColumnApi: any;
-  tableHeight = 'height: 500px; width:100%';
-  // private popupParent;
-  // private rowData;
+  tableHeight: string = '';
+  
+  
+  barChartOptions: ChartConfiguration['options'] = {
+    responsive: true,
+    plugins: {
+      zoom: {
+        zoom: {
+          wheel: {
+            enabled: true,
+          },
+          pinch: {
+            enabled: true
+          },
+          mode: 'xy',
+        }
+      }
+    }
+  };
+  barChartLabels: ChartData[] = [];
+  barChartType: ChartType = 'bar';
+  barChartLegend = true;
+  barChartPlugins = [];
+  barChartData: ChartData<'bar'> = {
+    labels: [],
+    datasets: [
+      { data: [],
+        label: ''
+      }
+    ]
+  };
 
   constructor(
     private route: ActivatedRoute,
@@ -56,16 +91,17 @@ export class ListDetailsComponent implements OnInit {
   };
 
   ngOnInit(): void {
+    Chart.register(zoomPlugin);
     const name = String(this.route.snapshot.paramMap.get('source'));
     this.listservice.getSourceList(name).subscribe(list =>{
       if(list){
-        this.hideloader();
+        this.hideloader('loading');
       }
       this.initList(list);
     },
     err => {
       if(err.status == 404) {
-        this.hideloader();
+        this.hideloader('loading');
         this.error = true;
         this.title = err.error;
         this.errorMessage ='The requested page: "/'+ String(this.route.snapshot.params.source) + '" could not be found.';
@@ -75,8 +111,8 @@ export class ListDetailsComponent implements OnInit {
     this.listservice.getTitlesofSourceRecords(name).subscribe(list =>this.initRecordDropdown(list));
   }
 
-  hideloader() {
-    (<HTMLInputElement>document.getElementById('loading')).style.display = 'none';
+  hideloader(id: string) {
+    (<HTMLInputElement>document.getElementById(id)).style.display = 'none';
   }
 
   initTitle(list: any): void {
@@ -109,11 +145,7 @@ export class ListDetailsComponent implements OnInit {
         var source = String(this.route.snapshot.paramMap.get('source'));
         var data = event.data;
         var entity = this.TableName.replace('/','-');
-        var name = ''
-        Object.keys(data).forEach(k =>{
-          if(typeof data[k] == 'string' && k!= 'value-type')
-            name =data[k];
-        });
+        
         // console.log(data)
 
         for (const key in data) {
@@ -129,17 +161,23 @@ export class ListDetailsComponent implements OnInit {
   }
 
   displaytable(entity:string): void{
+    // console.log(entity);
+    
     const source = String(this.route.snapshot.paramMap.get('source'));
+    if(this.chartOption){
+      this.chartOption = !this.chartOption;
+    }
     if(entity !== this.TableName){
-      this.showloader();
+      this.showloader('loading-div');
       this.listservice.getTableFromSource(source,entity).subscribe((table:any)=>{
         // console.log(table);
-        this.hideloader();
+        this.hideloader('loading-div');
 
         this.TableName = entity;
         this.columnDefs = this.formatTableTitles(table);
+        this.columnTitles = this.columnDefs.map(column=> column.field);
         this.rowData = table;
-        this.calculatetableHeight(table.length);
+        this.tableHeight = this.listservice.calculatetableHeight(table.length);
         if(!this.tableClicked){
           this.tableClicked = !this.tableClicked;
         }
@@ -148,35 +186,21 @@ export class ListDetailsComponent implements OnInit {
       this.tableClicked = !this.tableClicked;
     }
   }
-  calculatetableHeight(length: number){
-    if(length == 1){
-      var height = 160*length;
-      this.tableHeight = 'height:'+ height+'px; width:100%';
-    }else if(length < 3){
-      var height = 100*length;
-      this.tableHeight = 'height:'+ height+'px; width:100%';
-    }else if(length < 4){
-      var height = 80*length;
-      this.tableHeight = 'height:'+ height+'px; width:100%';
-    }else if(length < 6){
-      var height = 70*length;
-      this.tableHeight = 'height:'+ height+'px; width:100%';
-    }else if(length < 8){
-      var height = 62*length;
-      this.tableHeight = 'height:'+ height+'px; width:100%';
-    }else{
-      this.tableHeight = 'height: 500px; width:100%';
-    }
-  }
-  showloader() {
-    (<HTMLInputElement>document.getElementById('loading')).style.display = 'flex';
+  showloader(id: string) {
+    (<HTMLInputElement>document.getElementById(id)).style.display = 'flex';
   }
 
   formatTableTitles(table: any[]): any[]{
 
     var titles: any =  this.getTitles(table[0]);
     var titleFormat = titles.map((val: string) => {
-        return {'field': val, 'sortable': true, 'filter': true, tooltipField: val};
+        if(this.listservice.NumColumns.includes(val))
+          return {'field': val,  'sortable': true, filter: 'agNumberColumnFilter', tooltipField: val};
+        // else if(this.listservice.DateColumns.includes(val))
+        //   return {'field': val, 'sortable': true, filter: 'agDateColumnFilter', tooltipField: val};
+        else
+          return {'field': val, 'sortable': true, 'filter': true, tooltipField: val};
+        
     });
 
     // console.log(titleFormat);
@@ -200,13 +224,26 @@ export class ListDetailsComponent implements OnInit {
   }
 
   onBtnExport(tableg: any){
-    // console.log(tableg);
-    // console.log(this.listservice.ConvertToCSV(tableg))
     var blob = new Blob([this.listservice.ConvertToCSV(tableg)], {type: 'text/csv' });
     saveAs(blob, "export.csv");
   }
 
-  
+  calculateStats(rowdata: any, column: string | number){ 
+    if(String(column) != this.barChartData.datasets[0].label){
+      // console.log('bmhka')
+      var values = rowdata.map((elem: { [x: string]: any; })=> elem[column]);
+      var stats = this.listservice.calculateStats(values);
+      this.barChartData.labels = Object.keys(stats);
+      this.barChartData.datasets[0].data = Object.values(stats);
+      this.barChartData.datasets[0].label = String(column);
+      if(!this.chartOption)
+        this.chartOption = !this.chartOption;
+      
+        this.chart?.update();
+    }else{
+      this.chartOption = !this.chartOption;
+    }
+  }
 
 }
 

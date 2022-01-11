@@ -4,8 +4,6 @@ var app = express();
 var fs = require("fs");
 var cors = require('cors');
 const { isArray, isObject, isPlainObject, isString } = require('lodash');
-const { count } = require('console');
-const e = require('express');
 
 app.use(cors());
 
@@ -253,8 +251,12 @@ app.get('/tableData', function (req, res) {
  * @returns returns the linked tables that needs to be shown for the query
  */
 function handleQueryTables(source,tableName,query,myarray){
-  // console.log(myarray);
+  // console.log(query);
   // console.dir(myarray, { depth: null });
+  for (const key in query) {
+    query[key] = isNum(query[key]);
+  }
+
   var elem = myarray.filter(elem => {
     var obj = {}
     for (const key in elem) {
@@ -347,6 +349,7 @@ function getlinkedTables(elem, source, tableName){
           // if(elem['value-type'] == 'nested-list'){
           // console.log(table);
           var lala = handleLinks(table,source);
+          // console.log('lala')
           // console.log(lala)
           // }
             // if(Object.values(lala[0])[0] == undefined)
@@ -661,8 +664,10 @@ function formatObject(data, config, remv = true, nestedlink = false){
                 fake['value-type'] = 'list';    
                 fake['listLength'] = temp.length;
               }else{
-                if(data.includes("\n")) data = data.replAll("\n", ", ")
-                fake[column] = data;
+                if(data.includes("\n")) 
+                  data = data.replAll("\n", ", ")
+                
+                fake[column] = isNum(data);
               }
           } else if (item.link != undefined) { // we have link
               var data = item.link;
@@ -721,7 +726,7 @@ function splitData(data) {
     if(val == ' ') 
       return '';
     
-      return val;
+      return isNum(val);
   });
 }
 
@@ -765,7 +770,7 @@ function splitData(data) {
                   newLineCount = 0;
                 } else {
                   // console.log(data2)
-                  ar.push([data2, { 'Id': index, 'recordId': recordId }]);
+                  ar.push([isNum(data2), { 'Id': index, 'recordId': recordId }]);
                 }
               }
               index++
@@ -782,7 +787,7 @@ function splitData(data) {
             var data = _.get(mydata2, item.path);
             var temp = [];
             for (let i = 0; i < count; i++) {
-              temp.push(data); 
+              temp.push(isNum(data)); 
             }
             // delete fake[column];
             // fake = Object.assign({[column]: temp}, fake); // to put the non list item infont
@@ -816,10 +821,10 @@ function splitData(data) {
     if(nestedlink== true)
       fake['ids'] = [];
 
-      if(config[Object.keys(config)[1]]['path'] != undefined)
-      var path = config[Object.keys(config)[1]]['path'].split(".#.")[0];
-      else // in case we have display no the first value is on the 3rd index  
-      var path = config[Object.keys(config)[2]]['path'].split(".#.")[0];
+    if(config[Object.keys(config)[1]]['path'] != undefined)
+    var path = config[Object.keys(config)[1]]['path'].split(".#.")[0];
+    else // in case we have display no the first value is on the 3rd index  
+    var path = config[Object.keys(config)[2]]['path'].split(".#.")[0];
       
     // console.log(path)
     var data = _.get(mydata, path);
@@ -859,7 +864,7 @@ function splitData(data) {
                     previusColumn = '';
                   }
                 }else{
-                  fake[column].push(data2);
+                  fake[column].push(isNum(data2));
                   previusColumn = column;
                 }
               }else{
@@ -1072,8 +1077,15 @@ function deleteObjects(element){
   element.forEach(elem => {
     for (const key in elem) {
       const element2 = elem[key];
-      if(typeof element2 != 'string')
+      if((typeof element2 != 'string' && typeof element2 != 'number') || (key == 'listLength' || key == 'value-type'))
         delete elem[key];
     }
   })
+}
+
+function isNum(val){
+  if(!isNaN(val) && !isNaN(parseFloat(val))){
+    return parseInt(val);
+  }
+  return val;
 }

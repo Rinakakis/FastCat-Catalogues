@@ -1,9 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CellClickedEvent } from 'ag-grid-community';
 import { isObject } from 'lodash';
 import { ListService } from 'src/app/services/list.service';
 import { Title } from '@angular/platform-browser';
+import { saveAs } from 'file-saver';
+
+import { ChartConfiguration, ChartData, ChartType, Chart  } from 'chart.js';
+import { BaseChartDirective } from 'ng2-charts';
+import zoomPlugin from 'chartjs-plugin-zoom';
 
 @Component({
   selector: 'app-record-details',
@@ -11,6 +16,8 @@ import { Title } from '@angular/platform-browser';
   styleUrls: ['./record-details.component.css']
 })
 export class RecordDetailsComponent implements OnInit {
+  @ViewChild(BaseChartDirective) chart: BaseChartDirective | undefined;
+
   sourceId: string ='';
   Id: string ='';
   sourceName: string ='';
@@ -27,6 +34,39 @@ export class RecordDetailsComponent implements OnInit {
   entity: string = '';
   keysList: any[] = [];
   visibleId: string[] = [];
+  tableHeights: string[] = [];
+
+  columnTitles: any[] = [];
+  chartOption: boolean[] = [];
+  barChartOptions: ChartConfiguration['options'] = {
+    responsive: true,
+    plugins: {
+      zoom: {
+        zoom: {
+          wheel: {
+            enabled: true,
+          },
+          pinch: {
+            enabled: true
+          },
+          mode: 'xy',
+        }
+      }
+    }
+  };
+  barChartLabels: ChartData[] = [];
+  barChartType: ChartType = 'bar';
+  barChartLegend = true;
+  barChartPlugins = [];
+  barChartDataArray: ChartData<'bar'>[] = []; 
+  barChartData: ChartData<'bar'> = {
+    labels: [],
+    datasets: [
+      { data: [],
+        label: ''
+      }
+    ]
+  };
 
   constructor(
     private route: ActivatedRoute,
@@ -36,6 +76,7 @@ export class RecordDetailsComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    Chart.register(zoomPlugin);
     const source = String(this.route.snapshot.paramMap.get('source'));
     const id = String(this.route.snapshot.paramMap.get('id'));
     // console.log(source,id);
@@ -117,10 +158,29 @@ export class RecordDetailsComponent implements OnInit {
           this.keysList.push(Object.keys(element).join());
           var titles = this.getTitles(data[0]);
           var titleFormat = titles.map((val: string) => {
-            return {'field': val,'colId':Object.keys(element).join(), 'sortable': true, 'filter': true, tooltipField: val};
+            // return {'field': val,'colId':Object.keys(element).join(), 'sortable': true, 'filter': true, tooltipField: val};
+            if(this.listservice.NumColumns.includes(val))
+              return {'field': val,'colId':Object.keys(element).join(), 'sortable': true, filter: 'agNumberColumnFilter', tooltipField: val }
+            else  
+              return {'field': val,'colId':Object.keys(element).join(), 'sortable': true, filter: 'true', tooltipField: val }
           });
           this.tablesTitles.push(titleFormat);
+          this.tableHeights.push(this.listservice.calculatetableHeight(data.length));
           this.tables.push(data);
+
+          this.chartOption.push(false);
+          this.columnTitles.push(titleFormat.map(column=> column.field));
+          this.barChartDataArray.push(
+            {
+              labels: [],
+              datasets: [
+                { data: [],
+                  label: ''
+                }
+              ]
+            }
+          )
+          
         }
       }
     });
@@ -141,8 +201,6 @@ export class RecordDetailsComponent implements OnInit {
   }
   
   onBtnExport(tableg: any){
-    // console.log(tableg);
-    // console.log(this.listservice.ConvertToCSV(tableg))
     var blob = new Blob([this.listservice.ConvertToCSV(tableg)], {type: 'text/csv' });
     saveAs(blob, "export.csv");
   }
@@ -154,6 +212,31 @@ export class RecordDetailsComponent implements OnInit {
     } else{
       this.visibleId = this.listservice.arrayRemove(this.visibleId, id);
       (<HTMLInputElement>document.getElementById(id)).style.animation = 'show 0.4s linear forwards';
+    }
+  }
+
+  calculateStats(rowdata: any, column: string | number, index: number){ 
+    if(String(column) != this.barChartDataArray[index].datasets[0].label){
+      // console.log('bmhka')
+      var values = rowdata.map((elem: { [x: string]: any; })=> elem[column]);
+      var stats = this.listservice.calculateStats(values);
+
+      this.barChartDataArray[index] = {
+        labels: Object.keys(stats),
+        datasets: [
+          { data: Object.values(stats),
+            label: String(column)
+          }
+        ]
+      };
+      if(!this.chartOption[index])
+        this.chartOption[index] = !this.chartOption[index];
+
+        this.chart?.update();
+        // Chart.register(zoomPlugin);
+
+    }else{
+        this.chartOption[index] = !this.chartOption[index];
     }
   }
 

@@ -22,12 +22,23 @@
 
     <div class="table" *ngFor="let tableg of tables; index as i;">
       <div class="title-download-div">
-        <h3 class="table-title" (click)="show(i)">{{keysList[i]}}</h3>
-        <button class="download-but" mat-button title="Download CSV file" (click)="onBtnExport(tableg)"><mat-icon id="downicon">download</mat-icon></button>
+        <div class="title-div">
+          <h3 class="table-title" (click)="show(i)">{{keysList[i]}}</h3>
+        </div>
+        <div class="chart-div">
+          <button class="chart-but" mat-button [matMenuTriggerFor]="columns" color="success" title="Chart"><mat-icon> bar_chart</mat-icon></button>
+          <mat-menu #columns="matMenu">
+            <button *ngFor="let column of columnTitles[i]" mat-menu-item (click)="calculateStats(tableg,column,i)">{{column}}</button>
+          </mat-menu>
+        </div>   
+        <div class="download-div">
+          <button class="download-but" mat-button title="Download CSV file" (click)="onBtnExport(tableg)"><mat-icon id="downicon">download</mat-icon></button>
+        </div>
+        
       </div>
       <ag-grid-angular
         [id]="i"
-        style="height: 500px; width: auto;"
+        [style]="tableHeights[i]"
         class="ag-theme-alpine"
         [rowData]="tableg"
         [columnDefs]="tablesTitles[i]"
@@ -37,6 +48,15 @@
         [gridOptions]="gridOptions"
         >
       </ag-grid-angular>
+
+      <div style="display: block;" *ngIf="chartOption[i]">
+        <canvas baseChart 
+          [data]="barChartDataArray[i]"
+          [options]="barChartOptions"
+          [plugins]="barChartPlugins"
+          [type]="barChartType">
+        </canvas>
+      </div>
     </div>
   </div>
 </div>

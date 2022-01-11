@@ -5,7 +5,7 @@
             "Year": {
                 "path": "docs[0].data.list_of_deeds.#.book_year"
             },
-            "Refrence Numbre": {
+            "Refrence Number": {
                 "path": "docs[0].data.list_of_deeds.#.reference_number"
             },
             "Creation Date": {
