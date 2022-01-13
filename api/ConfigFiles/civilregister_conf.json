@@ -11,7 +11,7 @@
             "Surname B": {
                 "path": "docs[0].data.death_registers.#.diseased_person_surname_B"
             },
-            "Locaiton of Origin": {
+            "Location of Origin": {
                 "path": "docs[0].data.death_registers.#.diseased_person_origin_location"
             },
             "Profession": {
@@ -51,7 +51,7 @@
         },
         "Origin Locations":{
             "value-type": "list",
-            "Locaiton of Origin": {
+            "Location of Origin": {
                 "path": "docs[0].data.death_registers.#.diseased_person_origin_location"
             },
             "Persons": {
@@ -97,7 +97,7 @@
                 "Surname B": {
                     "path": "docs[0].data.death_registers.#.related_person_surname_B"
                 },
-            "Locaiton of Origin": {
+            "Location of Origin": {
                 "path": "docs[0].data.death_registers.#.related_person_origin_location"
             },
             "Location of Residence": {
@@ -126,7 +126,7 @@
             "Surname B": {
                 "path": "docs[0].data.death_registers.#.related_person_surname_B"
             },
-            "Locaiton of Origin": {
+            "Location of Origin": {
                 "path": "docs[0].data.death_registers.#.related_person_origin_location"
             },
             "Location of Residence": {
@@ -156,7 +156,7 @@
             "Surname B": {
                 "path": "docs[0].data.death_registers.#.diseased_person_surname_B"
             },
-            "Locaiton of Origin": {
+            "Location of Origin": {
                 "path": "docs[0].data.death_registers.#.diseased_person_origin_location"
             },
             "Profession": {

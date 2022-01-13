@@ -21,7 +21,7 @@
           <h3 class="table-title" (click)="show(i)">{{keysList[i]}}</h3>
         </div>
         <div class="chart-div">
-          <button class="chart-but" mat-button [matMenuTriggerFor]="columns" color="success" title="Chart"><mat-icon> bar_chart</mat-icon></button>
+          <button class="chart-but" mat-button [matMenuTriggerFor]="columns" color="success" title="Data Visualization"><mat-icon>bar_chart</mat-icon></button>
           <mat-menu #columns="matMenu">
             <button *ngFor="let column of columnTitles[i]" mat-menu-item (click)="calculateStats(tableg,column,i)">{{column}}</button>
           </mat-menu>
@@ -38,7 +38,7 @@
           [columnDefs]="tablesTitles[i]"
           [defaultColDef]="defaultColDef"
           [pagination]="true"
-          [paginationAutoPageSize]=true
+          [paginationPageSize]=9
           [gridOptions]="gridOptions">
         </ag-grid-angular>
         

@@ -9,7 +9,7 @@ import { isObject, countBy } from 'lodash';
 export class ListService {
 
   Titles: any[] = [];
-  Ip: string = '192.168.1.10';
+  Ip: string = '192.168.1.6';
   NumColumns: string[] = [
     'Age',
     'Age (Years)',

@@ -7,7 +7,7 @@ const { isArray, isObject, isPlainObject, isString } = require('lodash');
 
 app.use(cors());
 
-var path = './Template_examples/';
+var path = './Data/';
 
 const templates = [
    {
@@ -331,10 +331,9 @@ function mergeDuplicateIdsForLinks(elem){
  * Turns links to tables
  * @param {object} elem 
  * @param {string} source 
- * @param {string} tableName 
  * @returns object with the linked tables
  */
-function getlinkedTables(elem, source, tableName){
+function getlinkedTables(elem, source){
   var linkArray = [];
 
   // console.log(elem)
@@ -348,18 +347,18 @@ function getlinkedTables(elem, source, tableName){
         var newtable = element.map(table=>{
           // if(elem['value-type'] == 'nested-list'){
           // console.log(table);
-          var lala = handleLinks(table,source);
+          var dataFromLinksArray = handleLinks(table,source);
           // console.log('lala')
-          // console.log(lala)
+          // console.log(dataFromLinksArray)
           // }
             // if(Object.values(lala[0])[0] == undefined)
             //   return [];
-          if(Object.values(lala[0]).length == 0){
+          if(Object.values(dataFromLinksArray).length == 0){
+            console.log('case1');
             return [];  
-          }else if(Object.values(lala[0])[0].length == 1){
-            return Object.values(lala[0])[0][0];
           }else{
-            return Object.values(lala[0]);
+            console.log('case3');
+            return Object.values(dataFromLinksArray);
           }
 
         });
@@ -374,9 +373,9 @@ function getlinkedTables(elem, source, tableName){
       }else{
         linkArray.push(element.Id);
         // console.log('lala1')
-        var lala = handleLinks(element,source);
+        var dataFromLinksArray = handleLinks(element,source);
         // console.log(lala)
-        elem[key] = removeDuplicates(Object.values(lala[0]));
+        elem[key] = removeDuplicates(Object.values(dataFromLinksArray));
       }
     }
     if(elem[key].length == 0)
@@ -410,87 +409,83 @@ function getlinkedTables(elem, source, tableName){
  * @param {*} source 
  * @returns 
  */
-function handleLinks(table,source){
+function handleLinks(table, source) {
   var temp;
-  if(table.listLink == true)
-    temp = handleRecordTables(source,table.Id, false, true);
+  if (table.listLink == true)
+    temp = handleRecordTables(source, table.Id, false, true);
   else
-    temp = handleRecordTables(source,table.Id);
+    temp = handleRecordTables(source, table.Id);
+
+  // console.dir(temp.data);
+  // console.dir(table, { depth: null });
+  var dataFromLinksArray = [];
+  var elem2 = temp.data.find(element => Object.keys(element).join() == table.link);
+
+  if (table.listLink == true && table['link-type'] == undefined) {
     
-    // console.dir(temp.data, { depth: null });
-    // console.dir(table, { depth: null });
-    
-    var lala  = [];
-    temp.data.forEach(elem2 =>{
-    if(Object.keys(elem2).join() == table.link){
-      // console.dir(elem2, {depth:null})
-      if(table.listLink == true && table['link-type'] == undefined){
-        var hm = [];        
-        table.ids.forEach(idsInfo => {
-          if(idsInfo.Mid != undefined){ // an uparxei to mid sto query vale ola ta \n pou exoyn to idio id kai mid me auto h an den uparxei to mid vale ola ta \n
-            var rowsWithSameId = elem2[table.link].filter(elm => elm.ids.Id == idsInfo.Id);
-            // console.log(idsInfo)
-            // console.log(rowsWithSameId)
-            rowsWithSameId.forEach(data => {
-              if(data.ids.Mid == idsInfo.Mid || data.ids.Mid == undefined){
-                hm.push(data);
-              }
-            });
-          }else{ // an den uparxei to mid sto query vale ola ta \n 
-            // console.log(elem2[table.link]);  
-            var rowsWithSameId = elem2[table.link].filter(elm => elm.ids.Id == idsInfo.Id);
-            rowsWithSameId.forEach(data => {
-              hm.push(data);
-            });
+    table.ids.forEach(idsInfo => {
+      if (idsInfo.Mid != undefined) { // an uparxei to mid sto query vale ola ta \n pou exoyn to idio id kai mid me auto h an den uparxei to mid vale ola ta \n
+        var rowsWithSameId = elem2[table.link].filter(elm => elm.ids.Id == idsInfo.Id);
+        // console.log(idsInfo)
+        // console.log(rowsWithSameId)
+        rowsWithSameId.forEach(data => {
+          if (data.ids.Mid == idsInfo.Mid || data.ids.Mid == undefined) {
+            dataFromLinksArray.push(data);
           }
-        })
-        lala.push(hm);
-      }else if(table.listLink == true && table['link-type'] == 'nl-l'){
-        var hm = [];
-        table.ids.forEach(idsInfo => {
-          hm.push(elem2[table.link][idsInfo.Pid]);
-        })
-        lala.push(hm);
-      }else if(table.listLink == true && table['link-type'] == 'nl-nl'){
-        var hm = [];
-        // console.log(table)
-        table.ids.forEach(idsInfo => {
-          // console.log(idsInfo)
-          if(idsInfo.Mid != undefined){ // an uparxei to mid sto query vale ola ta \n pou exoyn to idio id kai mid me auto h an den uparxei to mid vale ola ta \n
-            var rowsWithSameId = elem2[table.link].filter(elm => elm.ids.Id == idsInfo.Id && elm.ids.Pid == idsInfo.Pid);
-            rowsWithSameId.forEach(data => {
-              if(data.ids.Mid == idsInfo.Mid || data.ids.Mid == undefined){
-                hm.push(data);
-              }
-            });
-          }else{ // an den uparxei to mid sto query vale ola ta \n 
-            var rowsWithSameId = elem2[table.link].filter(elm => elm.ids.Id == idsInfo.Id && elm.ids.Pid == idsInfo.Pid);
-            // console.log(rowsWithSameId);  
-            rowsWithSameId.forEach(data => {
-              hm.push(data);
-            });
-          }
-        })
-        lala.push(hm);
-      }else if(table.listLink == true && table['link-type'] == 'l-nl'){
-        var hm = [];
-        table.ids.forEach(idsInfo => {
-          elem2[table.link].forEach(tbl =>{
-            if(tbl['ids']['Pid'] == idsInfo.Id){
-              // console.log(tbl)
-              hm.push(tbl);
-            }
-          })
-        })
-        lala.push(hm);
-      }else{
-        lala.push(elem2[table.link]);
+        });
+      } else { // an den uparxei to mid sto query vale ola ta \n 
+        // console.log(elem2[table.link]);  
+        var rowsWithSameId = elem2[table.link].filter(elm => elm.ids.Id == idsInfo.Id);
+        rowsWithSameId.forEach(data => {
+          dataFromLinksArray.push(data);
+        });
       }
-    }
-  })
-  // console.log('lala')
-  // console.log(lala)
-  return lala;
+    })
+    // dataFromLinksArray.push(hm);
+  } else if (table.listLink == true && table['link-type'] == 'nl-l') {
+    table.ids.forEach(idsInfo => {
+      var matchedData = elem2[table.link].filter(dataElem => dataElem.ids.Id == idsInfo.Pid);
+      dataFromLinksArray.push(...matchedData);
+      // hm.push(elem2[table.link][idsInfo.Pid]);
+    })
+    // dataFromLinksArray.push(hm);
+  } else if (table.listLink == true && table['link-type'] == 'nl-nl') {
+    // console.log(table)
+    table.ids.forEach(idsInfo => {
+      // console.log(idsInfo)
+      if (idsInfo.Mid != undefined) { // an uparxei to mid sto query vale ola ta \n pou exoyn to idio id kai mid me auto h an den uparxei to mid vale ola ta \n
+        var rowsWithSameId = elem2[table.link].filter(elm => elm.ids.Id == idsInfo.Id && elm.ids.Pid == idsInfo.Pid);
+        rowsWithSameId.forEach(data => {
+          if (data.ids.Mid == idsInfo.Mid || data.ids.Mid == undefined) {
+            dataFromLinksArray.push(data);
+          }
+        });
+      } else { // an den uparxei to mid sto query vale ola ta \n 
+        var rowsWithSameId = elem2[table.link].filter(elm => elm.ids.Id == idsInfo.Id && elm.ids.Pid == idsInfo.Pid);
+        // console.log(rowsWithSameId);  
+        rowsWithSameId.forEach(data => {
+          dataFromLinksArray.push(data);
+        });
+      }
+    })
+    // dataFromLinksArray.push(hm);
+  } else if (table.listLink == true && table['link-type'] == 'l-nl') {
+    table.ids.forEach(idsInfo => {
+      elem2[table.link].forEach(tbl => {
+        if (tbl['ids']['Pid'] == idsInfo.Id) {
+          // console.log(tbl)
+          dataFromLinksArray.push(tbl);
+        }
+      })
+    })
+    // dataFromLinksArray.push(hm);
+  } else {
+    // console.log(dataFromLinksArray)
+    elem2[table.link].forEach(tbl=>{
+      dataFromLinksArray.push(tbl);
+    })
+  }
+  return dataFromLinksArray;
 }
 
 function handleRecordTables(source,id, remv = true, nestedlink = false){
@@ -577,7 +572,7 @@ function getallRecordFiles(fullpath){
 
 function getConfigEntity(recordName,entity){
    var record = templates.find(obj => obj.name == recordName);
-   var config = fs.readFileSync('./examples/parse/'+record.configuration, 'utf8');
+   var config = fs.readFileSync('./ConfigFiles/'+record.configuration, 'utf8');
    config = JSON.parse(config);
    config = _.get(config,record.name)
    config = _.get(config, entity)
@@ -594,7 +589,7 @@ function getConfig(recordName){
    var record = templates.find(obj => obj.name == recordName);
    if(record == undefined) return [];
 
-   var config = fs.readFileSync('./examples/parse/'+record.configuration, 'utf8');
+   var config = fs.readFileSync('./ConfigFiles/'+record.configuration, 'utf8');
    config = JSON.parse(config);
    config = _.get(config,record.name);
    return config;
@@ -602,7 +597,7 @@ function getConfig(recordName){
 
 function getConfigTitle(recordName){
    var record = templates.find(obj => obj.name == recordName);
-   var config = fs.readFileSync('./examples/parse/'+record.configuration, 'utf8');
+   var config = fs.readFileSync('./ConfigFiles/'+record.configuration, 'utf8');
    config = JSON.parse(config);
    config = _.get(config,'Title');
    return config;
@@ -1034,7 +1029,7 @@ function replaceEmptyValues(array) {
 // function getTableNames(req){
 //    var recordName = req.params.name;
 //    var record = templates.find(obj => obj.name == recordName);
-//    var config = fs.readFileSync('./examples/parse/'+record.configuration, 'utf8');
+//    var config = fs.readFileSync('./ConfigFiles/'+record.configuration, 'utf8');
 //    config = JSON.parse(config);
 //    config = _.get(config,record.name);
 //    return JSON.stringify(Object.keys(config));

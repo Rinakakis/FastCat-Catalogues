@@ -128,7 +128,7 @@ export class EntityDetailsComponent implements OnInit {
         this.router.onSameUrlNavigation = 'reload';
         this.router.navigate(['list/'+source+'/Table/'+entity], { queryParams:data });
     }),
-    suppressExcelExport: true
+    suppressExcelExport: true,
   }
 
   displaydata(params: any,record: any): void {
@@ -162,9 +162,9 @@ export class EntityDetailsComponent implements OnInit {
               }
             }
           }else{
-            if(this.listservice.NumColumns.includes(val))
-              return {'field': val,'colId':key, 'sortable': true, filter: 'agNumberColumnFilter', tooltipField: val }
-            else  
+            // if(this.listservice.NumColumns.includes(val))
+            //   return {'field': val,'colId':key, 'sortable': true, filter: 'agNumberColumnFilter', tooltipField: val }
+            // else  
               return {'field': val,'colId':key, 'sortable': true, filter: 'true', tooltipField: val }
           }
         });

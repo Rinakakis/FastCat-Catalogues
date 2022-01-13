@@ -71,7 +71,11 @@ export class ListDetailsComponent implements OnInit {
     labels: [],
     datasets: [
       { data: [],
-        label: ''
+        label: '',
+        backgroundColor:'#5294D0',
+        hoverBackgroundColor:'#3B678E',
+        borderColor: '#3B678E'
+        
       }
     ]
   };
@@ -170,7 +174,7 @@ export class ListDetailsComponent implements OnInit {
     if(entity !== this.TableName){
       this.showloader('loading-div');
       this.listservice.getTableFromSource(source,entity).subscribe((table:any)=>{
-        // console.log(table);
+        console.log(table);
         this.hideloader('loading-div');
 
         this.TableName = entity;
@@ -195,7 +199,7 @@ export class ListDetailsComponent implements OnInit {
     var titles: any =  this.getTitles(table[0]);
     var titleFormat = titles.map((val: string) => {
         if(this.listservice.NumColumns.includes(val))
-          return {'field': val,  'sortable': true, filter: 'agNumberColumnFilter', tooltipField: val};
+          return {'field': val, 'sortable': true, filter: 'agNumberColumnFilter', tooltipField: val};
         // else if(this.listservice.DateColumns.includes(val))
         //   return {'field': val, 'sortable': true, filter: 'agDateColumnFilter', tooltipField: val};
         else

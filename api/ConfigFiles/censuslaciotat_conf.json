@@ -5,8 +5,8 @@
             "Address": {
                 "path": "docs[0].data.residencies_registry.#.registry_location"
             },
-            "Occupants": {
-                "link": "Occupants",
+            "Occupants and House Number": {
+                "link": "Occupants and House Number",
                 "listLink": true,
                 "link-type": "l-nl",
                 "Id": "docs[0]._id"
@@ -19,10 +19,6 @@
             },
             "Name": {
                 "path": "docs[0].data.nominative_list_of_occupants.#.person_name"
-            },
-            "House Number": {
-                "value-type": "list",
-                "path": "docs[0].data.residencies_registry.#.registry_house_number"
             },
             "Age": {
                 "path": "docs[0].data.nominative_list_of_occupants.#.person_age"
@@ -130,6 +126,53 @@
                 "link": "Occupants",
                 "listLink": true,
                 "link-type": "nl-nl",
+                "Id": "docs[0]._id"
+            }
+        },
+        "Occupants and House Number": {
+            "display": "no",
+            "value-type": "nested-list",
+            "Surname": {
+                "path": "docs[0].data.nominative_list_of_occupants.#.person_surname"
+            },
+            "Name": {
+                "path": "docs[0].data.nominative_list_of_occupants.#.person_name"
+            },
+            "House Number": {
+                "value-type": "list",
+                "path": "docs[0].data.residencies_registry.#.registry_house_number"
+            },
+            "Age": {
+                "path": "docs[0].data.nominative_list_of_occupants.#.person_age"
+            },
+            "Year of Birth": {
+                "path": "docs[0].data.nominative_list_of_occupants.#.person_year_of_birth"
+            },
+            "Place of Birth": {
+                "path": "docs[0].data.nominative_list_of_occupants.#.person_birth_location"
+            },
+            "Nationality": {
+                "path": "docs[0].data.nominative_list_of_occupants.#.person_nationality"
+            },
+            "Marital Status": {
+                "path": "docs[0].data.nominative_list_of_occupants.#.person_marital_status"
+            },
+            "Religion": {
+                "path": "docs[0].data.nominative_list_of_occupants.#.person_religion"
+            },
+            "Role in Household": {
+                "path": "docs[0].data.nominative_list_of_occupants.#.person_household_role"
+            },
+            "Professions": {
+                "link": "Professions",
+                "listLink": true,
+                "link-type": "nl-nl",
+                "Id": "docs[0]._id"
+            },
+            "Addresses": {
+                "link": "Addresses",
+                "listLink": true,
+                "link-type": "nl-l",
                 "Id": "docs[0]._id"
             }
         }

@@ -2,7 +2,7 @@ h3{
     font: 'Lato', "Times New Roman", Times, serif;
     color: #3B678E;
     /* text-align: center; */
-    margin: 20px;
+    margin: 10px 10px 20px 10px;
     font-weight: 500;
 }
 
@@ -21,8 +21,8 @@ h3{
 
 
 .archival{
-    margin-left: 40px;
-    margin-right: 40px;
+    margin-left: 30px;
+    margin-right: 30px;
 }
 
 .title{
@@ -44,6 +44,15 @@ a{
     font-size: 13px;
 }
 
+
 .archival-container{
     height: max-content;
+    padding: 10px;
+    background-color: #f0f1f3;
+    height: auto;
+    border: 1px solid #d6d3d3;
+  }
+
+.list-wrapper{
+    padding: 20px;
 }
