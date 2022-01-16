@@ -357,7 +357,7 @@ function getlinkedTables(elem, source){
             console.log('case1');
             return [];  
           }else{
-            console.log('case3');
+            // console.log('case3');
             return Object.values(dataFromLinksArray);
           }
 
@@ -1018,11 +1018,12 @@ function formatList(temp) {
   */
 function replaceEmptyValues(array) {
    array.forEach(obj => {
-      Object.keys(obj).forEach(function (key) {
+      Object.keys(obj).forEach(key => {
          if (obj[key] === '' || obj[key] == undefined || obj[key] == ' '){
             obj[key] = 'None or Unknown';
          }
       });
+      
    });
 }
 
@@ -1079,6 +1080,7 @@ function deleteObjects(element){
 }
 
 function isNum(val){
+
   if(!isNaN(val) && !isNaN(parseFloat(val))){
     return parseInt(val);
   }

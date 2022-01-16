@@ -9,7 +9,7 @@ import { isObject, countBy } from 'lodash';
 export class ListService {
 
   Titles: any[] = [];
-  Ip: string = '192.168.1.6';
+  Ip: string = '192.168.1.3';
   NumColumns: string[] = [
     'Age',
     'Age (Years)',
@@ -19,12 +19,12 @@ export class ListService {
     'Registry Folio',
     'Registry List',
     'Registry Number',
-    'Birth Date',
+    'Birth Date (Year)', // Crew List (Ruoli di Equipaggio)
     'Serial Number',
     'Months',
     'Days',
     'Total Crew Number (Captain Included)',
-    'Date of Birth',
+    'Date of Birth (Year)', // Employment records, Shipyards of Messageries Maritimes, La Ciotat
     'Tonnage', 
     'Tonnage (Value)', 
     'Year of Reagistry',

@@ -199,9 +199,9 @@ export class ListDetailsComponent implements OnInit {
     var titles: any =  this.getTitles(table[0]);
     var titleFormat = titles.map((val: string) => {
         if(this.listservice.NumColumns.includes(val))
-          return {'field': val, 'sortable': true, filter: 'agNumberColumnFilter', tooltipField: val};
-        // else if(this.listservice.DateColumns.includes(val))
-        //   return {'field': val, 'sortable': true, filter: 'agDateColumnFilter', tooltipField: val};
+          return {'field': val, 'sortable': true, filter: 'agNumberColumnFilter', /*filterParams: numberFilter,valueFormatter: numberValueFormatter,*/ tooltipField: val};
+        else if(this.listservice.DateColumns.includes(val))
+          return {'field': val, 'sortable': true, filter: 'agDateColumnFilter', filterParams: dateFilter, tooltipField: val};
         else
           return {'field': val, 'sortable': true, 'filter': true, tooltipField: val};
         
@@ -249,5 +249,62 @@ export class ListDetailsComponent implements OnInit {
     }
   }
 
+  
 }
 
+var dateFilter = {
+  comparator: (filterLocalDateAtMidnight: Date, cellValue: string) => {
+    const dateAsString = cellValue;
+    var day;
+    var month;
+    var year;
+    
+
+    // We create a Date object for comparison against the filter date
+    // console.log(dateAsString)
+    if(typeof dateAsString == 'number'){
+      year = dateAsString;
+      day = 1;
+      month = 0;
+    }else{
+      const dateParts = dateAsString.split(/[.\-/]/);
+      if(dateParts[0].length == 4){ // yyy/mm/dd
+        day = Number(dateParts[2]);
+        month = Number(dateParts[1]) - 1;
+        year = Number(dateParts[0]);
+      }else{ //dd/mm/yyyy
+        day = Number(dateParts[0]);
+        month = Number(dateParts[1]) - 1;
+        year = Number(dateParts[2]);
+      }
+    }  
+    const cellDate = new Date(year, month, day);
+    // console.log(cellDate)
+    // Now that both parameters are Date objects, we can compare
+    if (cellDate < filterLocalDateAtMidnight) {
+        return -1;
+    } else if (cellDate > filterLocalDateAtMidnight) {
+        return 1;
+    }
+    return 0;
+  }
+};
+
+var numberFilter = {
+  allowedCharPattern: '\\d\\-\\,\\$',
+  numberParser: function (text: string | number) {
+    // console.log(text)
+    if(typeof text == 'number') return text;
+
+    return text == null
+      ? null
+      : parseFloat(text.replace(',', '.'));
+  },
+};
+
+var numberValueFormatter = function (params: { value: string; }) {
+  if (params.value == 'None or Unknown') return params.value
+  
+  if(typeof params.value == 'string') return parseFloat(params.value.replace(',', '.'));
+  else return params.value;
+};

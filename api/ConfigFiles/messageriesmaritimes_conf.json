@@ -14,7 +14,7 @@
             "Age":{
                 "path": "docs[0].data.analytic_worker_list.#.worker_age"
             },
-            "Date of Birth":{
+            "Date of Birth (Year)":{
                 "path": "docs[0].data.analytic_worker_list.#.worker_date_of_birth"
             },
             "Place of Birth":{
