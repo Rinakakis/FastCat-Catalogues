@@ -4,7 +4,7 @@ import { FormControl } from '@angular/forms';
 import { CellClickedEvent } from 'ag-grid-community';
 import { isObject } from 'lodash';
 import { Title } from '@angular/platform-browser';
-import { ChartConfiguration, ChartData, ChartType, Chart  } from 'chart.js';
+import { ChartConfiguration, ChartData, ChartType, Chart } from 'chart.js';
 import { BaseChartDirective } from 'ng2-charts';
 import zoomPlugin from 'chartjs-plugin-zoom';
 
@@ -17,7 +17,7 @@ import { saveAs } from 'file-saver';
   styleUrls: ['./list-details.component.css']
 })
 export class ListDetailsComponent implements OnInit {
-  @ViewChild(BaseChartDirective) chart: BaseChartDirective | undefined;
+  @ViewChild(BaseChartDirective, { static: false }) chart: BaseChartDirective | undefined;
 
   rowData = [];
   records = new FormControl();
@@ -61,7 +61,7 @@ export class ListDetailsComponent implements OnInit {
           mode: 'xy',
         }
       }
-    }
+    },
   };
   barChartLabels: ChartData[] = [];
   barChartType: ChartType = 'bar';
@@ -174,6 +174,7 @@ export class ListDetailsComponent implements OnInit {
     if(entity !== this.TableName){
       this.showloader('loading-div');
       this.listservice.getTableFromSource(source,entity).subscribe((table:any)=>{
+
         console.log(table);
         this.hideloader('loading-div');
 
@@ -201,7 +202,7 @@ export class ListDetailsComponent implements OnInit {
         if(this.listservice.NumColumns.includes(val))
           return {'field': val, 'sortable': true, filter: 'agNumberColumnFilter', /*filterParams: numberFilter,valueFormatter: numberValueFormatter,*/ tooltipField: val};
         else if(this.listservice.DateColumns.includes(val))
-          return {'field': val, 'sortable': true, filter: 'agDateColumnFilter', filterParams: dateFilter, tooltipField: val};
+          return {'field': val, 'sortable': true, filter: 'agDateColumnFilter', filterParams: dateFilter,comparator: dateComparator, tooltipField: val};
         else
           return {'field': val, 'sortable': true, 'filter': true, tooltipField: val};
         
@@ -235,7 +236,10 @@ export class ListDetailsComponent implements OnInit {
   calculateStats(rowdata: any, column: string | number){ 
     if(String(column) != this.barChartData.datasets[0].label){
       // console.log('bmhka')
+      
+      this.chart?.chart?.resetZoom();
       var values = rowdata.map((elem: { [x: string]: any; })=> elem[column]);
+
       var stats = this.listservice.calculateStats(values);
       this.barChartData.labels = Object.keys(stats);
       this.barChartData.datasets[0].data = Object.values(stats);
@@ -253,21 +257,20 @@ export class ListDetailsComponent implements OnInit {
 }
 
 var dateFilter = {
-  comparator: (filterLocalDateAtMidnight: Date, cellValue: string) => {
-    const dateAsString = cellValue;
+  comparator: (filterLocalDateAtMidnight: Date, cellValue: string | number) => {
+    const date = cellValue;
     var day;
     var month;
     var year;
-    
 
     // We create a Date object for comparison against the filter date
     // console.log(dateAsString)
-    if(typeof dateAsString == 'number'){
-      year = dateAsString;
+    if(typeof date == 'number'){
+      year = date;
       day = 1;
       month = 0;
     }else{
-      const dateParts = dateAsString.split(/[.\-/]/);
+      const dateParts = date.split(/[.\-/]/);
       if(dateParts[0].length == 4){ // yyy/mm/dd
         day = Number(dateParts[2]);
         month = Number(dateParts[1]) - 1;
@@ -289,6 +292,55 @@ var dateFilter = {
     return 0;
   }
 };
+
+function dateComparator(date1: string | number, date2: string | number) {
+  var date1Number = _monthToNum(date1);
+  var date2Number = _monthToNum(date2);
+
+  if (date1Number === null && date2Number === null) {
+    return 0;
+  }
+  if (date1Number === null) {
+    return -1;
+  }
+  if (date2Number === null) {
+    return 1;
+  }
+
+  return date1Number - date2Number;
+}
+
+// HELPER FOR DATE COMPARISON
+function _monthToNum(date: string | number) {
+  var day;
+  var month;
+  var year;
+
+  if (date === undefined || date === null || date == 'None or Unknown') {
+    return null;
+  }
+
+  if(typeof date == 'number'){
+    year = date;
+    day = 1;
+    month = 0;
+  }else{
+    const dateParts = date.split(/[.\-/]/);
+    if(dateParts[0].length == 4){ // yyy/mm/dd
+      day = Number(dateParts[2]);
+      month = Number(dateParts[1]);
+      year = Number(dateParts[0]);
+    }else{ //dd/mm/yyyy
+      day = Number(dateParts[0]);
+      month = Number(dateParts[1]);
+      year = Number(dateParts[2]);
+    }
+  }  
+
+  var result = year * 10000 + month * 100 + day;
+  // 29/08/2004 => 20040829
+  return result;
+}
 
 var numberFilter = {
   allowedCharPattern: '\\d\\-\\,\\$',

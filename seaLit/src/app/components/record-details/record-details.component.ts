@@ -16,7 +16,7 @@ import zoomPlugin from 'chartjs-plugin-zoom';
   styleUrls: ['./record-details.component.css']
 })
 export class RecordDetailsComponent implements OnInit {
-  @ViewChild(BaseChartDirective) chart: BaseChartDirective | undefined;
+  @ViewChild(BaseChartDirective, { static: false }) chart: BaseChartDirective | undefined;
 
   sourceId: string ='';
   Id: string ='';
@@ -218,6 +218,7 @@ export class RecordDetailsComponent implements OnInit {
   calculateStats(rowdata: any, column: string | number, index: number){ 
     if(String(column) != this.barChartDataArray[index].datasets[0].label){
       // console.log('bmhka')
+      this.chart?.chart?.resetZoom();
       var values = rowdata.map((elem: { [x: string]: any; })=> elem[column]);
       var stats = this.listservice.calculateStats(values);
 
@@ -232,7 +233,9 @@ export class RecordDetailsComponent implements OnInit {
       if(!this.chartOption[index])
         this.chartOption[index] = !this.chartOption[index];
 
+        this.chart?.chart?.resetZoom();
         this.chart?.update();
+
         // Chart.register(zoomPlugin);
 
     }else{

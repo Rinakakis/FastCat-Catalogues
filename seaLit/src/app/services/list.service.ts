@@ -156,10 +156,26 @@ export class ListService {
       }
     }
 
-    calculateStats(data: string[]): object {
-      const count: object = countBy(data);
-      // console.log(Object.keys(count))
-      // console.log(Object.values(count))
-      return count;
+    calculateStats(data: string[] | number[]): object {
+      // const count: object = countBy(data);
+      // return count;
+      const counts: {[key: string]: number} = {};
+      for (const el of data) {
+        var c;
+        if(typeof el == 'string')
+          c = el.toLowerCase();
+        else
+          c = el;
+        counts[c] = counts[c] ? ++counts[c] : 1;
+      }
+      const orderedcount = Object.keys(counts).sort().reduce(
+        (obj:{[key: string]: number}, key) => { 
+          obj[key] = counts[key]; 
+          return obj;
+        }, 
+        {}
+      );
+
+      return orderedcount;
     }
 }
