@@ -200,7 +200,7 @@ export class ListDetailsComponent implements OnInit {
     var titles: any =  this.getTitles(table[0]);
     var titleFormat = titles.map((val: string) => {
         if(this.listservice.NumColumns.includes(val))
-          return {'field': val, 'sortable': true, filter: 'agNumberColumnFilter', /*filterParams: numberFilter,valueFormatter: numberValueFormatter,*/ tooltipField: val};
+          return {'field': val, 'sortable': true, filter: 'agNumberColumnFilter', filterParams: numberFilter,/*valueFormatter: numberValueFormatter,*/ tooltipField: val};
         else if(this.listservice.DateColumns.includes(val))
           return {'field': val, 'sortable': true, filter: 'agDateColumnFilter', filterParams: dateFilter,comparator: dateComparator, tooltipField: val};
         else
@@ -343,7 +343,7 @@ function _monthToNum(date: string | number) {
 }
 
 var numberFilter = {
-  allowedCharPattern: '\\d\\-\\,\\$',
+  allowedCharPattern: '\\d\\-\\,',
   numberParser: function (text: string | number) {
     // console.log(text)
     if(typeof text == 'number') return text;

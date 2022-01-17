@@ -162,9 +162,11 @@ export class EntityDetailsComponent implements OnInit {
               }
             }
           }else{
-            // if(this.listservice.NumColumns.includes(val))
-            //   return {'field': val,'colId':key, 'sortable': true, filter: 'agNumberColumnFilter', tooltipField: val }
-            // else  
+            if(this.listservice.NumColumns.includes(val))
+              return {'field': val,'colId':key, 'sortable': true, filter: 'agNumberColumnFilter', filterParams: numberFilter,/*valueFormatter: numberValueFormatter,*/ tooltipField: val};
+            else if(this.listservice.DateColumns.includes(val))
+              return {'field': val,'colId':key, 'sortable': true, filter: 'agDateColumnFilter', filterParams: dateFilter,comparator: dateComparator, tooltipField: val};
+            else
               return {'field': val,'colId':key, 'sortable': true, filter: 'true', tooltipField: val }
           }
         });
@@ -252,3 +254,108 @@ export class EntityDetailsComponent implements OnInit {
   
 
 }
+
+var dateFilter = {
+  comparator: (filterLocalDateAtMidnight: Date, cellValue: string | number) => {
+    const date = cellValue;
+    var day;
+    var month;
+    var year;
+
+    // We create a Date object for comparison against the filter date
+    // console.log(dateAsString)
+    if(typeof date == 'number'){
+      year = date;
+      day = 1;
+      month = 0;
+    }else{
+      const dateParts = date.split(/[.\-/]/);
+      if(dateParts[0].length == 4){ // yyy/mm/dd
+        day = Number(dateParts[2]);
+        month = Number(dateParts[1]) - 1;
+        year = Number(dateParts[0]);
+      }else{ //dd/mm/yyyy
+        day = Number(dateParts[0]);
+        month = Number(dateParts[1]) - 1;
+        year = Number(dateParts[2]);
+      }
+    }  
+    const cellDate = new Date(year, month, day);
+    // console.log(cellDate)
+    // Now that both parameters are Date objects, we can compare
+    if (cellDate < filterLocalDateAtMidnight) {
+        return -1;
+    } else if (cellDate > filterLocalDateAtMidnight) {
+        return 1;
+    }
+    return 0;
+  }
+};
+
+function dateComparator(date1: string | number, date2: string | number) {
+  var date1Number = _monthToNum(date1);
+  var date2Number = _monthToNum(date2);
+
+  if (date1Number === null && date2Number === null) {
+    return 0;
+  }
+  if (date1Number === null) {
+    return -1;
+  }
+  if (date2Number === null) {
+    return 1;
+  }
+
+  return date1Number - date2Number;
+}
+
+// HELPER FOR DATE COMPARISON
+function _monthToNum(date: string | number) {
+  var day;
+  var month;
+  var year;
+
+  if (date === undefined || date === null || date == 'None or Unknown') {
+    return null;
+  }
+
+  if(typeof date == 'number'){
+    year = date;
+    day = 1;
+    month = 0;
+  }else{
+    const dateParts = date.split(/[.\-/]/);
+    if(dateParts[0].length == 4){ // yyy/mm/dd
+      day = Number(dateParts[2]);
+      month = Number(dateParts[1]);
+      year = Number(dateParts[0]);
+    }else{ //dd/mm/yyyy
+      day = Number(dateParts[0]);
+      month = Number(dateParts[1]);
+      year = Number(dateParts[2]);
+    }
+  }  
+
+  var result = year * 10000 + month * 100 + day;
+  // 29/08/2004 => 20040829
+  return result;
+}
+
+var numberFilter = {
+  allowedCharPattern: '\\d\\-\\,',
+  numberParser: function (text: string | number) {
+    // console.log(text)
+    if(typeof text == 'number') return text;
+
+    return text == null
+      ? null
+      : parseFloat(text.replace(',', '.'));
+  },
+};
+
+var numberValueFormatter = function (params: { value: string; }) {
+  if (params.value == 'None or Unknown') return params.value
+  
+  if(typeof params.value == 'string') return parseFloat(params.value.replace(',', '.'));
+  else return params.value;
+};
