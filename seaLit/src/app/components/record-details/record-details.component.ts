@@ -307,7 +307,7 @@ function _monthToNum(date: string | number) {
   var month;
   var year;
 
-  if (date === undefined || date === null || date == 'None or Unknown') {
+  if (date === undefined || date === null || date == 'None or Unfilled') {
     return null;
   }
 
@@ -346,7 +346,7 @@ var numberFilter = {
 };
 
 var numberValueFormatter = function (params: { value: string; }) {
-  if (params.value == 'None or Unknown') return params.value
+  if (params.value == 'None or Unfilled') return params.value
   
   if(typeof params.value == 'string') return parseFloat(params.value.replace(',', '.'));
   else return params.value;

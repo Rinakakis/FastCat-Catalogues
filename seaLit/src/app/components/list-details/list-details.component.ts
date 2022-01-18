@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormControl } from '@angular/forms';
-import { CellClickedEvent } from 'ag-grid-community';
+import { CellClickedEvent, CellContextMenuEvent } from 'ag-grid-community';
 import { isObject } from 'lodash';
 import { Title } from '@angular/platform-browser';
 import { ChartConfiguration, ChartData, ChartType, Chart } from 'chart.js';
@@ -160,7 +160,27 @@ export class ListDetailsComponent implements OnInit {
 
         // console.log('list/'+source+'/Table?'+'Table='+entity+query);
         this.router.navigate(['list/'+source+'/Table/'+entity], { queryParams:data });
-    })
+    }),
+    onCellContextMenu: ((event: CellContextMenuEvent) =>{
+      var source = String(this.route.snapshot.paramMap.get('source'));
+        var data = event.data;
+        var entity = this.TableName.replace('/','-');
+        
+        // console.log(data)
+
+        for (const key in data) {
+          if(isObject(data[key]) || key=='value-type' || key =='listLength')
+              delete data[key];
+        }
+        // console.log(data)
+
+        // console.log('list/'+source+'/Table?'+'Table='+entity+query);
+        // this.router.navigate(['list/'+source+'/Table/'+entity], { queryParams:data });
+
+        const url = this.router.serializeUrl(this.router.createUrlTree(['list/'+source+'/Table/'+entity], { queryParams:data }));
+        window.open(url, '_blank');
+    }
+  )
 
   }
 
@@ -175,7 +195,7 @@ export class ListDetailsComponent implements OnInit {
       this.showloader('loading-div');
       this.listservice.getTableFromSource(source,entity).subscribe((table:any)=>{
 
-        console.log(table);
+        // console.log(table);
         this.hideloader('loading-div');
 
         this.TableName = entity;
@@ -316,7 +336,7 @@ function _monthToNum(date: string | number) {
   var month;
   var year;
 
-  if (date === undefined || date === null || date == 'None or Unknown') {
+  if (date === undefined || date === null || date == 'None or Unfilled') {
     return null;
   }
 
@@ -355,7 +375,7 @@ var numberFilter = {
 };
 
 var numberValueFormatter = function (params: { value: string; }) {
-  if (params.value == 'None or Unknown') return params.value
+  if (params.value == 'None or Unfilled') return params.value
   
   if(typeof params.value == 'string') return parseFloat(params.value.replace(',', '.'));
   else return params.value;

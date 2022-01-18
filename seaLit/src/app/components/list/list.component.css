@@ -56,3 +56,10 @@ a{
 .list-wrapper{
     padding: 20px;
 }
+
+@media only screen and (max-width: 440px) {
+    .archival{
+        margin: 0px;
+    }
+  }
+  

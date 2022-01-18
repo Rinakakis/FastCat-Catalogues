@@ -84,8 +84,8 @@
             "Port": {
                 "path": "docs[0].data.voyage_calendar.#.at_port"
             },
-            "Ships and Routes": {
-                "link": "Ships and Routes",
+            "Ships and Dates": {
+                "link": "Ships and Dates",
                 "listLink": true,
                 "Id": "docs[0]._id"
             }
@@ -98,8 +98,8 @@
             "Destination Port": {
                 "path": "docs[0].data.voyage_calendar.#.route_to"
             },
-            "Ships and Routes": {
-                "link": "Ships and Routes",
+            "Ships and Dates": {
+                "link": "Ships and Dates",
                 "listLink": true,
                 "Id": "docs[0]._id"
             }
@@ -186,13 +186,13 @@
                 "Id": "docs[0]._id"
             }
         },
-        "Ships and Routes":{
+        "Ships and Dates":{
             "value-type": "list",
             "display": "no",
-            "Duration (From)": {
+            "Date (From)": {
                 "path": "docs[0].data.voyage_calendar.#.duration_from"
             },
-            "Duration (To)": {
+            "Date (To)": {
                 "path": "docs[0].data.voyage_calendar.#.duration_to"
             },
             "Ship Name": {

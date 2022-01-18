@@ -4,14 +4,14 @@
   </div>
 </div>
 <div class="record-container">
-  <div class="inside-wrapper">
+  <div class="error-message" *ngIf="error">
+    <p>{{errorMessage}}</p>
+  </div>
+  <div class="inside-wrapper" *ngIf="showform">
     <h3 id="source-title">{{title}}</h3>
     
-    <div class="error-message" *ngIf="error">
-      <p>{{errorMessage}}</p>
-    </div>
   
-    <div class="record-details" *ngIf="showform">
+    <div class="record-details">
         <div class="filter">
           <span class="fltr">Filter by record:</span>
           <mat-form-field appearance="outline">

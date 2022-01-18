@@ -133,8 +133,8 @@
             "Id": "docs[0]._id"
          }
       },
-      "Registry Ports": {
-         "Registry Port": {
+      "Ship Registry Ports": {
+         "Ship Registry Port": {
             "path": "docs[0].data.ship_records.registry_port"
          },
          "Ships": {

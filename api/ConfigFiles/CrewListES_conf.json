@@ -49,9 +49,6 @@
             "Age": {
                 "path": "docs[0].data.crew_list.#.crew_age"
             },
-            "Locations of Birth": {
-                "path": "docs[0].data.crew_list.#.crew_birth_location"
-            },
             "Locations of Residence": {
                 "path": "docs[0].data.crew_list.#.crew_birth_location"
             },
@@ -99,7 +96,7 @@
         "Locations of Residence": {
             "value-type": "list",
             "Location of Residence": {
-                "path": "docs[0].data.crew_list.#.crew_residence_location"
+                "path": "docs[0].data.crew_list.#.crew_birth_location"
             },
             "Crew Members": {
                 "link": "Crew Members",
@@ -111,10 +108,10 @@
             "Ship's Name": {
                "path": "docs[0].data.ship_records.ship_name"
             },
-            "Navigation: From": {
+            "Date (From)": {
                "path": "docs[0].data.ports_of_call.date_from"
             },
-            "Navigation: To": {
+            "Date (To)": {
                "path": "docs[0].data.ports_of_call.date_to"
             },
             "First Planned destinations": {
@@ -131,7 +128,19 @@
                "link": "Crew Members",
                "Id": "docs[0]._id"
             }
-
+         },
+        "First Planned Destinations": {
+            "First Planned destinations": {
+               "path": "docs[0].data.ports_of_call.first_planned_destinations"
+            },
+            "Ships": {
+               "link": "Ships",
+               "Id": "docs[0]._id"
+            },
+            "Voyages": {
+               "link": "Voyages",
+               "Id": "docs[0]._id"
+            }
          },
         "Crew Members and Embarkation Dates": {
             "display": "no",

@@ -77,7 +77,7 @@ ul{
 }
 
 
-@media only screen and (min-width: 440px) {
+@media only screen and (min-width: 441px) {
   .record-details{
     padding-left: 40px;
     padding-right: 40px;
@@ -93,5 +93,12 @@ ul{
 @media only screen and (max-width: 440px) {
   .record-columns {
     column-count: 1;
+  }
+  #source-title{
+    margin-left: 0px;
+  }
+
+  .record-details{
+    margin-left: 20px;
   }
 }

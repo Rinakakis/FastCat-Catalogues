@@ -9,7 +9,12 @@
             },
             "Street Name": {
                 "path": "docs[0].data.source_identity.street_name"
+            },
+            "Occupants": {
+                "link": "Occupants",
+                "Id": "docs[0]._id"
             }
+
         },
         "Occupants": {
             "value-type": "nested-list",

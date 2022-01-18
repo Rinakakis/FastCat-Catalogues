@@ -1020,7 +1020,7 @@ function replaceEmptyValues(array) {
    array.forEach(obj => {
       Object.keys(obj).forEach(key => {
          if (obj[key] === '' || obj[key] == undefined || obj[key] == ' '){
-            obj[key] = 'None or Unknown';
+            obj[key] = 'None or Unfilled';
          }
       });
       
