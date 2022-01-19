@@ -59,8 +59,8 @@ export class ListService {
     // 'Navigation: To',
     'Date of Death', 
     'Date of Birth', // Inscription Maritime - Maritime Register of the State for La Ciotat, Payroll of Russian Steam Navigation and Trading Company, Sailors register (Libro de registro de marineros)
-    'Duration (From)',
-    'Duration (To)',
+    // 'Duration (From)',
+    // 'Duration (To)',
     'Creation Date',
     'Person\'s Date of Birth',
     'Recruitment Date',
