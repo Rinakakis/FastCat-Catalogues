@@ -81,7 +81,7 @@ export class RecordDetailsComponent implements OnInit {
     const id = String(this.route.snapshot.paramMap.get('id'));
     // console.log(source,id);
     this.listservice.getrecordFromSource(source,id).subscribe(record=>{
-      // console.log(record);
+      console.log(record);
       if (record) {
         this.hideloader();
       }

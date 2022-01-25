@@ -15,7 +15,7 @@
 
 ## Change the Ip of the API
 
-- In the angular project go to seaLit\src\app\services\list.service.ts and in line 11 change the Ip to the Ip of the computer that th api.js will run on.
+- In the angular project go to seaLit\src\app\services\list.service.ts and in line 12 change the Ip to the Ip of the computer that th api.js will run on.
 
 ## Production build for Angular Application
 

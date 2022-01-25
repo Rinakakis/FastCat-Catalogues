@@ -105,6 +105,11 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     /* color: #fff; */
   }
 
+  .reset-div{
+    display:flex;
+    justify-content: flex-end;
+  }
+
   @keyframes hide {
     0% {
       opacity: 1;

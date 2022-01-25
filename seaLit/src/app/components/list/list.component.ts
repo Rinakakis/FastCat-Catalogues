@@ -11,6 +11,7 @@ export class ListComponent implements OnInit {
 
   list: any;
   id = -1;
+  isDataLoaded: boolean = false;
 
   constructor(
     private listservice: ListService,
@@ -29,7 +30,14 @@ export class ListComponent implements OnInit {
         if (list) {
           this.hideloader();
         }
-       this.list = list;
+        const target: any = {};
+        list.forEach((obj: { category: string }) => target[obj.category] = []);
+
+        list.forEach((obj: { category: string }) => target[obj.category].push(obj));
+        
+        this.list = target;
+        this.isDataLoaded = !this.isDataLoaded;
+        // console.log(list)
       });
   }
 
@@ -42,5 +50,11 @@ export class ListComponent implements OnInit {
       this.id = -1
     else
       this.id = id;
+  }
+
+  getCategories(list: any): string[]{
+    if(list!= undefined || list != null)
+      return Object.keys(list);
+    return []
   }
 }

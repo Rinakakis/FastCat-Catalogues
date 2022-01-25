@@ -1,120 +1,140 @@
 {
    "templates":[
       {
+         "category": "Log / Account Books",
          "id":"Accounts book",
          "name":"Accounts book",
          "description":"A description of the template",
          "configuration":"accountsbook_conf.json"
       },
       {
+         "category": "Censuses",
          "id":"Census_LaCiotat",
          "name":"Census La Ciotat",
          "description":"A description of the template",
          "configuration":"censuslaciotat_conf.json"
       },
       {
+         "category": "Crew Lists",
          "id":"Crew List",
          "name":"Crew and displacement list (Roll)",
          "description":"A description of the template",
          "configuration":"crewlistroll_conf.json"
       },
       {
+         "category": "Crew Lists",
          "id":"Crew List_IT",
          "name":"Crew List (Ruoli di Equipaggio)",
          "description":"A description of the template",
          "configuration":"crewListRuoli_conf.json"
       },
       {
+         "category": "Registers / Lists",
          "id":"Civil Register",
          "name":"Civil Register",
          "description":"A description of the template",
          "configuration":"civilregister_conf.json"
       },
       {
+         "category": "Other Records",
          "id":"Messageries_Maritimes",
          "name":"Employment records, Shipyards of Messageries Maritimes, La Ciotat",
          "description":"A description of the template",
          "configuration":"messageriesmaritimes_conf.json"
       },
       {
+         "category": "Censuses",
          "id":"Census Odessa",
          "name":"First national all-Russian census of the Russian Empire",
          "description":"A description of the template",
          "configuration":"censusodessa_conf.json"
       },
       {
+         "category": "Crew Lists",
          "id":"Crew_List_ES",
          "name":"General Spanish Crew List",
          "description":"A description of the template",
          "configuration":"CrewListES_conf.json"
       },
       {
+         "category": "Registers / Lists",
          "id":"Inscription_Maritime",
          "name":"Inscription Maritime - Maritime Register of the State for La Ciotat",
          "description":"A description of the template",
          "configuration":"Inscription_Maritime_conf.json"
       },
       {
+         "category": "Registers / Lists",
          "id":"Ship_List",
          "name":"List of ships",
          "description":"A description of the template",
          "configuration":"Ship_List_conf.json"
       },
       {
+         "category": "Log / Account Books",
          "id":"Logbook",
          "name":"Logbook",
          "description":"A description of the template",
          "configuration":"Logbook_conf.json"
       },
       {
+         "category": "Registers / Lists",
          "id":"Register_of_Ships",
          "name":"Naval Ship Register List",
          "description":"A description of the template",
          "configuration":"Register_of_Ships_conf.json"
       },
       {
+         "category": "Other Records",
          "id":"Notarial Deeds",
          "name":"Notarial Deeds",
          "description":"A description of the template",
          "configuration":"Notarial_Deeds_conf.json"
       },
       {
+         "category": "Payroll",
          "id":"Payroll",
          "name":"Payroll",
          "description":"A description of the template",
          "configuration":"Payroll_conf.json"
       },
       {
+         "category": "Payroll",
          "id":"Payroll_RU",
          "name":"Payroll of Russian Steam Navigation and Trading Company",
          "description":"A description of the template",
          "configuration":"Payroll_RU_conf.json"
       },
       {
+         "category": "Registers / Lists",
          "id":"Maritime_Register_ES",
          "name":"Register of Maritime personel",
          "description":"A description of the template",
          "configuration":"Maritime_Register_ES_conf.json"
       },
       {
+         "category": "Registers / Lists",
          "id":"Maritime Workers_IT",
          "name":"Register of Maritime workers (Matricole della gente di mare)",
          "description":"A description of the template",
          "configuration":"Maritime_Workers_IT_conf.json"
       },
       {
+         "category": "Registers / Lists",
          "id":"Sailors_Register",
          "name":"Sailors register (Libro de registro de marineros)",
          "description":"A description of the template",
          "configuration":"Sailors_Register_conf.json"
       },
       {
+         "category": "Registers / Lists",
          "id":"Seagoing_Personel",
          "name":"Seagoing Personel",
          "description":"A description of the template",
          "configuration":"Seagoing_Personel_conf.json"
       },
       {
+         "category": "Registers / Lists",
          "id":"Students Register",
          "name":"Students Register",
          "description":"A description of the template",

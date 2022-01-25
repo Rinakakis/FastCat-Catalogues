@@ -10,127 +10,187 @@ app.use(cors());
 var path = './Data/';
 
 const templates = [
-   {
-      "id":"Accounts book",
-      "name":"Accounts book",
-      "description":"A description of the template",
-      "configuration":"accountsbook_conf.json"
-   },
-   {
-      "id":"Census_LaCiotat",
-      "name":"Census La Ciotat",
-      "description":"A description of the template",
-      "configuration":"censuslaciotat_conf.json"
-   },
-   {
-      "id":"Crew List",
-      "name":"Crew and displacement list (Roll)",
-      "description":"A description of the template",
-      "configuration":"crewlistroll_conf.json"
-   },
-   {
-      "id":"Crew List_IT",
-      "name":"Crew List (Ruoli di Equipaggio)",
-      "description":"A description of the template",
-      "configuration":"crewListRuoli_conf.json"
-   },
-   {
-      "id":"Civil Register",
-      "name":"Civil Register",
-      "description":"A description of the template",
-      "configuration":"civilregister_conf.json"
-   },
-   {
-      "id":"Messageries_Maritimes",
-      "name":"Employment records, Shipyards of Messageries Maritimes, La Ciotat",
-      "description":"A description of the template",
-      "configuration":"messageriesmaritimes_conf.json"
-   },
-   {
-      "id":"Census Odessa",
-      "name":"First national all-Russian census of the Russian Empire",
-      "description":"A description of the template",
-      "configuration":"censusodessa_conf.json"
-   },
-   {
-      "id":"Crew_List_ES",
-      "name":"General Spanish Crew List",
-      "description":"A description of the template",
-      "configuration":"CrewListES_conf.json"
-   },
-   {
-      "id":"Inscription_Maritime",
-      "name":"Inscription Maritime - Maritime Register of the State for La Ciotat",
-      "description":"A description of the template",
-      "configuration":"Inscription_Maritime_conf.json"
-   },
-   {
-      "id":"Ship_List",
-      "name":"List of ships",
-      "description":"A description of the template",
-      "configuration":"Ship_List_conf.json"
-   },
-   {
-      "id":"Logbook",
-      "name":"Logbook",
-      "description":"A description of the template",
-      "configuration":"Logbook_conf.json"
-   },
-   {
-      "id":"Register_of_Ships",
-      "name":"Naval Ship Register List",
-      "description":"A description of the template",
-      "configuration":"Register_of_Ships_conf.json"
-   },
-   {
-      "id":"Notarial Deeds",
-      "name":"Notarial Deeds",
-      "description":"A description of the template",
-      "configuration":"Notarial_Deeds_conf.json"
-   },
-   {
-      "id":"Payroll",
-      "name":"Payroll",
-      "description":"A description of the template",
-      "configuration":"Payroll_conf.json"
-   },
-   {
-      "id":"Payroll_RU",
-      "name":"Payroll of Russian Steam Navigation and Trading Company",
-      "description":"A description of the template",
-      "configuration":"Payroll_RU_conf.json"
-   },
-   {
-      "id":"Maritime_Register_ES",
-      "name":"Register of Maritime personel",
-      "description":"A description of the template",
-      "configuration":"Maritime_Register_ES_conf.json"
-   },
-   {
-      "id":"Maritime Workers_IT",
-      "name":"Register of Maritime workers (Matricole della gente di mare)",
-      "description":"A description of the template",
-      "configuration":"Maritime_Workers_IT_conf.json"
-   },
-   {
-      "id":"Sailors_Register",
-      "name":"Sailors register (Libro de registro de marineros)",
-      "description":"A description of the template",
-      "configuration":"Sailors_Register_conf.json"
-   },
-   {
-      "id":"Seagoing_Personel",
-      "name":"Seagoing Personel",
-      "description":"A description of the template",
-      "configuration":"Seagoing_Personel_conf.json"
-   },
-   {
-      "id":"Students Register",
-      "name":"Students Register",
-      "description":"A description of the template",
-      "configuration":"Students_Register_conf.json"
-   },
+  {
+    "category": "Log / Account Books",
+    "id": "Accounts book",
+    "name": "Accounts book",
+    "description": "A description of the template",
+    "configuration": "accountsbook_conf.json"
+  },
+  {
+    "category": "Censuses",
+    "id": "Census_LaCiotat",
+    "name": "Census La Ciotat",
+    "description": "A description of the template",
+    "configuration": "censuslaciotat_conf.json"
+  },
+  {
+    "category": "Crew Lists",
+    "id": "Crew List",
+    "name": "Crew and displacement list (Roll)",
+    "description": "A description of the template",
+    "configuration": "crewlistroll_conf.json"
+  },
+  {
+    "category": "Crew Lists",
+    "id": "Crew List_IT",
+    "name": "Crew List (Ruoli di Equipaggio)",
+    "description": "A description of the template",
+    "configuration": "crewListRuoli_conf.json"
+  },
+  {
+    "category": "Registers / Lists",
+    "id": "Civil Register",
+    "name": "Civil Register",
+    "description": "A description of the template",
+    "configuration": "civilregister_conf.json"
+  },
+  {
+    "category": "Other Records",
+    "id": "Messageries_Maritimes",
+    "name": "Employment records, Shipyards of Messageries Maritimes, La Ciotat",
+    "description": "A description of the template",
+    "configuration": "messageriesmaritimes_conf.json"
+  },
+  {
+    "category": "Censuses",
+    "id": "Census Odessa",
+    "name": "First national all-Russian census of the Russian Empire",
+    "description": "A description of the template",
+    "configuration": "censusodessa_conf.json"
+  },
+  {
+    "category": "Crew Lists",
+    "id": "Crew_List_ES",
+    "name": "General Spanish Crew List",
+    "description": "A description of the template",
+    "configuration": "CrewListES_conf.json"
+  },
+  {
+    "category": "Registers / Lists",
+    "id": "Inscription_Maritime",
+    "name": "Inscription Maritime - Maritime Register of the State for La Ciotat",
+    "description": "A description of the template",
+    "configuration": "Inscription_Maritime_conf.json"
+  },
+  {
+    "category": "Registers / Lists",
+    "id": "Ship_List",
+    "name": "List of ships",
+    "description": "A description of the template",
+    "configuration": "Ship_List_conf.json"
+  },
+  {
+    "category": "Log / Account Books",
+    "id": "Logbook",
+    "name": "Logbook",
+    "description": "A description of the template",
+    "configuration": "Logbook_conf.json"
+  },
+  {
+    "category": "Registers / Lists",
+    "id": "Register_of_Ships",
+    "name": "Naval Ship Register List",
+    "description": "A description of the template",
+    "configuration": "Register_of_Ships_conf.json"
+  },
+  {
+    "category": "Other Records",
+    "id": "Notarial Deeds",
+    "name": "Notarial Deeds",
+    "description": "A description of the template",
+    "configuration": "Notarial_Deeds_conf.json"
+  },
+  {
+    "category": "Payroll",
+    "id": "Payroll",
+    "name": "Payroll",
+    "description": "A description of the template",
+    "configuration": "Payroll_conf.json"
+  },
+  {
+    "category": "Payroll",
+    "id": "Payroll_RU",
+    "name": "Payroll of Russian Steam Navigation and Trading Company",
+    "description": "A description of the template",
+    "configuration": "Payroll_RU_conf.json"
+  },
+  {
+    "category": "Registers / Lists",
+    "id": "Maritime_Register_ES",
+    "name": "Register of Maritime personel",
+    "description": "A description of the template",
+    "configuration": "Maritime_Register_ES_conf.json"
+  },
+  {
+    "category": "Registers / Lists",
+    "id": "Maritime Workers_IT",
+    "name": "Register of Maritime workers (Matricole della gente di mare)",
+    "description": "A description of the template",
+    "configuration": "Maritime_Workers_IT_conf.json"
+  },
+  {
+    "category": "Registers / Lists",
+    "id": "Sailors_Register",
+    "name": "Sailors register (Libro de registro de marineros)",
+    "description": "A description of the template",
+    "configuration": "Sailors_Register_conf.json"
+  },
+  {
+    "category": "Registers / Lists",
+    "id": "Seagoing_Personel",
+    "name": "Seagoing Personel",
+    "description": "A description of the template",
+    "configuration": "Seagoing_Personel_conf.json"
+  },
+  {
+    "category": "Registers / Lists",
+    "id": "Students Register",
+    "name": "Students Register",
+    "description": "A description of the template",
+    "configuration": "Students_Register_conf.json"
+  }
+]
 
+const NumColumns = [
+  'Age',
+  'Age (Years)',
+  'House Number',
+  'Year of Birth',
+  'Construction Date',
+  'Registry Folio',
+  'Registry List',
+  'Registry Number',
+  'Birth Date (Year)', // Crew List (Ruoli di Equipaggio)
+  'Serial Number',
+  'Months',
+  'Days',
+  'Total Crew Number (Captain Included)',
+  'Date of Birth (Year)', // Employment records, Shipyards of Messageries Maritimes, La Ciotat
+  'Tonnage', 
+  'Tonnage (Value)', 
+  'Year of Reagistry',
+  'Year of Constraction',
+  'Nominal Power',
+  'Indicated Power',
+  'Gross Tonnage (In Kg)',
+  'Length (In Meter)',
+  'Width (In Meter)',
+  'Depth (In Meter)',
+  'Year',
+  'Refrence Number',
+  'Total Days',
+  'Days at Sea',
+  'Days at Port',
+  'Overall Total Wages (Value)',
+  'Overall Pension Fund (Value)',
+  'Overall Net Wages (Value)',
+  'Salary per Month (Value)',
+  'Registration Number',
+  'Semester',
+  'From',
+  'To',
+  'Total Number of Students',
 ];
 
 var server = app.listen(8081, function () {
@@ -170,6 +230,7 @@ app.get('/sourceRecordList/:name/', function (req, res){
 /**
  * returns the titles of the records of an entity
  */
+
 app.get('/sourceRecordTitles/:name/', function (req, res){
   var config = getConfig(req.params.name);
   var titles = [];
@@ -196,7 +257,6 @@ app.get('/numberOfrecords/:name', function(req, res){
     if(config.length == 0 && record !='all'){
       res.status(404).send('Page not found');
       // res.send(config);
-      
     }else{
       myarray = fs.readdirSync(path)
       .map(name => {
@@ -207,9 +267,9 @@ app.get('/numberOfrecords/:name', function(req, res){
         return record;
       });
       if(record!='all')
-      myarray = myarray.filter(obj => obj.name == record);
+        myarray = myarray.filter(obj => obj.name == record);
       
-      // console.log(myarray)
+      // myarray.forEach(obj => { delete obj.configuration });
       res.send(JSON.stringify(myarray));
     }
 
@@ -251,23 +311,22 @@ app.get('/tableData', function (req, res) {
  * @returns returns the linked tables that needs to be shown for the query
  */
 function handleQueryTables(source,tableName,query,myarray){
-  // console.log(query);
   // console.dir(myarray, { depth: null });
   for (const key in query) {
-    query[key] = isNum(query[key]);
+    query[key] = isNum(query[key], key);
   }
+  // console.log(query);
 
-  var elem = myarray.filter(elem => {
+  var elem = myarray.filter(el => {
     var obj = {}
-    for (const key in elem) {
-      if(!_.isObject(elem[key]) && key != 'listLength' && key != 'value-type' && key != 'display'){
-        Object.assign(obj, {[key]: elem[key]});        
+    for (const key in el) {
+      if(!_.isObject(el[key]) && key != 'listLength' && key != 'value-type' && key != 'display'){
+        Object.assign(obj, {[key]: el[key]});        
       } 
     }
-    
     if(_.isEqual(obj,query)){
       // console.log(elem.ids);
-      return elem;
+      return el;
     }
   });
   // console.log(elem);
@@ -585,22 +644,22 @@ function getConfigEntity(recordName,entity){
  * @param {string} recordName The name of the entity 
  * @returns {object}  The configuration file of an entity 
  */
-function getConfig(recordName){
-   var record = templates.find(obj => obj.name == recordName);
-   if(record == undefined) return [];
+function getConfig(recordName) {
+  var record = templates.find(obj => obj.name == recordName);
+  if (record == undefined) return [];
 
-   var config = fs.readFileSync('./ConfigFiles/'+record.configuration, 'utf8');
-   config = JSON.parse(config);
-   config = _.get(config,record.name);
-   return config;
+  var config = fs.readFileSync('./ConfigFiles/' + record.configuration, 'utf8');
+  config = JSON.parse(config);
+  config = _.get(config, record.name);
+  return config;
 }
 
 function getConfigTitle(recordName){
-   var record = templates.find(obj => obj.name == recordName);
-   var config = fs.readFileSync('./ConfigFiles/'+record.configuration, 'utf8');
-   config = JSON.parse(config);
-   config = _.get(config,'Title');
-   return config;
+  var record = templates.find(obj => obj.name == recordName);
+  var config = fs.readFileSync('./ConfigFiles/'+record.configuration, 'utf8');
+  config = JSON.parse(config);
+  config = _.get(config,'Title');
+  return config;
 }
 
 /**
@@ -654,7 +713,7 @@ function formatObject(data, config, remv = true, nestedlink = false){
               if(data == undefined){
                 fake[column] = '';
               }else if(data.includes("\n") && column != 'First planned destinations'){
-                var temp = splitData(data);
+                var temp = splitData(data, column);
                 fake[column] = temp;                
                 fake['value-type'] = 'list';    
                 fake['listLength'] = temp.length;
@@ -662,7 +721,7 @@ function formatObject(data, config, remv = true, nestedlink = false){
                 if(data.includes("\n")) 
                   data = data.replAll("\n", ", ")
                 
-                fake[column] = isNum(data);
+                fake[column] = isNum(data, column);
               }
           } else if (item.link != undefined) { // we have link
               var data = item.link;
@@ -715,13 +774,13 @@ function formatObject(data, config, remv = true, nestedlink = false){
  * @param {string} data 
  * @returns string[] with the splited data
  */
-function splitData(data) {
+function splitData(data, column) {
   var names = data.split('\n');
   return names.map(val =>{
     if(val == ' ') 
       return '';
     
-      return isNum(val);
+      return isNum(val, column);
   });
 }
 
@@ -753,19 +812,19 @@ function splitData(data) {
                 if (data2 == undefined) data2 = '';
                 if (data2.includes("\n")) {
                   // data2[0] = data2[0].replAll("\n", ", ");
-                  var arraydata2 = splitData(data2);
+                  var arraydata2 = splitData(data2, column);
                   // console.log(arraydata2);
                   newLineCount = arraydata2.length;
                   // console.log(arraydata2)
                   for (let i = 0; i < newLineCount; i++) {
                     // console.log(idInfos);
                     // console.log(arraydata2[i]);
-                    ar.push([arraydata2[i], { 'Id': index, 'Mid': i, 'recordId': recordId }]);
+                    ar.push([isNum(arraydata2[i], column), { 'Id': index, 'Mid': i, 'recordId': recordId }]);
                   }
                   newLineCount = 0;
                 } else {
                   // console.log(data2)
-                  ar.push([isNum(data2), { 'Id': index, 'recordId': recordId }]);
+                  ar.push([isNum(data2,column), { 'Id': index, 'recordId': recordId }]);
                 }
               }
               index++
@@ -782,7 +841,7 @@ function splitData(data) {
             var data = _.get(mydata2, item.path);
             var temp = [];
             for (let i = 0; i < count; i++) {
-              temp.push(isNum(data)); 
+              temp.push(isNum(data, column)); 
             }
             // delete fake[column];
             // fake = Object.assign({[column]: temp}, fake); // to put the non list item infont
@@ -847,7 +906,7 @@ function splitData(data) {
 
                 if (data2 == undefined) data2 = '';
                 if(data2.includes("\n") && item.path!= 'docs[0].data.nominative_list_of_occupants.#.person_name'){ //second condition beacause there's a \n in a colunm that takes single values. for First national all-Russian census of the Russian Empire
-                  var arraydata2 = splitData(data2);
+                  var arraydata2 = splitData(data2, column);
                   newLineCount = arraydata2.length; 
                   arraydata2.forEach(element => {
                     fake[column].push(element);
@@ -859,7 +918,7 @@ function splitData(data) {
                     previusColumn = '';
                   }
                 }else{
-                  fake[column].push(isNum(data2));
+                  fake[column].push(isNum(data2, column));
                   previusColumn = column;
                 }
               }else{
@@ -1079,10 +1138,20 @@ function deleteObjects(element){
   })
 }
 
-function isNum(val){
+function isNum(val, column){
 
-  if(!isNaN(val) && !isNaN(parseFloat(val))){
-    return parseInt(val);
+  if(val == 'None or Unfilled') return val;
+
+  if(NumColumns.includes(column) && (val!= '' && val!= undefined && val!= ' ') ){
+    if(val.includes(',') && val.includes('.'))
+      return parseFloat(val.replace(/,/g, ''));
+    else if(val.includes(','))
+      return parseFloat(val.replace(/,/g, '.'));
+    else if(!isNaN(val))
+      return parseFloat(val);
+    else 
+     return val.toLowerCase();
   }
-  return val;
+  
+  return val.toLowerCase();
 }

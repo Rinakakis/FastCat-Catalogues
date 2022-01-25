@@ -21,7 +21,6 @@ h3{
 
 
 .archival{
-    margin-left: 30px;
     margin-right: 30px;
 }
 
@@ -44,6 +43,17 @@ a{
     font-size: 13px;
 }
 
+.archival-categories{
+    list-style: none;
+    font: 'Lato', "Times New Roman", Times, serif;
+    color: #3B678E;
+}
+
+.catgory-title{
+    margin-bottom: 5px;
+}
+
+
 
 .archival-container{
     height: max-content;
@@ -58,8 +68,8 @@ a{
 }
 
 @media only screen and (max-width: 440px) {
-    .archival{
-        margin: 0px;
+    .archival-categories{
+        padding: 10px;
     }
   }
   

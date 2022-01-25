@@ -236,10 +236,10 @@
          "Ship's Name": {
             "path": "docs[0].data.ship_records.ship_name"
          },
-         "Navigation: From": {
+         "Date (From)": {
             "path": "docs[0].data.ports_of_call.date_from"
          },
-         "Navigation: To": {
+         "Date (To)": {
             "path": "docs[0].data.ports_of_call.date_to"
          },
          "Months": {
@@ -248,9 +248,6 @@
          "Days": {
             "path": "docs[0].data.ports_of_call.total_duration_years"
          },
-         "First Planned destinations": {
-            "path": "docs[0].data.ports_of_call.first_planned_destinations"
-         },
          "Total Crew Number (Captain Included)": {
             "path": "docs[0].data.ports_of_call.total_crew_number"
          },
@@ -258,10 +255,28 @@
             "link": "Ships",
             "Id": "docs[0]._id"
          },
+         "First Planned destinations": {
+            "link": "First Planned destinations",
+            "Id": "docs[0]._id"
+         },
          "Crew Members": {
             "link": "Crew Members",
             "Id": "docs[0]._id"
          }
+      },
+      "First Planned destinations": {
+         "First Planned destination": {
+            "path": "docs[0].data.ports_of_call.first_planned_destinations"
+         },
+         "Ships": {
+            "link": "Ships",
+            "Id": "docs[0]._id"
+         },
+         "Voyages": {
+            "link": "Voyages",
+            "Id": "docs[0]._id"
+         }
+
       },
       "Embarkation Ports": {
          "value-type": "list",

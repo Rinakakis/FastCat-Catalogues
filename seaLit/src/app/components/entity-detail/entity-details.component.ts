@@ -158,7 +158,7 @@ export class EntityDetailsComponent implements OnInit {
           if(val == 'FastCat Records'){
             return {width: 60, resizable: false, tooltipField: val,
               cellRenderer: function() {
-                return '<i class="material-icons" style="vertical-align: middle">info</i>'
+                return '<i class="material-icons" style="vertical-align: middle">launch</i>'
               }
             }
           }else{
@@ -251,6 +251,12 @@ export class EntityDetailsComponent implements OnInit {
         this.chartOption[index] = !this.chartOption[index];
     }
   }
+
+  resetZoom(){
+    // console.log('zoom')
+    this.chart?.chart?.resetZoom();
+  }
+
   
 
 }

@@ -7,7 +7,7 @@ import { isObject, countBy } from 'lodash';
   providedIn: 'root'
 })
 export class ListService {
-
+  
   Titles: any[] = [];
   Ip: string = '192.168.1.3';
   NumColumns: string[] = [

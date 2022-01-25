@@ -195,7 +195,7 @@ export class ListDetailsComponent implements OnInit {
       this.showloader('loading-div');
       this.listservice.getTableFromSource(source,entity).subscribe((table:any)=>{
 
-        // console.log(table);
+        console.log(table);
         this.hideloader('loading-div');
 
         this.TableName = entity;
@@ -273,7 +273,11 @@ export class ListDetailsComponent implements OnInit {
     }
   }
 
-  
+  resetZoom(){
+    // console.log('zoom')
+    this.chart?.chart?.resetZoom();
+  }
+
 }
 
 var dateFilter = {
