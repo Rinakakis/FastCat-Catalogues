@@ -257,7 +257,7 @@
             "display": "no",
             "value-type": "nested-list",
             "Discharge Date": {
-                "path": "docs[0].data.displacement_list.#.displacement_discharge_date"
+                "path": "docs[0].data.displacement_list.#.displacement_dissharge_location"
             },
             "Surname": {
                 "value-type": "list",

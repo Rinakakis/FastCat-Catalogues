@@ -12,7 +12,7 @@
                 "path": "docs[0].data.employees_list.#.person_fathers_name"
             },
             "Marital Status": {
-                "path": "docs[0].data.employees_list.#.military_service_organization"
+                "path": "docs[0].data.employees_list.#.person_marital_status"
             },
             "Birth Date": {
                 "path": "docs[0].data.employees_list.#.person_birth_date"
@@ -37,8 +37,8 @@
                 "listLink": true,
                 "Id": "docs[0]._id"
             },
-            "End of Service Reasons": {
-                "link": "End of Service Reasons",
+            "End of Service Info": {
+                "link": "End of Service Info",
                 "listLink": true,
                 "Id": "docs[0]._id"
             },
@@ -124,6 +124,24 @@
                 "Id": "docs[0]._id"
             }
         },
+        "End of Service Info": {
+            "display": "no",
+            "value-type": "list",
+            "End of Service Type": {
+                "path": "docs[0].data.employees_list.#.end_of_service_type"
+            },
+            "End of Service Date": {
+                "path": "docs[0].data.employees_list.#.end_of_service_date"
+            },
+            "End of Service Reason": {
+                "path": "docs[0].data.employees_list.#.end_of_service_reason"
+            },
+            "Persons": {
+                "link": "Persons",
+                "listLink": true,
+                "Id": "docs[0]._id"
+            }
+        },
         "Person and Start Date": {
             "display": "no",
             "value-type": "list",
@@ -165,8 +183,8 @@
                 "listLink": true,
                 "Id": "docs[0]._id"
             },
-            "End of Service Reasons": {
-                "link": "End of Service Reasons",
+            "End of Service Info": {
+                "link": "End of Service Info",
                 "listLink": true,
                 "Id": "docs[0]._id"
             },

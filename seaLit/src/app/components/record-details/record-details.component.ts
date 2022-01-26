@@ -21,23 +21,32 @@ export class RecordDetailsComponent implements OnInit {
   sourceId: string ='';
   Id: string ='';
   sourceName: string ='';
-
   rowData = [];
+  recordList: string[] = [];
+  totalCount : number[] = [];
+  columnTitles : number[] = [];
+  tableDataTitles: string[] = [];
+  showData: boolean = false;
+  tableClicked: boolean = false;
+  chartOption: boolean = false;
+  showform: boolean = false;
+  state = "closed";
   title: string = '';
-
+  error: boolean = false;
   tables: any[] = [];
   tablesTitles: any[] = [];
   tablesCount: number = 0;
-  selectedTable: boolean = false;
   nonLitsInfo: any[] = [];
   keysNonList: any[] = [];
-  entity: string = '';
+  TableName: string = '';
+  errorMessage: string = '';
   keysList: any[] = [];
-  visibleId: string[] = [];
-  tableHeights: string[] = [];
+  recordTitlesWithId: any[] = [];
+  
+  gridApi: any;
+  gridColumnApi: any;
+  tableHeight: string = '';
 
-  columnTitles: any[] = [];
-  chartOption: boolean[] = [];
   barChartOptions: ChartConfiguration['options'] = {
     responsive: true,
     plugins: {
@@ -68,6 +77,9 @@ export class RecordDetailsComponent implements OnInit {
     ]
   };
 
+  recordDataTitles: any = [];
+  recordData: any = [];
+
   constructor(
     private route: ActivatedRoute,
     private listservice : ListService,
@@ -81,32 +93,53 @@ export class RecordDetailsComponent implements OnInit {
     const id = String(this.route.snapshot.paramMap.get('id'));
     // console.log(source,id);
     this.listservice.getrecordFromSource(source,id).subscribe(record=>{
-      console.log(record);
       if (record) {
-        this.hideloader();
+        this.hideloader('loading');
       }
-      this.displaydata(record);
+      this.recordData = record.data;
+      this.initList(record);
+      // this.displaydata(record);
       // console.log(record)
     })
   }
 
-  columnDefs = [
+  initList(record: any): void {
+    this.title = record.title;
+
+    this.Id = record.id;
+    this.sourceId = record.sourceId;
+    this.sourceName = record.sourceName;
+
+    this.titleService.setTitle('SeaLit - '+this.sourceName+': '+ this.title);
+    console.log(record)
+
+    record.data.forEach((elem: any) => {
+      if(elem != null){
+        var tableTitle = Object.keys(elem).join();
+        this.recordDataTitles.push(tableTitle);
+        this.totalCount.push(elem[tableTitle].length);
+      }
+    })
+    this.showData = true;
+    console.log(this.recordDataTitles)
+    console.log(this.totalCount)
+  }
+
+  columnDefs: any[] = [
   ];
 
   defaultColDef = {
     resizable: true,
   };
 
-  hideloader() {
-    (<HTMLInputElement>document.getElementById('loading')).style.display = 'none';
-  }
+
 
   gridOptions = {
     // Add event handlers
     onCellClicked: ((event: CellClickedEvent) =>{
         var source = String(this.route.snapshot.paramMap.get('source'));
         var data = event.data;
-        var entity = event.colDef.colId;
+        var entity = this.TableName.replace('/','-');
         var name = ''
         Object.keys(data).forEach(k =>{
           if(typeof data[k] == 'string' && k!= 'value-type')
@@ -128,71 +161,60 @@ export class RecordDetailsComponent implements OnInit {
     })
   }
 
-  displaydata(record: any): void {
-    this.tablesTitles = [];
-    this.tables = [];
-    this.nonLitsInfo = [];
-    this.keysList = [];
-    this.keysNonList = [];
-
-    this.title = record.title;
-
-    this.Id = record.id;
-    this.sourceId = record.sourceId;
-    this.sourceName = record.sourceName;
-
-    this.titleService.setTitle('SeaLit - '+this.sourceName+': '+ this.title);
-    record.data.forEach((element: any) => {
-      if(element != null){
-        var data: any[] = Object.values(element);
-        data = data[0];
-        if(data.length == 1){
-          this.keysNonList.push(Object.keys(element).join());
-          var lala = JSON.parse(JSON.stringify(data[0]));
-          Object.keys(lala).forEach(k => {
-            if(typeof lala[k] == 'object' || k =='listLength' || k == 'value-type')
-              delete lala[k];
-          })
-          this.nonLitsInfo.push(lala);
-        }else{
-          this.keysList.push(Object.keys(element).join());
-          var titles = this.getTitles(data[0]);
-          var titleFormat = titles.map((val: string) => {
-
-            if(this.listservice.NumColumns.includes(val))
-              return {'field': val,'colId':Object.keys(element).join(), 'sortable': true, filter: 'agNumberColumnFilter',filterParams: numberFilter,/*valueFormatter: numberValueFormatter,*/ tooltipField: val};
-            else if(this.listservice.DateColumns.includes(val))
-              return {'field': val,'colId':Object.keys(element).join(), 'sortable': true, filter: 'agDateColumnFilter', filterParams: dateFilter,comparator: dateComparator, tooltipField: val};
-            else  
-              return {'field': val,'colId':Object.keys(element).join(), 'sortable': true, filter: 'true', tooltipField: val }
-          });
-          this.tablesTitles.push(titleFormat);
-          this.tableHeights.push(this.listservice.calculatetableHeight(data.length));
-          this.tables.push(data);
-
-          this.chartOption.push(false);
-          this.columnTitles.push(titleFormat.map(column=> column.field));
-          this.barChartDataArray.push(
-            {
-              labels: [],
-              datasets: [
-                { data: [],
-                  label: ''
-                }
-              ]
-            }
-          )
-          
-        }
-      }
+  formatTableTitles(table: any[]): any[]{
+    // console.log(table)
+    var titles: any = this.getTitles(table[0]);
+    var titleFormat = titles.map((val: string) => {
+        if(this.listservice.NumColumns.includes(val))
+          return {'field': val, 'sortable': true, filter: 'agNumberColumnFilter', filterParams: numberFilter,/*valueFormatter: numberValueFormatter,*/ tooltipField: val};
+        else if(this.listservice.DateColumns.includes(val))
+          return {'field': val, 'sortable': true, filter: 'agDateColumnFilter', filterParams: dateFilter,comparator: dateComparator, tooltipField: val};
+        else
+          return {'field': val, 'sortable': true, 'filter': true, tooltipField: val};
+        
     });
 
-    // console.log(this.tables)
-    if(!this.selectedTable)
-      this.selectedTable = !this.selectedTable;
+    // console.log(titleFormat);
+    return titleFormat;
+  }
+
+  displaytable(tableName: any): void {
+    if(this.chartOption){
+      this.chartOption = !this.chartOption;
+    }
+    if(tableName !== this.TableName){
+      var table: any = [];
+      console.log(tableName)
+      this.recordData.forEach((element: any) =>{
+        if(element!= null)
+          if(Object.keys(element).join() == tableName)
+            table = Object.values(element)[0];
+      })
+      console.log(table)
+      // table = Object.values(table)[0];
+      // console.log(table)
+      this.TableName = tableName;
+      this.columnDefs = this.formatTableTitles(table);
+      this.columnTitles = this.columnDefs.map(column=> column.field);
+      this.rowData = table;
+      this.tableHeight = this.listservice.calculatetableHeight(table.length);
+      if(!this.tableClicked){
+        this.tableClicked = !this.tableClicked;
+      }
+    }else{
+      this.tableClicked = !this.tableClicked;
+    }
+  }
+
+  showloader(id: string) {
+    (<HTMLInputElement>document.getElementById(id)).style.display = 'flex';
+  }
+  hideloader(id: string) {
+    (<HTMLInputElement>document.getElementById(id)).style.display = 'none';
   }
 
   getTitles(temp: any): string[]{
+    // console.log(temp)
     var titles: string[] = [];
     for (const [key, value] of Object.entries(temp)) {
       if(!isObject(value) && key!='value-type' && key!='listLength' && key!='listIds' && key!='display')
@@ -207,42 +229,38 @@ export class RecordDetailsComponent implements OnInit {
     saveAs(blob, "export.csv");
   }
 
-  show(id: any){
-    if(!this.visibleId.includes(id)){
-      this.visibleId.push(id);
-      (<HTMLInputElement>document.getElementById(id)).style.animation = 'hide 0.4s linear forwards';
-    } else{
-      this.visibleId = this.listservice.arrayRemove(this.visibleId, id);
-      (<HTMLInputElement>document.getElementById(id)).style.animation = 'show 0.4s linear forwards';
-    }
-  }
+  // show(id: any){
+  //   if(!this.visibleId.includes(id)){
+  //     this.visibleId.push(id);
+  //     (<HTMLInputElement>document.getElementById(id)).style.animation = 'hide 0.4s linear forwards';
+  //   } else{
+  //     this.visibleId = this.listservice.arrayRemove(this.visibleId, id);
+  //     (<HTMLInputElement>document.getElementById(id)).style.animation = 'show 0.4s linear forwards';
+  //   }
+  // }
 
-  calculateStats(rowdata: any, column: string | number, index: number){ 
-    if(String(column) != this.barChartDataArray[index].datasets[0].label){
+  calculateStats(rowdata: any, column: string | number){ 
+    if(String(column) != this.barChartData.datasets[0].label){
       // console.log('bmhka')
+      
       this.chart?.chart?.resetZoom();
       var values = rowdata.map((elem: { [x: string]: any; })=> elem[column]);
+
       var stats = this.listservice.calculateStats(values);
-
-      this.barChartDataArray[index] = {
-        labels: Object.keys(stats),
-        datasets: [
-          { data: Object.values(stats),
-            label: String(column)
-          }
-        ]
-      };
-      if(!this.chartOption[index])
-        this.chartOption[index] = !this.chartOption[index];
-
-        this.chart?.chart?.resetZoom();
+      this.barChartData.labels = Object.keys(stats);
+      this.barChartData.datasets[0].data = Object.values(stats);
+      this.barChartData.datasets[0].label = String(column);
+      if(!this.chartOption)
+        this.chartOption = !this.chartOption;
+      
         this.chart?.update();
-
-        // Chart.register(zoomPlugin);
-
     }else{
-        this.chartOption[index] = !this.chartOption[index];
+      this.chartOption = !this.chartOption;
     }
+  }
+  resetZoom(){
+    // console.log('zoom')
+    this.chart?.chart?.resetZoom();
   }
 
 }

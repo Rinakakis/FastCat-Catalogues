@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, ChangeDetectorRef } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormControl } from '@angular/forms';
 import { CellClickedEvent, CellContextMenuEvent } from 'ag-grid-community';
@@ -10,6 +10,7 @@ import zoomPlugin from 'chartjs-plugin-zoom';
 
 import { ListService } from 'src/app/services/list.service';
 import { saveAs } from 'file-saver';
+
 
 @Component({
   selector: 'app-list-details',
@@ -24,7 +25,7 @@ export class ListDetailsComponent implements OnInit {
   recordList: string[] = [];
   totalCount : number[] = [];
   columnTitles : number[] = [];
-  recordDataTitles: string[] = [];
+  tableDataTitles: string[] = [];
   showData: boolean = false;
   tableClicked: boolean = false;
   chartOption: boolean = false;
@@ -80,11 +81,13 @@ export class ListDetailsComponent implements OnInit {
     ]
   };
 
+
   constructor(
     private route: ActivatedRoute,
     private listservice : ListService,
     private router: Router,
-    private titleService: Title
+    private titleService: Title,
+    private ref:ChangeDetectorRef
   ) { }
 
   columnDefs: any[] = [
@@ -97,22 +100,28 @@ export class ListDetailsComponent implements OnInit {
   ngOnInit(): void {
     Chart.register(zoomPlugin);
     const name = String(this.route.snapshot.paramMap.get('source'));
-    this.listservice.getSourceList(name).subscribe(list =>{
-      if(list){
+    this.listservice.getSourceList(name).subscribe(list => {
+      if (list) {
         this.hideloader('loading');
       }
+      // if(name == 'Employment records, Shipyards of Messageries Maritimes, La Ciotat'){
+      //   localStorage[CACHE_KEY] = JSON.stringify(list);
+      // }
       this.initList(list);
     },
-    err => {
-      if(err.status == 404) {
-        this.hideloader('loading');
-        this.error = true;
-        this.title = err.error;
-        this.errorMessage ='The requested page: "/'+ String(this.route.snapshot.params.source) + '" could not be found.';
-      }
-   });
+      err => {
+        if (err.status == 404) {
+          this.hideloader('loading');
+          this.error = true;
+          this.title = err.error;
+          this.errorMessage = 'The requested page: "/' + String(this.route.snapshot.params.source) + '" could not be found.';
+        }
+      });
+
     this.listservice.getNameOfSource(name).subscribe(list => this.initTitle(list));
-    this.listservice.getTitlesofSourceRecords(name).subscribe(list =>this.initRecordDropdown(list));
+    this.listservice.getTitlesofSourceRecords(name).subscribe(list => this.initRecordDropdown(list));
+    
+  
   }
 
   hideloader(id: string) {
@@ -136,9 +145,10 @@ export class ListDetailsComponent implements OnInit {
 
   initList(list: any): void {
     list.map((elem: any) => {
-      this.recordDataTitles.push(elem.name);
+      this.tableDataTitles.push(elem.name);
       this.totalCount.push(elem.count);
     })
+
     this.showData = true;
   }
 
@@ -184,21 +194,21 @@ export class ListDetailsComponent implements OnInit {
 
   }
 
-  displaytable(entity:string): void{
+  displaytable(tableName:string): void{
     // console.log(entity);
     
     const source = String(this.route.snapshot.paramMap.get('source'));
     if(this.chartOption){
       this.chartOption = !this.chartOption;
     }
-    if(entity !== this.TableName){
+    if(tableName !== this.TableName){
       this.showloader('loading-div');
-      this.listservice.getTableFromSource(source,entity).subscribe((table:any)=>{
+      this.listservice.getTableFromSource(source,tableName).subscribe((table:any)=>{
 
         console.log(table);
         this.hideloader('loading-div');
 
-        this.TableName = entity;
+        this.TableName = tableName;
         this.columnDefs = this.formatTableTitles(table);
         this.columnTitles = this.columnDefs.map(column=> column.field);
         this.rowData = table;

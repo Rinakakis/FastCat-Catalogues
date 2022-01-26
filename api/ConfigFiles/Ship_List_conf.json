@@ -23,7 +23,7 @@
             "Year of Constraction": {
                 "path": "docs[0].data.list_of_ships.#.year_of_construction"
             },
-            "Tonnage (Type)": {
+            "Tonnage (Unit)": {
                 "path": "docs[0].data.list_of_ships.#.tonnage_type"
             },
             "Tonnage (Value)": {
@@ -94,9 +94,6 @@
         "Owners": {
             "value-type":"list",
             "Name": {
-                "path": "docs[0].data.list_of_ships.#.owner_name"
-            },
-            "Surname": {
                 "path": "docs[0].data.list_of_ships.#.owner_surname"
             },
             "Address": {

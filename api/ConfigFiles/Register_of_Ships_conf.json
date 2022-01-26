@@ -14,19 +14,8 @@
             "Length (In Meter)": {
                 "path": "docs[0].data.list_of_ships.#.length_tonnage_normalization_in_meter"
             },
-            "Width (In Meter)": {
-                "path": "docs[0].data.list_of_ships.#.width_tonnage_normalization_in_meter"
-            },
-            "Depth (In Meter)": {
-                "path": "docs[0].data.list_of_ships.#.depth_tonnage_normalization_in_meter"
-            },
             "Construction Place": {
                 "path": "docs[0].data.list_of_ships.#.construction_person_location"
-            },
-            "Captains": {
-                "link": "Captains",
-                "listLink": true,
-                "Id": "docs[0]._id"
             },
             "Owners (Persons)": {
                 "link": "Owners (Persons)",
@@ -40,20 +29,6 @@
             },
             "Registration Locations": {
                 "link": "Registration Locations",
-                "listLink": true,
-                "Id": "docs[0]._id"
-            }
-        },
-        "Captains": {
-            "value-type": "list",
-            "Name": {
-                "path": "docs[0].data.list_of_ships.#.captain_name"
-            },
-            "Surname": {
-                "path": "docs[0].data.list_of_ships.#.captain_surname"
-            },
-            "Ships": {
-                "link": "Ships",
                 "listLink": true,
                 "Id": "docs[0]._id"
             }

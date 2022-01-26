@@ -85,7 +85,7 @@
                 "path": "docs[0].data.voyages.#.overall_total_wages_value"
             },
             "Overall Total Wages (Unit)": {
-                "path": "docs[0].data.voyages.#.equivalent_overall_total_wages_unit"
+                "path": "docs[0].data.voyages.#.overall_total_wages_unit"
             },
             "Overall Pension Fund (Value)": {
                 "path": "docs[0].data.voyages.#.overall_pension_fund_value"
@@ -217,7 +217,7 @@
             }
         },
         "Work Info": {
-            "display": "no",
+            
             "value-type": "nested-list",
             "Profession-Rank": {
                 "path": "docs[0].data.payroll_analysis.#.person_profession_rank"
@@ -257,6 +257,12 @@
             },
             "Pension Fund (Unit)": {
                 "path": "docs[0].data.payroll_analysis.#.pension_fund_unit"
+            },
+            "Net Wage (Value)": {
+                "path": "docs[0].data.payroll_analysis.#.net_wage_value"
+            },
+            "Net Wage (Unit)": {
+                "path": "docs[0].data.payroll_analysis.#.net_wage_unit"
             },
             "Persons": {
                 "link": "Persons",

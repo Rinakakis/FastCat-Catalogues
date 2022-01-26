@@ -2,6 +2,9 @@
     "Students Register":{
         "Courses": {
             "value-type": "list",
+            "Title": {
+                "path": "docs[0].data.list_of_courses.#.title_of_course"
+            },
             "From": {
                 "path": "docs[0].data.list_of_courses.#.schoolyear_date_from"
             },
@@ -11,9 +14,7 @@
             "Semester": {
                 "path": "docs[0].data.list_of_courses.#.semester"
             },
-            "Title": {
-                "path": "docs[0].data.list_of_courses.#.title_of_course"
-            },
+            
             "Number of Course-Section": {
                 "path": "docs[0].data.list_of_courses.#.total_number_of_students"
             },
@@ -30,6 +31,21 @@
                 "link": "Subjects",
                 "listLink": true,
                 "link-type": "l-nl",
+                "Id": "docs[0]._id"
+            }
+        },
+        "Subjects": {
+            "value-type": "nested-list",
+            "Type": {
+                "path": "docs[0].data.subjects.#.subject_of_study_type"
+            },
+            "Subject": {
+                "path": "docs[0].data.subjects.#.subject_of_study_subject"
+            },
+            "Courses": {
+                "link": "Courses",
+                "listLink": true,
+                "link-type": "nl-l",
                 "Id": "docs[0]._id"
             }
         },
@@ -50,7 +66,7 @@
             "Profession": {
                 "path": "docs[0].data.list_of_students.#.student_profession"
             },
-            "Student Employment Company": {
+            "Employment Company": {
                 "path": "docs[0].data.list_of_students.#.student_employment_organization"
             },
             "Religion": {
@@ -75,7 +91,7 @@
                 "Id": "docs[0]._id"
             }
         },
-        "Students Origin Location": {
+        "Students Origin Locations": {
             "value-type": "nested-list",
             "Location of Origin": {
                 "path": "docs[0].data.list_of_students.#.student_origin_location"
@@ -101,7 +117,7 @@
         },
         "Student Employment Companies": {
             "value-type": "nested-list",
-            "Student Employment Company": {
+            "Employment Company": {
                 "path": "docs[0].data.list_of_students.#.student_employment_organization"
             },
             "Students": {
@@ -168,21 +184,6 @@
                 "link": "Related Persons",
                 "listLink": true,
                 "link-type": "nl-nl",
-                "Id": "docs[0]._id"
-            }
-        },
-        "Subjects": {
-            "value-type": "nested-list",
-            "Type": {
-                "path": "docs[0].data.subjects.#.subject_of_study_type"
-            },
-            "Subject": {
-                "path": "docs[0].data.subjects.#.subject_of_study_subject"
-            },
-            "courses": {
-                "link": "courses",
-                "listLink": true,
-                "link-type": "nl-l",
                 "Id": "docs[0]._id"
             }
         }

@@ -21,12 +21,12 @@
                             </a>
                         </div>
                         <div class="info">
-                            <button class="info-button" aria-label="info" (click)="showInfo(j)" title="info">
+                            <button class="info-button" aria-label="info" (click)="showInfo(item.name)" title="info">
                                 <mat-icon class="material-icons-outlined">info_outline</mat-icon>
                             </button>
                         </div>
                     </div>
-                    <div *ngIf="id == j" class="info-container">
+                    <div *ngIf="id == item.name" class="info-container">
                         {{item.description}}
                     </div>
                 </li>

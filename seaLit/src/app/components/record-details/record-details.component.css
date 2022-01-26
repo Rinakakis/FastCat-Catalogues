@@ -1,42 +1,110 @@
-.record-container{
-  padding: 20px
-}
-
-h3, a{
+h3{
   font: 'Lato', "Times New Roman", Times, serif;
   color: #3B678E;
   /* text-align: center; */
-  /* margin: 20px; */
   font-weight: 500;
 }
 
-.nontable{
-  background-color: white;
-  border: solid 1px;
-  border-color: #babfc7;
-  border-radius: 4px;
-  margin: 10px 10px 10px 0px;
-  padding: 12PX 38px;
-  width: 230px;
-
-}
-.nontable p:last-child{
-  margin: 0px;
+.source-title{
+margin: 10px;
 }
 
-.nocol-grid{
-  display: flex;
-  flex-wrap: wrap;
+.record-container{
+padding: 20px;
+
+}
+.inside-wrapper{
+padding: 10px 10px 20px 10px;
+background-color: #f0f1f3;
+height: auto;
+border: 1px solid #d6d3d3;
 }
 
-.notable-title{
-  padding: 6px 0;
-  border-bottom: solid 1px;
-  border-color: #babfc7;
+.record-columns {
+column-count: 3;
+column-gap: 40px;
+}
+
+.fltr{
+font-weight: 500;
+font-size: 15px;
+margin-right: 10px;
+}
+
+ul{
+list-style-type:none;
+padding: 0px;
+}
+
+.record{
+font-weight:500;
+font-size: 15px;
+cursor: pointer;
+text-decoration: underline;
+/* background-color: blanchedalmond; */
+width: fit-content;
 }
 
 .table-title{
-  /* padding: 4px 0px 4px 18px; */
-  margin-bottom: 0px;
-  color: white;
+/* padding: 4px 0px 4px 18px; */
+margin-bottom: 0px;
+color: white;
+}
+
+.nontable{
+background-color: white;
+border: solid 1px;
+border-color: #babfc7;
+border-radius: 4px;
+margin: 10px 10px 10px 0px;
+padding: 0 38px;
+width: 230px;
+
+}
+
+.nocol-grid{
+display: flex;
+flex-wrap: wrap;
+}
+
+.notable-title{
+padding: 6px 0;
+border-bottom: solid 1px;
+border-color: #babfc7;
+}
+
+.mat-form-field{
+width: 50%;
+}
+
+.record-details{
+  margin-top: 20px;
+}
+
+
+
+@media only screen and (min-width: 441px) {
+.record-details{
+  padding-left: 40px;
+  padding-right: 40px;
+}
+}
+
+@media only screen and (max-width: 768px) {
+.record-columns {
+  column-count: 2;
+}
+}
+
+@media only screen and (max-width: 440px) {
+.record-columns {
+  column-count: 1;
+}
+#source-title{
+  margin-left: 0px;
+}
+
+.record-details{
+  margin-left: 20px;
+}
 }

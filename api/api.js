@@ -186,6 +186,7 @@ const NumColumns = [
   'Overall Pension Fund (Value)',
   'Overall Net Wages (Value)',
   'Salary per Month (Value)',
+  'Net Wage (Value)',
   'Registration Number',
   'Semester',
   'From',
@@ -203,17 +204,22 @@ var server = app.listen(8081, function () {
  * returns the names of the tables that an
  * entity has and how many of each there is
  */
-app.get('/sourceRecordList/:name/', function (req, res){
+app.get('/sourceRecordList/', function (req, res){
   var count = [];
-  var config = getConfig(req.params.name);
+  var source = req.query.source;
+  // var id = req.query.id;
+  // console.log(id)
+  var config = getConfig(source);
   if(config.length == 0){
     res.status(404).send('Page not found');
     // res.send(config);
   }else{
     var myarray = [];
-    var fullpath = path + req.params.name.replAll(' ', '_');
-      
-    myarray = getallRecordFiles(fullpath); /*get every raw record from an entity*/
+    var fullpath = path + source.replAll(' ', '_');
+    // if(id == null)
+    myarray = getRecordFiles(fullpath); /*get every raw record from an entity*/
+    // else
+    //   myarray = getRecordWithId(fullpath,id);
     for (const key in config) {
       const tableconfig = config[key];
       if(tableconfig.display == undefined){
@@ -239,7 +245,7 @@ app.get('/sourceRecordTitles/:name/', function (req, res){
   }else{
     var myarray = [];
     var fullpath = path + req.params.name.replAll(' ', '_');      
-    myarray = getallRecordFiles(fullpath);
+    myarray = getRecordFiles(fullpath);
     titles = getTitlesofRecords(myarray,req.params.name);
     res.send(JSON.stringify(titles));
   }
@@ -552,13 +558,7 @@ function handleRecordTables(source,id, remv = true, nestedlink = false){
   var fullpath = path + source.replAll(' ', '_');
   var config = getConfig(source);
   
-  fs.readdirSync(fullpath)
-  .map(name => {
-    var file = fs.readFileSync(fullpath+'/'+name, 'utf8');
-    var record = JSON.parse(file.trim());
-    if(record.docs[0]._id == id)
-      myarray.push(record);
-  });
+  myarray = getRecordWithId(fullpath, id);
   
   var obj = getTitlesofRecords(myarray,source);
   obj = obj[0];
@@ -579,13 +579,7 @@ function getTitleOfId(source,id){
   var myarray = [];
   var fullpath = path + source.replAll(' ', '_');
   
-  fs.readdirSync(fullpath)
-  .map(name => {
-    var file = fs.readFileSync(fullpath+'/'+name, 'utf8');
-    var record = JSON.parse(file.trim());
-    if(record.docs[0]._id == id)
-      myarray.push(record);
-  });
+  myarray = getRecordWithId(fullpath, id);
   
   var obj = getTitlesofRecords(myarray,source);
   return obj[0];
@@ -617,7 +611,7 @@ function handleSingleTable(source,tableName,remv=true,nestedlink=false){
  * @param {string} fullpath File path of the entity's location  
  * @returns {object[]} Array with raw records in json format 
  */
-function getallRecordFiles(fullpath){
+function getRecordFiles(fullpath){
    var myarray = [];
    fs.readdirSync(fullpath)
       .map(name => {
@@ -626,6 +620,19 @@ function getallRecordFiles(fullpath){
         myarray.push(record);
       });
       // console.dir(myarray, { depth: null });
+   return myarray;
+}
+
+function getRecordWithId(fullpath, id){
+   var myarray = [];
+   fs.readdirSync(fullpath)
+      .map(name => {
+        var file = fs.readFileSync(fullpath+'/'+name, 'utf8');
+        var record = JSON.parse(file.trim());
+        if(record.docs[0]._id == id)
+          myarray.push(record);
+      });
+
    return myarray;
 }
 

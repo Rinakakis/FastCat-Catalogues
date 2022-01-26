@@ -111,7 +111,7 @@
             "Ship Name": {
                 "path": "docs[0].data.payroll.#.payroll_ship_name"
             },
-            "Surname": {
+            "Person's Surname": {
                 "path": "docs[0].data.payroll.#.payroll_person_surname"
             },
             "Person's Name": {
@@ -197,7 +197,7 @@
                 "Id": "docs[0]._id"
             }
         },
-        "Ranks/Specializations": {
+        "Ranks-Specializations": {
             "value-type": "list",
             "Rank-Specialization": {
                 "path": "docs[0].data.payroll.#.payroll_rank_specialization"

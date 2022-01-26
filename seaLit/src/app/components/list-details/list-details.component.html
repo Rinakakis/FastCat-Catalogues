@@ -10,26 +10,25 @@
   <div class="inside-wrapper" *ngIf="showform">
     <h3 id="source-title">{{title}}</h3>
     
-  
     <div class="record-details">
-        <div class="filter">
-          <span class="fltr">Filter by record:</span>
-          <mat-form-field appearance="outline">
-            <mat-label>All records</mat-label>
-            <mat-select [formControl]="records" (selectionChange)="displaySelectedRecord($event.value)">
-              <mat-option *ngFor="let record of recordList" [value]="record" [title]="record">{{record}}</mat-option>
-            </mat-select>
-          </mat-form-field>
-        </div>
-  
-        <div class="type" *ngIf="showData">
-          <ul class="record-columns">
-            <li *ngFor="let record of recordDataTitles; index as i;">
-                <p class="record" (click)="displaytable(record)">{{record}} ({{totalCount[i]}}) </p>
-            </li>
-          </ul>
-        </div>
+      <div class="filter">
+        <span class="fltr">Filter by record:</span>
+        <mat-form-field appearance="outline">
+          <mat-label>All records</mat-label>
+          <mat-select [formControl]="records" (selectionChange)="displaySelectedRecord($event.value)">
+            <mat-option *ngFor="let record of recordList" [value]="record" [title]="record">{{record}}</mat-option>
+          </mat-select>
+        </mat-form-field>
       </div>
+    
+      <div class="type" *ngIf="showData">
+        <ul class="record-columns">
+          <li *ngFor="let tableName of tableDataTitles; index as i;">
+            <p class="record" (click)="displaytable(tableName)">{{tableName}} ({{totalCount[i]}}) </p>
+          </li>
+        </ul>
+      </div>
+    </div>
   </div>
     
 
@@ -79,5 +78,4 @@
         </button>
       </div>
     </div>
-
 </div>

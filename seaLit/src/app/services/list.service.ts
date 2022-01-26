@@ -1,7 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { EMPTY, Observable, of } from 'rxjs';
+import { catchError, shareReplay, startWith } from 'rxjs/operators';
 import { isObject, countBy } from 'lodash';
+
+const CACHE_KEY = 'httpCacheKey';
 
 @Injectable({
   providedIn: 'root'
@@ -35,6 +38,7 @@ export class ListService {
     'Length (In Meter)',
     'Width (In Meter)',
     'Depth (In Meter)',
+    'Net Wage (Value)',
     'Year',
     'Refrence Number',
     'Total Days',
@@ -67,7 +71,11 @@ export class ListService {
     'Birth Date', // Register of Maritime personel , Register of Maritime workers (Matricole della gente di mare), Seagoing Personel
     'Military Service Organisation Inscription Date',
     'Military Service Start Date',
+    'End of Service Date'
   ];
+
+  CachedEmploymentRecords: any;
+
   constructor(private http:HttpClient) {
   }
 
@@ -79,8 +87,20 @@ export class ListService {
     return this.http.get('http://'+this.Ip+':8081/numberOfrecords/'+title);
   }
 
-  getSourceList(record: string): Observable<any>{
-    return this.http.get('http://'+this.Ip+':8081/sourceRecordList/'+record);
+  getSourceList(source: string): Observable<any>{
+      // if(source == 'Employment records, Shipyards of Messageries Maritimes, La Ciotat'){
+      //   this.CachedEmploymentRecords = this.http.get('http://'+this.Ip+':8081/sourceRecordList?'+'source='+source);
+
+      //   this.CachedEmploymentRecords.subscribe((next: any) =>{
+      //     localStorage[CACHE_KEY] = JSON.stringify(next);
+      //   });
+
+      //   this.CachedEmploymentRecords = this.CachedEmploymentRecords.pipe(
+      //     startWith(JSON.parse(localStorage[CACHE_KEY] || '[]'))
+      //   )
+      // }else
+        return this.http.get('http://'+this.Ip+':8081/sourceRecordList?'+'source='+source)
+ 
   }
 
   getTitlesofSourceRecords(title: string): Observable<any>{
@@ -179,3 +199,4 @@ export class ListService {
       return orderedcount;
     }
 }
+

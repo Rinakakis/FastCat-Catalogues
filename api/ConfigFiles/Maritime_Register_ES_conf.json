@@ -69,13 +69,18 @@
                 "Id": "docs[0]._id"
             }
         },
-        "Military Service Organisation Location": {
+        "Military Service Organisation Locations": {
             "value-type": "list",
             "Military Service Organisation Location": {
                 "path": "docs[0].data.maritime_personnel.#.military_service_location"
+            },
+            "Persons": {
+                "link": "Persons",
+                "listLink": true,
+                "Id": "docs[0]._id"
             }
         },
-        "Previous Profession": {
+        "Previous Professions": {
             "value-type": "list",
             "Previous Profession": {
                 "path": "docs[0].data.maritime_personnel.#.previous_profession"

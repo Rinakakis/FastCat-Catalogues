@@ -3,60 +3,72 @@
       <span class="sr-only" id="loading"></span>
   </div>
 </div>
-<div class="record-container" *ngIf="selectedTable">
-  <h3 class="title">{{sourceName}}: {{title}} <a class='title'
-    href="https://isl.ics.forth.gr/FastCatTeam/templates/{{sourceId}}.html?name={{Id}}&templateTitle={{sourceName}}&mode=teamView"
-    target="_blank" rel="noopener"
-    >(FastCat Record)</a></h3>
-  <div class="tables"
+<div class="record-container" *ngIf="showData">
+  <div class="inside-wrapper">
 
-  >
-    <div class="nocol-grid">
-      <div class="nontable" *ngFor="let info of nonLitsInfo; index as i;">
-        <h3 class="notable-title">{{keysNonList[i]}} </h3>
-          <p *ngFor="let item of info | keyvalue">
-            <b>{{item.key}}</b> : {{item.value}}
-          </p>
-      </div>
+    <h3 class="source-title">{{sourceName}}: {{title}} <a class='title'
+      href="https://isl.ics.forth.gr/FastCatTeam/templates/{{sourceId}}.html?name={{Id}}&templateTitle={{sourceName}}&mode=teamView"
+      target="_blank" rel="noopener"
+      >(FastCat Record)</a></h3>
+      <div class="record-details">
+      
+        <div class="type">
+          <ul class="record-columns">
+            <li *ngFor="let record of recordDataTitles; index as i;">
+              <div class="tableName-wrapper">
+                <p class="record" (click)="displaytable(record)">{{record}} ({{totalCount[i]}}) </p>
+              </div>
+            </li>
+          </ul>
+        </div>
+    
     </div>
-
-    <div class="table" *ngFor="let tableg of tables; index as i;">
-      <div class="title-download-div">
+  </div>
+  <div class="d-flex justify-content-center">
+    <div class="spinner-border" role="status" id="loading-div" style = "display: none;">
+        <span class="sr-only" role="status" aria-hidden="true" id="loading2"></span>
+    </div>
+  </div>
+  <div class="table" *ngIf="tableClicked">
+    <div class="title-download-div">
         <div class="title-div">
-          <h3 class="table-title" (click)="show(i)">{{keysList[i]}}</h3>
+          <h3 class="table-title">{{TableName}} </h3>
         </div>
         <div class="chart-div">
           <button class="chart-but" mat-button [matMenuTriggerFor]="columns" color="success" title="Data Visualization"><mat-icon> bar_chart</mat-icon></button>
           <mat-menu #columns="matMenu">
-            <button *ngFor="let column of columnTitles[i]" mat-menu-item (click)="calculateStats(tableg,column,i)">{{column}}</button>
+            <button *ngFor="let column of columnTitles" mat-menu-item (click)="calculateStats(rowData,column)">{{column}}</button>
           </mat-menu>
         </div>   
         <div class="download-div">
-          <button class="download-but" mat-button title="Download CSV file" (click)="onBtnExport(tableg)"><mat-icon id="downicon">download</mat-icon></button>
-        </div>
-        
-      </div>
-      <ag-grid-angular
-        [id]="i"
-        [style]="tableHeights[i]"
-        class="ag-theme-alpine"
-        [rowData]="tableg"
-        [columnDefs]="tablesTitles[i]"
-        [defaultColDef]="defaultColDef"
-        [pagination]="true"
-        [paginationPageSize]=9
-        [gridOptions]="gridOptions"
-        >
-      </ag-grid-angular>
+          <button class="download-but" mat-button color="success" title="Download CSV file" (click)="onBtnExport(rowData)"><mat-icon id="downicon">download</mat-icon></button>
+        </div>  
+    </div>
+    <ag-grid-angular
+    [style]="tableHeight"
+    class="ag-theme-alpine"
+    [rowData]="rowData"
+    [columnDefs]="columnDefs"
+    [defaultColDef]="defaultColDef"
+    [pagination]="true"
+    [paginationPageSize]=9
+    [gridOptions]="gridOptions"
+    >
+  </ag-grid-angular>
+  </div>
 
-      <div style="display: block;" *ngIf="chartOption[i]">
-        <canvas baseChart 
-          [data]="barChartDataArray[i]"
-          [options]="barChartOptions"
-          [plugins]="barChartPlugins"
-          [type]="barChartType">
-        </canvas>
-      </div>
+  <div style="display: block;" *ngIf="chartOption">
+    <canvas baseChart 
+      [data]="barChartData"
+      [options]="barChartOptions"
+      [plugins]="barChartPlugins"
+      [type]="barChartType">
+    </canvas>
+    <div class="reset-div">
+      <button class="reset-button" mat-stroked-button (click)="resetZoom()" title="Reset Zoom">
+        Reset Zoom
+      </button>
     </div>
   </div>
+
 </div>

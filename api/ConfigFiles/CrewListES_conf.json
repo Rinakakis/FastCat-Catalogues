@@ -114,11 +114,13 @@
             "Date (To)": {
                "path": "docs[0].data.ports_of_call.date_to"
             },
-            "First Planned destinations": {
-               "path": "docs[0].data.ports_of_call.first_planned_destinations"
-            },
+            
             "Total Crew Number (Captain Included)": {
                "path": "docs[0].data.ports_of_call.total_crew_number"
+            },
+            "First Planned Destinations": {
+                "link": "First Planned Destinations",
+                "Id": "docs[0]._id"
             },
             "Ships": {
                "link": "Ships",
@@ -130,7 +132,7 @@
             }
          },
         "First Planned Destinations": {
-            "First Planned destinations": {
+            "First Planned destination": {
                "path": "docs[0].data.ports_of_call.first_planned_destinations"
             },
             "Ships": {
