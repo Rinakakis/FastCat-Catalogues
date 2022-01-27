@@ -187,7 +187,7 @@ export class ListDetailsComponent implements OnInit {
         // console.log('list/'+source+'/Table?'+'Table='+entity+query);
         // this.router.navigate(['list/'+source+'/Table/'+entity], { queryParams:data });
 
-        const url = this.router.serializeUrl(this.router.createUrlTree(['list/'+source+'/Table/'+entity], { queryParams:data }));
+        const url = this.router.serializeUrl(this.router.createUrlTree(['seaLit/list/'+source+'/Table/'+entity], { queryParams:data }));
         window.open(url, '_blank');
     }
   )
@@ -205,7 +205,7 @@ export class ListDetailsComponent implements OnInit {
       this.showloader('loading-div');
       this.listservice.getTableFromSource(source,tableName).subscribe((table:any)=>{
 
-        console.log(table);
+        // console.log(table);
         this.hideloader('loading-div');
 
         this.TableName = tableName;

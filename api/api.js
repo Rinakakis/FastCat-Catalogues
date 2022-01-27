@@ -419,7 +419,7 @@ function getlinkedTables(elem, source){
             // if(Object.values(lala[0])[0] == undefined)
             //   return [];
           if(Object.values(dataFromLinksArray).length == 0){
-            console.log('case1');
+            // console.log('case1');
             return [];  
           }else{
             // console.log('case3');

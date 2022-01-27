@@ -111,7 +111,7 @@ export class RecordDetailsComponent implements OnInit {
     this.sourceName = record.sourceName;
 
     this.titleService.setTitle('SeaLit - '+this.sourceName+': '+ this.title);
-    console.log(record)
+    // console.log(record)
 
     record.data.forEach((elem: any) => {
       if(elem != null){
@@ -121,8 +121,8 @@ export class RecordDetailsComponent implements OnInit {
       }
     })
     this.showData = true;
-    console.log(this.recordDataTitles)
-    console.log(this.totalCount)
+    // console.log(this.recordDataTitles)
+    // console.log(this.totalCount)
   }
 
   columnDefs: any[] = [
@@ -184,13 +184,13 @@ export class RecordDetailsComponent implements OnInit {
     }
     if(tableName !== this.TableName){
       var table: any = [];
-      console.log(tableName)
+      // console.log(tableName)
       this.recordData.forEach((element: any) =>{
         if(element!= null)
           if(Object.keys(element).join() == tableName)
             table = Object.values(element)[0];
       })
-      console.log(table)
+      // console.log(table)
       // table = Object.values(table)[0];
       // console.log(table)
       this.TableName = tableName;

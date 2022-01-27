@@ -20,6 +20,7 @@ import { ListComponent } from './components/list/list.component';
 import { ListDetailsComponent } from './components/list-details/list-details.component';
 import { EntityDetailsComponent } from './components/entity-detail/entity-details.component';
 import { RecordDetailsComponent } from './components/record-details/record-details.component';
+import { FooterComponent } from './components/footer/footer.component';
 
 
 @NgModule({
@@ -30,6 +31,7 @@ import { RecordDetailsComponent } from './components/record-details/record-detai
     ListDetailsComponent,
     EntityDetailsComponent,
     RecordDetailsComponent,
+    FooterComponent,
   ],
   imports: [
     BrowserModule,

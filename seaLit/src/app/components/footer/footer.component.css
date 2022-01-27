@@ -1,0 +1,140 @@
+.footer {
+    max-width: 980px;
+    margin:  auto;
+    background-color: #3b678e;
+    /* height: 300px; */
+    /* margin-top: -60px; */
+    /* padding: 10px; */
+  }
+
+  .info-ul{
+    list-style-type: '|';
+    padding: 0;
+  }
+
+  .info-ul > li{
+    display: inline;
+  }
+
+  li:not(:first-child){
+    margin-left: 6px;
+  }
+
+  a.info{
+    text-decoration: none;
+    color: white;
+  }
+  .footer-info > ul li:nth-child(2n){
+    color: white;
+  }
+
+  .footer-wrapper{
+    height: auto;
+    padding: 30px 30px 1px 30px;
+  }
+
+  .footer-row{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 100%;
+    margin-bottom: 5px;
+  }
+
+  .column {
+    display: flex;
+    flex-direction: column;
+    /* flex-wrap: wrap; */
+    /* width: 100%;  */
+  }
+
+  .push {
+    margin-left: auto;
+  }
+
+  img{
+    height: 75px;
+    /* width: 50%; */
+    object-fit: contain;
+  }
+
+  .left-footer-div> a img{
+    height: 128px;
+    /* width: 50%; */
+    object-fit: contain;
+  }
+
+  .backround{
+    background-color: white;
+  }
+
+  .forth-info > a img {
+    height: 45px;
+    /* width: 50%; */
+    object-fit: contain;
+  }
+
+  .forth-info > a:not(:first-child) {
+    margin-left: 10px;
+  }
+
+   .left-footer-div > a:not(:first-child) {
+    margin-left: 2px;
+  }
+
+  .right-footer-div > a:not(:first-child) {
+    margin-left: 17px;
+  }
+
+  .right-footer-div{
+    margin-bottom: 5px;
+  }
+
+  .footer-info{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin-bottom: 40px;
+    /* align-self: center; */
+  }
+  
+  @media only screen and (max-width: 427px) {
+    .left-footer-div> a img{
+      height: 45px;
+    }
+    .right-footer-div> a img{
+      height: 45px;
+    }
+    .left-footer-div > a:not(:first-child) {
+      margin-left: 10px;
+    }
+    .right-footer-div > a:not(:first-child) {
+      margin-left: 10px;
+    }
+  }
+
+  @media only screen and (max-width: 440px) {
+    .footer-wrapper{
+      height: auto;
+      padding: 30px 24px 1px 24px;
+    }
+  }
+
+  @media only screen and (max-width: 794px) and (min-width: 427px){
+    .footer-row{
+      justify-content: center;
+    }
+    .push{
+      margin: 0;
+    }
+    .left-footer-div > a:not(:first-child) {
+      margin-left: 17px;
+    }
+    .left-footer-div> a img{
+      height: 127px;
+    }
+    .right-footer-div> a img{
+      height: 78px;
+    }
+
+  }
