@@ -1,0 +1,10 @@
+.terms-wrapper{
+    padding: 20px;
+    background-color: #f0f1f3;
+    border: 1px solid #d6d3d3;
+    margin: 20px;
+}
+
+.terms-wrapper > p{
+    margin-top: 10px;
+}

@@ -2,8 +2,12 @@
     <img class="backround-nav" src="assets/header.gif" alt="header-backround">
 
     <div class="logo-container">
-      <img class="logo" src="assets/logo-4_1.png" alt="logo" (click)= "home()">
+      <img class="logo" src="assets/logo-4_1.png" alt="logo" title="Home" (click)= "home()">
     </div>
-    <h2>Welcome to the SeaLiT Catalogues</h2>
+    <div class="navigation">
+      <a id="home-link" title="Home" routerLink="/list"><mat-icon id="home">home</mat-icon></a>
+      <h2 id="welcome-title">Welcome to the SeaLiT Catalogues</h2>
+    </div>
+    
     <hr>
 </div>

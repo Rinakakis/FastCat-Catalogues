@@ -21,6 +21,9 @@ import { ListDetailsComponent } from './components/list-details/list-details.com
 import { EntityDetailsComponent } from './components/entity-detail/entity-details.component';
 import { RecordDetailsComponent } from './components/record-details/record-details.component';
 import { FooterComponent } from './components/footer/footer.component';
+import { TermsOfUseComponent } from './components/terms-of-use/terms-of-use.component';
+import { PrivacyPolicyComponent } from './components/privacy-policy/privacy-policy.component';
+import { AboutComponent } from './components/about/about.component';
 
 
 @NgModule({
@@ -32,6 +35,9 @@ import { FooterComponent } from './components/footer/footer.component';
     EntityDetailsComponent,
     RecordDetailsComponent,
     FooterComponent,
+    TermsOfUseComponent,
+    PrivacyPolicyComponent,
+    AboutComponent,
   ],
   imports: [
     BrowserModule,

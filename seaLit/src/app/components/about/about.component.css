@@ -1,0 +1,36 @@
+.about-wrapper{
+    padding: 20px;
+    background-color: #f0f1f3;
+    border: 1px solid #d6d3d3;
+    margin: 20px;
+}
+
+.about-wrapper > p{
+    margin-top: 10px;
+}
+.forth-info{
+    margin-bottom: 10px;
+
+}
+
+.forth-info > a img {
+    height: 60px;
+    /* width: 50%; */
+    object-fit: contain;
+}
+
+.forth-info > a:not(:first-child) {
+    margin-left: 10px;
+}
+
+.backround{
+    background-color: white;
+}
+
+@media only screen and (max-width: 427px) {
+    
+    .forth-info > a img {
+        height: 40px;
+
+    }
+}
