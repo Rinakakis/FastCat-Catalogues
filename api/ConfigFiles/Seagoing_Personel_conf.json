@@ -107,8 +107,8 @@
             "End of Service Reason": {
                 "path": "docs[0].data.employees_list.#.end_of_service_reason"
             },
-            "Persons": {
-                "link": "Persons",
+            "Persons and End of Service Info": {
+                "link": "Persons and End of Service Info",
                 "listLink": true,
                 "Id": "docs[0]._id"
             }
@@ -159,6 +159,61 @@
             },
             "Marital Status": {
                 "path": "docs[0].data.employees_list.#.military_service_organization"
+            },
+            "Birth Date": {
+                "path": "docs[0].data.employees_list.#.person_birth_date"
+            },
+            "Professions": {
+                "link": "Professions",
+                "listLink": true,
+                "Id": "docs[0]._id"
+            },
+            "Transient Professions": {
+                "link": "Transient Professions",
+                "listLink": true,
+                "Id": "docs[0]._id"
+            },
+            "Ships": {
+                "link": "Ships",
+                "listLink": true,
+                "Id": "docs[0]._id"
+            },
+            "Destinations": {
+                "link": "Destinations",
+                "listLink": true,
+                "Id": "docs[0]._id"
+            },
+            "End of Service Info": {
+                "link": "End of Service Info",
+                "listLink": true,
+                "Id": "docs[0]._id"
+            },
+            "Work Status Types": {
+                "link": "Work Status Types",
+                "listLink": true,
+                "Id": "docs[0]._id"
+            }
+        },
+        "Persons and End of Service Info": {
+            "display": "no",
+            "value-type": "list",
+            "End of Service Type": {
+                "path": "docs[0].data.employees_list.#.end_of_service_type"
+            },
+            "End of Service Date": {
+                "path": "docs[0].data.employees_list.#.end_of_service_date"
+            },
+            "Name": {
+                "path": "docs[0].data.employees_list.#.person_name"
+            },
+            "Surname": {
+                "path": "docs[0].data.employees_list.#.person_surname"
+            },
+            "Father's Name": {
+                "path": "docs[0].data.employees_list.#.person_fathers_name"
+            },
+            "Marital Status": {
+                "path": "docs[0].data.employees_list.#.person_marital_status"
             },
             "Birth Date": {
                 "path": "docs[0].data.employees_list.#.person_birth_date"

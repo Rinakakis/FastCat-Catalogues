@@ -31,13 +31,13 @@ export class ListComponent implements OnInit {
           this.hideloader();
         }
         const target: any = {};
+        console.log(list);
         list.forEach((obj: { category: string }) => target[obj.category] = []);
 
         list.forEach((obj: { category: string }) => target[obj.category].push(obj));
         
         this.list = target;
         this.isDataLoaded = !this.isDataLoaded;
-        // console.log(list)
       });
   }
 
@@ -53,8 +53,11 @@ export class ListComponent implements OnInit {
   }
 
   getCategories(list: any): string[]{
-    if(list!= undefined || list != null)
-      return Object.keys(list);
-    return []
+    if(list!= undefined || list != null){
+      let arr=  Object.keys(list);
+      arr.push(arr.splice(arr.indexOf('Other Records'), 1)[0]);
+      return arr;
+    }
+    return [];
   }
 }

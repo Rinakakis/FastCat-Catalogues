@@ -35,13 +35,7 @@
          "description":"A description of the template",
          "configuration":"civilregister_conf.json"
       },
-      {
-         "category": "Other Records",
-         "id":"Messageries_Maritimes",
-         "name":"Employment records, Shipyards of Messageries Maritimes, La Ciotat",
-         "description":"A description of the template",
-         "configuration":"messageriesmaritimes_conf.json"
-      },
+      
       {
          "category": "Censuses",
          "id":"Census Odessa",
@@ -83,13 +77,6 @@
          "name":"Naval Ship Register List",
          "description":"A description of the template",
          "configuration":"Register_of_Ships_conf.json"
-      },
-      {
-         "category": "Other Records",
-         "id":"Notarial Deeds",
-         "name":"Notarial Deeds",
-         "description":"A description of the template",
-         "configuration":"Notarial_Deeds_conf.json"
       },
       {
          "category": "Payroll",
@@ -139,6 +126,20 @@
          "name":"Students Register",
          "description":"A description of the template",
          "configuration":"Students_Register_conf.json"
+      },
+      {
+         "category": "Other Records",
+         "id":"Messageries_Maritimes",
+         "name":"Employment records, Shipyards of Messageries Maritimes, La Ciotat",
+         "description":"A description of the template",
+         "configuration":"messageriesmaritimes_conf.json"
+      },
+      {
+         "category": "Other Records",
+         "id":"Notarial Deeds",
+         "name":"Notarial Deeds",
+         "description":"A description of the template",
+         "configuration":"Notarial_Deeds_conf.json"
       }
    ]
 }

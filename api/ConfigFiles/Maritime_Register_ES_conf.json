@@ -41,8 +41,8 @@
             "Military Service Start Date": {
                 "path": "docs[0].data.maritime_personnel.#.military_service_start_date"
             },
-            "Persons": {
-                "link": "Persons",
+            "Dummy": {
+                "link": "Dummy",
                 "listLink": true,
                 "Id": "docs[0]._id"
             }
@@ -100,6 +100,13 @@
                 "link": "Persons",
                 "listLink": true,
                 "Id": "docs[0]._id"
+            }
+        },
+        "Dummy": {
+            "display":"no",
+            "value-type": "list",
+            "Name": {
+                "path": "docs[0].data.maritime_personnel.#.dummy_data"
             }
         }
     },

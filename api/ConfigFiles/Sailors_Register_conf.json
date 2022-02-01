@@ -29,7 +29,6 @@
             "Previous Professions": {
                 "link": "Previous Professions",
                 "listLink": true,
-                "link-type": "l-nl",
                 "Id": "docs[0]._id"
             }
         },

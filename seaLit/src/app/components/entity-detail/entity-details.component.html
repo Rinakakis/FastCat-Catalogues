@@ -4,7 +4,10 @@
   </div>
 </div>
 <div class="record-container" *ngIf="selectedTable">
-  <h3 class="title">{{sourceName}}: {{title}}</h3>
+  <h3 class="title">{{sourceName}}: {{recordTitle}} <a *ngIf="idExists" class='title'
+      href="https://isl.ics.forth.gr/FastCatTeam/templates/{{sourceId}}.html?name={{Id}}&templateTitle={{sourceName}}&mode=teamView"
+      target="_blank" rel="noopener"
+      >(FastCat Record)</a></h3>
   <div class="nocol-grid">
     <div class="nontable" >
       <h3 class="notable-title">{{title}} </h3>

@@ -29,14 +29,14 @@
                 "link-type": "l-nl",
                 "Id": "docs[0]._id"
             },
-            "Embarkation Locations": {
-                "link": "Embarkation Locations",
+            "Embarkation Locations and Start of Service": {
+                "link": "Embarkation Locations and Start of Service",
                 "listLink": true,
                 "link-type": "l-nl",
                 "Id": "docs[0]._id"
             },
-            "Disembarkation Locations": {
-                "link": "Disembarkation Locations",
+            "Disembarkation Locations and End of Service": {
+                "link": "Disembarkation Locations and End of Service",
                 "listLink": true,
                 "link-type": "l-nl",
                 "Id": "docs[0]._id"
@@ -173,6 +173,38 @@
             },
             "Ships": {
                 "link": "Ships",
+                "listLink": true,
+                "link-type": "nl-l",
+                "Id": "docs[0]._id"
+            }
+        },
+        "Embarkation Locations and Start of Service": {
+            "value-type":"nested-list",
+            "display": "no",
+            "Embarkation Location": {
+                "path": "docs[0].data.service_analysis.#.embarkation_location"
+            },
+            "Start of Service": {
+                "path": "docs[0].data.service_analysis.#.start_of_service"
+            },
+            "Registered Persons": {
+                "link": "Registered Persons",
+                "listLink": true,
+                "link-type": "nl-l",
+                "Id": "docs[0]._id"
+            }
+        },
+        "Disembarkation Locations and End of Service": {
+            "value-type":"nested-list",
+            "display": "no",
+            "Disembarkation Location": {
+                "path": "docs[0].data.service_analysis.#.disembarkation_location"
+            },
+            "End of Service": {
+                "path": "docs[0].data.service_analysis.#.end_of_service"
+            },
+            "Registered Persons": {
+                "link": "Registered Persons",
                 "listLink": true,
                 "link-type": "nl-l",
                 "Id": "docs[0]._id"

@@ -6,7 +6,7 @@ import { flatMap, isObject, isObjectLike } from 'lodash';
 import { ListService } from 'src/app/services/list.service';
 import { saveAs } from 'file-saver';
 import { Title } from '@angular/platform-browser';
-import { ChartConfiguration, ChartData, ChartType, Chart  } from 'chart.js';
+import { ChartConfiguration, ChartData, ChartType, Chart } from 'chart.js';
 import { BaseChartDirective } from 'ng2-charts';
 import zoomPlugin from 'chartjs-plugin-zoom';
 
@@ -21,10 +21,14 @@ export class EntityDetailsComponent implements OnInit {
   sourceName: string ='';
   rowData = [];
   title: string = '';
+  recordTitle: string = '';
+  sourceId: string = '';
+  Id: string = '';
 
   tables: any[] = [];
   tablesTitles: any[] = [];
   selectedTable: boolean = false;
+  idExists: boolean = false;
   nonLitsInfo: any[] = [];
   keysNonList: any[] = [];
   keysList: any[] = [];
@@ -38,6 +42,8 @@ export class EntityDetailsComponent implements OnInit {
   tableHeights: string[] = [];
   
   chartOption: boolean[] = [];
+  charts: Chart[] = [];
+
   barChartOptions: ChartConfiguration['options'] = {
     responsive: true,
     plugins: {
@@ -112,6 +118,7 @@ export class EntityDetailsComponent implements OnInit {
         }
         var source = String(this.route.snapshot.paramMap.get('source'));
         var table = String(this.route.snapshot.paramMap.get('name'));
+        var id = String(this.route.snapshot.paramMap.get('id'));
         var data = event.data;
         var entity = event.colDef.colId;
 
@@ -120,18 +127,27 @@ export class EntityDetailsComponent implements OnInit {
             || ((key == 'Discharge Date' || key == 'Ship\'s Name') && (table=='Crew Members'|| table== 'Crew Members and Discharge Dates'))  )
               delete data[key];
         }
-        // console.log(data);
-        // console.log('list/'+source+'/Table?'+'Table='+entity+query);
+        console.log(id)
+        if(id != 'null'){
+          data.recordId = id;
+        }
+
         this.router.routeReuseStrategy.shouldReuseRoute = function () {
           return false;
         }
         this.router.onSameUrlNavigation = 'reload';
-        this.router.navigate(['list/'+source+'/Table/'+entity], { queryParams:data });
+        if(id!='null')
+          this.router.navigate(['list/'+source+'/'+id+'/Table/'+entity], { queryParams:data });
+        else
+          this.router.navigate(['list/'+source+'/Table/'+entity], { queryParams:data });
+
     }),
     suppressExcelExport: true,
   }
 
   displaydata(params: any,record: any): void {
+    var id = String(this.route.snapshot.paramMap.get('id'));
+    console.log(record)
     this.tablesTitles = [];
     this.tables = [];
     this.nonLitsInfo = [];
@@ -145,7 +161,16 @@ export class EntityDetailsComponent implements OnInit {
     else
       this.title = params.name;
     
-    this.titleService.setTitle('SeaLit - '+this.sourceName+': '+ this.title);
+    if(id!= 'null'){
+      this.recordTitle = record["FastCat Records"].data[0].title;
+      this.titleService.setTitle('SeaLit - '+this.sourceName+': '+this.recordTitle+ ': ' + this.title);
+      this.Id = record["FastCat Records"].data[0].id;
+      this.sourceId = record["FastCat Records"].id;
+      this.idExists = !this.idExists;
+    }else{
+      this.recordTitle = this.title;
+      this.titleService.setTitle('SeaLit - '+this.sourceName+': '+ this.title);
+    }
     
     for (const key in record) {
       var element = record[key];

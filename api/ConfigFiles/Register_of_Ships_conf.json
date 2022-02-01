@@ -63,15 +63,6 @@
             "Name": {
                 "path": "docs[0].data.list_of_ships.#.owner_organization_name"
             },
-            "Type": {
-                "path": "docs[0].data.list_of_ships.#.owner_organization_type"
-            },
-            "Surname B": {
-                "path": "docs[0].data.list_of_ships.#.owner_person_surname_2"
-            },
-            "Headquarter Location": {
-                "path": "docs[0].data.list_of_ships.#.owner_hq_location"
-            },
             "Ships": {
                 "link": "Ships",
                 "listLink": true,

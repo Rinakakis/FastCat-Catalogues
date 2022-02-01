@@ -71,7 +71,9 @@ export class ListService {
     'Birth Date', // Register of Maritime personel , Register of Maritime workers (Matricole della gente di mare), Seagoing Personel
     'Military Service Organisation Inscription Date',
     'Military Service Start Date',
-    'End of Service Date'
+    'End of Service Date',
+    'End of Service',
+    'Start of Service'
   ];
 
   CachedEmploymentRecords: any;

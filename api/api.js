@@ -4,6 +4,7 @@ var app = express();
 var fs = require("fs");
 var cors = require('cors');
 const { isArray, isObject, isPlainObject, isString } = require('lodash');
+const { cachedDataVersionTag } = require('v8');
 
 app.use(cors());
 
@@ -11,146 +12,146 @@ var path = './Data/';
 
 const templates = [
   {
-    "category": "Log / Account Books",
-    "id": "Accounts book",
-    "name": "Accounts book",
-    "description": "A description of the template",
-    "configuration": "accountsbook_conf.json"
+     "category": "Log / Account Books",
+     "id":"Accounts book",
+     "name":"Accounts book",
+     "description":"A description of the template",
+     "configuration":"accountsbook_conf.json"
   },
   {
-    "category": "Censuses",
-    "id": "Census_LaCiotat",
-    "name": "Census La Ciotat",
-    "description": "A description of the template",
-    "configuration": "censuslaciotat_conf.json"
+     "category": "Censuses",
+     "id":"Census_LaCiotat",
+     "name":"Census La Ciotat",
+     "description":"A description of the template",
+     "configuration":"censuslaciotat_conf.json"
   },
   {
-    "category": "Crew Lists",
-    "id": "Crew List",
-    "name": "Crew and displacement list (Roll)",
-    "description": "A description of the template",
-    "configuration": "crewlistroll_conf.json"
+     "category": "Crew Lists",
+     "id":"Crew List",
+     "name":"Crew and displacement list (Roll)",
+     "description":"A description of the template",
+     "configuration":"crewlistroll_conf.json"
   },
   {
-    "category": "Crew Lists",
-    "id": "Crew List_IT",
-    "name": "Crew List (Ruoli di Equipaggio)",
-    "description": "A description of the template",
-    "configuration": "crewListRuoli_conf.json"
+     "category": "Crew Lists",
+     "id":"Crew List_IT",
+     "name":"Crew List (Ruoli di Equipaggio)",
+     "description":"A description of the template",
+     "configuration":"crewListRuoli_conf.json"
   },
   {
-    "category": "Registers / Lists",
-    "id": "Civil Register",
-    "name": "Civil Register",
-    "description": "A description of the template",
-    "configuration": "civilregister_conf.json"
+     "category": "Registers / Lists",
+     "id":"Civil Register",
+     "name":"Civil Register",
+     "description":"A description of the template",
+     "configuration":"civilregister_conf.json"
   },
   {
-    "category": "Other Records",
-    "id": "Messageries_Maritimes",
-    "name": "Employment records, Shipyards of Messageries Maritimes, La Ciotat",
-    "description": "A description of the template",
-    "configuration": "messageriesmaritimes_conf.json"
+     "category": "Censuses",
+     "id":"Census Odessa",
+     "name":"First national all-Russian census of the Russian Empire",
+     "description":"A description of the template",
+     "configuration":"censusodessa_conf.json"
   },
   {
-    "category": "Censuses",
-    "id": "Census Odessa",
-    "name": "First national all-Russian census of the Russian Empire",
-    "description": "A description of the template",
-    "configuration": "censusodessa_conf.json"
+     "category": "Crew Lists",
+     "id":"Crew_List_ES",
+     "name":"General Spanish Crew List",
+     "description":"A description of the template",
+     "configuration":"CrewListES_conf.json"
   },
   {
-    "category": "Crew Lists",
-    "id": "Crew_List_ES",
-    "name": "General Spanish Crew List",
-    "description": "A description of the template",
-    "configuration": "CrewListES_conf.json"
+     "category": "Registers / Lists",
+     "id":"Inscription_Maritime",
+     "name":"Inscription Maritime - Maritime Register of the State for La Ciotat",
+     "description":"A description of the template",
+     "configuration":"Inscription_Maritime_conf.json"
   },
   {
-    "category": "Registers / Lists",
-    "id": "Inscription_Maritime",
-    "name": "Inscription Maritime - Maritime Register of the State for La Ciotat",
-    "description": "A description of the template",
-    "configuration": "Inscription_Maritime_conf.json"
+     "category": "Registers / Lists",
+     "id":"Ship_List",
+     "name":"List of ships",
+     "description":"A description of the template",
+     "configuration":"Ship_List_conf.json"
   },
   {
-    "category": "Registers / Lists",
-    "id": "Ship_List",
-    "name": "List of ships",
-    "description": "A description of the template",
-    "configuration": "Ship_List_conf.json"
+     "category": "Log / Account Books",
+     "id":"Logbook",
+     "name":"Logbook",
+     "description":"A description of the template",
+     "configuration":"Logbook_conf.json"
   },
   {
-    "category": "Log / Account Books",
-    "id": "Logbook",
-    "name": "Logbook",
-    "description": "A description of the template",
-    "configuration": "Logbook_conf.json"
+     "category": "Registers / Lists",
+     "id":"Register_of_Ships",
+     "name":"Naval Ship Register List",
+     "description":"A description of the template",
+     "configuration":"Register_of_Ships_conf.json"
   },
   {
-    "category": "Registers / Lists",
-    "id": "Register_of_Ships",
-    "name": "Naval Ship Register List",
-    "description": "A description of the template",
-    "configuration": "Register_of_Ships_conf.json"
+     "category": "Payroll",
+     "id":"Payroll",
+     "name":"Payroll",
+     "description":"A description of the template",
+     "configuration":"Payroll_conf.json"
   },
   {
-    "category": "Other Records",
-    "id": "Notarial Deeds",
-    "name": "Notarial Deeds",
-    "description": "A description of the template",
-    "configuration": "Notarial_Deeds_conf.json"
+     "category": "Payroll",
+     "id":"Payroll_RU",
+     "name":"Payroll of Russian Steam Navigation and Trading Company",
+     "description":"A description of the template",
+     "configuration":"Payroll_RU_conf.json"
   },
   {
-    "category": "Payroll",
-    "id": "Payroll",
-    "name": "Payroll",
-    "description": "A description of the template",
-    "configuration": "Payroll_conf.json"
+     "category": "Registers / Lists",
+     "id":"Maritime_Register_ES",
+     "name":"Register of Maritime personel",
+     "description":"A description of the template",
+     "configuration":"Maritime_Register_ES_conf.json"
   },
   {
-    "category": "Payroll",
-    "id": "Payroll_RU",
-    "name": "Payroll of Russian Steam Navigation and Trading Company",
-    "description": "A description of the template",
-    "configuration": "Payroll_RU_conf.json"
+     "category": "Registers / Lists",
+     "id":"Maritime Workers_IT",
+     "name":"Register of Maritime workers (Matricole della gente di mare)",
+     "description":"A description of the template",
+     "configuration":"Maritime_Workers_IT_conf.json"
   },
   {
-    "category": "Registers / Lists",
-    "id": "Maritime_Register_ES",
-    "name": "Register of Maritime personel",
-    "description": "A description of the template",
-    "configuration": "Maritime_Register_ES_conf.json"
+     "category": "Registers / Lists",
+     "id":"Sailors_Register",
+     "name":"Sailors register (Libro de registro de marineros)",
+     "description":"A description of the template",
+     "configuration":"Sailors_Register_conf.json"
   },
   {
-    "category": "Registers / Lists",
-    "id": "Maritime Workers_IT",
-    "name": "Register of Maritime workers (Matricole della gente di mare)",
-    "description": "A description of the template",
-    "configuration": "Maritime_Workers_IT_conf.json"
+     "category": "Registers / Lists",
+     "id":"Seagoing_Personel",
+     "name":"Seagoing Personel",
+     "description":"A description of the template",
+     "configuration":"Seagoing_Personel_conf.json"
   },
   {
-    "category": "Registers / Lists",
-    "id": "Sailors_Register",
-    "name": "Sailors register (Libro de registro de marineros)",
-    "description": "A description of the template",
-    "configuration": "Sailors_Register_conf.json"
+     "category": "Registers / Lists",
+     "id":"Students Register",
+     "name":"Students Register",
+     "description":"A description of the template",
+     "configuration":"Students_Register_conf.json"
   },
   {
-    "category": "Registers / Lists",
-    "id": "Seagoing_Personel",
-    "name": "Seagoing Personel",
-    "description": "A description of the template",
-    "configuration": "Seagoing_Personel_conf.json"
+     "category": "Other Records",
+     "id":"Messageries_Maritimes",
+     "name":"Employment records, Shipyards of Messageries Maritimes, La Ciotat",
+     "description":"A description of the template",
+     "configuration":"messageriesmaritimes_conf.json"
   },
   {
-    "category": "Registers / Lists",
-    "id": "Students Register",
-    "name": "Students Register",
-    "description": "A description of the template",
-    "configuration": "Students_Register_conf.json"
+     "category": "Other Records",
+     "id":"Notarial Deeds",
+     "name":"Notarial Deeds",
+     "description":"A description of the template",
+     "configuration":"Notarial_Deeds_conf.json"
   }
-]
+];
 
 const NumColumns = [
   'Age',
@@ -214,20 +215,28 @@ app.get('/sourceRecordList/', function (req, res){
     res.status(404).send('Page not found');
     // res.send(config);
   }else{
-    var myarray = [];
-    var fullpath = path + source.replAll(' ', '_');
-    // if(id == null)
-    myarray = getRecordFiles(fullpath); /*get every raw record from an entity*/
-    // else
-    //   myarray = getRecordWithId(fullpath,id);
-    for (const key in config) {
-      const tableconfig = config[key];
-      if(tableconfig.display == undefined){
-        var obj = {'name': key,'count':formatObject(myarray, tableconfig).length}
-        count.push(obj);
+    
+    
+    if(source == 'Employment records, Shipyards of Messageries Maritimes, La Ciotat' && CacheExists('messageriesmaritimes_list')){
+      res.send(JSON.stringify(getCachedList('messageriesmaritimes_list')));
+    }else{
+      var myarray = [];
+      var fullpath = path + source.replAll(' ', '_');
+      myarray = getRecordFiles(fullpath); /*get every raw record from an entity*/
+
+      for (const key in config) {
+        const tableconfig = config[key];
+        if(tableconfig.display == undefined){
+          var obj = {'name': key,'count':formatObject(myarray, tableconfig).length}
+          count.push(obj);
+        }
       }
+      if(source == 'Employment records, Shipyards of Messageries Maritimes, La Ciotat'){
+        saveToCache('messageriesmaritimes_list',count);
+      }
+      res.send(JSON.stringify(count));
     }
-    res.send(JSON.stringify(count));
+    
   }
 
   //  console.dir(count, { depth: null });
@@ -286,26 +295,35 @@ app.get('/numberOfrecords/:name', function(req, res){
  * returns data for a table of for a record or fo an entity
  */
 app.get('/tableData', function (req, res) {
-      var query = JSON.parse(JSON.stringify(req.query));
-      var source = req.query.source;
-      var tableName = req.query.tableName;
-      var id = req.query.id;
-      var myarray = [];
-      // console.log(query)
-      if(id == null && Object.keys(query).length == 2){
-          myarray = handleSingleTable(source,tableName);
-      }else if(id == null && Object.keys(query).length > 2){
-          delete query['source'];
-          delete query['tableName'];
+  var source = req.query.source;
+  var tableName = req.query.tableName;
+  var id = req.query.id;
+  var myarray = [];
+  var query = JSON.parse(JSON.stringify(req.query));
+  var recordId = '';
+    if(req.query.recordId != null){
+      recordId = JSON.parse(JSON.stringify(query['recordId']));
+      delete query['recordId'];
+    }
+    // console.log(query);
+    if(id == null && Object.keys(query).length == 2){
+        myarray = handleSingleTable(source,tableName);
+    }else if(id == null && Object.keys(query).length > 2){
+        delete query['source'];
+        delete query['tableName'];
+        if(req.query.recordId != null){
+          myarray = handleSingleTable(source,tableName,true,true, recordId);
+        }else{
           myarray = handleSingleTable(source,tableName,true,true);
-          myarray = handleQueryTables(source,tableName,query,myarray);
+        }
+        myarray = handleQueryTables(source,tableName,query,myarray);
 
-      }else{
-          myarray = handleRecordTables(source,id);
-      }
-      // console.log(myarray);
-      filterData(myarray);
-      res.send(JSON.stringify(myarray));
+    }else{
+        myarray = handleRecordTables(source,id);
+    }
+    // console.log(myarray);
+    filterData(myarray);
+    res.send(JSON.stringify(myarray));
 })
 
 /**
@@ -317,7 +335,8 @@ app.get('/tableData', function (req, res) {
  * @returns returns the linked tables that needs to be shown for the query
  */
 function handleQueryTables(source,tableName,query,myarray){
-  // console.dir(myarray, { depth: null });
+  // console.log(myarray);
+
   for (const key in query) {
     query[key] = isNum(query[key], key);
   }
@@ -331,18 +350,22 @@ function handleQueryTables(source,tableName,query,myarray){
       } 
     }
     if(_.isEqual(obj,query)){
-      // console.log(elem.ids);
+      // console.log(el);
       return el;
     }
   });
-  // console.log(elem);
+
+  // console.dir(elem, { depth: null });
+  
   if(elem.length > 1){
+  // console.log('mpika');
     var temp = [];
     for (let i = 1; i < elem.length; i++) {
       temp = merge(elem[0],elem[i])
     }
     elem.push(temp);
   }
+  // console.log(elem);
   
   // if(elem['value-type'] != 'nested-list')
   // console.dir(elem, { depth: null });
@@ -411,7 +434,13 @@ function getlinkedTables(elem, source){
         
         var newtable = element.map(table=>{
           // if(elem['value-type'] == 'nested-list'){
-          // console.log(table);
+            // console.dir('lala');
+          //   console.dir(table.Id);
+          // console.dir('telos');
+          // if(isArray(table)){
+            // console.log(table);
+          //   // console.log(table[0])
+          // }
           var dataFromLinksArray = handleLinks(table,source);
           // console.log('lala')
           // console.log(dataFromLinksArray)
@@ -452,7 +481,7 @@ function getlinkedTables(elem, source){
   })
   
   var IdsWithTitles = [];
-  linkArray.map(id=>{
+  linkArray.forEach(id=>{
     var record = getTitleOfId(source,id);
     IdsWithTitles.push({'id':record.id,'title':record.title});
   })
@@ -475,6 +504,8 @@ function getlinkedTables(elem, source){
  * @returns 
  */
 function handleLinks(table, source) {
+  // console.log(table.Id)
+  // if(table.Id == undefined) return [];
   var temp;
   if (table.listLink == true)
     temp = handleRecordTables(source, table.Id, false, true);
@@ -559,7 +590,8 @@ function handleRecordTables(source,id, remv = true, nestedlink = false){
   var config = getConfig(source);
   
   myarray = getRecordWithId(fullpath, id);
-  
+  // console.log(myarray)
+  // console.log(id)
   var obj = getTitlesofRecords(myarray,source);
   obj = obj[0];
   var data = [];
@@ -585,25 +617,34 @@ function getTitleOfId(source,id){
   return obj[0];
 }
 
+
 /**
  * Rerurns raw data for one table of an entity
+ * id id is provided then it returns only for that record
  * @param {string} source  
  * @param {*} tableName 
  * @returns raw data for one table of an entity
  */
-function handleSingleTable(source,tableName,remv=true,nestedlink=false){
+function handleSingleTable(source,tableName,remv=true,nestedlink=false, id = null){
   var myarray = [];
   var fullpath = path + source.replAll(' ', '_');
   var config = getConfigEntity(source,tableName);
-  
-  fs.readdirSync(fullpath)
-  .map(name => {
-    var file = fs.readFileSync(fullpath+'/'+name, 'utf8');
-    var record = JSON.parse(file.trim());
-    myarray.push(record);
-  });
-  
-  return formatObject(myarray, config, remv, nestedlink);
+  var data;
+  if(id!= null){
+    myarray = getRecordWithId(fullpath, id);
+    data = formatObject(myarray, config, remv, nestedlink);
+  }else{
+    if(source == 'Employment records, Shipyards of Messageries Maritimes, La Ciotat' && tableName == 'Workers' && CacheExists('messageriesmaritimes_workers') && remv == true && nestedlink == false){
+      data = getCachedList('messageriesmaritimes_workers');    
+    }else{
+      myarray = getRecordFiles(fullpath);
+      data = formatObject(myarray, config, remv, nestedlink);
+      if(source == 'Employment records, Shipyards of Messageries Maritimes, La Ciotat' && tableName == 'Workers' && remv == true && nestedlink == false){
+        saveToCache('messageriesmaritimes_workers',data);
+      }
+    }
+  }  
+  return data;
 }
 
 /**
@@ -697,7 +738,7 @@ function getTitlesofRecords(myarray, name){
  * @returns The formated records of an entity according to the configuration file each entity's
  */
 function formatObject(data, config, remv = true, nestedlink = false){
-  // console.log(config)
+  // console.log(data)
   const mydata = data;
   var objArray = [];
   var mydata2;
@@ -706,10 +747,14 @@ function formatObject(data, config, remv = true, nestedlink = false){
     var fake = JSON.parse(JSON.stringify(config));
     // we dublicate the structure of the parser so we can
     // change the path to actual data
-    if(mydata.length == 1)
+    if(mydata.length == 1){
+      // console.log('1')
       mydata2 = mydata[0];
-    else
+    }
+    else{
+      // console.log('2')
       mydata2 = mydata[i];
+    }
 
     // console.dir(mydata2, { depth: null });
     if (config['value-type'] == undefined){
@@ -748,13 +793,15 @@ function formatObject(data, config, remv = true, nestedlink = false){
     }else{
       fake = addNestedListData(config, mydata2, nestedlink);       
     }
-
+    // console.log(fake)
     if(splitarray.length != 0){
       splitarray.forEach(elem=> objArray.push(elem))
       splitarray = [];
     }else{
-      if(isArray(fake))
+      if(isArray(fake)){
         fake.forEach(element => objArray.push(element));
+        // console.log('lala')
+      }
       else{
         objArray.push(fake);
       }
@@ -763,7 +810,8 @@ function formatObject(data, config, remv = true, nestedlink = false){
   }
   // objArray
   // console.dir(objArray, { depth: null });
-  
+  // console.log(mydata2.docs[0]._id)
+  // console.log(objArray)
   if(objArray[0]["value-type"] !=  undefined)
     objArray = formatList(objArray);
   
@@ -800,6 +848,7 @@ function splitData(data, column) {
   function addListData(config, mydata2, nestedlink) {
     var count = 0;
     var fake = JSON.parse(JSON.stringify(config));
+    var previusColumn = '';
     for (const column of Object.keys(config)) {
       var item = config[column]; // path from parser
       // console.log(item)
@@ -816,7 +865,7 @@ function splitData(data, column) {
                 // var previusColumn = '';
                 var recordId =  _.get(mydata2, 'docs[0]._id');
                 var data2 = data[index][item.path.split(".#.")[1]];
-                if (data2 == undefined) data2 = '';
+                if (data2 == undefined || data2 == ' ') data2 = '';
                 if (data2.includes("\n")) {
                   // data2[0] = data2[0].replAll("\n", ", ");
                   var arraydata2 = splitData(data2, column);
@@ -861,6 +910,7 @@ function splitData(data, column) {
           fake[column].Id = _.get(mydata2, item.Id);
         }
       }
+      previusColumn = column;
     }
 
 
@@ -911,7 +961,7 @@ function splitData(data, column) {
                   // var data2 = [data[index][item.path.split(".#.")[1]], index];
                 }
 
-                if (data2 == undefined) data2 = '';
+                if (data2 == undefined || data2 == ' ') data2 = '';
                 if(data2.includes("\n") && item.path!= 'docs[0].data.nominative_list_of_occupants.#.person_name'){ //second condition beacause there's a \n in a colunm that takes single values. for First national all-Russian census of the Russian Empire
                   var arraydata2 = splitData(data2, column);
                   newLineCount = arraydata2.length; 
@@ -1114,6 +1164,7 @@ String.prototype.replAll = function(search, replacement) {
 };
 
 function filterData(myarray){
+  // console.log(myarray)
   if(isArray(myarray)){
     deleteObjects(myarray);
   }else{
@@ -1122,12 +1173,16 @@ function filterData(myarray){
       if(key == 'data'){
         element.forEach((ar, index)=>{
           var key2 = Object.keys(ar).join();
-          if(ar[key2][0].display != undefined)
-            delete element[index];
-          else
-            deleteObjects(ar[key2]);
-
+          // console.log(ar[key2])
+          if(ar[key2].length !=0){
+            if(ar[key2][0]['display'] != undefined)
+              delete element[index];
+            else
+              deleteObjects(ar[key2]);
+          }
         })
+      }else if(key == 'Dummy'){
+        delete myarray[key];
       }else if(isObject(element) && key!='FastCat Records'){
         deleteObjects(element);
       }
@@ -1161,4 +1216,23 @@ function isNum(val, column){
   }
   
   return val.toLowerCase();
+}
+
+function CacheExists(fileName){
+  var fileExists = fs.existsSync('./Cache/'+fileName+'.json');
+  // console.log(fileExists)
+  return fileExists
+}
+
+function getCachedList(fileName){
+  var list = fs.readFileSync('./Cache/'+fileName+'.json', 'utf8');
+  list = JSON.parse(list);
+  return list;
+}
+
+function saveToCache(fileName,count){
+  let data = JSON.stringify(count);
+  fs.writeFile('./Cache/'+fileName+'.json', data, (err) => {
+      if (err) throw err;
+  });
 }

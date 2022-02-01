@@ -138,6 +138,7 @@ export class RecordDetailsComponent implements OnInit {
     // Add event handlers
     onCellClicked: ((event: CellClickedEvent) =>{
         var source = String(this.route.snapshot.paramMap.get('source'));
+        var id = String(this.route.snapshot.paramMap.get('id'));
         var data = event.data;
         var entity = this.TableName.replace('/','-');
         var name = ''
@@ -150,14 +151,13 @@ export class RecordDetailsComponent implements OnInit {
           if(isObject(data[key]) || key=='value-type' || key =='listLength')
               delete data[key];
         }
-        // console.log(event);
+        data.recordId = id;
 
-        // console.log('list/'+source+'/Table?'+'Table='+entity+query);
         this.router.routeReuseStrategy.shouldReuseRoute = function () {
           return false;
         }
         this.router.onSameUrlNavigation = 'reload';
-        this.router.navigate(['list/'+source+'/Table/'+entity], { queryParams:data });
+        this.router.navigate(['list/'+source+'/'+id+'/Table/'+entity], { queryParams:data });
     })
   }
 

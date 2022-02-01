@@ -13,6 +13,7 @@ const routes: Routes = [
   { path: 'list', component: ListComponent },
   { path: 'list/:source', component: ListDetailsComponent },
   { path: 'list/:source/Table/:name', component: EntityDetailsComponent },
+  { path: 'list/:source/:id/Table/:name', component: EntityDetailsComponent },
   { path: 'list/:source/:id', component: RecordDetailsComponent },
   { path: 'terms-of-use', component: TermsOfUseComponent },
   { path: 'privacy-policy', component: PrivacyPolicyComponent },
