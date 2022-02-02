@@ -34,6 +34,10 @@ hr {
     justify-content: center;
 }
 
+#welcome-title{
+    margin-left: 5px;
+}
+
 #home{
     color: #3B678E;
     vertical-align: middle;

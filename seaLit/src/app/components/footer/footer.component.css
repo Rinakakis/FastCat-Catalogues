@@ -24,6 +24,9 @@
     text-decoration: none;
     color: white;
   }
+  a.info:hover{
+    text-decoration:underline;
+  }
   .footer-info > ul li:nth-child(2n){
     color: white;
   }

@@ -28,7 +28,7 @@ This will compile an Angular app into an output directory named dist/seaLit
 
 ## deployment to tomcat server
 
-1. In the abgular application go to seaLit/dist and copy the folder seaLit
-2. Then go to your tomcat server etc. Tomcat 10.0\webapps and paste thr folder
+1. In the angular application go to seaLit/dist and copy the folder "seaLit"
+2. Then go to your tomcat server etc. Tomcat xx.x\webapps and paste thr folder
 3. After that go to Tomcat 10.0\bin and click on Tomcat10.exe
 4. Open a browser to <http://localhost:8080/seaLit/>
