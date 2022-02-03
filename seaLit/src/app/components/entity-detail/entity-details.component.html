@@ -47,13 +47,14 @@
         
         <div style="display: block;" *ngIf="chartOption[i]">
           <canvas baseChart 
+            id = "chart{{i}}"
             [data]="barChartDataArray[i]"
             [options]="barChartOptions"
             [plugins]="barChartPlugins"
             [type]="barChartType">
           </canvas>
           <div class="reset-div">
-            <button class="reset-button" mat-stroked-button (click)="resetZoom()" title="Reset Zoom">
+            <button class="reset-button" mat-stroked-button (click)="resetZoom(i)" title="Reset Zoom">
               Reset Zoom
             </button>
           </div>

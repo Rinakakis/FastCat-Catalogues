@@ -69,7 +69,11 @@ export class EntityDetailsComponent implements OnInit {
     labels: [],
     datasets: [
       { data: [],
-        label: ''
+        label: '',
+        backgroundColor:'#5294D0',
+        hoverBackgroundColor:'#3B678E',
+        borderColor: '#3B678E'
+        
       }
     ]
   };
@@ -205,7 +209,10 @@ export class EntityDetailsComponent implements OnInit {
             labels: [],
             datasets: [
               { data: [],
-                label: ''
+                label: '',
+                backgroundColor:'#5294D0',
+                hoverBackgroundColor:'#3B678E',
+                borderColor: '#3B678E'
               }
             ]
           }
@@ -254,7 +261,8 @@ export class EntityDetailsComponent implements OnInit {
 
   calculateStats(rowdata: any, column: string | number, index: number){ 
     if(String(column) != this.barChartDataArray[index].datasets[0].label){
-      this.chart?.chart?.resetZoom();
+      var chart =  Chart.getChart("chart"+index);
+      chart?.resetZoom();
       // console.log('bmhka')
       
       var values = rowdata.map((elem: { [x: string]: any; })=> elem[column]);
@@ -264,22 +272,28 @@ export class EntityDetailsComponent implements OnInit {
         labels: Object.keys(stats),
         datasets: [
           { data: Object.values(stats),
-            label: String(column)
+            label: String(column),
+            backgroundColor:'#5294D0',
+            hoverBackgroundColor:'#3B678E',
+            borderColor: '#3B678E'
           }
         ]
       };
       if(!this.chartOption[index])
         this.chartOption[index] = !this.chartOption[index];
 
-        this.chart?.update();
+        chart?.update();
     }else{
         this.chartOption[index] = !this.chartOption[index];
     }
   }
 
-  resetZoom(){
+  resetZoom(id:number){
     // console.log('zoom')
-    this.chart?.chart?.resetZoom();
+    // this.chart?.chart?.resetZoom();
+
+    var chart =  Chart.getChart("chart"+id);
+    chart?.resetZoom();
   }
 
   

@@ -4,7 +4,8 @@
   "description": "",
   "main": "api.js",
   "scripts": {
-    "server": "nodemon ./api.js",
+    "server": "node ./api.js",
+    "test-server": "nodemon ./api.js",
     "couch": "nodemon ./couch.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },

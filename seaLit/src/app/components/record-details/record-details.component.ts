@@ -72,7 +72,11 @@ export class RecordDetailsComponent implements OnInit {
     labels: [],
     datasets: [
       { data: [],
-        label: ''
+        label: '',
+        backgroundColor:'#5294D0',
+        hoverBackgroundColor:'#3B678E',
+        borderColor: '#3B678E'
+        
       }
     ]
   };
