@@ -90,18 +90,7 @@ export class ListService {
   }
 
   getSourceList(source: string): Observable<any>{
-      // if(source == 'Employment records, Shipyards of Messageries Maritimes, La Ciotat'){
-      //   this.CachedEmploymentRecords = this.http.get('http://'+this.Ip+':8081/sourceRecordList?'+'source='+source);
-
-      //   this.CachedEmploymentRecords.subscribe((next: any) =>{
-      //     localStorage[CACHE_KEY] = JSON.stringify(next);
-      //   });
-
-      //   this.CachedEmploymentRecords = this.CachedEmploymentRecords.pipe(
-      //     startWith(JSON.parse(localStorage[CACHE_KEY] || '[]'))
-      //   )
-      // }else
-        return this.http.get('http://'+this.Ip+':8081/sourceRecordList?'+'source='+source)
+    return this.http.get('http://'+this.Ip+':8081/sourceRecordList?'+'source='+source)
  
   }
 
@@ -129,9 +118,10 @@ export class ListService {
   }
 
   ConvertToCSV(table: any){
+    // console.log(table)
     var data = table.map((elem: object) =>{
       return Object.values(elem)
-      .filter(col => typeof col == 'string' && col != 'list')
+      .filter(col => (typeof col == 'string' || typeof col == 'number') && col != 'list')
       .map(elem2=>  '"'+elem2+'"')
       .join(',');
     })
@@ -140,10 +130,19 @@ export class ListService {
 
     return data.join('\n');
   }
+
+  ConvertChartToCSV(data: any, count: any, title: any){
+    var csvData = [];
+    csvData.push('"'+title+ '","Count"')
+    for (let i = 0; i < data.length; i++) {
+      csvData.push('"'+data[i]+'","'+count[i]+'"')
+    }
+    return csvData.join('\n');
+  }
   
     getTitles(temp: any): string[]{
       var titles: string[] = [];
-      console.log(temp)
+      // console.log(temp)
       for (const [key, value] of Object.entries(temp)) {
         if(!isObject(value) && key!='value-type' && key!='listLength' &&key!='listIds')
           titles.push(key);

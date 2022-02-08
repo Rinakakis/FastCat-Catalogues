@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild} from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
-import { CellClickedEvent } from 'ag-grid-community';
+import { CellClickedEvent, CellContextMenuEvent } from 'ag-grid-community';
 import { flatMap, isObject, isObjectLike } from 'lodash';
 import { ListService } from 'src/app/services/list.service';
 import { saveAs } from 'file-saver';
@@ -29,6 +29,7 @@ export class EntityDetailsComponent implements OnInit {
   tablesTitles: any[] = [];
   selectedTable: boolean = false;
   idExists: boolean = false;
+  isEmploymentWorkers: boolean = false;
   nonLitsInfo: any[] = [];
   keysNonList: any[] = [];
   keysList: any[] = [];
@@ -88,13 +89,21 @@ export class EntityDetailsComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    document.body.scrollTop = 0;
+    document.documentElement.scrollTop = 0;
+
     Chart.register(zoomPlugin);
 
     const params = this.route.snapshot.params;
     const query = this.route.snapshot.queryParams;
+    if(params.source == 'Employment records, Shipyards of Messageries Maritimes, La Ciotat' && params.name == 'Workers')
+      this.isEmploymentWorkers = true;
+
     this.listservice.getTablesFromSource(params.source,params.name,query).subscribe(list =>{
       if (list) {
         this.hideloader();
+        this.isEmploymentWorkers = false;
+
       }
       // console.log(list);
       this.displaydata(params,list);
@@ -115,43 +124,59 @@ export class EntityDetailsComponent implements OnInit {
   gridOptions = {
     // Add event handlers
     onCellClicked: ((event: CellClickedEvent) =>{
+      this.sendQuery(event, 'leftClick')
 
-        if(event.data['FastCat Records'] != undefined){
-          window.open(event.data['FastCat Records'], "_blank");
-          return;
-        }
-        var source = String(this.route.snapshot.paramMap.get('source'));
-        var table = String(this.route.snapshot.paramMap.get('name'));
-        var id = String(this.route.snapshot.paramMap.get('id'));
-        var data = event.data;
-        var entity = event.colDef.colId;
+    }),
+    onCellContextMenu: ((event: CellContextMenuEvent) =>{
+      this.sendQuery(event, 'rightClick')
+    })
+  }
 
-        for (const key in data) {
-          if(key=='value-type' || key =='listLength' || key == 'display' || ((key == 'Embarkation Date' || key == 'Ship\'s Name') && (table=='Crew Members'|| table== 'Crew Members and Embarkation Dates')) 
-            || ((key == 'Discharge Date' || key == 'Ship\'s Name') && (table=='Crew Members'|| table== 'Crew Members and Discharge Dates'))  )
-              delete data[key];
-        }
-        console.log(id)
-        if(id != 'null'){
-          data.recordId = id;
-        }
+  sendQuery(event: CellContextMenuEvent | CellClickedEvent, click: string){
+    if(event.data['FastCat Records'] != undefined){
+      window.open(event.data['FastCat Records'], "_blank");
+      return;
+    }
+    var source = String(this.route.snapshot.paramMap.get('source'));
+    var table = String(this.route.snapshot.paramMap.get('name'));
+    var id = String(this.route.snapshot.paramMap.get('id'));
+    var data = event.data;
+    var entity = event.colDef.colId;
 
-        this.router.routeReuseStrategy.shouldReuseRoute = function () {
-          return false;
-        }
-        this.router.onSameUrlNavigation = 'reload';
-        if(id!='null')
+    for (const key in data) {
+      if(key=='value-type' || key =='listLength' || key == 'display' || ((key == 'Embarkation Date' || key == 'Ship\'s Name') && (table=='Crew Members'|| table== 'Crew Members and Embarkation Dates')) 
+        || ((key == 'Discharge Date' || key == 'Ship\'s Name') && (table=='Crew Members'|| table== 'Crew Members and Discharge Dates'))  )
+          delete data[key];
+    }
+    console.log(id)
+    if(id != 'null'){
+      data.recordId = id;
+    }
+
+    this.router.routeReuseStrategy.shouldReuseRoute = function () {
+      return false;
+    }
+    this.router.onSameUrlNavigation = 'reload';
+
+
+    if(click == 'leftClick'){
+      if(id!='null')
           this.router.navigate(['list/'+source+'/'+id+'/Table/'+entity], { queryParams:data });
         else
           this.router.navigate(['list/'+source+'/Table/'+entity], { queryParams:data });
-
-    }),
-    suppressExcelExport: true,
+    }else{
+      var url;
+      if(id!='null')
+        url = this.router.serializeUrl(this.router.createUrlTree(['seaLit/list/'+source+'/'+id+'/Table/'+entity], { queryParams:data }));
+      else
+        url = this.router.serializeUrl(this.router.createUrlTree(['seaLit/list/'+source+'/Table/'+entity], { queryParams:data }));
+      window.open(url, '_blank');
+    }
   }
 
   displaydata(params: any,record: any): void {
     var id = String(this.route.snapshot.paramMap.get('id'));
-    console.log(record)
+    // console.log(record)
     this.tablesTitles = [];
     this.tables = [];
     this.nonLitsInfo = [];
@@ -296,6 +321,16 @@ export class EntityDetailsComponent implements OnInit {
     chart?.resetZoom();
   }
 
+  downloadChartData(id: number){
+    var chart =  Chart.getChart("chart"+id);
+    var title = chart?.data.datasets[0].label;
+    var data = chart?.data.labels;
+    var count = chart?.data.datasets[0].data;
+    var csvData = this.listservice.ConvertChartToCSV(data,count,title);
+
+    var blob = new Blob([csvData], {type: 'text/csv' });
+    saveAs(blob, "export.csv");
+  }
   
 
 }

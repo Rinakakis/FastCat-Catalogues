@@ -1,7 +1,7 @@
 {
-    "Inscription Maritime - Maritime Register of the State for La Ciotat":{
+    "Inscription Maritime - Maritime Register of the State for La Ciotat": {
         "Registered Persons": {
-            "value-type":"list",
+            "value-type": "list",
             "Name": {
                 "path": "docs[0].data.list_of_registered_persons.#.person_name"
             },
@@ -48,8 +48,8 @@
                 "Id": "docs[0]._id"
             }
         },
-        "Birth Places":{
-            "value-type":"list",
+        "Birth Places": {
+            "value-type": "list",
             "Place of Birth": {
                 "path": "docs[0].data.list_of_registered_persons.#.place_of_birth"
             },
@@ -59,8 +59,8 @@
                 "Id": "docs[0]._id"
             }
         },
-        "Residence Places":{
-            "value-type":"list",
+        "Residence Places": {
+            "value-type": "list",
             "Place of Residence": {
                 "path": "docs[0].data.list_of_registered_persons.#.place_of_residence"
             },
@@ -70,8 +70,8 @@
                 "Id": "docs[0]._id"
             }
         },
-        "Service Sectors":{
-            "value-type":"nested-list",
+        "Service Sectors": {
+            "value-type": "nested-list",
             "Service Sector": {
                 "path": "docs[0].data.service_analysis.#.service_sector"
             },
@@ -82,8 +82,8 @@
                 "Id": "docs[0]._id"
             }
         },
-        "Professions":{
-            "value-type":"nested-list",
+        "Professions": {
+            "value-type": "nested-list",
             "Profession": {
                 "path": "docs[0].data.service_analysis.#.profession"
             },
@@ -94,32 +94,32 @@
                 "Id": "docs[0]._id"
             }
         },
-        "Embarkation Locations":{
-            "value-type":"nested-list",
+        "Embarkation Locations": {
+            "value-type": "nested-list",
             "Embarkation Location": {
                 "path": "docs[0].data.service_analysis.#.embarkation_location"
             },
-            "Registered Persons": {
-                "link": "Registered Persons",
+            "Registered Persons and Start of Service": {
+                "link": "Registered Persons and Start of Service",
                 "listLink": true,
-                "link-type": "nl-l",
+                "link-type": "nl-nl",
                 "Id": "docs[0]._id"
             }
         },
-        "Disembarkation Locations":{
-            "value-type":"nested-list",
+        "Disembarkation Locations": {
+            "value-type": "nested-list",
             "Disembarkation Location": {
                 "path": "docs[0].data.service_analysis.#.disembarkation_location"
             },
-            "Registered Persons": {
-                "link": "Registered Persons",
+            "Registered Persons and End of Service": {
+                "link": "Registered Persons and End of Service",
                 "listLink": true,
                 "link-type": "nl-l",
                 "Id": "docs[0]._id"
             }
         },
-        "Ships":{
-            "value-type":"nested-list",
+        "Ships": {
+            "value-type": "nested-list",
             "Name": {
                 "path": "docs[0].data.service_analysis.#.ship_name"
             },
@@ -148,8 +148,8 @@
                 "Id": "docs[0]._id"
             }
         },
-        "Captains":{
-            "value-type":"nested-list",
+        "Captains": {
+            "value-type": "nested-list",
             "Name": {
                 "path": "docs[0].data.service_analysis.#.captains_name"
             },
@@ -163,8 +163,8 @@
                 "Id": "docs[0]._id"
             }
         },
-        "Patrons":{
-            "value-type":"nested-list",
+        "Patrons": {
+            "value-type": "nested-list",
             "Name": {
                 "path": "docs[0].data.service_analysis.#.patrons_name"
             },
@@ -179,7 +179,7 @@
             }
         },
         "Embarkation Locations and Start of Service": {
-            "value-type":"nested-list",
+            "value-type": "nested-list",
             "display": "no",
             "Embarkation Location": {
                 "path": "docs[0].data.service_analysis.#.embarkation_location"
@@ -195,13 +195,79 @@
             }
         },
         "Disembarkation Locations and End of Service": {
-            "value-type":"nested-list",
+            "value-type": "nested-list",
             "display": "no",
             "Disembarkation Location": {
                 "path": "docs[0].data.service_analysis.#.disembarkation_location"
             },
             "End of Service": {
                 "path": "docs[0].data.service_analysis.#.end_of_service"
+            },
+            "Registered Persons": {
+                "link": "Registered Persons",
+                "listLink": true,
+                "link-type": "nl-l",
+                "Id": "docs[0]._id"
+            }
+        },
+        "Registered Persons and Start of Service": {
+            "value-type": "nested-list",
+            "display": "no",
+            "Start of Service": {
+                "path": "docs[0].data.service_analysis.#.start_of_service"
+            },
+            "Name": {
+                "value-type": "list",
+                "path": "docs[0].data.list_of_registered_persons.#.person_name"
+            },
+            "Surname": {
+                "value-type": "list",
+                "path": "docs[0].data.list_of_registered_persons.#.person_surname"
+            },
+            "Date of Birth": {
+                "value-type": "list",
+                "path": "docs[0].data.list_of_registered_persons.#.date_of_birth"
+            },
+            "Place of Birth": {
+                "value-type": "list",
+                "path": "docs[0].data.list_of_registered_persons.#.place_of_birth"
+            },
+            "Place of Residence": {
+                "value-type": "list",
+                "path": "docs[0].data.list_of_registered_persons.#.place_of_residence"
+            },
+            "Registered Persons": {
+                "link": "Registered Persons",
+                "listLink": true,
+                "link-type": "nl-l",
+                "Id": "docs[0]._id"
+            }
+        },
+        "Registered Persons and End of Service": {
+            "value-type": "nested-list",
+            "display": "no",
+            "End of Service": {
+                "path": "docs[0].data.service_analysis.#.end_of_service"
+            },
+            "Name": {
+                "value-type": "list",
+                "path": "docs[0].data.list_of_registered_persons.#.person_name"
+            },
+            "Surname": {
+                "value-type": "list",
+                "path": "docs[0].data.list_of_registered_persons.#.person_surname"
+            },
+            "Date of Birth": {
+                "value-type": "list",
+                "path": "docs[0].data.list_of_registered_persons.#.date_of_birth"
+            },
+            "Place of Birth": {
+                "value-type": "list",
+                "path": "docs[0].data.list_of_registered_persons.#.place_of_birth"
+            },
+            "Place of Residence": {
+                "value-type": "list",
+                "path": "docs[0].data.list_of_registered_persons.#.place_of_residence"
             },
             "Registered Persons": {
                 "link": "Registered Persons",

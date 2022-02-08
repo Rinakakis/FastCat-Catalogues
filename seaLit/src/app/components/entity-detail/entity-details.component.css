@@ -42,3 +42,12 @@ h3{
 }
 
 
+#waitmsg{
+  position: absolute;
+  left: 50%;
+  top: 65%;
+  z-index: 1;
+  transform: translate(-50%, -65%);
+  /* margin: -75px 0 0 -75px; */
+
+}

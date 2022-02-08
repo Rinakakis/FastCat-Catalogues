@@ -67,6 +67,7 @@
 
     <div style="display: block;" *ngIf="chartOption">
       <canvas baseChart 
+        id = "chart"
         [data]="barChartData"
         [options]="barChartOptions"
         [plugins]="barChartPlugins"
@@ -75,6 +76,9 @@
       <div class="reset-div">
         <button class="reset-button" mat-stroked-button (click)="resetZoom()" title="Reset Zoom">
           Reset Zoom
+        </button>
+        <button class="reset-button" mat-stroked-button (click)="downloadChartData()" title="Download Chart data">
+          <mat-icon>download</mat-icon>
         </button>
       </div>
     </div>

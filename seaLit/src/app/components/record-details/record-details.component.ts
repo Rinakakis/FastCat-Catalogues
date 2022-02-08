@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { CellClickedEvent } from 'ag-grid-community';
+import { CellClickedEvent, CellContextMenuEvent } from 'ag-grid-community';
 import { isObject } from 'lodash';
 import { ListService } from 'src/app/services/list.service';
 import { Title } from '@angular/platform-browser';
@@ -92,6 +92,9 @@ export class RecordDetailsComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    document.body.scrollTop = 0;
+    document.documentElement.scrollTop = 0;
+    
     Chart.register(zoomPlugin);
     const source = String(this.route.snapshot.paramMap.get('source'));
     const id = String(this.route.snapshot.paramMap.get('id'));
@@ -141,28 +144,42 @@ export class RecordDetailsComponent implements OnInit {
   gridOptions = {
     // Add event handlers
     onCellClicked: ((event: CellClickedEvent) =>{
-        var source = String(this.route.snapshot.paramMap.get('source'));
-        var id = String(this.route.snapshot.paramMap.get('id'));
-        var data = event.data;
-        var entity = this.TableName.replace('/','-');
-        var name = ''
-        Object.keys(data).forEach(k =>{
-          if(typeof data[k] == 'string' && k!= 'value-type')
-            name =data[k];
-        });
-        // console.log(event)
-        for (const key in data) {
-          if(isObject(data[key]) || key=='value-type' || key =='listLength')
-              delete data[key];
-        }
-        data.recordId = id;
+      this.sendQuery(event, 'leftClick')
 
-        this.router.routeReuseStrategy.shouldReuseRoute = function () {
-          return false;
-        }
-        this.router.onSameUrlNavigation = 'reload';
-        this.router.navigate(['list/'+source+'/'+id+'/Table/'+entity], { queryParams:data });
+    }),
+    onCellContextMenu: ((event: CellContextMenuEvent) =>{
+      this.sendQuery(event, 'rightClick')
     })
+  }
+
+  sendQuery(event: CellContextMenuEvent | CellClickedEvent, click: string){
+    var source = String(this.route.snapshot.paramMap.get('source'));
+    var id = String(this.route.snapshot.paramMap.get('id'));
+    var data = event.data;
+    var entity = this.TableName.replace('/','-');
+    var name = ''
+    Object.keys(data).forEach(k =>{
+      if(typeof data[k] == 'string' && k!= 'value-type')
+        name =data[k];
+    });
+    // console.log(event)
+    for (const key in data) {
+      if(isObject(data[key]) || key=='value-type' || key =='listLength')
+          delete data[key];
+    }
+    data.recordId = id;
+
+    this.router.routeReuseStrategy.shouldReuseRoute = function () {
+      return false;
+    }
+    this.router.onSameUrlNavigation = 'reload';
+
+    if(click == 'leftClick'){
+      this.router.navigate(['list/'+source+'/'+id+'/Table/'+entity], { queryParams:data });
+    }else{
+      const url = this.router.serializeUrl(this.router.createUrlTree(['seaLit/list/'+source+'/'+id+'/Table/'+entity], { queryParams:data }));
+      window.open(url, '_blank');
+    }
   }
 
   formatTableTitles(table: any[]): any[]{
@@ -265,6 +282,17 @@ export class RecordDetailsComponent implements OnInit {
   resetZoom(){
     // console.log('zoom')
     this.chart?.chart?.resetZoom();
+  }
+
+  downloadChartData(){
+    var chart =  Chart.getChart("chart");
+    var title = chart?.data.datasets[0].label;
+    var data = chart?.data.labels;
+    var count = chart?.data.datasets[0].data;
+    var csvData = this.listservice.ConvertChartToCSV(data,count,title);
+
+    var blob = new Blob([csvData], {type: 'text/csv' });
+    saveAs(blob, "export.csv");
   }
 
 }

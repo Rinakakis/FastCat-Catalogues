@@ -1,6 +1,7 @@
 <div class="d-flex justify-content-center">
   <div class="spinner-border" role="status">
       <span class="sr-only" id="loading"></span>
+      <p id="waitmsg" *ngIf="isEmploymentWorkers">Please wait...Reading large amounts of data!</p>
   </div>
 </div>
 <div class="record-container" *ngIf="selectedTable">
@@ -56,6 +57,9 @@
           <div class="reset-div">
             <button class="reset-button" mat-stroked-button (click)="resetZoom(i)" title="Reset Zoom">
               Reset Zoom
+            </button>
+            <button class="reset-button" mat-stroked-button (click)="downloadChartData(i)" title="Download Chart data">
+              <mat-icon>download</mat-icon>
             </button>
           </div>
         </div>

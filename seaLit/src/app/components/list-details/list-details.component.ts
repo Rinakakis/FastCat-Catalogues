@@ -98,6 +98,9 @@ export class ListDetailsComponent implements OnInit {
   };
 
   ngOnInit(): void {
+    document.body.scrollTop = 0;
+    document.documentElement.scrollTop = 0;
+    
     Chart.register(zoomPlugin);
     const name = String(this.route.snapshot.paramMap.get('source'));
     this.listservice.getSourceList(name).subscribe(list => {
@@ -156,42 +159,30 @@ export class ListDetailsComponent implements OnInit {
   gridOptions = {
     // Add event handlers
     onCellClicked: ((event: CellClickedEvent) =>{
-        var source = String(this.route.snapshot.paramMap.get('source'));
-        var data = event.data;
-        var entity = this.TableName.replace('/','-');
-        
-        // console.log(data)
+      this.sendQuery(event, 'leftClick')
 
-        for (const key in data) {
-          if(isObject(data[key]) || key=='value-type' || key =='listLength')
-              delete data[key];
-        }
-        // console.log(data)
-
-        // console.log('list/'+source+'/Table?'+'Table='+entity+query);
-        this.router.navigate(['list/'+source+'/Table/'+entity], { queryParams:data });
     }),
     onCellContextMenu: ((event: CellContextMenuEvent) =>{
-      var source = String(this.route.snapshot.paramMap.get('source'));
-        var data = event.data;
-        var entity = this.TableName.replace('/','-');
-        
-        // console.log(data)
+      this.sendQuery(event, 'rightClick')
+    })
+  }
 
-        for (const key in data) {
-          if(isObject(data[key]) || key=='value-type' || key =='listLength')
-              delete data[key];
-        }
-        // console.log(data)
+  sendQuery(event: CellContextMenuEvent | CellClickedEvent, click: string){
+    var source = String(this.route.snapshot.paramMap.get('source'));
+    var data = event.data;
+    var entity = this.TableName.replace('/','-');
+    
+    for (const key in data) {
+      if(isObject(data[key]) || key=='value-type' || key =='listLength')
+          delete data[key];
+    }
 
-        // console.log('list/'+source+'/Table?'+'Table='+entity+query);
-        // this.router.navigate(['list/'+source+'/Table/'+entity], { queryParams:data });
-
-        const url = this.router.serializeUrl(this.router.createUrlTree(['seaLit/list/'+source+'/Table/'+entity], { queryParams:data }));
+    if(click == 'leftClick'){
+      this.router.navigate(['list/'+source+'/Table/'+entity], { queryParams:data });
+    }else{
+      const url = this.router.serializeUrl(this.router.createUrlTree(['seaLit/list/'+source+'/Table/'+entity], { queryParams:data }));
         window.open(url, '_blank');
     }
-  )
-
   }
 
   displaytable(tableName:string): void{
@@ -286,6 +277,17 @@ export class ListDetailsComponent implements OnInit {
   resetZoom(){
     // console.log('zoom')
     this.chart?.chart?.resetZoom();
+  }
+
+  downloadChartData(){
+    var chart =  Chart.getChart("chart");
+    var title = chart?.data.datasets[0].label;
+    var data = chart?.data.labels;
+    var count = chart?.data.datasets[0].data;
+    var csvData = this.listservice.ConvertChartToCSV(data,count,title);
+
+    var blob = new Blob([csvData], {type: 'text/csv' });
+    saveAs(blob, "export.csv");
   }
 
 }

@@ -108,6 +108,9 @@
     .right-footer-div> a img{
       height: 45px;
     }
+    .right-footer-div>  img{
+      height: 45px;
+    }
     .left-footer-div > a:not(:first-child) {
       margin-left: 10px;
     }
@@ -137,6 +140,9 @@
       height: 127px;
     }
     .right-footer-div> a img{
+      height: 78px;
+    }
+    .right-footer-div> img{
       height: 78px;
     }
 
