@@ -3,10 +3,14 @@ var express = require('express');
 var app = express();
 var fs = require("fs");
 var cors = require('cors');
-const { isArray, isObject, isPlainObject, isString } = require('lodash');
-const { cachedDataVersionTag } = require('v8');
+var { isArray, isObject, isPlainObject, isString } = require('lodash');
+var https = require('https');
 
 app.use(cors());
+
+var appBase = express.Router();
+
+app.use('/sealit-api', appBase);
 
 var path = './Data/';
 
@@ -195,17 +199,25 @@ const NumColumns = [
   'Total Number of Students',
 ];
 
-var server = app.listen(8081, function () {
-   var host = server.address().address;
-   var port = server.address().port;
-   console.log("Example app listening at http://%s:%s", host, port)
-});
+https.createServer({
+  key: fs.readFileSync('server.key'),
+  cert: fs.readFileSync('server.cert')
+}, app).listen(8081, () => {
+  console.log('Listening...')
+})
+
+
+// var server = app.listen(8081, function () {
+//    var host = server.address().address;
+//    var port = server.address().port;
+//    console.log("Example app listening at http://%s:%s", host, port)
+// });
 
 /** 
  * returns the names of the tables that an
  * entity has and how many of each there is
  */
-app.get('/sourceRecordList/', function (req, res){
+appBase.get('/sourceRecordList/', function (req, res){
   var count = [];
   var source = req.query.source;
   // var id = req.query.id;
@@ -246,7 +258,7 @@ app.get('/sourceRecordList/', function (req, res){
  * returns the titles of the records of an entity
  */
 
-app.get('/sourceRecordTitles/:name/', function (req, res){
+appBase.get('/sourceRecordTitles/:name/', function (req, res){
   var config = getConfig(req.params.name);
   var titles = [];
   if(config.length == 0){
@@ -264,7 +276,7 @@ app.get('/sourceRecordTitles/:name/', function (req, res){
  * returns an object with the entities and the number of the records for each one
  * or for a single entity
  */
-app.get('/numberOfrecords/:name', function(req, res){
+appBase.get('/numberOfrecords/:name', function(req, res){
   var record = req.params.name;
   var myarray = [];
 
@@ -294,7 +306,7 @@ app.get('/numberOfrecords/:name', function(req, res){
 /**
  * returns data for a table of for a record or fo an entity
  */
-app.get('/tableData', function (req, res) {
+appBase.get('/tableData', function (req, res) {
   var source = req.query.source;
   var tableName = req.query.tableName;
   var id = req.query.id;
