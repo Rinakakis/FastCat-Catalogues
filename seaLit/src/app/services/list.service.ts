@@ -12,10 +12,13 @@ const CACHE_KEY = 'httpCacheKey';
 export class ListService {
   
   Titles: any[] = [];
-  Ip: string = '192.168.1.3';
-  port: string = '8081';
-  apiName: string = 'sealit-api';
-  protocol: string = 'https://';
+  Ip: string = '192.168.1.3'; // 'catalogues.sealitproject.eu'
+  port: string = ':8081';
+  apiName: string = '/sealit-api';
+  protocol: string = 'http://';
+
+  api = this.protocol+this.Ip+this.port+this.apiName;
+  // api = this.protocol+this.Ip+this.apiName;
 
   NumColumns: string[] = [
     'Age',
@@ -86,24 +89,24 @@ export class ListService {
   }
 
   getNamesOfSources(): Observable<any>{
-    return this.http.get(this.protocol+this.Ip+':'+this.port+'/'+this.apiName+'/numberOfrecords/all');
+    return this.http.get(this.api+'/numberOfrecords/all');
   }
 
   getNameOfSource(title: string): Observable<any>{
-    return this.http.get(this.protocol+this.Ip+':'+this.port+'/'+this.apiName+'/numberOfrecords/'+title);
+    return this.http.get(this.api+'/numberOfrecords/'+title);
   }
 
   getSourceList(source: string): Observable<any>{
-    return this.http.get(this.protocol+this.Ip+':'+this.port+'/'+this.apiName+'/sourceRecordList?'+'source='+source)
+    return this.http.get(this.api+'/sourceRecordList?'+'source='+source)
  
   }
 
   getTitlesofSourceRecords(title: string): Observable<any>{
-    return this.http.get(this.protocol+this.Ip+':'+this.port+'/'+this.apiName+'/sourceRecordTitles/'+title);
+    return this.http.get(this.api+'/sourceRecordTitles/'+title);
   }
 
   getTableFromSource(source: string,tableName: string): Observable<any>{
-    return this.http.get(this.protocol+this.Ip+':'+this.port+'/'+this.apiName+'/tableData?'+'source='+source+'&tableName='+tableName);
+    return this.http.get(this.api+'/tableData?'+'source='+source+'&tableName='+tableName);
   }
 
   getTablesFromSource(source: string, tableName: string, query: any): Observable<any>{
@@ -114,11 +117,11 @@ export class ListService {
     httpParams = httpParams.append('source',source);
     httpParams = httpParams.append('tableName',tableName);
 
-    return this.http.get(this.protocol+this.Ip+':'+this.port+'/'+this.apiName+'/tableData', { params: httpParams });
+    return this.http.get(this.api+'/tableData', { params: httpParams });
   }
 
   getrecordFromSource(source: string,id: string): Observable<any>{
-    return this.http.get(this.protocol+this.Ip+':'+this.port+'/'+this.apiName+'/tableData?'+'source='+source+'&id='+id);
+    return this.http.get(this.api+'/tableData?'+'source='+source+'&id='+id);
   }
 
   ConvertToCSV(table: any){

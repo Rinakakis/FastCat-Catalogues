@@ -3,13 +3,12 @@ var express = require('express');
 var app = express();
 var fs = require("fs");
 var cors = require('cors');
-var { isArray, isObject, isPlainObject, isString } = require('lodash');
+var { isArray, isObject, isPlainObject, isString, result } = require('lodash');
 var https = require('https');
 
 app.use(cors());
 
 var appBase = express.Router();
-
 app.use('/sealit-api', appBase);
 
 var path = './Data/';
@@ -199,54 +198,57 @@ const NumColumns = [
   'Total Number of Students',
 ];
 
-https.createServer({
-  key: fs.readFileSync('server.key'),
-  cert: fs.readFileSync('server.cert')
-}, app).listen(8081, () => {
-  console.log('Listening...')
-})
+// https.createServer({
+//   key: fs.readFileSync('server.key'),
+//   cert: fs.readFileSync('server.cert')
+// }, app).listen(8081, () => {
+//   console.log('Listening...')
+// })
 
 
-// var server = app.listen(8081, function () {
-//    var host = server.address().address;
-//    var port = server.address().port;
-//    console.log("Example app listening at http://%s:%s", host, port)
-// });
+var server = app.listen(8081, function () {
+   var host = server.address().address;
+   var port = server.address().port;
+   console.log("Example app listening at http://%s:%s", host, port)
+});
 
 /** 
  * returns the names of the tables that an
  * entity has and how many of each there is
  */
-appBase.get('/sourceRecordList/', function (req, res){
+appBase.get('/sourceRecordList/', async (req, res) => {
   var count = [];
   var source = req.query.source;
   // var id = req.query.id;
   // console.log(id)
-  var config = getConfig(source);
+  var config = await getConfig(source);
   if(config.length == 0){
     res.status(404).send('Page not found');
     // res.send(config);
   }else{
-    
-    
     if(source == 'Employment records, Shipyards of Messageries Maritimes, La Ciotat' && CacheExists('messageriesmaritimes_list')){
-      res.send(JSON.stringify(getCachedList('messageriesmaritimes_list')));
+      res.send(JSON.stringify(await getCachedList('messageriesmaritimes_list')));
     }else{
-      var myarray = [];
       var fullpath = path + source.replAll(' ', '_');
-      myarray = getRecordFiles(fullpath); /*get every raw record from an entity*/
+      // myarray = getRecordFiles(fullpath); /*get every raw record from an entity*/
+        // console.log(myarray)
 
-      for (const key in config) {
-        const tableconfig = config[key];
-        if(tableconfig.display == undefined){
-          var obj = {'name': key,'count':formatObject(myarray, tableconfig).length}
-          count.push(obj);
+      getRecordFilesAsync(fullpath).then(myarray => {
+        // var lala = myarray.map(obj=> JSON.parse(obj.trim()))
+        // console.log(lala)
+        for (const key in config) {
+          const tableconfig = config[key];
+          if (tableconfig.display == undefined) {
+            var obj = { 'name': key, 'count': formatObject(myarray, tableconfig).length }
+            count.push(obj);
+          }
         }
-      }
-      if(source == 'Employment records, Shipyards of Messageries Maritimes, La Ciotat'){
-        saveToCache('messageriesmaritimes_list',count);
-      }
-      res.send(JSON.stringify(count));
+        if (source == 'Employment records, Shipyards of Messageries Maritimes, La Ciotat') {
+          saveToCache('messageriesmaritimes_list', count);
+        }
+        res.send(JSON.stringify(count));
+      })
+      
     }
     
   }
@@ -258,17 +260,20 @@ appBase.get('/sourceRecordList/', function (req, res){
  * returns the titles of the records of an entity
  */
 
-appBase.get('/sourceRecordTitles/:name/', function (req, res){
-  var config = getConfig(req.params.name);
+appBase.get('/sourceRecordTitles/:name/', async (req, res) =>{
+  var config = await getConfig(req.params.name);
   var titles = [];
   if(config.length == 0){
     res.status(404).send('Page not found');
   }else{
-    var myarray = [];
     var fullpath = path + req.params.name.replAll(' ', '_');      
-    myarray = getRecordFiles(fullpath);
-    titles = getTitlesofRecords(myarray,req.params.name);
-    res.send(JSON.stringify(titles));
+    // myarray = getRecordFiles(fullpath);
+    // titles = getTitlesofRecords(myarray,req.params.name);
+    // res.send(JSON.stringify(titles));
+    getRecordFilesAsync(fullpath).then(async (myarray) => {
+      titles = await getTitlesofRecords(myarray,req.params.name);
+      res.send(JSON.stringify(titles));
+    });
   }
 })
 
@@ -276,37 +281,35 @@ appBase.get('/sourceRecordTitles/:name/', function (req, res){
  * returns an object with the entities and the number of the records for each one
  * or for a single entity
  */
-appBase.get('/numberOfrecords/:name', function(req, res){
+appBase.get('/numberOfrecords/:name', async (req, res) =>{
   var record = req.params.name;
   var myarray = [];
 
-    var config = getConfig(req.params.name);
+    var config = await getConfig(req.params.name);
     if(config.length == 0 && record !='all'){
       res.status(404).send('Page not found');
       // res.send(config);
     }else{
-      myarray = fs.readdirSync(path)
-      .map(name => {
-        var dir = path + name;
-        var len = fs.readdirSync(dir);
-        var record = templates.find(obj => obj.name == name.replAll('_', ' '));
-        record.count = len.length;
-        return record;
-      });
-      if(record!='all')
-        myarray = myarray.filter(obj => obj.name == record);
-      
-      // myarray.forEach(obj => { delete obj.configuration });
-      res.send(JSON.stringify(myarray));
-    }
+      getRecordNamesAsync().then(list=>{
+        myarray = list.map(source =>{
+          // console.log(source)
+          var record = templates.find(obj => obj.name == source.name.replAll('_', ' '));
+          record.count = source.count;
+          return record;
+        });
+        if(record!='all')
+          myarray = myarray.filter(obj => obj.name == record);
 
+        res.send(JSON.stringify(myarray));
+      })
+    }
 })
 
 
 /**
  * returns data for a table of for a record or fo an entity
  */
-appBase.get('/tableData', function (req, res) {
+appBase.get('/tableData', async(req, res) => {
   var source = req.query.source;
   var tableName = req.query.tableName;
   var id = req.query.id;
@@ -319,19 +322,19 @@ appBase.get('/tableData', function (req, res) {
     }
     // console.log(query);
     if(id == null && Object.keys(query).length == 2){
-        myarray = handleSingleTable(source,tableName);
+        // console.log('geia')
+        myarray = await handleSingleTable(source,tableName);
     }else if(id == null && Object.keys(query).length > 2){
         delete query['source'];
         delete query['tableName'];
         if(req.query.recordId != null){
-          myarray = handleSingleTable(source,tableName,true,true, recordId);
+          myarray = await handleSingleTable(source,tableName,true,true, recordId);
         }else{
-          myarray = handleSingleTable(source,tableName,true,true);
+          myarray = await handleSingleTable(source,tableName,true,true);
         }
-        myarray = handleQueryTables(source,tableName,query,myarray);
-
+        myarray = await handleQueryTables(source,tableName,query,myarray);
     }else{
-        myarray = handleRecordTables(source,id);
+      myarray = await handleRecordTables(source,id);
     }
     // console.log(myarray);
     filterData(myarray);
@@ -346,7 +349,7 @@ appBase.get('/tableData', function (req, res) {
  * @param {object[]} myarray 
  * @returns returns the linked tables that needs to be shown for the query
  */
-function handleQueryTables(source,tableName,query,myarray){
+async function handleQueryTables(source,tableName,query,myarray){
   // console.log(myarray);
 
   for (const key in query) {
@@ -388,7 +391,8 @@ function handleQueryTables(source,tableName,query,myarray){
   
   // console.dir(elem, {depth:null});
   // console.log(elem);
-  return getlinkedTables(elem,source,tableName);
+  var result = await getlinkedTables(elem,source,tableName);
+  return result;
 }
 
 /**
@@ -407,6 +411,7 @@ function removeDuplicateLinks(elem){
   }
   return elem;
 }
+
 function mergeDuplicateIdsForLinks(elem){
   // console.log(elem)
   var idArray = elem['ids'];
@@ -427,13 +432,14 @@ function mergeDuplicateIdsForLinks(elem){
   delete elem['ids'];
   return elem;
 }
+
 /**
  * Turns links to tables
  * @param {object} elem 
  * @param {string} source 
  * @returns object with the linked tables
  */
-function getlinkedTables(elem, source){
+async function getlinkedTables(elem, source){
   var linkArray = [];
 
   // console.log(elem)
@@ -444,7 +450,7 @@ function getlinkedTables(elem, source){
         // console.log(element)
         element.forEach(obj => linkArray.push(obj.Id));          
         
-        var newtable = element.map(table=>{
+        var newtable = await Promise.all(element.map(async(table)=>{
           // if(elem['value-type'] == 'nested-list'){
             // console.dir('lala');
           //   console.dir(table.Id);
@@ -453,7 +459,7 @@ function getlinkedTables(elem, source){
             // console.log(table);
           //   // console.log(table[0])
           // }
-          var dataFromLinksArray = handleLinks(table,source);
+          var dataFromLinksArray = await handleLinks(table,source);
           // console.log('lala')
           // console.log(dataFromLinksArray)
           // }
@@ -467,7 +473,7 @@ function getlinkedTables(elem, source){
             return Object.values(dataFromLinksArray);
           }
 
-        });
+        }));
         
         newtable = [].concat(...newtable); // make 2d array to 1d array
         
@@ -479,7 +485,7 @@ function getlinkedTables(elem, source){
       }else{
         linkArray.push(element.Id);
         // console.log('lala1')
-        var dataFromLinksArray = handleLinks(element,source);
+        var dataFromLinksArray = await handleLinks(element,source);
         // console.log(lala)
         elem[key] = removeDuplicates(Object.values(dataFromLinksArray));
       }
@@ -492,11 +498,11 @@ function getlinkedTables(elem, source){
     return linkArray.indexOf(item) == pos;
   })
   
-  var IdsWithTitles = [];
-  linkArray.forEach(id=>{
-    var record = getTitleOfId(source,id);
-    IdsWithTitles.push({'id':record.id,'title':record.title});
-  })
+  var IdsWithTitles = await Promise.all(linkArray.map(async(id)=>{
+    var record = await getTitleOfId(source,id);
+    // console.log(record)
+    return {'id':record.id,'title':record.title};
+  }))
 
   var recordTemplate = templates.find(obj => obj.name == source);
 
@@ -507,6 +513,7 @@ function getlinkedTables(elem, source){
   return elem;
 }
 
+
 /**
  * Gets the tables form the links
  * @param {*} table 
@@ -515,14 +522,14 @@ function getlinkedTables(elem, source){
  * @param {*} source 
  * @returns 
  */
-function handleLinks(table, source) {
+async function handleLinks(table, source) {
   // console.log(table.Id)
   // if(table.Id == undefined) return [];
   var temp;
   if (table.listLink == true)
-    temp = handleRecordTables(source, table.Id, false, true);
+    temp = await handleRecordTables(source, table.Id, false, true);
   else
-    temp = handleRecordTables(source, table.Id);
+    temp = await handleRecordTables(source, table.Id);
 
   // console.dir(temp.data);
   // console.dir(table, { depth: null });
@@ -596,15 +603,13 @@ function handleLinks(table, source) {
   return dataFromLinksArray;
 }
 
-function handleRecordTables(source,id, remv = true, nestedlink = false){
+async function handleRecordTables(source,id, remv = true, nestedlink = false){
   var myarray = [];
   var fullpath = path + source.replAll(' ', '_');
-  var config = getConfig(source);
-  
-  myarray = getRecordWithId(fullpath, id);
-  // console.log(myarray)
-  // console.log(id)
-  var obj = getTitlesofRecords(myarray,source);
+  var config = await getConfig(source);
+
+  myarray = await getRecordWithIdAsync(fullpath, id);
+  var obj = await getTitlesofRecords(myarray,source);
   obj = obj[0];
   var data = [];
   for (const tablename in config) {
@@ -619,13 +624,13 @@ function handleRecordTables(source,id, remv = true, nestedlink = false){
   return obj;
 }
 
-function getTitleOfId(source,id){
+async function getTitleOfId(source,id){
   var myarray = [];
   var fullpath = path + source.replAll(' ', '_');
   
-  myarray = getRecordWithId(fullpath, id);
+  myarray = await getRecordWithIdAsync(fullpath, id);
   
-  var obj = getTitlesofRecords(myarray,source);
+  var obj = await getTitlesofRecords(myarray,source);
   return obj[0];
 }
 
@@ -637,26 +642,32 @@ function getTitleOfId(source,id){
  * @param {*} tableName 
  * @returns raw data for one table of an entity
  */
-function handleSingleTable(source,tableName,remv=true,nestedlink=false, id = null){
+async function handleSingleTable(source,tableName,remv=true,nestedlink=false, id = null){
   var myarray = [];
   var fullpath = path + source.replAll(' ', '_');
-  var config = getConfigEntity(source,tableName);
+  var config = await getConfigEntity(source,tableName);
   var data;
   if(id!= null){
-    myarray = getRecordWithId(fullpath, id);
+    // console.log('myarray')
+    // myarray = getRecordWithId(fullpath, id);
+    myarray = await getRecordWithIdAsync(fullpath, id);
+    // console.log(myarray)
     data = formatObject(myarray, config, remv, nestedlink);
+    return data;
   }else{
     if(source == 'Employment records, Shipyards of Messageries Maritimes, La Ciotat' && tableName == 'Workers' && CacheExists('messageriesmaritimes_workers') && remv == true && nestedlink == false){
-      data = getCachedList('messageriesmaritimes_workers');    
+      return getCachedList('messageriesmaritimes_workers');    
     }else{
-      myarray = getRecordFiles(fullpath);
-      data = formatObject(myarray, config, remv, nestedlink);
-      if(source == 'Employment records, Shipyards of Messageries Maritimes, La Ciotat' && tableName == 'Workers' && remv == true && nestedlink == false){
-        saveToCache('messageriesmaritimes_workers',data);
-      }
+      return getRecordFilesAsync(fullpath).then(myarray =>{
+        data = formatObject(myarray, config, remv, nestedlink);
+        if(source == 'Employment records, Shipyards of Messageries Maritimes, La Ciotat' && tableName == 'Workers' && remv == true && nestedlink == false){
+          saveToCache('messageriesmaritimes_workers',data);
+        }
+        return data;
+      })
     }
   }  
-  return data;
+  // return data;
 }
 
 /**
@@ -676,6 +687,45 @@ function getRecordFiles(fullpath){
    return myarray;
 }
 
+/**
+ * Returns all the records from an entity
+ * @param {string} fullpath File path of the entity's location  
+ * @returns {object[]} Array with raw records in json format 
+ */
+function getRecordFilesAsync(fullpath){
+
+  const readDirPr = new Promise( (resolve, reject) => {
+    fs.readdir(fullpath, 
+      (err, filenames) => (err) ? reject(err) : resolve(filenames))
+    });
+
+  return readDirPr.then( filenames => Promise.all(filenames.map((filename) => {
+    return new Promise ( (resolve, reject) => {
+      fs.readFile(fullpath +'/'+ filename, 'utf-8',
+        (err, content) => (err) ? reject(err) : resolve(JSON.parse(content.trim())));
+    })
+  })).catch( error => Promise.reject(error)))
+    
+    // return myarray;
+}
+
+function getRecordNamesAsync(){
+
+  const readDirPr = new Promise( (resolve, reject) => {
+    fs.readdir(path, 
+      (err, foldernames) => (err) ? reject(err) : resolve(foldernames))
+  });
+
+  return readDirPr.then( foldernames => Promise.all(foldernames.map((foldername) => {
+    return new Promise ( (resolve, reject) => {
+      fs.readdir(path + foldername,
+        (err, content) => (err) ? reject(err) : resolve({ name: foldername, 'count':content.length}));
+    })
+  })).catch( error => Promise.reject(error)))
+    
+    // return myarray;
+}
+
 function getRecordWithId(fullpath, id){
    var myarray = [];
    fs.readdirSync(fullpath)
@@ -689,9 +739,16 @@ function getRecordWithId(fullpath, id){
    return myarray;
 }
 
-function getConfigEntity(recordName,entity){
+async function getRecordWithIdAsync(fullpath, id){
+  return getRecordFilesAsync(fullpath).then(data =>{
+    // console.log(data.docs[0])
+    return data.filter(record=> record.docs[0]._id == id);
+  })
+}
+
+async function getConfigEntity(recordName,entity){
    var record = templates.find(obj => obj.name == recordName);
-   var config = fs.readFileSync('./ConfigFiles/'+record.configuration, 'utf8');
+   var config = await fs.promises.readFile('./ConfigFiles/'+record.configuration, 'utf8');
    config = JSON.parse(config);
    config = _.get(config,record.name)
    config = _.get(config, entity)
@@ -704,19 +761,20 @@ function getConfigEntity(recordName,entity){
  * @param {string} recordName The name of the entity 
  * @returns {object}  The configuration file of an entity 
  */
-function getConfig(recordName) {
+async function getConfig(recordName) {
   var record = templates.find(obj => obj.name == recordName);
   if (record == undefined) return [];
 
-  var config = fs.readFileSync('./ConfigFiles/' + record.configuration, 'utf8');
-  config = JSON.parse(config);
+  var config = await fs.promises.readFile('./ConfigFiles/' + record.configuration, 'utf8');
+  // console.log(config)
+  config = JSON.parse(config.trim());
   config = _.get(config, record.name);
   return config;
 }
 
-function getConfigTitle(recordName){
+ async function getConfigTitle(recordName){
   var record = templates.find(obj => obj.name == recordName);
-  var config = fs.readFileSync('./ConfigFiles/'+record.configuration, 'utf8');
+  var config = await fs.promises.readFile('./ConfigFiles/'+record.configuration, 'utf8');
   config = JSON.parse(config);
   config = _.get(config,'Title');
   return config;
@@ -728,8 +786,8 @@ function getConfigTitle(recordName){
  * @param {string} name name of the entity
  * @returns return the title for each record 
  */
-function getTitlesofRecords(myarray, name){
-   var titleConfig = getConfigTitle(name);
+ async function getTitlesofRecords(myarray, name){
+   var titleConfig = await getConfigTitle(name);
    var titlearray = [];
    return myarray.map(record =>{
       titlearray = titleConfig.map(path =>{
@@ -1236,13 +1294,13 @@ function CacheExists(fileName){
   return fileExists
 }
 
-function getCachedList(fileName){
-  var list = fs.readFileSync('./Cache/'+fileName+'.json', 'utf8');
+async function getCachedList(fileName){
+  var list = await fs.promises.readFile('./Cache/'+fileName+'.json', 'utf8');
   list = JSON.parse(list);
   return list;
 }
 
-function saveToCache(fileName,count){
+async function saveToCache(fileName,count){
   let data = JSON.stringify(count);
   fs.writeFile('./Cache/'+fileName+'.json', data, (err) => {
       if (err) throw err;
