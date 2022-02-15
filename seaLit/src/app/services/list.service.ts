@@ -10,9 +10,9 @@ const CACHE_KEY = 'httpCacheKey';
   providedIn: 'root'
 })
 export class ListService {
-  
+
   Titles: any[] = [];
-  Ip: string = '192.168.1.3'; // 'catalogues.sealitproject.eu'
+  Ip: string = '192.168.1.46'; // 'catalogues.sealitproject.eu'
   port: string = ':8081';
   apiName: string = '/sealit-api';
   protocol: string = 'http://';
@@ -35,8 +35,8 @@ export class ListService {
     'Days',
     'Total Crew Number (Captain Included)',
     'Date of Birth (Year)', // Employment records, Shipyards of Messageries Maritimes, La Ciotat
-    'Tonnage', 
-    'Tonnage (Value)', 
+    'Tonnage',
+    'Tonnage (Value)',
     'Year of Reagistry',
     'Year of Constraction',
     'Nominal Power',
@@ -68,7 +68,7 @@ export class ListService {
     'Date (To)',
     // 'Navigation: From',
     // 'Navigation: To',
-    'Date of Death', 
+    'Date of Death',
     'Date of Birth', // Inscription Maritime - Maritime Register of the State for La Ciotat, Payroll of Russian Steam Navigation and Trading Company, Sailors register (Libro de registro de marineros)
     // 'Duration (From)',
     // 'Duration (To)',
@@ -98,7 +98,7 @@ export class ListService {
 
   getSourceList(source: string): Observable<any>{
     return this.http.get(this.api+'/sourceRecordList?'+'source='+source)
- 
+
   }
 
   getTitlesofSourceRecords(title: string): Observable<any>{
@@ -146,7 +146,7 @@ export class ListService {
     }
     return csvData.join('\n');
   }
-  
+
     getTitles(temp: any): string[]{
       var titles: string[] = [];
       // console.log(temp)
@@ -157,9 +157,9 @@ export class ListService {
       return titles;
     }
 
-    arrayRemove(arr: string[], value: string): string[] { 
-      return arr.filter(function(ele){ 
-          return ele != value; 
+    arrayRemove(arr: string[], value: string): string[] {
+      return arr.filter(function(ele){
+          return ele != value;
       });
     }
 
@@ -197,10 +197,10 @@ export class ListService {
         counts[c] = counts[c] ? ++counts[c] : 1;
       }
       const orderedcount = Object.keys(counts).sort().reduce(
-        (obj:{[key: string]: number}, key) => { 
-          obj[key] = counts[key]; 
+        (obj:{[key: string]: number}, key) => {
+          obj[key] = counts[key];
           return obj;
-        }, 
+        },
         {}
       );
 

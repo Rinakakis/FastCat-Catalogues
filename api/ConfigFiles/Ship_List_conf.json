@@ -58,7 +58,7 @@
                 "Id": "docs[0]._id"
             }
         },
-        "Construction Places": {
+        "Ship Construction Places": {
             "value-type":"list",
             "Place of Constraction": {
                 "path": "docs[0].data.list_of_ships.#.place_of_constraction"

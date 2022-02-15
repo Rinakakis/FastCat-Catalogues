@@ -11,7 +11,7 @@
       target="_blank" rel="noopener"
       >(FastCat Record)</a></h3>
       <div class="record-details">
-      
+
         <div class="type">
           <ul class="record-columns">
             <li *ngFor="let record of recordDataTitles; index as i;">
@@ -21,7 +21,7 @@
             </li>
           </ul>
         </div>
-    
+
     </div>
   </div>
   <div class="d-flex justify-content-center">
@@ -39,12 +39,12 @@
           <mat-menu #columns="matMenu">
             <button *ngFor="let column of columnTitles" mat-menu-item (click)="calculateStats(rowData,column)">{{column}}</button>
           </mat-menu>
-        </div>   
+        </div>
         <div class="download-div">
           <button class="download-but" mat-button color="success" title="Download CSV file" (click)="onBtnExport(rowData)"><mat-icon id="downicon">download</mat-icon></button>
-        </div>  
+        </div>
     </div>
-    <ag-grid-angular
+    <ag-grid-angular oncontextmenu="return false;"
     [style]="tableHeight"
     class="ag-theme-alpine"
     [rowData]="rowData"
@@ -58,7 +58,7 @@
   </div>
 
   <div style="display: block;" *ngIf="chartOption">
-    <canvas baseChart 
+    <canvas baseChart
       id = "chart"
       [data]="barChartData"
       [options]="barChartOptions"

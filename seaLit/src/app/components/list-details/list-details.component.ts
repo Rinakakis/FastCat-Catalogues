@@ -42,12 +42,12 @@ export class ListDetailsComponent implements OnInit {
   errorMessage: string = '';
   keysList: any[] = [];
   recordTitlesWithId: any[] = [];
-  
+
   gridApi: any;
   gridColumnApi: any;
   tableHeight: string = '';
-  
-  
+
+
   barChartOptions: ChartConfiguration['options'] = {
     responsive: true,
     plugins: {
@@ -76,7 +76,7 @@ export class ListDetailsComponent implements OnInit {
         backgroundColor:'#5294D0',
         hoverBackgroundColor:'#3B678E',
         borderColor: '#3B678E'
-        
+
       }
     ]
   };
@@ -100,7 +100,7 @@ export class ListDetailsComponent implements OnInit {
   ngOnInit(): void {
     document.body.scrollTop = 0;
     document.documentElement.scrollTop = 0;
-    
+
     Chart.register(zoomPlugin);
     const name = String(this.route.snapshot.paramMap.get('source'));
     this.listservice.getSourceList(name).subscribe(list => {
@@ -123,8 +123,8 @@ export class ListDetailsComponent implements OnInit {
 
     this.listservice.getNameOfSource(name).subscribe(list => this.initTitle(list));
     this.listservice.getTitlesofSourceRecords(name).subscribe(list => this.initRecordDropdown(list));
-    
-  
+
+
   }
 
   hideloader(id: string) {
@@ -135,7 +135,7 @@ export class ListDetailsComponent implements OnInit {
     // console.log(list)
     this.title = String(list[0].name) + ' ('+list[0].count +' records)';
     this.titleService.setTitle('SeaLit - '+ this.title);
-    
+
   }
 
   initRecordDropdown(list: any) {
@@ -171,7 +171,7 @@ export class ListDetailsComponent implements OnInit {
     var source = String(this.route.snapshot.paramMap.get('source'));
     var data = event.data;
     var entity = this.TableName.replace('/','-');
-    
+
     for (const key in data) {
       if(isObject(data[key]) || key=='value-type' || key =='listLength')
           delete data[key];
@@ -187,7 +187,7 @@ export class ListDetailsComponent implements OnInit {
 
   displaytable(tableName:string): void{
     // console.log(entity);
-    
+
     const source = String(this.route.snapshot.paramMap.get('source'));
     if(this.chartOption){
       this.chartOption = !this.chartOption;
@@ -226,7 +226,7 @@ export class ListDetailsComponent implements OnInit {
           return {'field': val, 'sortable': true, filter: 'agDateColumnFilter', filterParams: dateFilter,comparator: dateComparator, tooltipField: val};
         else
           return {'field': val, 'sortable': true, 'filter': true, tooltipField: val};
-        
+
     });
 
     // console.log(titleFormat);
@@ -254,10 +254,10 @@ export class ListDetailsComponent implements OnInit {
     saveAs(blob, "export.csv");
   }
 
-  calculateStats(rowdata: any, column: string | number){ 
+  calculateStats(rowdata: any, column: string | number){
     if(String(column) != this.barChartData.datasets[0].label){
       // console.log('bmhka')
-      
+
       this.chart?.chart?.resetZoom();
       var values = rowdata.map((elem: { [x: string]: any; })=> elem[column]);
 
@@ -267,7 +267,7 @@ export class ListDetailsComponent implements OnInit {
       this.barChartData.datasets[0].label = String(column);
       if(!this.chartOption)
         this.chartOption = !this.chartOption;
-      
+
         this.chart?.update();
     }else{
       this.chartOption = !this.chartOption;
@@ -316,7 +316,7 @@ var dateFilter = {
         month = Number(dateParts[1]) - 1;
         year = Number(dateParts[2]);
       }
-    }  
+    }
     const cellDate = new Date(year, month, day);
     // console.log(cellDate)
     // Now that both parameters are Date objects, we can compare
@@ -371,7 +371,7 @@ function _monthToNum(date: string | number) {
       month = Number(dateParts[1]);
       year = Number(dateParts[2]);
     }
-  }  
+  }
 
   var result = year * 10000 + month * 100 + day;
   // 29/08/2004 => 20040829
@@ -392,7 +392,7 @@ var numberFilter = {
 
 var numberValueFormatter = function (params: { value: string; }) {
   if (params.value == 'None or Unfilled') return params.value
-  
+
   if(typeof params.value == 'string') return parseFloat(params.value.replace(',', '.'));
   else return params.value;
 };
