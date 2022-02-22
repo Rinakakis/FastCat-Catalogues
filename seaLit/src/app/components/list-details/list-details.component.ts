@@ -143,7 +143,7 @@ export class ListDetailsComponent implements OnInit {
     // this.listservice.Ids = list.map((elem: any)=> elem.id);
     this.recordTitlesWithId = list;
     this.recordList = this.listservice.Titles.sort();
-    this.showform = true;
+    // this.showform = true;
   }
 
   initList(list: any): void {

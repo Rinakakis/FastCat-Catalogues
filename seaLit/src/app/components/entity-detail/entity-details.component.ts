@@ -41,7 +41,7 @@ export class EntityDetailsComponent implements OnInit {
   fileUrl: any;
   visibleId: string[] = [];
   tableHeights: string[] = [];
-  
+
   chartOption: boolean[] = [];
   charts: Chart[] = [];
 
@@ -65,7 +65,7 @@ export class EntityDetailsComponent implements OnInit {
   barChartType: ChartType = 'bar';
   barChartLegend = true;
   barChartPlugins = [];
-  barChartDataArray: ChartData<'bar'>[] = []; 
+  barChartDataArray: ChartData<'bar'>[] = [];
   barChartData: ChartData<'bar'> = {
     labels: [],
     datasets: [
@@ -74,7 +74,7 @@ export class EntityDetailsComponent implements OnInit {
         backgroundColor:'#5294D0',
         hoverBackgroundColor:'#3B678E',
         borderColor: '#3B678E'
-        
+
       }
     ]
   };
@@ -144,11 +144,10 @@ export class EntityDetailsComponent implements OnInit {
     var entity = event.colDef.colId;
 
     for (const key in data) {
-      if(key=='value-type' || key =='listLength' || key == 'display' || ((key == 'Embarkation Date' || key == 'Ship\'s Name') && (table=='Crew Members'|| table== 'Crew Members and Embarkation Dates')) 
+      if(key=='value-type' || key =='listLength' || key == 'display' || ((key == 'Embarkation Date' || key == 'Ship\'s Name') && (table=='Crew Members'|| table== 'Crew Members and Embarkation Dates'))
         || ((key == 'Discharge Date' || key == 'Ship\'s Name') && (table=='Crew Members'|| table== 'Crew Members and Discharge Dates'))  )
           delete data[key];
     }
-    console.log(id)
     if(id != 'null'){
       data.recordId = id;
     }
@@ -189,7 +188,7 @@ export class EntityDetailsComponent implements OnInit {
       this.title = params.name.slice(0, -1);
     else
       this.title = params.name;
-    
+
     if(id!= 'null'){
       this.recordTitle = record["FastCat Records"].data[0].title;
       this.titleService.setTitle('SeaLit - '+this.sourceName+': '+this.recordTitle+ ': ' + this.title);
@@ -200,7 +199,7 @@ export class EntityDetailsComponent implements OnInit {
       this.recordTitle = this.title;
       this.titleService.setTitle('SeaLit - '+this.sourceName+': '+ this.title);
     }
-    
+
     for (const key in record) {
       var element = record[key];
       if(isObjectLike(element)){
@@ -284,12 +283,12 @@ export class EntityDetailsComponent implements OnInit {
     }
   }
 
-  calculateStats(rowdata: any, column: string | number, index: number){ 
+  calculateStats(rowdata: any, column: string | number, index: number){
     if(String(column) != this.barChartDataArray[index].datasets[0].label){
       var chart =  Chart.getChart("chart"+index);
       chart?.resetZoom();
       // console.log('bmhka')
-      
+
       var values = rowdata.map((elem: { [x: string]: any; })=> elem[column]);
       var stats = this.listservice.calculateStats(values);
 
@@ -331,7 +330,7 @@ export class EntityDetailsComponent implements OnInit {
     var blob = new Blob([csvData], {type: 'text/csv' });
     saveAs(blob, "export.csv");
   }
-  
+
 
 }
 
@@ -359,7 +358,7 @@ var dateFilter = {
         month = Number(dateParts[1]) - 1;
         year = Number(dateParts[2]);
       }
-    }  
+    }
     const cellDate = new Date(year, month, day);
     // console.log(cellDate)
     // Now that both parameters are Date objects, we can compare
@@ -414,7 +413,7 @@ function _monthToNum(date: string | number) {
       month = Number(dateParts[1]);
       year = Number(dateParts[2]);
     }
-  }  
+  }
 
   var result = year * 10000 + month * 100 + day;
   // 29/08/2004 => 20040829
@@ -435,7 +434,7 @@ var numberFilter = {
 
 var numberValueFormatter = function (params: { value: string; }) {
   if (params.value == 'None or Unfilled') return params.value
-  
+
   if(typeof params.value == 'string') return parseFloat(params.value.replace(',', '.'));
   else return params.value;
 };

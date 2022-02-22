@@ -51,17 +51,18 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     width: 120px;
     height: 120px;
     animation: spin 2s linear infinite;
-    
+
   }
 
-  
+
   .title-download-div{
-    height: 40px;
-    display: flex;             
+    height: max-content;
+    /* height: 40px; */
+    display: flex;
     background-color: #3B678E;
     padding: 0;
   }
-  
+
   .chart-but{
     background-color: #366288;
     color: #F0F0F0;
@@ -73,7 +74,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     background-color: #366288;
     color: #F0F0F0;
     margin: 0px;
-    padding: 5px 18px 0px 0; 
+    padding: 5px 18px 0px 0;
     text-align: center;
   }
   .title-div{
@@ -88,7 +89,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   .table{
     margin-top: 20px;
   }
-  
+
   .table-title{
     /* background-color: #366288; */
     cursor: pointer;
@@ -99,7 +100,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     text-decoration: underline;
     background-color: #366288;
   }
-  
+
   .mat-success {
     background-color: #366288;
     /* color: #fff; */
@@ -115,7 +116,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
       opacity: 1;
       transform-origin: top;
     }
-    
+
     100% {
       opacity: 0;
       transform-origin: top;
@@ -123,20 +124,20 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
       /* display: none; */
     }
   }
-  
+
   @keyframes show {
     0% {
       opacity: 0;
       height: 0px;
       transform-origin: top;
     }
-    
+
     100% {
       transform-origin: bottom;
       opacity: 1;
     }
   }
-  
+
   @keyframes spin {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
