@@ -74,7 +74,6 @@ export class EntityDetailsComponent implements OnInit {
         backgroundColor:'#5294D0',
         hoverBackgroundColor:'#3B678E',
         borderColor: '#3B678E'
-
       }
     ]
   };
@@ -105,7 +104,7 @@ export class EntityDetailsComponent implements OnInit {
         this.isEmploymentWorkers = false;
 
       }
-      // console.log(list);
+      console.log(list);
       this.displaydata(params,list);
     });
   }

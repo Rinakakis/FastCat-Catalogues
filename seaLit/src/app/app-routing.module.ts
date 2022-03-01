@@ -8,11 +8,13 @@ import { TermsOfUseComponent } from './components/terms-of-use/terms-of-use.comp
 import { PrivacyPolicyComponent } from './components/privacy-policy/privacy-policy.component';
 import { AboutComponent } from './components/about/about.component';
 import { ExploreAllComponent } from './components/explore-all/explore-all.component';
+import { ExploreAllDetailComponent } from './explore-all-detail/explore-all-detail.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/sources', pathMatch: 'full' },
   { path: 'sources', component: ListComponent },
   { path: 'explore-all', component: ExploreAllComponent },
+  { path: 'explore-all/:name', component: ExploreAllDetailComponent },
   { path: 'sources/:source', component: ListDetailsComponent },
   { path: 'sources/:source/table/:name', component: EntityDetailsComponent },
   { path: 'sources/:source/:id/table/:name', component: EntityDetailsComponent },

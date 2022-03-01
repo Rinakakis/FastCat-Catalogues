@@ -215,8 +215,15 @@ async function handleExploreAll(name){
   }
 
   config  = await getConfigEntity(null, name);
-  for (const source of Object.keys(config)) {
+  // return config['sub'];
+  if(Object.keys(config).length == 1 && Object.keys(config).join() == 'sub'){
+    config = config['sub'];
+    // console.log(config)
+  }
+  for (const source of Object.keys(config)){
     var tableName = Object.keys(config[source]).join();
+    console.log(source)
+    console.log(tableName)
     var myarray = await handleSingleTable(source, tableName);
     filterData(myarray);
     config[source] = myarray; 
@@ -646,16 +653,20 @@ async function handleSourceRecordList(source) {
 async function getConfigEntity(recordName, entity) {
   var record = {};
   if (recordName == null)
-    record.configuration = 'explore_all.json';
+    record.configuration = 'explore_all_conf.json';
   else
     record = templates.find(obj => obj.name == recordName);
-
+  // console.log(record)
   var config = await fs.promises.readFile('./ConfigFiles/' + record.configuration, 'utf8');
   config = JSON.parse(config);
+
   if (recordName != null)
     config = get(config, record.name);
 
   config = get(config, entity);
+  // if(config == undefined && recordName == null)
+  //   config = get(config, entity);
+
   return config;
 }
   
