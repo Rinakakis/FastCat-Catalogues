@@ -1,685 +1,165 @@
 {
     "Ships": {
         "Accounts book": {
-            "Ships": {
-                "Name": {
-                    "path": "docs[0].data.ship_records.ship_name"
-                },
-                "Type": {
-                    "path": "docs[0].data.ship_records.ship_type"
-                }
-            }
+            "Ships": {}
         },
-        "General Spanish Crew List":{
-            "Ships": {
-                "Name": {
-                    "path": "docs[0].data.ship_records.ship_name"
-                },
-                "Type": {
-                    "path": "docs[0].data.ship_records.ship_type"
-                },
-                "Tonnage": {
-                    "path": "docs[0].data.ship_records.ship_tonnage"
-                },
-                "Registry Port": {
-                    "path": "docs[0].data.ship_records.registry_port"
-                }
-            }
+        "General Spanish Crew List": {
+            "Ships": {}
         },
         "Crew and displacement list (Roll)": {
-            "Ships": {
-                "Name": {
-                    "path": "docs[0].data.ship_records.ship_name"
-                },
-                "Type": {
-                    "path": "docs[0].data.ship_records.ship_type"
-                },
-                "Construction Location": {
-                    "path": "docs[0].data.ship_records.construction_location_country"
-                },
-                "Construction Date": {
-                    "path": "docs[0].data.ship_records.construction_location_date"
-                },
-                "Registry Location": {
-                    "path": "docs[0].data.ship_records.registration_location"
-                },
-                "Registry Folio": {
-                    "path": "docs[0].data.ship_records.registration_folio"
-                },
-                "Registry List": {
-                    "path": "docs[0].data.ship_records.registration_list"
-                }
-            }
+            "Ships": {}
         },
         "Crew List (Ruoli di Equipaggio)": {
-            "Ships": {
-               "Name": {
-                  "path": "docs[0].data.ship_records.ship_name"
-               },
-               "Type": {
-                  "path": "docs[0].data.ship_records.ship_type"
-               },
-               "Construction Location": {
-                  "path": "docs[0].data.ship_records.construction_location"
-               },
-               "Construction Date": {
-                  "path": "docs[0].data.ship_records.construction_location_date"
-               },
-               "Registry Number": {
-                  "path": "docs[0].data.ship_records.registry_number"
-               },
-               "Registry Port": {
-                  "path": "docs[0].data.ship_records.registry_port"
-               }
-            }
+            "Ships": {}
         },
         "Inscription Maritime - Maritime Register of the State for La Ciotat": {
-            "Ships": {
-                "value-type": "nested-list",
-                "Name": {
-                    "path": "docs[0].data.service_analysis.#.ship_name"
-                },
-                "Type": {
-                    "path": "docs[0].data.service_analysis.#.ship_type"
-                },
-                "Navigation Type": {
-                    "path": "docs[0].data.service_analysis.#.navigation_type"
-                }
-            }
+            "Ships": {}
         },
-        "Logbook":{
-            "Ships": {
-                "Ship Name": {
-                    "path": "docs[0].data.ship_records.ship_name"
-                },
-                "Ship Type": {
-                    "path": "docs[0].data.ship_records.ship_type"
-                },
-                "Telegraphic Code": {
-                    "path": "docs[0].data.ship_records.telegraphic_code"
-                },
-                "Tonnage": {
-                    "path": "docs[0].data.ship_records.tonnage"
-                }
-            }
+        "Logbook": {
+            "Ships": {}
         },
-        "Register of Maritime workers (Matricole della gente di mare)":{
-            "Ships": {
-                "value-type": "nested-list",
-                "Name": {
-                    "path": "docs[0].data.displacement_list.#.displacement_ship_name"
-                },
-                "Type": {
-                    "path": "docs[0].data.displacement_list.#.displacement_ship_type"
-                },
-                "Registration Number": {
-                    "path": "docs[0].data.displacement_list.#.displacement_registration_number"
-                }
-            }
+        "Register of Maritime workers (Matricole della gente di mare)": {
+            "Ships": {}
         },
-        "Notarial Deeds":{
-            "Ships": {
-                "value-type": "nested-list",
-                "Ship Name": {
-                    "path": "docs[0].data.contents_of_deed.#.ship_name"
-                },
-                "Ship Type": {
-                    "path": "docs[0].data.contents_of_deed.#.ship_type"
-                },
-                "Tonnage": {
-                    "path": "docs[0].data.contents_of_deed.#.ship_tonnage"
-                },
-                "Flag": {
-                    "path": "docs[0].data.contents_of_deed.#.ship_flag"
-                },
-                "Registry Number": {
-                    "path": "docs[0].data.contents_of_deed.#.ship_registry_number"
-                },
-                "Registry Location": {
-                    "path": "docs[0].data.contents_of_deed.#.ship_registry_location"
-                }
-            }
+        "Notarial Deeds": {
+            "Ships": {}
         },
-        "Payroll":{
-            "Ships": {
-                "Ship Name": {
-                    "path": "docs[0].data.ship_records.ship_name"
-                },
-                "Ship Type": {
-                    "path": "docs[0].data.ship_records.ship_type"
-                }
-            }
+        "Payroll": {
+            "Ships": {}
         },
-        "Payroll of Russian Steam Navigation and Trading Company":{
-            "Ships": {
-                "value-type": "list",
-                "Ship Name": {
-                    "path": "docs[0].data.payroll.#.payroll_ship_name"
-                },
-                "Owner (Company)": {
-                    "path": "docs[0].data.payroll.#.payroll_ship_owner"
-                }
-            }
+        "Payroll of Russian Steam Navigation and Trading Company": {
+            "Ships": {}
         },
-        "Naval Ship Register List":{
-            "Ships": {
-                "value-type": "list",
-                "Ship Name": {
-                    "path": "docs[0].data.list_of_ships.#.ship_name"
-                },
-                "Ship Type": {
-                    "path": "docs[0].data.list_of_ships.#.ship_type"
-                },
-                "Gross Tonnage (In Kg)": {
-                    "path": "docs[0].data.list_of_ships.#.gross_tonnage_normalization_in_kg"
-                },
-                "Length (In Meter)": {
-                    "path": "docs[0].data.list_of_ships.#.length_tonnage_normalization_in_meter"
-                },
-                "Construction Place": {
-                    "path": "docs[0].data.list_of_ships.#.construction_person_location"
-                }
-            }
+        "Naval Ship Register List": {
+            "Ships": {}
         },
-        "Seagoing Personel":{
-            "Ships": {
-                "value-type": "list",
-                "Name": {
-                    "path": "docs[0].data.employees_list.#.ship_name"
-                }
-            }
+        "Seagoing Personel": {
+            "Ships": {}
         },
-        "List of ships":{
-            "Ships": {
-                "value-type":"list",
-                "Ship Name": {
-                    "path": "docs[0].data.list_of_ships.#.ship_name"
-                },
-                "Previous Ship Name": {
-                    "path": "docs[0].data.list_of_ships.#.previous_ship_name"
-                },
-                "Ship Type": {
-                    "path": "docs[0].data.list_of_ships.#.ship_type"
-                },
-                "Port of Registry": {
-                    "path": "docs[0].data.list_of_ships.#.port_of_registry"
-                },
-                "Year of Registry": {
-                    "path": "docs[0].data.list_of_ships.#.year_of_registry"
-                },
-                "Place of Constraction": {
-                    "path": "docs[0].data.list_of_ships.#.place_of_constraction"
-                },
-                "Year of Constraction": {
-                    "path": "docs[0].data.list_of_ships.#.year_of_construction"
-                },
-                "Tonnage (Unit)": {
-                    "path": "docs[0].data.list_of_ships.#.tonnage_type"
-                },
-                "Tonnage (Value)": {
-                    "path": "docs[0].data.list_of_ships.#.tonnage_value"
-                },
-                "Place of Engine Construction": {
-                    "path": "docs[0].data.list_of_ships.#.place_of_engine_construction"
-                },
-                "Engine Manufacturer": {
-                    "path": "docs[0].data.list_of_ships.#.engine_manufacturer"
-                },
-                "Nominal Power": {
-                    "path": "docs[0].data.list_of_ships.#.nominant_power"
-                },
-                "Indicated Power": {
-                    "path": "docs[0].data.list_of_ships.#.indicated_power_power"
-                }
-            }
+        "List of ships": {
+            "Ships": {}
         }
     },
     "Persons": {
-        "Crew Members": {
-            "General Spanish Crew List":{
-                "Crew Members": {
-                    "value-type": "list",
-                    "Surname A": {
-                        "path": "docs[0].data.crew_list.#.crew_surname"
-                    },
-                    "Surname B": {
-                        "path": "docs[0].data.crew_list.#.crew_surname_b"
-                    },
-                    "Name": {
-                        "path": "docs[0].data.crew_list.#.crew_name"
-                    },
-                    "Age": {
-                        "path": "docs[0].data.crew_list.#.crew_age"
-                    },
-                    "Locations of Residence": {
-                        "path": "docs[0].data.crew_list.#.crew_birth_location"
-                    }
+        "sub": {
+            "Crew Members": {
+                "General Spanish Crew List": {
+                    "Crew Members": {}
+                },
+                "Crew and displacement list (Roll)": {
+                    "Crew Members": {}
+                },
+                "Crew List (Ruoli di Equipaggio)": {
+                    "Crew Members": {}
                 }
             },
-            "Crew and displacement list (Roll)": {
-                "Crew Members": {
-                    "value-type": "list",
-                    "Name": {
-                        "path": "docs[0].data.crew_list.#.crew_name"
-                    },
-                    "Surname A": {
-                        "path": "docs[0].data.crew_list.#.crew_surname_A"
-                    },
-                    "Surname B": {
-                        "path": "docs[0].data.crew_list.#.crew_surname_B"
-                    },
-                    "Father's Name": {
-                        "path": "docs[0].data.crew_list.#.crew_fathers_name"
-                    },
-                    "Locations of Birth": {
-                        "path": "docs[0].data.crew_list.#.crew_birth_location"
-                    },
-                    "Locations of Residence": {
-                        "path": "docs[0].data.crew_list.#.crew_residence_location"
-                    },
-                    "Age": {
-                        "path": "docs[0].data.crew_list.#.crew_age"
-                    }
+            "Captains": {
+                "Accounts book": {
+                    "Captains": {}
+                },
+                "Inscription Maritime - Maritime Register of the State for La Ciotat": {
+                    "Captains": {}
+                },
+                "Logbook": {
+                    "Captains": {}
+                },
+                "Register of Maritime workers (Matricole della gente di mare)": {
+                    "Captains": {}
+                },
+                "Payroll": {
+                    "Captains": {}
                 }
             },
-            "Crew List (Ruoli di Equipaggio)": {
-                "Crew Members": {
-                    "value-type": "list",
-                    "Surname": {
-                       "path": "docs[0].data.crew_list.#.crew_surname"
-                    },
-                    "Name": {
-                       "path": "docs[0].data.crew_list.#.crew_name"
-                    },
-                    "Location of Residence": {
-                       "path": "docs[0].data.crew_list.#.crew_birth_location"
-                    },
-                    "Birth Date (Year)": {
-                       "path": "docs[0].data.crew_list.#.crew_birth_date"
-                    },
-                    "Serial Number": {
-                       "path": "docs[0].data.crew_list.#.crew_serial_number"
-                    }
-                }
-            }
-            
-        },
-        "Captains": {
-            "Accounts book": {
-                "Captains": {
-                    "Captain's Name": {
-                        "path": "docs[0].data.ship_records.captain_name"
-                    },
-                    "Captain's Surename": {
-                        "path": "docs[0].data.ship_records.captain_surname"
-                    }
+            "Ship Owners": {
+                "Accounts book": {
+                    "Ship Owners (Persons)": {}
+                },
+                "General Spanish Crew List": {
+                    "Ship Owners": {}
+                },
+                "Crew and displacement list (Roll)": {
+                    "Ship Owners (Persons)": {}
+                },
+                "Crew List (Ruoli di Equipaggio)": {
+                    "Ship Owners": {}
+                },
+                "Logbook": {
+                    "Owners (Persons)": {}
+                },
+                "Payroll": {
+                    "Ship Owners (Persons)": {}
+                },
+                "Naval Ship Register List": {
+                    "Owners (Persons)": {}
+                },
+                "List of ships": {
+                    "Owners": {}
                 }
             },
-            "Inscription Maritime - Maritime Register of the State for La Ciotat": {
-                "Captains": {
-                    "value-type": "nested-list",
-                    "Name": {
-                        "path": "docs[0].data.service_analysis.#.captains_name"
-                    },
-                    "Surname": {
-                        "path": "docs[0].data.service_analysis.#.captains_surname"
-                    }
+            "Signed by": {
+                "Accounts book": {
+                    "Signed by Persons": {}
+                },
+                "Payroll": {
+                    "Signed By Persons": {}
                 }
             },
-            "Logbook":{
-                "Captains":{
-                    "Name": {
-                        "path": "docs[0].data.ship_records.captain_name"
-                    },
-                    "Surname": {
-                        "path": "docs[0].data.ship_records.captain_surname"
-                    }
+            "Works at": {
+                "Census La Ciotat": {
+                    "Persons (Works at)": {}
                 }
             },
-            "Register of Maritime workers (Matricole della gente di mare)":{
-                "Captains": {
-                    "value-type": "nested-list",
-                    "Name": {
-                        "path": "docs[0].data.displacement_list.#.displacement_captain_name"
-                    },
-                    "Surname": {
-                        "path": "docs[0].data.displacement_list.#.displacement_captain_surname"
-                    }
+            "Occupants": {
+                "Census La Ciotat": {
+                    "Occupants": {}
+                },
+                "First national all-Russian census of the Russian Empire": {
+                    "Occupants": {}
                 }
             },
-            "Payroll":{
-                "Captains": {
-                    "Captain's Name": {
-                        "path": "docs[0].data.ship_records.captain_name"
-                    },
-                    "Captain's Surename": {
-                        "path": "docs[0].data.ship_records.captain_surname"
-                    }
-                }
-            }
-        },
-        "Ship Owners": {
-            "Accounts book": {
-                "Ship Owners (Persons)": {
-                    "Name": {
-                        "path": "docs[0].data.ship_records.owner_name"
-                    },
-                    "Surname": {
-                        "path": "docs[0].data.ship_records.owner_surname"
-                    }
+            "Registered persons": {
+                "Inscription Maritime - Maritime Register of the State for La Ciotat": {
+                    "Registered Persons": {}
                 }
             },
-            "General Spanish Crew List":{
-                "Ship Owners": {
-                    "Name": {
-                        "path": "docs[0].data.ship_records.owner_name"
-                    }
+            "Transaction Suppliers": {
+                "Accounts book": {
+                    "Transaction Suppliers-Providers": {}
                 }
             },
-            "Crew and displacement list (Roll)": {
-                "Ship Owners (Persons)": {
-                    "Name": {
-                        "path": "docs[0].data.ship_records.owner_name"
-                    },
-                    "Surname A": {
-                        "path": "docs[0].data.ship_records.owner_surname_A"
-                    },
-                    "Residence": {
-                        "path": "docs[0].data.ship_records.owner_residence"
-                    }
+            "Transaction Mediators": {
+                "Accounts book": {
+                    "Transaction Mediators": {}
                 }
             },
-            "Crew List (Ruoli di Equipaggio)": {
-                "Ship Owners": {
-                    "Owner Name": {
-                       "path": "docs[0].data.ship_records.owner_name"
-                    },
-                    "Owner surname": {
-                       "path": "docs[0].data.ship_records.owner_surname"
-                    },
-                    "Owner Fathers Name": {
-                       "path": "docs[0].data.ship_records.owner_fathers_name"
-                    }
+            "Transaction Receivers": {
+                "Accounts book": {
+                    "Transaction Receivers": {}
                 }
-            },
-            "Logbook":{
-                "Owners (Persons)":{
-                    "Name": {
-                        "path": "docs[0].data.ship_records.owner_name"
-                    },
-                    "Surname": {
-                        "path": "docs[0].data.ship_records.owner_name"
-                    }
-                }
-            },
-            "Payroll":{
-                "Ship Owners (Persons)": {
-                    "Name": {
-                        "path": "docs[0].data.ship_records.owner_name"
-                    },
-                    "Surname": {
-                        "path": "docs[0].data.ship_records.owner_surname"
-                    }
-                }
-            },
-            "Naval Ship Register List":{
-                "Owners (Persons)":{
-                    "value-type": "list",
-                    "Name": {
-                        "path": "docs[0].data.list_of_ships.#.owner_person_name"
-                    },
-                    "Surname A": {
-                        "path": "docs[0].data.list_of_ships.#.owner_person_surname"
-                    },
-                    "Surname B": {
-                        "path": "docs[0].data.list_of_ships.#.owner_person_surname_1"
-                    },
-                    "Profession": {
-                        "path": "docs[0].data.list_of_ships.#.owner_person_profession"
-                    }
-                }
-            },
-            "List of ships":{
-                "Owners": {
-                    "value-type":"list",
-                    "Name": {
-                        "path": "docs[0].data.list_of_ships.#.owner_surname"
-                    },
-                    "Address": {
-                        "path": "docs[0].data.list_of_ships.#.owner_address"
-                    }
-                }
-            }
-
-        },
-        "Signed by": {
-            "Accounts book": {
-                "Signed by Persons": {
-                    "value-type": "list",
-                    "Name":{
-                        "path": "docs[0].data.voyages.#.signed_by_name"
-                    },
-                    "Surname":{
-                        "path": "docs[0].data.voyages.#.signed_by_surname"
-                    },
-                    "Grade":{
-                        "path": "docs[0].data.voyages.#.signed_by_grade"
-                    }
-                }
-            },
-            "Payroll": {
-                "Signed By Persons": {
-                    "value-type": "list",
-                    "Name": {
-                        "path": "docs[0].data.voyages.#.signed_by_name"
-                    },
-                    "Surname": {
-                        "path": "docs[0].data.voyages.#.signed_by_surname"
-                    },
-                    "Grade": {
-                        "path": "docs[0].data.voyages.#.signed_by_grade"
-                    }
-                }
-            }
-        },
-        "Works at": {
-            "Census La Ciotat": {
-                "Persons (Works at)": {
-                    "value-type": "nested-list",
-                    "Name": {
-                        "path": "docs[0].data.nominative_list_of_occupants.#.works_at_person_name"
-                    },
-                    "Surname": {
-                        "path": "docs[0].data.nominative_list_of_occupants.#.works_at_person_surname"
-                    }
-                }
-            }
-
-        },
-        "Occupants": {
-            "Census La Ciotat": {
-                "Occupants": {
-                    "value-type": "nested-list",
-                    "Surname": {
-                        "path": "docs[0].data.nominative_list_of_occupants.#.person_surname"
-                    },
-                    "Name": {
-                        "path": "docs[0].data.nominative_list_of_occupants.#.person_name"
-                    },
-                    "Age": {
-                        "path": "docs[0].data.nominative_list_of_occupants.#.person_age"
-                    },
-                    "Year of Birth": {
-                        "path": "docs[0].data.nominative_list_of_occupants.#.person_year_of_birth"
-                    },
-                    "Place of Birth": {
-                        "path": "docs[0].data.nominative_list_of_occupants.#.person_birth_location"
-                    },
-                    "Nationality": {
-                        "path": "docs[0].data.nominative_list_of_occupants.#.person_nationality"
-                    },
-                    "Marital Status": {
-                        "path": "docs[0].data.nominative_list_of_occupants.#.person_marital_status"
-                    },
-                    "Religion": {
-                        "path": "docs[0].data.nominative_list_of_occupants.#.person_religion"
-                    },
-                    "Role in Household": {
-                        "path": "docs[0].data.nominative_list_of_occupants.#.person_household_role"
-                    }
-                }
-            },
-            "First national all-Russian census of the Russian Empire":{
-                "Occupants": {
-                    "value-type": "nested-list",
-                    "Family Name": {
-                        "path": "docs[0].data.list_of_occupants.#.family_name"
-                    },
-                    "Name": {
-                        "path": "docs[0].data.list_of_occupants.#.person_name"
-                    },
-                    "Patronymic": {
-                        "path": "docs[0].data.list_of_occupants.#.person_patronymic"
-                    },
-                    "Sex": {
-                        "path": "docs[0].data.list_of_occupants.#.person_sex"
-                    },
-                    "Age (Years)": {
-                        "path": "docs[0].data.list_of_occupants.#.person_age"
-                    },
-                    "Marital Status": {
-                        "path": "docs[0].data.list_of_occupants.#.person_marital_status"
-                    },
-                    "Estate": {
-                        "path": "docs[0].data.list_of_occupants.#.person_estate"
-                    },
-                    "Religion": {
-                        "path": "docs[0].data.list_of_occupants.#.person_religion"
-                    },
-                    "Native Language": {
-                        "path": "docs[0].data.list_of_occupants.#.person_native_language"
-                    }
-                }
-            }
-        },
-        "Registered persons": {
-            "Inscription Maritime - Maritime Register of the State for La Ciotat": {
-                "Registered Persons": {
-                    "value-type": "list",
-                    "Name": {
-                        "path": "docs[0].data.list_of_registered_persons.#.person_name"
-                    },
-                    "Surname": {
-                        "path": "docs[0].data.list_of_registered_persons.#.person_surname"
-                    },
-                    "Date of Birth": {
-                        "path": "docs[0].data.list_of_registered_persons.#.date_of_birth"
-                    },
-                    "Place of Birth": {
-                        "path": "docs[0].data.list_of_registered_persons.#.place_of_birth"
-                    },
-                    "Place of Residence": {
-                        "path": "docs[0].data.list_of_registered_persons.#.place_of_residence"
-                    }
-                }
-            }
-        },
-        "Transaction Suppliers": {
-            "Accounts book": {
-                "Transaction Suppliers-Providers": {
-                    "value-type": "nested-list",
-                    "Name":{
-                        "path": "docs[0].data.voyages_transactions.#.supplier_provider_name"
-                    },
-                    "Surname":{
-                        "path": "docs[0].data.voyages_transactions.#.supplier_provider_surname"
-                    },
-                    "Status/Capacity/Role":{
-                        "path": "docs[0].data.voyages_transactions.#.supplier_provider_status"
-                    }
-                }
-            }
-        },
-        "Transaction Mediators": {
-            "Accounts book": {
-                "Transaction Mediators": {
-                    "value-type": "nested-list",
-                    "Name":{
-                        "path": "docs[0].data.voyages_transactions.#.mediator_name"
-                    },
-                    "Surname":{
-                        "path": "docs[0].data.voyages_transactions.#.mediator_surname"
-                    },
-                    "Status/Capacity/Role":{
-                        "path": "docs[0].data.voyages_transactions.#.mediator_status"
-                    }
-                }
-            }
-        },
-        "Transaction Receivers": {
-            "Accounts book": {
-                "Transaction Receivers": {
-                    "value-type": "nested-list",
-                    "Name":{
-                        "path": "docs[0].data.voyages_transactions.#.receiver_name"
-                    },
-                    "Surname":{
-                        "path": "docs[0].data.voyages_transactions.#.receiver_surname"
-                    },
-                    "Status/Capacity/Role":{
-                        "path": "docs[0].data.voyages_transactions.#.receiver_status"
-                    }
-                }   
             }
         }
     },
     "Locations": {
-        "Departure ports":{
-
-        },
-        "Destination ports":{
-
-        },
-        "Ports of call / at ports":{
-
-        },
-        "Embarkation ports":{
-
-        },
-        "Discharge ports":{
-
-        },
-        "Registry ports":{
-
-        },
-        "Birth places":{
-
-        },
-        "Residence places":{
-
-        },
-        "Death locations":{
-
-        },
-        "Ship construction places":{
-
-        },
-        "Engine construction places":{
-
+        "sub": {
+            "Departure ports": {},
+            "Destination ports": {},
+            "Ports of call / at ports": {},
+            "Embarkation ports": {},
+            "Discharge ports": {},
+            "Registry ports": {},
+            "Birth places": {},
+            "Residence places": {},
+            "Death locations": {},
+            "Ship construction places": {},
+            "Engine construction places": {}
         }
-
     },
     "Organisations": {
-        "Ship owners":{
-
-        }, 
-        "Engine manufacturers":{
-
-        }, 
-        "Working organisations":{
-
-        } 
+        "sub":{
+            "Ship owners": {},
+            "Engine manufacturers": {},
+            "Working organisations": {}
+        }
     },
-    "Professions": {
-    }
+    "Professions": {}
 }

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, NavigationEnd, ResolveEnd, Router } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -7,15 +7,37 @@ import { Router } from '@angular/router';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
+  links = ['Explore by source', 'Explore all'];
+  activeLink = this.links[0];
+  selected!: string;
 
   constructor(
-    private router: Router
+    private router: Router,
+    private route: ActivatedRoute
   ) { }
 
   ngOnInit(): void {
+    this.router.events.subscribe(routerData => {
+      if (routerData instanceof NavigationEnd) {
+        var start = routerData.url.split('/')[1];
+
+        if (start == 'sources')
+          this.selected = this.links[0];
+        else
+          this.selected = this.links[1];
+      }
+    })
   }
 
-  home(){
-    this.router.navigate(['/list']);
+  home() {
+    this.router.navigate(['/sources']);
   }
+
+  clickEvent(item: string) {
+    this.selected = item;
+  }
+  isActive(item: string) {
+    return this.selected == item;
+  };
+
 }

@@ -160,15 +160,15 @@ export class EntityDetailsComponent implements OnInit {
 
     if(click == 'leftClick'){
       if(id!='null')
-          this.router.navigate(['list/'+source+'/'+id+'/Table/'+entity], { queryParams:data });
+          this.router.navigate(['sources/'+source+'/'+id+'/table/'+entity], { queryParams:data });
         else
-          this.router.navigate(['list/'+source+'/Table/'+entity], { queryParams:data });
+          this.router.navigate(['sources/'+source+'/table/'+entity], { queryParams:data });
     }else{
       var url;
       if(id!='null')
-        url = this.router.serializeUrl(this.router.createUrlTree(['seaLit/list/'+source+'/'+id+'/Table/'+entity], { queryParams:data }));
+        url = this.router.serializeUrl(this.router.createUrlTree(['seaLit/sources/'+source+'/'+id+'/table/'+entity], { queryParams:data }));
       else
-        url = this.router.serializeUrl(this.router.createUrlTree(['seaLit/list/'+source+'/Table/'+entity], { queryParams:data }));
+        url = this.router.serializeUrl(this.router.createUrlTree(['seaLit/sources/'+source+'/table/'+entity], { queryParams:data }));
       window.open(url, '_blank');
     }
   }

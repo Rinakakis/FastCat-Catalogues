@@ -9,14 +9,14 @@
 
     <ul class="archival-categories">
         <li *ngFor="let category of getCategories(list); index as i;">
-            <h4 class="catgory-title">{{category}}</h4> 
+            <h4 class="catgory-title">{{category}}</h4>
             <ul class="archival">
                 <li *ngFor="let item of list[category]; index as j;">
 
                     <div class="list-container">
                         <div class="title">
                             <a
-                                routerLink="/list/{{item.name}}">
+                                routerLink="/sources/{{item.name}}">
                                 {{item.name}} ({{item.count}} records)
                             </a>
                         </div>

@@ -178,9 +178,9 @@ export class ListDetailsComponent implements OnInit {
     }
 
     if(click == 'leftClick'){
-      this.router.navigate(['list/'+source+'/Table/'+entity], { queryParams:data });
+      this.router.navigate(['sources/'+source+'/table/'+entity], { queryParams:data });
     }else{
-      const url = this.router.serializeUrl(this.router.createUrlTree(['seaLit/list/'+source+'/Table/'+entity], { queryParams:data }));
+      const url = this.router.serializeUrl(this.router.createUrlTree(['seaLit/sources/'+source+'/table/'+entity], { queryParams:data }));
         window.open(url, '_blank');
     }
   }
@@ -237,7 +237,7 @@ export class ListDetailsComponent implements OnInit {
     var record = this.recordTitlesWithId.filter(elem => elem.title === title);
     var id = record[0].id;
     const name = String(this.route.snapshot.paramMap.get('source'));
-    this.router.navigate(['list/'+name+'/'+id]);
+    this.router.navigate(['sources/'+name+'/'+id]);
   }
 
   getTitles(temp: any): string[]{

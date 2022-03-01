@@ -42,7 +42,7 @@ export class RecordDetailsComponent implements OnInit {
   errorMessage: string = '';
   keysList: any[] = [];
   recordTitlesWithId: any[] = [];
-  
+
   gridApi: any;
   gridColumnApi: any;
   tableHeight: string = '';
@@ -67,7 +67,7 @@ export class RecordDetailsComponent implements OnInit {
   barChartType: ChartType = 'bar';
   barChartLegend = true;
   barChartPlugins = [];
-  barChartDataArray: ChartData<'bar'>[] = []; 
+  barChartDataArray: ChartData<'bar'>[] = [];
   barChartData: ChartData<'bar'> = {
     labels: [],
     datasets: [
@@ -76,7 +76,7 @@ export class RecordDetailsComponent implements OnInit {
         backgroundColor:'#5294D0',
         hoverBackgroundColor:'#3B678E',
         borderColor: '#3B678E'
-        
+
       }
     ]
   };
@@ -94,7 +94,7 @@ export class RecordDetailsComponent implements OnInit {
   ngOnInit(): void {
     document.body.scrollTop = 0;
     document.documentElement.scrollTop = 0;
-    
+
     Chart.register(zoomPlugin);
     const source = String(this.route.snapshot.paramMap.get('source'));
     const id = String(this.route.snapshot.paramMap.get('id'));
@@ -175,9 +175,9 @@ export class RecordDetailsComponent implements OnInit {
     this.router.onSameUrlNavigation = 'reload';
 
     if(click == 'leftClick'){
-      this.router.navigate(['list/'+source+'/'+id+'/Table/'+entity], { queryParams:data });
+      this.router.navigate(['sources/'+source+'/'+id+'/table/'+entity], { queryParams:data });
     }else{
-      const url = this.router.serializeUrl(this.router.createUrlTree(['seaLit/list/'+source+'/'+id+'/Table/'+entity], { queryParams:data }));
+      const url = this.router.serializeUrl(this.router.createUrlTree(['seaLit/sources/'+source+'/'+id+'/table/'+entity], { queryParams:data }));
       window.open(url, '_blank');
     }
   }
@@ -192,7 +192,7 @@ export class RecordDetailsComponent implements OnInit {
           return {'field': val, 'sortable': true, filter: 'agDateColumnFilter', filterParams: dateFilter,comparator: dateComparator, tooltipField: val};
         else
           return {'field': val, 'sortable': true, 'filter': true, tooltipField: val};
-        
+
     });
 
     // console.log(titleFormat);
@@ -244,7 +244,7 @@ export class RecordDetailsComponent implements OnInit {
     return titles;
 
   }
-  
+
   onBtnExport(tableg: any){
     var blob = new Blob([this.listservice.ConvertToCSV(tableg)], {type: 'text/csv' });
     saveAs(blob, "export.csv");
@@ -260,10 +260,10 @@ export class RecordDetailsComponent implements OnInit {
   //   }
   // }
 
-  calculateStats(rowdata: any, column: string | number){ 
+  calculateStats(rowdata: any, column: string | number){
     if(String(column) != this.barChartData.datasets[0].label){
       // console.log('bmhka')
-      
+
       this.chart?.chart?.resetZoom();
       var values = rowdata.map((elem: { [x: string]: any; })=> elem[column]);
 
@@ -273,7 +273,7 @@ export class RecordDetailsComponent implements OnInit {
       this.barChartData.datasets[0].label = String(column);
       if(!this.chartOption)
         this.chartOption = !this.chartOption;
-      
+
         this.chart?.update();
     }else{
       this.chartOption = !this.chartOption;
@@ -321,7 +321,7 @@ var dateFilter = {
         month = Number(dateParts[1]) - 1;
         year = Number(dateParts[2]);
       }
-    }  
+    }
     const cellDate = new Date(year, month, day);
     // console.log(cellDate)
     // Now that both parameters are Date objects, we can compare
@@ -376,7 +376,7 @@ function _monthToNum(date: string | number) {
       month = Number(dateParts[1]);
       year = Number(dateParts[2]);
     }
-  }  
+  }
 
   var result = year * 10000 + month * 100 + day;
   // 29/08/2004 => 20040829
@@ -397,7 +397,7 @@ var numberFilter = {
 
 var numberValueFormatter = function (params: { value: string; }) {
   if (params.value == 'None or Unfilled') return params.value
-  
+
   if(typeof params.value == 'string') return parseFloat(params.value.replace(',', '.'));
   else return params.value;
 };

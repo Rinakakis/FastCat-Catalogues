@@ -1,0 +1,36 @@
+<div class="list-wrapper">
+  <div class="d-flex justify-content-center">
+  <div class="spinner-border" role="status">
+      <span class="sr-only" id="loading"></span>
+  </div>
+  </div>
+  <div class="archival-container" *ngIf="isDataLoaded">
+  <h3>Explore archival entities of Maritime History</h3>
+
+  <ul class="archival-categories">
+      <li *ngFor="let category of getCategories(list); index as i;">
+        <div class="title">
+          <a
+              routerLink="/explore-all/{{category}}">
+              {{category}}
+          </a>
+      </div>
+          <ul class="archival">
+              <li *ngFor="let item of list[category]; index as j;">
+
+                  <div class="list-container">
+                      <div class="title">
+                          <a
+                              routerLink="/explore-all/{{item}}">
+                              {{item}}
+                          </a>
+                      </div>
+                  </div>
+              </li>
+          </ul>
+
+      </li>
+  </ul>
+  </div>
+</div>
+<div></div>

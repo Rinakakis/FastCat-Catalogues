@@ -1,13 +1,40 @@
 <div class="nav-container">
-    <img class="backround-nav" src="assets/header.gif" alt="header-backround">
-    <div class="logo-container">
-      <a routerLink="/list"><img class="logo" src="assets/logo-4_1.png" alt="logo" title="Home"></a>
+  <img class="backround-nav" src="assets/header.gif" alt="header-backround">
+  <div class="logo-container">
+    <a routerLink="/sources"><img class="logo" src="assets/logo-4_1.png" alt="logo" title="Home"></a>
+  </div>
+
+  <div class="navigation">
+    <div class="spacer">
+      <nav>
+        <a mat-button class="nav-link" title="Explore by source" routerLink="/sources"
+          (click)="activeLink = 'Explore by source'">Explore by source
+        </a>
+        <a mat-button class="nav-link" title="Explore all" routerLink="/explore-all"
+          (click)="activeLink = 'Explore all'">Explore all</a>
+      </nav>
     </div>
-    <div class="navigation">
-      <a id="home-link" title="Home" routerLink="/list"><mat-icon id="home">home</mat-icon></a>
-      
+    <div class="center">
+      <a id="home-link" title="Home" routerLink="/sources">
+        <mat-icon id="home">home</mat-icon>
+      </a>
       <h2 id="welcome-title">Welcome to the SeaLiT Catalogues</h2>
     </div>
-    
-    <hr>
+    <div class="right">
+      <nav>
+        <a mat-button class="nav-link" title="Explore by source" routerLink="/sources"
+          [ngClass]="{active: isActive('Explore by source')}"
+          (click)="clickEvent('Explore by source')"
+          >Explore by source
+        </a>
+        <a mat-button class="nav-link" title="Explore all" routerLink="/explore-all"
+            [ngClass]="{active: isActive('Explore all')}"
+          (click)="clickEvent('Explore all')"
+          >Explore all</a>
+      </nav>
+    </div>
+
+  </div>
+
+  <hr>
 </div>

@@ -192,11 +192,39 @@ const NumColumns = [
 process.on("message", async (message) => {
     if(message.type == 'sourceRecordList')
         var jsonResponse = await handleSourceRecordList(message.source);
-    if(message.type == 'tableData')
+    else if(message.type == 'tableData')
         var jsonResponse = await handleTableData(message.query);
+    else 
+        var jsonResponse = await handleExploreAll(message.name);
     process.send(JSON.stringify(jsonResponse));
     process.exit();
 })
+
+async function handleExploreAll(name){
+  var config;
+  if(name == 'all'){
+    config = await getConfig('explore_all');
+    for (const category of Object.keys(config)) {
+      var categoryObj = config[category];
+      if(categoryObj['sub'] != undefined)
+        config[category] = Object.keys(categoryObj['sub']);
+      else
+      config[category] = [];
+    }
+    return config;
+  }
+
+  config  = await getConfigEntity(null, name);
+  for (const source of Object.keys(config)) {
+    var tableName = Object.keys(config[source]).join();
+    var myarray = await handleSingleTable(source, tableName);
+    filterData(myarray);
+    config[source] = myarray; 
+    
+  }
+
+  return config;
+}
 
 async function handleTableData(query) {
     var source = query.source;
@@ -615,15 +643,21 @@ async function handleSourceRecordList(source) {
     //})
   }
   
-  async function getConfigEntity(recordName,entity){
-     var record = templates.find(obj => obj.name == recordName);
-     var config = await fs.promises.readFile('./ConfigFiles/'+record.configuration, 'utf8');
-     config = JSON.parse(config);
-     config = get(config,record.name)
-     config = get(config, entity)
-  
-     return config;
-  }
+async function getConfigEntity(recordName, entity) {
+  var record = {};
+  if (recordName == null)
+    record.configuration = 'explore_all.json';
+  else
+    record = templates.find(obj => obj.name == recordName);
+
+  var config = await fs.promises.readFile('./ConfigFiles/' + record.configuration, 'utf8');
+  config = JSON.parse(config);
+  if (recordName != null)
+    config = get(config, record.name);
+
+  config = get(config, entity);
+  return config;
+}
   
   /**
    * Returns the configuration file of an entity 
@@ -631,13 +665,18 @@ async function handleSourceRecordList(source) {
    * @returns {object}  The configuration file of an entity 
    */
   async function getConfig(recordName) {
-    var record = templates.find(obj => obj.name == recordName);
+    var record = {};
+    if (recordName == 'explore_all')
+      record.configuration = 'explore_all.json';
+    else
+      record = templates.find(obj => obj.name == recordName);
+
     if (record == undefined) return [];
-  
     var config = await fs.promises.readFile('./ConfigFiles/' + record.configuration, 'utf8');
-    // console.log(config)
     config = JSON.parse(config.trim());
-    config = get(config, record.name);
+    
+    if (recordName != 'explore_all')
+      config = get(config, record.name);
     return config;
   }
   

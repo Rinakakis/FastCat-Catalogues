@@ -11,6 +11,7 @@ const CACHE_KEY = 'httpCacheKey';
 })
 export class ListService {
 
+
   Titles: any[] = [];
   Ip: string = '192.168.1.2'; // 'catalogues.sealitproject.eu'
   port: string = ':8081';
@@ -107,6 +108,10 @@ export class ListService {
 
   getTableFromSource(source: string,tableName: string): Observable<any>{
     return this.http.get(this.api+'/tableData?'+'source='+source+'&tableName='+tableName);
+  }
+
+  getExploreAll(name: string): Observable<any> {
+    return this.http.get(this.api+'/exploreAll/'+name);
   }
 
   getTablesFromSource(source: string, tableName: string, query: any): Observable<any>{

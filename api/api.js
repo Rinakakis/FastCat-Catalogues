@@ -189,7 +189,6 @@ appBase.get('/sourceRecordList/', async (req, res) => {
     else
       res.send(message);
   });
-  
 })
 
 /**
@@ -236,11 +235,25 @@ appBase.get('/numberOfrecords/:name', async (req, res) => {
 
 
 /**
- * returns data for a table of for a record or fo an entity
+ * returns table data for a record of an entity
  */
 appBase.get('/tableData', async(req, res) => {
   const childProcess = fork('./index.js');
   childProcess.send({"type":"tableData","query": req.query});
+  childProcess.on("message", message =>{
+    if(message == 'null')
+      res.status(404).send('Page not found');
+    else
+      res.send(message);
+  });
+})
+
+/**
+ * returns table data for a record from every entity
+ */
+appBase.get('/exploreAll/:name', async(req, res) => {
+  const childProcess = fork('./index.js');
+  childProcess.send({"type":"exploreAll","name": req.params.name});
   childProcess.on("message", message =>{
     if(message == 'null')
       res.status(404).send('Page not found');
