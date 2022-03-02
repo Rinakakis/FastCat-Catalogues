@@ -27,8 +27,8 @@ import { TermsOfUseComponent } from './components/terms-of-use/terms-of-use.comp
 import { PrivacyPolicyComponent } from './components/privacy-policy/privacy-policy.component';
 import { AboutComponent } from './components/about/about.component';
 import { ExploreAllComponent } from './components/explore-all/explore-all.component';
-import { ExploreAllDetailComponent } from './explore-all-detail/explore-all-detail.component';
-import { TableComponent } from './table/table.component';
+import { ExploreAllDetailComponent } from './components/explore-all-detail/explore-all-detail.component';
+import { TableComponent } from './components/table/table.component';
 
 
 @NgModule({

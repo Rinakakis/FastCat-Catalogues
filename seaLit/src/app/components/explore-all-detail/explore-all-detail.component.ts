@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
-import { ListService } from '../services/list.service';
+import { ListService } from 'src/app/services/list.service';
 
 @Component({
   selector: 'app-explore-all-detail',
@@ -12,6 +12,7 @@ export class ExploreAllDetailComponent implements OnInit {
   list: any[] = [];
   titles: any[] = [];
   loaded: boolean = false;
+  clickedTable: string = '';
 
   constructor(
     private listservice: ListService,
@@ -26,11 +27,12 @@ export class ExploreAllDetailComponent implements OnInit {
 
   getList(): void{
     const table = String(this.route.snapshot.paramMap.get('name'));
-    console.log(table)
+    this.clickedTable = table;
+
     this.listservice.getExploreAll(table)
       .subscribe(list =>{
         if (list) {
-          // this.hideloader();
+          this.hideloader('loading');
         }
         const target: any = {};
         // console.log(list);
@@ -39,7 +41,8 @@ export class ExploreAllDetailComponent implements OnInit {
           var sourceArray = list[source];
           if(sourceArray.length != 0){
             Object.keys(sourceArray[0]).forEach(title=>{
-              this.titles.push(title);
+              if(this.titles.indexOf(title) === -1)
+                this.titles.push(title);
             })
             // console.log(sourceArray);
           }
@@ -48,5 +51,9 @@ export class ExploreAllDetailComponent implements OnInit {
         this.loaded = !this.loaded;
         // this.isDataLoaded = !this.isDataLoaded;
       });
+  }
+
+  hideloader(id: string) {
+    (<HTMLInputElement>document.getElementById(id)).style.display = 'none';
   }
 }

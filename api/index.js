@@ -219,17 +219,25 @@ async function handleExploreAll(name){
   if(Object.keys(config).length == 1 && Object.keys(config).join() == 'sub'){
     config = config['sub'];
     // console.log(config)
+    for(tableName of Object.keys(config)){
+      var tableConfig = config[tableName];
+      await getExploreAllTables(tableConfig);
+    }
+  }else{
+    config = await getExploreAllTables(config);
   }
+
+  return config;
+}
+
+async function getExploreAllTables(config){
   for (const source of Object.keys(config)){
     var tableName = Object.keys(config[source]).join();
-    console.log(source)
-    console.log(tableName)
+    
     var myarray = await handleSingleTable(source, tableName);
     filterData(myarray);
     config[source] = myarray; 
-    
   }
-
   return config;
 }
 

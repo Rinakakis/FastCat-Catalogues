@@ -1,0 +1,13 @@
+<div class="d-flex justify-content-center">
+  <div class="spinner-border" role="status">
+      <span class="sr-only" id="loading"></span>
+  </div>
+</div>
+<div class="table-container" *ngIf="loaded">
+  <app-table
+    [rowData]="list"
+    [titles]="titles"
+    [tableName]="clickedTable">
+  </app-table>
+</div>
+
