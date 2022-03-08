@@ -19,7 +19,7 @@
                 "Id": "docs[0]._id"
             }
         },
-        "Ship owners (companies)": {
+        "Ship owners (Companies)": {
             "value-type": "list",
             "Owner (Company)": {
                 "path": "docs[0].data.payroll.#.payroll_ship_owner"

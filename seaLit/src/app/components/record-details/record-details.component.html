@@ -5,11 +5,18 @@
 </div>
 <div class="record-container" *ngIf="showData">
   <div class="inside-wrapper">
+    <div class="source-title">
+    <a style="display: inline-block"
+          routerLink="/sources/{{sourceName}}">
+          <h3 style="margin: 0" >{{sourceName}}</h3>
+        </a>
+          <h3 style="display: inline-block; margin: 0">: {{title}} </h3>
+          <a style="display: inline-block"
+            href="https://isl.ics.forth.gr/FastCatTeam/templates/{{sourceId}}.html?name={{Id}}&templateTitle={{sourceName}}&mode=teamView"
+          target="_blank" rel="noopener"
+          ><h3 style="margin: 0">(FastCat Record)</h3></a>
+    </div>
 
-    <h3 class="source-title">{{sourceName}}: {{title}} <a class='title'
-      href="https://isl.ics.forth.gr/FastCatTeam/templates/{{sourceId}}.html?name={{Id}}&templateTitle={{sourceName}}&mode=teamView"
-      target="_blank" rel="noopener"
-      >(FastCat Record)</a></h3>
       <div class="record-details">
 
         <div class="type">

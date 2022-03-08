@@ -104,7 +104,7 @@ export class EntityDetailsComponent implements OnInit {
         this.isEmploymentWorkers = false;
 
       }
-      console.log(list);
+      // console.log(list);
       this.displaydata(params,list);
     });
   }

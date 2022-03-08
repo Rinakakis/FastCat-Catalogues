@@ -7,7 +7,37 @@
   <app-table
     [rowData]="list"
     [titles]="titles"
-    [tableName]="clickedTable">
+    [tableName]="clickedTable"
+    (newItemEvent)="handleClickedRow($event)">
   </app-table>
+  <!-- <app-table
+    *ngIf="rowClicked"
+    [rowData]="clickedTableData"
+    [titles]="clickedTableTitles"
+    tableName="Appeared on"
+    (newItemEvent)="handleClickedRow($event)">
+  </app-table> -->
+
+  <div class="nocol-grid" *ngIf="rowClicked">
+    <div class="nontable" >
+      <h3 class="notable-title">{{clickedTable}} </h3>
+      <p *ngFor="let key of clickedRowkeys">
+        <b>{{key}}</b> : {{clickedRow[key]}}
+      </p>
+    </div>
+  </div>
+
+  <table *ngIf="rowClicked" mat-table [dataSource]="clickedTableData" >
+
+    <ng-container *ngFor="let col of clickedTableTitles" matColumnDef="{{col}}">
+      <th mat-header-cell *matHeaderCellDef> {{col | titlecase}} </th>
+      <td mat-cell *matCellDef="let element"> {{element[col]}} </td>
+    </ng-container>
+
+
+    <tr mat-header-row *matHeaderRowDef="clickedTableTitles"></tr>
+    <tr mat-row (click)="clickedRowEvent(row)" *matRowDef="let row; columns: clickedTableTitles"></tr>
+  </table>
+
 </div>
 

@@ -70,7 +70,7 @@
                     "Captains": {}
                 }
             },
-            "Ship Owners": {
+            "Ship Owners (Persons)": {
                 "Accounts book": {
                     "Ship Owners (Persons)": {}
                 },
@@ -167,7 +167,7 @@
             "Captains": {}
         }
     },
-    "Ship Owners": {
+    "Ship Owners (Persons)": {
         "Accounts book": {
             "Ship Owners (Persons)": {}
         },
@@ -236,24 +236,230 @@
     },
     "Locations": {
         "sub": {
-            "Departure ports": {},
-            "Destination ports": {},
-            "Ports of call / at ports": {},
-            "Embarkation ports": {},
-            "Discharge ports": {},
-            "Registry ports": {},
-            "Birth places": {},
-            "Residence places": {},
-            "Death locations": {},
-            "Ship construction places": {},
-            "Engine construction places": {}
+            "Departure Ports": {
+                "Accounts book": {
+                    "Departure Ports": {}
+                },
+                "Crew List (Ruoli di Equipaggio)": {
+                    "Departure Ports": {}
+                }
+            },
+            "Destination Ports": {
+                "Accounts book": {
+                    "Destination Ports": {}
+                },
+                "Crew and displacement list (Roll)": {
+                    "Destination Ports": {}
+                }
+            },
+            "Ports of Call": {
+                "Accounts book": {
+                    "Ports of Call": {}
+                }
+            },
+            "Embarkation Ports": {
+                "General Spanish Crew List":{
+                    "Embarkation Ports": {}
+                },
+                "Crew and displacement list (Roll)": {
+                    "Embarkation Ports": {}
+                },
+                "Crew List (Ruoli di Equipaggio)": {
+                    "Embarkation Ports": {}
+                }
+            },
+            "Discharge Ports": {
+                "Crew and displacement list (Roll)": {
+                    "Embarkation Ports": {}
+                },
+                "Crew List (Ruoli di Equipaggio)": {
+                    "Embarkation Ports": {}
+                }
+            },
+            "Registry Ports": {
+                "Crew List (Ruoli di Equipaggio)": {
+                    "Ship Registry Ports": {}
+                },
+                "Logbook":{
+                    "Registry Ports": {}
+                },
+                "List of ships":{
+                    "Registry Ports": {}
+                }
+            },
+            "Birth Places": {
+                "Census La Ciotat": {
+                    "Birth Places": {}
+                },
+                "First national all-Russian census of the Russian Empire":{
+                    "Birth Places": {}
+                },
+                "Inscription Maritime - Maritime Register of the State for La Ciotat": {
+                    "Birth Places": {}
+                },
+                "Employment records, Shipyards of Messageries Maritimes, La Ciotat": {
+                    "Birth Places": {}
+                }
+            },
+            "Residence Places": {
+                "Inscription Maritime - Maritime Register of the State for La Ciotat": {
+                    "Residence Places": {}
+                },
+                "Employment records, Shipyards of Messageries Maritimes, La Ciotat": {
+                    "Residence Places": {}
+                }
+            },
+            "Death Locations": {
+                "Civil Register": {
+                    "Death Locations": {}
+                }
+            },
+            "Ship construction Places": {
+                "Crew and displacement list (Roll)": {
+                    "Ship Construction Locations": {}
+                },
+                "Crew List (Ruoli di Equipaggio)": {
+                    "Ship Construction Locations": {}
+                }
+            },
+            "Engine Construction Places": {
+                "List of ships":{
+                    "Engine Construction Places": {}
+                }
+            }
+        }
+    },
+    "Departure Ports": {
+        "Accounts book": {
+            "Departure Ports": {}
+        },
+        "Crew List (Ruoli di Equipaggio)": {
+            "Departure Ports": {}
+        }
+    },
+    "Destination Ports": {
+        "Accounts book": {
+            "Destination Ports": {}
+        },
+        "Crew and displacement list (Roll)": {
+            "Destination Ports": {}
+        }
+    },
+    "Ports of Call": {
+        "Accounts book": {
+            "Ports of Call": {}
+        }
+    },
+    "Embarkation Ports": {
+        "General Spanish Crew List":{
+            "Embarkation Ports": {}
+        },
+        "Crew and displacement list (Roll)": {
+            "Embarkation Ports": {}
+        },
+        "Crew List (Ruoli di Equipaggio)": {
+            "Embarkation Ports": {}
+        }
+    },
+    "Discharge Ports": {
+        "Crew and displacement list (Roll)": {
+            "Embarkation Ports": {}
+        },
+        "Crew List (Ruoli di Equipaggio)": {
+            "Embarkation Ports": {}
+        }
+    },
+    "Registry Ports": {
+        "Crew List (Ruoli di Equipaggio)": {
+            "Ship Registry Ports": {}
+        },
+        "Logbook":{
+            "Registry Ports": {}
+        },
+        "List of ships":{
+            "Registry Ports": {}
+        }
+    },
+    "Birth Places": {
+        "Census La Ciotat": {
+            "Birth Places": {}
+        },
+        "First national all-Russian census of the Russian Empire":{
+            "Birth Places": {}
+        },
+        "Inscription Maritime - Maritime Register of the State for La Ciotat": {
+            "Birth Places": {}
+        },
+        "Employment records, Shipyards of Messageries Maritimes, La Ciotat": {
+            "Birth Places": {}
+        }
+    },
+    "Residence Places": {
+        "Inscription Maritime - Maritime Register of the State for La Ciotat": {
+            "Residence Places": {}
+        },
+        "Employment records, Shipyards of Messageries Maritimes, La Ciotat": {
+            "Residence Places": {}
+        }
+    },
+    "Death Locations": {
+        "Civil Register": {
+            "Death Locations": {}
+        }
+    },
+    "Ship construction Places": {
+        "Crew and displacement list (Roll)": {
+            "Ship Construction Locations": {}
+        },
+        "Crew List (Ruoli di Equipaggio)": {
+            "Ship Construction Locations": {}
+        }
+    },
+    "Engine Construction Places": {
+        "List of ships":{
+            "Engine Construction Places": {}
         }
     },
     "Organisations": {
         "sub":{
-            "Ship owners": {},
-            "Engine manufacturers": {},
-            "Working organisations": {}
+            "Ship Owners (Organisations)": {
+                "Accounts book":{
+                    "Ship Owners (Organisations)": {}
+                },
+                "Crew and displacement list (Roll)": {
+                    "Ship Owners (Organisations)": {}
+                },
+                "Logbook":{
+                    "Owners (Organisations)": {}
+                },
+                "Payroll":{
+                    "Ship Owners (Organisations)": {}
+                }
+            }, 
+            "Engine Manufacturers": {
+                "List of ships":{
+                    "Engine Manufacturers": {}
+                }
+            }
+        }
+    },
+    "Ship Owners (Organisations)": {
+        "Accounts book":{
+            "Ship Owners (Organisations)": {}
+        },
+        "Crew and displacement list (Roll)": {
+            "Ship Owners (Organisations)": {}
+        },
+        "Logbook":{
+            "Owners (Organisations)": {}
+        },
+        "Payroll":{
+            "Ship Owners (Organisations)": {}
+        }
+    }, 
+    "Engine Manufacturers": {
+        "List of ships":{
+            "Engine Manufacturers": {}
         }
     },
     "Professions": {}

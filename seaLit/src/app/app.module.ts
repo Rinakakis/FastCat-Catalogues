@@ -14,6 +14,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { AgGridModule } from 'ag-grid-angular';
 import { NgChartsModule } from 'ng2-charts';
 import {MatTabsModule} from '@angular/material/tabs';
+import {MatTableModule} from '@angular/material/table';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -65,7 +66,8 @@ import { TableComponent } from './components/table/table.component';
     AgGridModule.withComponents([]),
     NoopAnimationsModule,
     MatToolbarModule,
-    MatTabsModule
+    MatTabsModule,
+    MatTableModule
   ],
   providers: [
     Title

@@ -54,7 +54,7 @@
                 "Id": "docs[0]._id"
             }
         },
-        "Birth places": {
+        "Birth Places": {
             "value-type": "nested-list",
             "Place of Birth": {
                 "path": "docs[0].data.nominative_list_of_occupants.#.person_birth_location"

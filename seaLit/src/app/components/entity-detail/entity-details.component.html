@@ -5,10 +5,20 @@
   </div>
 </div>
 <div class="record-container" *ngIf="selectedTable">
-  <h3 class="title">{{sourceName}}: {{recordTitle}} <a *ngIf="idExists" class='title'
+
+    <a class='blend-title' style="display: inline-block"
+      routerLink="/sources/{{sourceName}}">
+      <h3 class="title">{{sourceName}}</h3>
+    </a>
+
+    <h3 style="display: inline-block">: {{recordTitle}}</h3>
+
+    <a *ngIf="idExists" class='title' style="display: inline-block"
       href="https://isl.ics.forth.gr/FastCatTeam/templates/{{sourceId}}.html?name={{Id}}&templateTitle={{sourceName}}&mode=teamView"
       target="_blank" rel="noopener"
-      >(FastCat Record)</a></h3>
+      ><h3 class="title">(FastCat Record)</h3>
+    </a>
+
   <div class="nocol-grid">
     <div class="nontable" >
       <h3 class="notable-title">{{title}} </h3>

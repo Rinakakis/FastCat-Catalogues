@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, OnInit, ViewChild, Output, EventEmitter } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { isObject } from 'lodash';
@@ -24,17 +24,21 @@ export class TableComponent implements OnInit {
   @Input() titles: any[] = [];
   @Input() tableName:  string = '';
 
+  @Output() newItemEvent = new EventEmitter<any>();
+
   columnDefs: any[] = [];
   defaultColDef = { resizable: true};
   tableHeight: string = '';
+
   gridOptions = {
     // Add event handlers
     onCellClicked: ((event: CellClickedEvent) =>{
-      this.sendQuery(event, 'leftClick')
+      this.newItemEvent.emit(event);
+      // this.sendQuery(event, 'leftClick')
 
     }),
     onCellContextMenu: ((event: CellContextMenuEvent) =>{
-      this.sendQuery(event, 'rightClick')
+      // this.sendQuery(event, 'rightClick')
     })
   }
 

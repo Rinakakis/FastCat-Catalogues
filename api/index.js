@@ -202,6 +202,7 @@ process.on("message", async (message) => {
 
 async function handleExploreAll(name){
   var config;
+  var retObj = {};
   if(name == 'all'){
     config = await getConfig('explore_all');
     for (const category of Object.keys(config)) {
@@ -215,6 +216,7 @@ async function handleExploreAll(name){
   }
 
   config  = await getConfigEntity(null, name);
+  console.log(config)
   // return config['sub'];
   if(Object.keys(config).length == 1 && Object.keys(config).join() == 'sub'){
     config = config['sub'];
@@ -223,20 +225,21 @@ async function handleExploreAll(name){
       var tableConfig = config[tableName];
       await getExploreAllTables(tableConfig);
     }
+    retObj.master = config;
   }else{
     config = await getExploreAllTables(config);
+    retObj.sub = config;
   }
 
-  return config;
+  return retObj;
 }
 
 async function getExploreAllTables(config){
   for (const source of Object.keys(config)){
     var tableName = Object.keys(config[source]).join();
-    
     var myarray = await handleSingleTable(source, tableName);
     filterData(myarray);
-    config[source] = myarray; 
+    config[source][tableName] = myarray; 
   }
   return config;
 }

@@ -112,6 +112,10 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     justify-content: flex-end;
   }
 
+  .ag-theme-alpine .ag-row-hover{
+    cursor: pointer;
+  }
+
   @keyframes hide {
     0% {
       opacity: 1;
@@ -144,3 +148,4 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     100% { transform: rotate(360deg); }
   }
 @import '~mdb-angular-ui-kit/assets/scss/mdb.scss';
+

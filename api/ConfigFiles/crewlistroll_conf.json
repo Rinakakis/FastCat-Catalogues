@@ -70,7 +70,7 @@
             "Name": {
                 "path": "docs[0].data.ship_records.organization_name"
             },
-            "Headquarters Location": {
+            "Headquarter Location": {
                 "path": "docs[0].data.ship_records.organization_location"
             },
             "Ships": {

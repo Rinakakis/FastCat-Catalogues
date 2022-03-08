@@ -49,7 +49,7 @@
         },
         "Registry Ports": {
             "value-type":"list",
-            "Ship Name": {
+            "Registry Port": {
                 "path": "docs[0].data.list_of_ships.#.port_of_registry"
             },
             "Ships": {

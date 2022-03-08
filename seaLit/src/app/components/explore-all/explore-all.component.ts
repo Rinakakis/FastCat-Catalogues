@@ -31,7 +31,7 @@ export class ExploreAllComponent implements OnInit {
           this.hideloader();
         }
         const target: any = {};
-        console.log(list);
+        // console.log(list);
         // list.forEach((obj: { category: string }) => target[obj.category] = []);
 
         // list.forEach((obj: { category: string }) => target[obj.category].push(obj));

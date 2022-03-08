@@ -1,3 +1,42 @@
 .table-container{
   padding: 20px;
 }
+table {
+  margin-top: 10px;
+  width: 100%;
+  border: solid 1px;
+  border-color: #babfc7;
+}
+.mat-row .mat-cell {
+  border-bottom: 1px solid transparent;
+  border-top: 1px solid transparent;
+  cursor: pointer;
+}
+
+.mat-row:hover .mat-cell {
+  border-color: currentColor;
+}
+
+.demo-row-is-clicked {
+  font-weight: bold;
+}
+
+.nontable{
+  background-color: white;
+  border: solid 1px;
+  border-color: #babfc7;
+  margin: 10px 0px;
+  padding: 12PX 38px;
+  /* width: max-content; */
+
+}
+
+.nocol-grid{
+  width: 100%;
+}
+
+.notable-title{
+  padding: 6px 0;
+  border-bottom: solid 1px;
+  border-color: #babfc7;
+}
