@@ -226,10 +226,10 @@
         },
         "Ships": {
             "value-type": "nested-list",
-            "Ship Name": {
+            "Name": {
                 "path": "docs[0].data.contents_of_deed.#.ship_name"
             },
-            "Ship Type": {
+            "Type": {
                 "path": "docs[0].data.contents_of_deed.#.ship_type"
             },
             "Tonnage": {

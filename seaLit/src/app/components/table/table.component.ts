@@ -1,6 +1,4 @@
-import { Component, Input, OnInit, ViewChild, Output, EventEmitter } from '@angular/core';
-import { Title } from '@angular/platform-browser';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Component, Input, OnInit, ViewChild, Output, EventEmitter, OnChanges } from '@angular/core';
 import { isObject } from 'lodash';
 import { ListService } from 'src/app/services/list.service';
 import { CellClickedEvent, CellContextMenuEvent } from 'ag-grid-community';
@@ -16,15 +14,17 @@ import zoomPlugin from 'chartjs-plugin-zoom';
   templateUrl: './table.component.html',
   styleUrls: ['./table.component.css']
 })
-export class TableComponent implements OnInit {
+export class TableComponent implements OnChanges  {
   @ViewChild(BaseChartDirective, { static: false }) chart: BaseChartDirective | undefined;
 
 
   @Input() rowData: any[] = [];
   @Input() titles: any[] = [];
   @Input() tableName:  string = '';
+  @Input() id: number = -1;
 
   @Output() newItemEvent = new EventEmitter<any>();
+  @Output() titleClickEvent = new EventEmitter<any>();
 
   columnDefs: any[] = [];
   defaultColDef = { resizable: true};
@@ -38,6 +38,7 @@ export class TableComponent implements OnInit {
 
     }),
     onCellContextMenu: ((event: CellContextMenuEvent) =>{
+      this.newItemEvent.emit(event);
       // this.sendQuery(event, 'rightClick')
     })
   }
@@ -52,7 +53,6 @@ export class TableComponent implements OnInit {
         backgroundColor:'#5294D0',
         hoverBackgroundColor:'#3B678E',
         borderColor: '#3B678E'
-
       }
     ]
   };
@@ -78,31 +78,55 @@ export class TableComponent implements OnInit {
 
 
   constructor(
-    private route: ActivatedRoute,
     private listservice : ListService,
-    private router: Router,
-    private titleService: Title
   ) { }
 
-  ngOnInit(): void {
+  // ngOnInit(): void {
+  //   Chart.register(zoomPlugin);
+  //   console.log(this.titles)
+  //   // console.log(this.rowData)
+  //   this.barChartData.labels = [];
+  //   this.barChartData.datasets[0].data = [];
+  //   this.barChartData.datasets[0].label = '';
 
+  //   this.columnDefs = this.formatTableTitles(this.titles);
+
+  //   this.tableHeight = this.listservice.calculatetableHeight(this.rowData.length);
+  // }
+
+  ngOnChanges(): void {
+    this.chartOption = false;
     Chart.register(zoomPlugin);
+    // console.log(this.titles)
+    // console.log(this.rowData)
+    this.barChartData.datasets[0].label = ''
+
     this.columnDefs = this.formatTableTitles(this.titles);
     // this.columnTitles = this.columnDefs.map(column=> column.field);
     // this.rowData = table;
     this.tableHeight = this.listservice.calculatetableHeight(this.rowData.length);
   }
 
+
+
   formatTableTitles(table: any[]): any[]{
     // console.log(table)
     var titles: any = this.getTitles(table[0]);
     var titleFormat = titles.map((val: string) => {
-        if(this.listservice.NumColumns.includes(val))
-          return {'field': val, 'sortable': true, filter: 'agNumberColumnFilter', filterParams: numberFilter,/*valueFormatter: numberValueFormatter,*/ tooltipField: val, cellRenderer: (params: { value: any; }) => params.value === undefined ? "n/a" : params.value};
+
+        if(val == 'FastCat Records'){
+          return {width: 60, resizable: false, tooltipField: val,
+            cellRenderer: function() {
+              return '<i class="material-icons" style="vertical-align: middle">launch</i>'
+            }
+          }
+        }
+        else if(this.listservice.NumColumns.includes(val))
+          return {'field': val,'colId':this.tableName, 'sortable': true, filter: 'agNumberColumnFilter', filterParams: numberFilter,tooltipField: val, cellRenderer: (params: { value: any; }) => params.value === undefined ? "n/a" : params.value};
         else if(this.listservice.DateColumns.includes(val))
-          return {'field': val, 'sortable': true, filter: 'agDateColumnFilter', filterParams: dateFilter,comparator: dateComparator, tooltipField: val, cellRenderer: (params: { value: any; }) => params.value === undefined ? "n/a" : params.value};
+          return {'field': val,'colId':this.tableName, 'sortable': true, filter: 'agDateColumnFilter', filterParams: dateFilter,comparator: dateComparator, tooltipField: val, cellRenderer: (params: { value: any; }) => params.value === undefined ? "n/a" : params.value};
         else
-          return {'field': val, 'sortable': true, 'filter': true, tooltipField: val, cellRenderer: (params: { value: any; }) => params.value === undefined ? "n/a" : params.value};
+          return {'field': val,'colId':this.tableName, 'sortable': true, 'filter': true, tooltipField: val, cellRenderer: (params: { value: any; }) => params.value === undefined ? "n/a" : params.value};
 
     });
 
@@ -121,39 +145,12 @@ export class TableComponent implements OnInit {
     return titles;
   }
 
-  sendQuery(event: CellContextMenuEvent | CellClickedEvent, click: string){
-    var source = String(this.route.snapshot.paramMap.get('source'));
-    var id = String(this.route.snapshot.paramMap.get('id'));
-    var data = event.data;
-    var entity = this.tableName.replace('/','-');
-    var name = ''
-    Object.keys(data).forEach(k =>{
-      if(typeof data[k] == 'string' && k!= 'value-type')
-        name =data[k];
-    });
-    // console.log(event)
-    for (const key in data) {
-      if(isObject(data[key]) || key=='value-type' || key =='listLength')
-          delete data[key];
-    }
-    data.recordId = id;
-
-    this.router.routeReuseStrategy.shouldReuseRoute = function () {
-      return false;
-    }
-    this.router.onSameUrlNavigation = 'reload';
-
-    if(click == 'leftClick'){
-      this.router.navigate(['sources/'+source+'/'+id+'/table/'+entity], { queryParams:data });
-    }else{
-      const url = this.router.serializeUrl(this.router.createUrlTree(['seaLit/sources/'+source+'/'+id+'/table/'+entity], { queryParams:data }));
-      window.open(url, '_blank');
-    }
-  }
 
   calculateStats(rowdata: any, column: string | number){
+    // console.log(this.barChartData.datasets[0].label)
+    // console.log(column)
+
     if(String(column) != this.barChartData.datasets[0].label){
-      // console.log('bmhka')
 
       this.chart?.chart?.resetZoom();
       var values = rowdata.map((elem: { [x: string]: any; })=> elem[column]);
@@ -163,11 +160,13 @@ export class TableComponent implements OnInit {
       this.barChartData.datasets[0].data = Object.values(stats);
       this.barChartData.datasets[0].label = String(column);
       if(!this.chartOption)
-        this.chartOption = !this.chartOption;
-
-        this.chart?.update();
-    }else{
       this.chartOption = !this.chartOption;
+
+      this.chart?.update();
+    }else{
+      console.log('bmhka')
+      this.chartOption = !this.chartOption;
+
     }
   }
 
@@ -182,7 +181,7 @@ export class TableComponent implements OnInit {
   }
 
   downloadChartData(){
-    var chart =  Chart.getChart("chart");
+    var chart =  Chart.getChart("chart"+this.id);
     var title = chart?.data.datasets[0].label;
     var data = chart?.data.labels;
     var count = chart?.data.datasets[0].data;
@@ -192,6 +191,9 @@ export class TableComponent implements OnInit {
     saveAs(blob, "export.csv");
   }
 
+  titleClick(id: number){
+    this.titleClickEvent.emit(id);
+  }
 
 }
 

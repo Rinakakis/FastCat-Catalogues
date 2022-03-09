@@ -8,10 +8,10 @@
     <div class="spacer">
       <nav>
         <a mat-button class="nav-link" title="Explore by source" routerLink="/sources"
-          (click)="activeLink = 'Explore by source'">Explore by source
+          >Explore by source
         </a>
         <a mat-button class="nav-link" title="Explore all" routerLink="/explore-all"
-          (click)="activeLink = 'Explore all'">Explore all</a>
+          >Explore all</a>
       </nav>
     </div>
     <div class="center">
@@ -24,13 +24,11 @@
       <nav>
         <a mat-button class="nav-link" title="Explore by source" routerLink="/sources"
           [ngClass]="{active: isActive('Explore by source')}"
-          (click)="clickEvent('Explore by source')"
-          >Explore by source
+          (click)="clickEvent('Explore by source')">Explore by source
         </a>
         <a mat-button class="nav-link" title="Explore all" routerLink="/explore-all"
             [ngClass]="{active: isActive('Explore all')}"
-          (click)="clickEvent('Explore all')"
-          >Explore all</a>
+          (click)="clickEvent('Explore all')">Explore all</a>
       </nav>
     </div>
 

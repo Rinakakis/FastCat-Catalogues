@@ -1,6 +1,8 @@
 const fs = require("fs");
+var gracefulFs = require('graceful-fs')
 const { get, isArray, isObject, isPlainObject, isEqual, isEmpty } = require('lodash');
 
+gracefulFs.gracefulify(fs)
 
 const path = './Data/';
 
@@ -216,7 +218,7 @@ async function handleExploreAll(name){
   }
 
   config  = await getConfigEntity(null, name);
-  console.log(config)
+  // console.log(config)
   // return config['sub'];
   if(Object.keys(config).length == 1 && Object.keys(config).join() == 'sub'){
     config = config['sub'];
@@ -327,7 +329,7 @@ async function handleSourceRecordList(source) {
     });
   
     // console.dir(elem, { depth: null });
-    
+  //  console.log(query)
     if(elem.length > 1){
     // console.log('mpika');
       var temp = [];

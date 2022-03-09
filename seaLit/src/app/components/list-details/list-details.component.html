@@ -31,55 +31,17 @@
     </div>
   </div>
 
-
-    <div class="d-flex justify-content-center">
-      <div class="spinner-border" role="status" id="loading-div" style = "display: none;">
-          <span class="sr-only" role="status" aria-hidden="true" id="loading2"></span>
-      </div>
+  <div class="d-flex justify-content-center">
+    <div class="spinner-border" role="status" id="loading-div" style = "display: none;">
+        <span class="sr-only" role="status" aria-hidden="true" id="loading2"></span>
     </div>
-    <div class="table" *ngIf="tableClicked">
-      <div class="title-download-div">
-          <div class="title-div">
-            <h3 class="table-title">{{TableName}} </h3>
-          </div>
-          <div class="chart-div">
-            <button class="chart-but" mat-button [matMenuTriggerFor]="columns" color="success" title="Data Visualization"><mat-icon> bar_chart</mat-icon></button>
-            <mat-menu #columns="matMenu">
-              <button *ngFor="let column of columnTitles" mat-menu-item (click)="calculateStats(rowData,column)">{{column}}</button>
-            </mat-menu>
-          </div>
-          <div class="download-div">
-            <button class="download-but" mat-button color="success" title="Download CSV file" (click)="onBtnExport(rowData)"><mat-icon id="downicon">download</mat-icon></button>
-          </div>
-      </div>
-      <ag-grid-angular oncontextmenu="return false;"
-      [style]="tableHeight"
-      class="ag-theme-alpine"
+  </div>
+  <div class="table" *ngIf="tableClicked">
+    <app-table
       [rowData]="rowData"
-      [columnDefs]="columnDefs"
-      [defaultColDef]="defaultColDef"
-      [pagination]="true"
-      [paginationPageSize]=9
-      [gridOptions]="gridOptions"
-      >
-    </ag-grid-angular>
-    </div>
-
-    <div style="display: block;" *ngIf="chartOption">
-      <canvas baseChart
-        id = "chart"
-        [data]="barChartData"
-        [options]="barChartOptions"
-        [plugins]="barChartPlugins"
-        [type]="barChartType">
-      </canvas>
-      <div class="reset-div">
-        <button class="reset-button" mat-stroked-button (click)="resetZoom()" title="Reset Zoom">
-          Reset Zoom
-        </button>
-        <button class="reset-button" mat-stroked-button (click)="downloadChartData()" title="Download Chart data">
-          <mat-icon>download</mat-icon>
-        </button>
-      </div>
-    </div>
+      [titles]="titles"
+      [tableName]="tableName"
+      (newItemEvent)="sendQuery($event)">
+    </app-table>
+  </div>
 </div>

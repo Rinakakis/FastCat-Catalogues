@@ -259,10 +259,10 @@
             "Father's Name": {
                 "path": "docs[0].data.crew_list.#.crew_fathers_name"
             },
-            "Locations of Birth": {
+            "Location of Birth": {
                 "path": "docs[0].data.crew_list.#.crew_birth_location"
             },
-            "Locations of Residence": {
+            "Location of Residence": {
                 "path": "docs[0].data.crew_list.#.crew_residence_location"
             },
             "Age": {
@@ -354,10 +354,10 @@
             "Father's Name": {
                 "path": "docs[0].data.crew_list.#.crew_fathers_name"
             },
-            "Locations of Birth": {
+            "Location of Birth": {
                 "path": "docs[0].data.crew_list.#.crew_birth_location"
             },
-            "Locations of Residence": {
+            "Location of Residence": {
                 "path": "docs[0].data.crew_list.#.crew_residence_location"
             },
             "Age": {
@@ -433,10 +433,10 @@
             "Father's Name": {
                 "path": "docs[0].data.crew_list.#.crew_fathers_name"
             },
-            "Locations of Birth": {
+            "Location of Birth": {
                 "path": "docs[0].data.crew_list.#.crew_birth_location"
             },
-            "Locations of Residence": {
+            "Location of Residence": {
                 "path": "docs[0].data.crew_list.#.crew_residence_location"
             },
             "Age": {

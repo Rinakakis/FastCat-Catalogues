@@ -1,10 +1,10 @@
 {
     "Payroll":{
         "Ships": {
-            "Ship Name": {
+            "Name": {
                 "path": "docs[0].data.ship_records.ship_name"
             },
-            "Ship Type": {
+            "Type": {
                 "path": "docs[0].data.ship_records.ship_type"
             },
             "Captains": {

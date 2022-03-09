@@ -8,8 +8,7 @@ import { ActivatedRoute, NavigationEnd, ResolveEnd, Router } from '@angular/rout
 })
 export class HeaderComponent implements OnInit {
   links = ['Explore by source', 'Explore all'];
-  activeLink = this.links[0];
-  selected!: string;
+  selected: string = this.links[0];
 
   constructor(
     private router: Router,
@@ -36,6 +35,7 @@ export class HeaderComponent implements OnInit {
   clickEvent(item: string) {
     this.selected = item;
   }
+
   isActive(item: string) {
     return this.selected == item;
   };

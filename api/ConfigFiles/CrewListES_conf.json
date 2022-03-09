@@ -49,7 +49,7 @@
             "Age": {
                 "path": "docs[0].data.crew_list.#.crew_age"
             },
-            "Locations of Residence": {
+            "Location of Residence": {
                 "path": "docs[0].data.crew_list.#.crew_birth_location"
             },
             "Ships": {
@@ -162,10 +162,10 @@
             "Age": {
                 "path": "docs[0].data.crew_list.#.crew_age"
             },
-            "Locations of Birth": {
+            "Location of Birth": {
                 "path": "docs[0].data.crew_list.#.crew_birth_location"
             },
-            "Locations of Residence": {
+            "Location of Residence": {
                 "path": "docs[0].data.crew_list.#.crew_birth_location"
             },
             "Ships": {

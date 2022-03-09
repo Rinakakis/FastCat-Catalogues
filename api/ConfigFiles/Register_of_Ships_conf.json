@@ -2,10 +2,10 @@
     "Naval Ship Register List":{
         "Ships": {
             "value-type": "list",
-            "Ship Name": {
+            "Name": {
                 "path": "docs[0].data.list_of_ships.#.ship_name"
             },
-            "Ship Type": {
+            "Type": {
                 "path": "docs[0].data.list_of_ships.#.ship_type"
             },
             "Gross Tonnage (In Kg)": {

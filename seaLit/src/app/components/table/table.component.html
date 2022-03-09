@@ -1,7 +1,7 @@
-<div class="table">
+<div class="table" [id]="id">
   <div class="title-download-div">
       <div class="title-div">
-        <h3 class="table-title">{{tableName}} </h3>
+        <h3 class="table-title"(click)="titleClick(id)" >{{tableName}} </h3>
       </div>
       <div class="chart-div">
         <button class="chart-but" mat-button [matMenuTriggerFor]="columns" color="success" title="Data Visualization"><mat-icon> bar_chart</mat-icon></button>
@@ -14,6 +14,7 @@
       </div>
   </div>
   <ag-grid-angular oncontextmenu="return false;"
+  id = "grid{{id}}"
   [style]="tableHeight"
   class="ag-theme-alpine"
   [rowData]="rowData"
@@ -28,7 +29,7 @@
 
 <div style="display: block;" *ngIf="chartOption">
   <canvas baseChart
-    id = "chart"
+    id = "chart{{id}}"
     [data]="barChartData"
     [options]="barChartOptions"
     [plugins]="barChartPlugins"

@@ -44,7 +44,7 @@ export class ExploreAllDetailComponent implements OnInit {
         if (list) {
           this.hideloader('loading');
         }
-        console.log(list);
+        // console.log(list);
         if(list.sub != undefined){
           this.handleSub(list.sub);
         }else{
@@ -94,7 +94,7 @@ export class ExploreAllDetailComponent implements OnInit {
   }
 
   handleClickedRow(event: CellClickedEvent){
-    console.log(event)
+    // console.log(event)
     this.clickedTableTitles = [];
     this.clickedTableData = [];
     this.clickedRow = event.data;
@@ -131,8 +131,8 @@ export class ExploreAllDetailComponent implements OnInit {
   }
 
   clickedRowEvent(row: any){
-    console.log(row)
-    console.log(this.clickedRow)
+    // console.log(row)
+    // console.log(this.clickedRow)
     this.router.navigate(['sources/'+row.sources+'/table/'+row.table], { queryParams:this.clickedRow });
 
   }

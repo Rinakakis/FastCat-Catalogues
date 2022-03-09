@@ -2,7 +2,7 @@
     "Payroll of Russian Steam Navigation and Trading Company":{
         "Ships": {
             "value-type": "list",
-            "Ship Name": {
+            "Name": {
                 "path": "docs[0].data.payroll.#.payroll_ship_name"
             },
             "Owner (Company)": {

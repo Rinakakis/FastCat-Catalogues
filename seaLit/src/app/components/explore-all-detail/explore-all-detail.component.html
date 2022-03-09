@@ -10,13 +10,6 @@
     [tableName]="clickedTable"
     (newItemEvent)="handleClickedRow($event)">
   </app-table>
-  <!-- <app-table
-    *ngIf="rowClicked"
-    [rowData]="clickedTableData"
-    [titles]="clickedTableTitles"
-    tableName="Appeared on"
-    (newItemEvent)="handleClickedRow($event)">
-  </app-table> -->
 
   <div class="nocol-grid" *ngIf="rowClicked">
     <div class="nontable" >
