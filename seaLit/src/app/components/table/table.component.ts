@@ -1,11 +1,12 @@
-import { Component, Input, OnInit, ViewChild, Output, EventEmitter, OnChanges } from '@angular/core';
-import { isObject } from 'lodash';
-import { ListService } from 'src/app/services/list.service';
-import { CellClickedEvent, CellContextMenuEvent } from 'ag-grid-community';
+import { Component, EventEmitter, Input, OnChanges, Output, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
+import { CellClickedEvent, CellContextMenuEvent, FilterChangedEvent, GridApi, GridReadyEvent } from 'ag-grid-community';
 import { Chart, ChartConfiguration, ChartData, ChartType } from 'chart.js';
-import { BaseChartDirective } from 'ng2-charts';
-import { saveAs } from 'file-saver';
 import zoomPlugin from 'chartjs-plugin-zoom';
+import { saveAs } from 'file-saver';
+import { isObject } from 'lodash';
+import { BaseChartDirective } from 'ng2-charts';
+import { ListService } from 'src/app/services/list.service';
 
 
 
@@ -15,12 +16,13 @@ import zoomPlugin from 'chartjs-plugin-zoom';
   styleUrls: ['./table.component.css']
 })
 export class TableComponent implements OnChanges  {
+  private gridApi!: GridApi;
   @ViewChild(BaseChartDirective, { static: false }) chart: BaseChartDirective | undefined;
 
 
   @Input() rowData: any[] = [];
   @Input() titles: any[] = [];
-  @Input() tableName:  string = '';
+  @Input() tableName: string = '';
   @Input() id: number = -1;
 
   @Output() newItemEvent = new EventEmitter<any>();
@@ -40,6 +42,11 @@ export class TableComponent implements OnChanges  {
     onCellContextMenu: ((event: CellContextMenuEvent) =>{
       this.newItemEvent.emit(event);
       // this.sendQuery(event, 'rightClick')
+    }),
+    onFilterChanged: ((event: FilterChangedEvent)=>{
+      if(this.chartOption == true){
+        this.calculateStats(this.barChartData.datasets[0].label as string);
+      }
     })
   }
 
@@ -75,10 +82,13 @@ export class TableComponent implements OnChanges  {
   barChartPlugins = [];
   barChartType: ChartType = 'bar';
 
-
+  ExploreAllTitles = {
+    'Locations': ['Port', 'Port of Call', 'Registry Port', 'Place of Birth', 'Place of Residence', 'Death Location', 'Construction Location', 'Place of Engine Construction']
+  }
 
   constructor(
     private listservice : ListService,
+    private router: Router
   ) { }
 
   // ngOnInit(): void {
@@ -97,22 +107,24 @@ export class TableComponent implements OnChanges  {
   ngOnChanges(): void {
     this.chartOption = false;
     Chart.register(zoomPlugin);
-    // console.log(this.titles)
-    // console.log(this.rowData)
     this.barChartData.datasets[0].label = ''
-
     this.columnDefs = this.formatTableTitles(this.titles);
-    // this.columnTitles = this.columnDefs.map(column=> column.field);
-    // this.rowData = table;
     this.tableHeight = this.listservice.calculatetableHeight(this.rowData.length);
   }
 
-
+  onGridReady(params: GridReadyEvent) {
+    this.gridApi = params.api;
+  }
 
   formatTableTitles(table: any[]): any[]{
-    // console.log(table)
     var titles: any = this.getTitles(table[0]);
+    var exploreAll = this.router.url.split('/')[1] == 'explore-all';
     var titleFormat = titles.map((val: string) => {
+        // console.log(exploreAll)
+        if(exploreAll == true && (this.ExploreAllTitles as any)['Locations'].includes(val))
+          var title = 'Locations';
+        else
+          var title = val;
 
         if(val == 'FastCat Records'){
           return {width: 60, resizable: false, tooltipField: val,
@@ -122,11 +134,11 @@ export class TableComponent implements OnChanges  {
           }
         }
         else if(this.listservice.NumColumns.includes(val))
-          return {'field': val,'colId':this.tableName, 'sortable': true, filter: 'agNumberColumnFilter', filterParams: numberFilter,tooltipField: val, cellRenderer: (params: { value: any; }) => params.value === undefined ? "n/a" : params.value};
+          return {headerName:title,'field': val,'colId':this.tableName, 'sortable': true, filter: 'agNumberColumnFilter', filterParams: numberFilter,tooltipField: val, cellRenderer: (params: { value: any; }) => params.value === undefined ? "n/a" : params.value};
         else if(this.listservice.DateColumns.includes(val))
-          return {'field': val,'colId':this.tableName, 'sortable': true, filter: 'agDateColumnFilter', filterParams: dateFilter,comparator: dateComparator, tooltipField: val, cellRenderer: (params: { value: any; }) => params.value === undefined ? "n/a" : params.value};
+          return {headerName:title,'field': val,'colId':this.tableName, 'sortable': true, filter: 'agDateColumnFilter', filterParams: dateFilter,comparator: dateComparator, tooltipField: val, cellRenderer: (params: { value: any; }) => params.value === undefined ? "n/a" : params.value};
         else
-          return {'field': val,'colId':this.tableName, 'sortable': true, 'filter': true, tooltipField: val, cellRenderer: (params: { value: any; }) => params.value === undefined ? "n/a" : params.value};
+          return {headerName:title, 'field': val,'colId':this.tableName, 'sortable': true, 'filter': true, tooltipField: val, cellRenderer: (params: { value: any; }) => params.value === undefined ? "n/a" : params.value};
 
     });
 
@@ -136,7 +148,7 @@ export class TableComponent implements OnChanges  {
 
   getTitles(temp: any): string[]{
     if(this.titles.length != 0) return this.titles;
-
+    console.log(temp)
     var titles: string[] = [];
     for (const [key, value] of Object.entries(temp)) {
       if(!isObject(value) && key!='value-type' && key!='listLength' && key!='listIds' && key!='display')
@@ -146,14 +158,20 @@ export class TableComponent implements OnChanges  {
   }
 
 
-  calculateStats(rowdata: any, column: string | number){
+
+  calculateStats(column: string | number){
     // console.log(this.barChartData.datasets[0].label)
     // console.log(column)
 
-    if(String(column) != this.barChartData.datasets[0].label){
+    // if(String(column) != this.barChartData.datasets[0].label){
 
       this.chart?.chart?.resetZoom();
-      var values = rowdata.map((elem: { [x: string]: any; })=> elem[column]);
+      var values: any = [];
+      this.gridApi.forEachNodeAfterFilter(rowNode => {
+        // console.log(rowNode.data)
+        values.push(rowNode.data[column]);
+      })
+      //  = rowdata.map((elem: { [x: string]: any; })=> elem[column]);
 
       var stats = this.listservice.calculateStats(values);
       this.barChartData.labels = Object.keys(stats);
@@ -163,11 +181,11 @@ export class TableComponent implements OnChanges  {
       this.chartOption = !this.chartOption;
 
       this.chart?.update();
-    }else{
-      console.log('bmhka')
-      this.chartOption = !this.chartOption;
+    // }else{
+    //   console.log('bmhka')
+    //   this.chartOption = !this.chartOption;
 
-    }
+    // }
   }
 
   onBtnExport(tableg: any){

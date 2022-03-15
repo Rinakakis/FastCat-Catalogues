@@ -10,7 +10,7 @@
           routerLink="/sources/{{sourceName}}">
           <h3 style="margin: 0" >{{sourceName}}</h3>
         </a>
-          <h3 style="display: inline-block; margin: 0">: {{title}} </h3>
+          <h3 style="display: inline-block; margin: 0">: {{title}}&nbsp;</h3>
           <a style="display: inline-block"
             href="https://isl.ics.forth.gr/FastCatTeam/templates/{{sourceId}}.html?name={{Id}}&templateTitle={{sourceName}}&mode=teamView"
           target="_blank" rel="noopener"
@@ -33,8 +33,8 @@
         <span class="sr-only" role="status" aria-hidden="true" id="loading2"></span>
     </div>
   </div>
-  <div class="table" >
-    <app-table *ngIf="tableClicked"
+  <div class="table" *ngIf="tableClicked">
+    <app-table
       [rowData]="rowData"
       [titles]="titles"
       [tableName]="tableName"

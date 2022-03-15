@@ -100,7 +100,13 @@
     margin-bottom: 40px;
     /* align-self: center; */
   }
-  
+
+  /* @media only screen and (max-width: 415px) {
+    .forth-info{
+      flex-direction: column;
+    }
+
+  } */
   @media only screen and (max-width: 427px) {
     .left-footer-div> a img{
       height: 45px;

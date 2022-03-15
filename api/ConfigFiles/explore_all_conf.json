@@ -270,10 +270,10 @@
             },
             "Discharge Ports": {
                 "Crew and displacement list (Roll)": {
-                    "Embarkation Ports": {}
+                    "Discharge Ports": {}
                 },
                 "Crew List (Ruoli di Equipaggio)": {
-                    "Embarkation Ports": {}
+                    "Discharge Ports": {}
                 }
             },
             "Registry Ports": {
@@ -462,5 +462,51 @@
             "Engine Manufacturers": {}
         }
     },
-    "Professions": {}
+    "Professions": {
+        "Census La Ciotat": {
+            "Professions": {}
+        },
+        "Civil Register": {
+            "Professions": {}
+        },
+        "General Spanish Crew List":{
+            "Professions": {}
+        },
+        "Crew and displacement list (Roll)": {
+            "Professions": {}
+        },
+        "Crew List (Ruoli di Equipaggio)": {
+            "Professions": {}
+        },
+        "Inscription Maritime - Maritime Register of the State for La Ciotat": {
+            "Professions": {}
+        },
+        "Register of Maritime personel":{
+            "Previous Professions": {}
+        },
+        "Register of Maritime workers (Matricole della gente di mare)":{
+            "Professions-Ranks": {}
+        },
+        "Employment records, Shipyards of Messageries Maritimes, La Ciotat": {
+            "Professions (of Service in Company)": {}
+        },
+        "Notarial Deeds":{
+            "Professions (of Witnesses)": {}
+
+        },
+        "Payroll":{
+            "Professions-Ranks": {}
+        },
+        "Sailors register (Libro de registro de marineros)":{
+            "Previous Professions": {}
+        },
+        "Seagoing Personel":{
+            "Professions": {}
+        },
+        "Students Register":{
+            "Students Professions": {}
+            
+        }
+
+    }
 }

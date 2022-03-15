@@ -7,25 +7,31 @@ import { ActivatedRoute, NavigationEnd, ResolveEnd, Router } from '@angular/rout
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
-  links = ['Explore by source', 'Explore all'];
+  loaded: boolean = false;
+  links: string[] = ['Explore by source', 'Explore all'];
   selected: string = this.links[0];
 
   constructor(
     private router: Router,
     private route: ActivatedRoute
-  ) { }
+  ) {
+
+
+   }
 
   ngOnInit(): void {
-    this.router.events.subscribe(routerData => {
-      if (routerData instanceof NavigationEnd) {
-        var start = routerData.url.split('/')[1];
 
-        if (start == 'sources')
-          this.selected = this.links[0];
-        else
-          this.selected = this.links[1];
-      }
-    })
+    // this.router.events.subscribe(routerData => {
+    //   if (routerData instanceof NavigationEnd) {
+    //     var start = routerData.url.split('/')[1];
+    //     console.log(start)
+    //     if (start == 'sources')
+    //       this.selected = this.links[0];
+    //     else
+    //       this.selected = this.links[1];
+    //   }
+    //   this.loaded = true;
+    // })
   }
 
   home() {
@@ -36,8 +42,5 @@ export class HeaderComponent implements OnInit {
     this.selected = item;
   }
 
-  isActive(item: string) {
-    return this.selected == item;
-  };
 
 }

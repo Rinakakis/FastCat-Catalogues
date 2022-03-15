@@ -82,7 +82,7 @@
         },
         "Previous Professions": {
             "value-type": "list",
-            "Previous Profession": {
+            "Profession": {
                 "path": "docs[0].data.maritime_personnel.#.previous_profession"
             },
             "Persons": {

@@ -194,7 +194,7 @@
         },
         "Professions-Ranks": {
             "value-type": "nested-list",
-            "Profession-Rank": {
+            "Profession": {
                 "path": "docs[0].data.payroll_analysis.#.person_profession_rank"
             },
             "Persons": {

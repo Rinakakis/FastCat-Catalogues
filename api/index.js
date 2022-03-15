@@ -1,6 +1,6 @@
 const fs = require("fs");
 var gracefulFs = require('graceful-fs')
-const { get, isArray, isObject, isPlainObject, isEqual, isEmpty } = require('lodash');
+const { get, isArray, isObject, isPlainObject, isEqual, isEmpty, result } = require('lodash');
 
 gracefulFs.gracefulify(fs)
 
@@ -217,33 +217,80 @@ async function handleExploreAll(name){
     return config;
   }
 
-  config  = await getConfigEntity(null, name);
-  // console.log(config)
-  // return config['sub'];
+  config = await getConfigEntity(null, name);
+  
   if(Object.keys(config).length == 1 && Object.keys(config).join() == 'sub'){
     config = config['sub'];
-    // console.log(config)
     for(tableName of Object.keys(config)){
       var tableConfig = config[tableName];
-      await getExploreAllTables(tableConfig);
+      retObj = await getExploreAllTables(tableConfig, retObj);
     }
-    retObj.master = config;
   }else{
-    config = await getExploreAllTables(config);
-    retObj.sub = config;
+    retObj = await getExploreAllTables(config);
   }
-
   return retObj;
 }
 
-async function getExploreAllTables(config){
+async function getExploreAllTables(config, prevArray){
+  var arrayWithData = {data: [],titles:[], arrayWithSources: []};
+  var previusTitles = [];
+  // var arrayWithSources = [];
+  if(prevArray!= undefined && Object.keys(prevArray).length != 0){
+    arrayWithData = prevArray;
+    previusTitles.push(prevArray.titles);
+  }
+  // console.log(arrayWithData)
   for (const source of Object.keys(config)){
     var tableName = Object.keys(config[source]).join();
     var myarray = await handleSingleTable(source, tableName);
     filterData(myarray);
-    config[source][tableName] = myarray; 
+
+    for(const key of Object.keys(myarray[0])){
+      if(!arrayWithData.titles.includes(key))
+        arrayWithData.titles.push(key);
+    }
+    
+    if(arrayWithData.data.length == 0){
+      for (const data of myarray) {
+        arrayWithData.arrayWithSources.push([{'source':source, 'table': tableName}]);
+        arrayWithData.data.push(data);
+      }
+
+    }else{
+      var titles = Object.keys(myarray[0]);
+      var res;
+      var compare = checkIfComperationIsNeeded(previusTitles, titles);
+      for (const data of myarray) {
+        if(compare) res = containsObject(arrayWithData.data, data);
+        else res = false;
+        if(res === false){
+          arrayWithData.data.push(data);
+          arrayWithData.arrayWithSources.push([{'source':source, 'table': tableName}]);
+        }else{
+          arrayWithData.arrayWithSources[res].push({'source':source, 'table': tableName});
+        }
+      }
+    }
+    previusTitles.push(Object.keys(myarray[0]));
   }
-  return config;
+  return arrayWithData;
+}
+
+function checkIfComperationIsNeeded(previusTitles, currTitles){
+  // console.log(previusTitles)
+  for (let i = 0; i < previusTitles.length; i++) {
+    const titles = previusTitles[i];
+    if(isEqual(currTitles.sort(), titles.sort())) return true;  
+  }
+  return false;
+}
+
+function containsObject(arr, obj){
+  for (const [i,row] of arr.entries()) {
+    if(isEqual(row,obj))
+      return i;
+  }
+  return false;
 }
 
 async function handleTableData(query) {
@@ -252,7 +299,7 @@ async function handleTableData(query) {
     var id = query.id;
     var myarray = [];
     var query = JSON.parse(JSON.stringify(query));
-    var recordId = '';
+    var recordId = null;
     if (query.recordId != null) {
         recordId = JSON.parse(JSON.stringify(query['recordId']));
         delete query['recordId'];
@@ -262,7 +309,7 @@ async function handleTableData(query) {
     } else if (id == null && Object.keys(query).length > 2) {
         delete query['source'];
         delete query['tableName'];
-        if (query.recordId != null) {
+        if (recordId != null) {
             myarray = await handleSingleTable(source, tableName, true, true, recordId);
         } else {
             myarray = await handleSingleTable(source, tableName, true, true);

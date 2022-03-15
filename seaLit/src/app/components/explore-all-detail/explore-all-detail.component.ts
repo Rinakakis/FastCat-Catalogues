@@ -13,6 +13,7 @@ import { ListService } from 'src/app/services/list.service';
 export class ExploreAllDetailComponent implements OnInit {
   list: any[] = [];
   rawlist: any;
+  mapList: any[] = [];
   titles: any[] = [];
   clickedTableData:any[] = [];
   clickedTableTitles:any[] = [];
@@ -22,6 +23,7 @@ export class ExploreAllDetailComponent implements OnInit {
   clickedTable: string = '';
   clickedRowkeys: string[] = [];
   clickedRowId: number | null = null;
+  count: number = 0;
 
   constructor(
     private listservice: ListService,
@@ -31,7 +33,6 @@ export class ExploreAllDetailComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.titleService.setTitle('SeaLit - Explore archival entities of Maritime History');
     this.getList();
   }
 
@@ -44,49 +45,18 @@ export class ExploreAllDetailComponent implements OnInit {
         if (list) {
           this.hideloader('loading');
         }
-        // console.log(list);
-        if(list.sub != undefined){
-          this.handleSub(list.sub);
-        }else{
-          // this.handleMaster(list.master);
-        }
-
-        // console.log(this.list);
+        console.log(list);
+        this.handleData(list);
+        this.titleService.setTitle(`SeaLit - ${this.clickedTable} (${this.count})`);
         this.loaded = !this.loaded;
-        // this.isDataLoaded = !this.isDataLoaded;
       });
   }
 
-  handleMaster(list: any) {
-    for (const key in list) {
-        const element = list[key];
-        this.handleSub(element);
-    }
-  }
-
-  handleSub(list: any) {
-    this.rawlist = list;
-
-    for (const source of Object.keys(list)) {
-      var sourceArrayName = Object.keys(list[source]).join();
-      var sourceArray = list[source][sourceArrayName];
-      if(sourceArray.length != 0){
-        Object.keys(sourceArray[0]).forEach(title=>{
-          if(this.titles.indexOf(title) === -1)
-            this.titles.push(title);
-        })
-      }
-      // console.log(sourceArray);
-      sourceArray.forEach((newRow: any) =>{
-        if(this.list.length != 0){
-          if(!this.containsObject(this.list, newRow))
-            this.list.push(newRow);
-        }else{
-          this.list.push(newRow);
-        }
-      })
-      // this.list.push(...sourceArray);
-    }
+  handleData(list: any) {
+    this.count = list.data.length;
+    this.titles = list.titles;
+    this.list = list.data;
+    this.mapList = list.arrayWithSources;
   }
 
   hideloader(id: string) {
@@ -94,30 +64,14 @@ export class ExploreAllDetailComponent implements OnInit {
   }
 
   handleClickedRow(event: CellClickedEvent){
-    // console.log(event)
     this.clickedTableTitles = [];
     this.clickedTableData = [];
     this.clickedRow = event.data;
-    var keysOfRow = Object.keys(this.clickedRow);
-    this.clickedRowkeys = keysOfRow;
+    this.clickedRowkeys = Object.keys(this.clickedRow);
 
-    for (const source of Object.keys(this.rawlist)) {
-      var sourceArrayName = Object.keys(this.rawlist[source]).join();
-      var sourceArray = this.rawlist[source][sourceArrayName];
-
-      var sourceArrayKeys = Object.keys(sourceArray[0]);
-      // console.log(sourceArrayKeys)
-      if(isEqual(sourceArrayKeys.sort(), keysOfRow.sort())){
-
-        let lookup = sourceArray.find((row:any) => {
-            return isEqual(this.clickedRow,row);
-        });
-        if(lookup != undefined){
-          this.clickedTableData.push({'sources': source, 'table': sourceArrayName});
-        }
-      }
-    }
-    this.clickedTableTitles = ['sources', 'table'];
+    var row = this.mapList[Number(event.node.id)];
+    this.clickedTableData.push(...row);
+    this.clickedTableTitles = ['source', 'table'];
 
     if(event.rowIndex == this.clickedRowId){
       this.rowClicked = false;
@@ -131,14 +85,10 @@ export class ExploreAllDetailComponent implements OnInit {
   }
 
   clickedRowEvent(row: any){
-    // console.log(row)
-    // console.log(this.clickedRow)
-    this.router.navigate(['sources/'+row.sources+'/table/'+row.table], { queryParams:this.clickedRow });
-
+    this.router.navigate(['sources/'+row.source+'/table/'+row.table], { queryParams:this.clickedRow });
   }
 
   containsObject(arr: any[], obj: any){
-
     for (const row of arr) {
       if(isEqual(row,obj))
         return true;

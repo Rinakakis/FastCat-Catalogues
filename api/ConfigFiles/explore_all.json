@@ -181,10 +181,10 @@
             },
             "Discharge Ports": {
                 "Crew and displacement list (Roll)": {
-                    "Embarkation Ports": {}
+                    "Discharge Ports": {}
                 },
                 "Crew List (Ruoli di Equipaggio)": {
-                    "Embarkation Ports": {}
+                    "Discharge Ports": {}
                 }
             },
             "Registry Ports": {

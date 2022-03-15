@@ -71,7 +71,7 @@
         },
         "Professions-Ranks": {
             "value-type": "list",
-            "Profession-Rank": {
+            "Profession": {
                 "path": "docs[0].data.maritime_workers_list.#.worker_profession_rank"
             },
             "Maritime Workers": {

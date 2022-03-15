@@ -1,3 +1,11 @@
+h3, .blend-title{
+  font: 'Lato', "Times New Roman", Times, serif;
+  color: #3B678E;
+  /* text-align: center; */
+  /* margin: 20px; */
+  font-weight: 500;
+}
+
 .table-container{
   padding: 20px;
 }

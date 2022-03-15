@@ -4,6 +4,8 @@
   </div>
 </div>
 <div class="table-container" *ngIf="loaded">
+  <h3>{{clickedTable}} ({{count}})</h3>
+
   <app-table
     [rowData]="list"
     [titles]="titles"

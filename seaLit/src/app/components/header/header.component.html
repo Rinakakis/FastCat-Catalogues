@@ -15,19 +15,18 @@
       </nav>
     </div>
     <div class="center">
-      <a id="home-link" title="Home" routerLink="/sources">
+      <a id="home-link" title="Home" routerLink="/sources" >
         <mat-icon id="home">home</mat-icon>
       </a>
       <h2 id="welcome-title">Welcome to the SeaLiT Catalogues</h2>
     </div>
     <div class="right">
       <nav>
-        <a mat-button class="nav-link" title="Explore by source" routerLink="/sources"
-          [ngClass]="{active: isActive('Explore by source')}"
+        <a mat-button class="nav-link" title="Explore by source" routerLink="/sources" routerLinkActive="active"
+
           (click)="clickEvent('Explore by source')">Explore by source
         </a>
-        <a mat-button class="nav-link" title="Explore all" routerLink="/explore-all"
-            [ngClass]="{active: isActive('Explore all')}"
+        <a mat-button class="nav-link" title="Explore all" routerLink="/explore-all" routerLinkActive="active"
           (click)="clickEvent('Explore all')">Explore all</a>
       </nav>
     </div>

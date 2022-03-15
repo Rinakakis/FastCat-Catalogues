@@ -45,7 +45,7 @@
         },
         "Previous Professions": {
             "value-type": "list",
-            "Previous Profession": {
+            "Profession": {
                 "path": "docs[0].data.seafarers_register.#.seafarer_previous_profession"
             },
             "Seafarers": {

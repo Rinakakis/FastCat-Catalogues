@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CellClickedEvent, CellContextMenuEvent } from 'ag-grid-community';
 import { isObject } from 'lodash';
 import { ListService } from 'src/app/services/list.service';
-import { Title } from '@angular/platform-browser';
 
 
 @Component({

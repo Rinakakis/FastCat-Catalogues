@@ -4,3 +4,59 @@
   color: white;
 }
 
+.chart-container{
+  margin-top: 5px;
+}
+
+.title-download-div{
+  height: max-content;
+  /* height: 40px; */
+  display: flex;
+  background-color: #3B678E;
+  padding: 0;
+}
+
+
+.chart-but{
+  background-color: #366288;
+  color: #F0F0F0;
+  margin: 0px;
+  /* padding: 5px 18px 0px 0; */
+  text-align: center;
+}
+.download-but{
+  background-color: #366288;
+  color: #F0F0F0;
+  margin: 0px;
+  /* padding: 5px 18px 0px 0; */
+  text-align: center;
+}
+
+.title-div{
+  margin-right: auto;
+}
+.download-div{
+  margin-left: 1px;
+}
+.table{
+  margin-top: 20px;
+}
+
+.table-title{
+  /* background-color: #366288; */
+  cursor: pointer;
+  padding: 5px 18px 5px 18px;
+}
+
+.table-title:hover{
+  text-decoration: underline;
+  background-color: #366288;
+}
+
+.ag-theme-alpine .ag-row-hover{
+  cursor: pointer;
+}
+.reset-div{
+  display:flex;
+  justify-content: flex-end;
+}
