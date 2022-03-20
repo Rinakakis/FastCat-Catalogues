@@ -218,20 +218,21 @@ async function handleExploreAll(name){
   }
 
   config = await getConfigEntity(null, name);
-  
+  if(config == undefined) return null;
+
   if(Object.keys(config).length == 1 && Object.keys(config).join() == 'sub'){
     config = config['sub'];
     for(tableName of Object.keys(config)){
       var tableConfig = config[tableName];
-      retObj = await getExploreAllTables(tableConfig, retObj);
+      retObj = await getExploreAllTables(tableConfig, retObj, tableName);
     }
   }else{
-    retObj = await getExploreAllTables(config);
+    retObj = await getExploreAllTables(config,undefined, name);
   }
   return retObj;
 }
 
-async function getExploreAllTables(config, prevArray){
+async function getExploreAllTables(config, prevArray, ListName){
   var arrayWithData = {data: [],titles:[], arrayWithSources: []};
   var previusTitles = [];
   // var arrayWithSources = [];
@@ -242,7 +243,7 @@ async function getExploreAllTables(config, prevArray){
   // console.log(arrayWithData)
   for (const source of Object.keys(config)){
     var tableName = Object.keys(config[source]).join();
-    var myarray = await handleSingleTable(source, tableName);
+    var myarray = await handleSingleTable(source, tableName, true, false, null, ListName);
     filterData(myarray);
 
     for(const key of Object.keys(myarray[0])){
@@ -616,11 +617,13 @@ async function handleSourceRecordList(source) {
    * @param {*} tableName 
    * @returns raw data for one table of an entity
    */
-  async function handleSingleTable(source,tableName,remv=true,nestedlink=false, id = null){
+  async function handleSingleTable(source,tableName,remv=true,nestedlink=false, id = null, exploreAllName){
     var myarray = [];
     var fullpath = path + source.replAll(' ', '_');
     var config = await getConfigEntity(source,tableName);
     var data;
+    if(exploreAllName != undefined) 
+      config = ChangeConfigKeys(source,tableName, config, exploreAllName);
     if(id!= null){
       // console.log('myarray')
       // myarray = getRecordWithId(fullpath, id);
@@ -643,21 +646,55 @@ async function handleSourceRecordList(source) {
     // return data;
   }
   
-  /**
-   * Returns all the records from an entity
-   * @param {string} fullpath File path of the entity's location  
-   * @returns {object[]} Array with raw records in json format 
-   */
-  function getRecordFiles(fullpath){
-     var myarray = [];
-     fs.readdirSync(fullpath)
-        .map(name => {
-          var file = fs.readFileSync(fullpath+'/'+name, 'utf8');
-          var record = JSON.parse(file.trim());
-          myarray.push(record);
-        });
-        // console.dir(myarray, { depth: null });
-     return myarray;
+  function ChangeConfigKeys(source, tableName, config, exploreAllName){
+    // console.log(source)
+    // console.log(tableName)
+    var mapp = {
+      "Civil Register": {
+        "Persons": {
+          "Surname A" : "Surname"
+        },
+        "Related Persons": {
+          "Surname A" : "Surname"
+        }
+      },
+      "General Spanish Crew List":{
+        "Crew Members": {
+          "Surname A" : "Surname"
+        }
+      },
+      "Crew and displacement list (Roll)": {
+        "Ship Owners (Persons)": {
+          "Surname A" : "Surname"
+        },
+        "Crew Members": {
+          "Surname A" : "Surname"
+        }
+      },
+      "Register of Maritime personel":{
+        "Persons": {
+          "Surname A" : "Surname"
+        }
+      },
+      "Naval Ship Register List":{
+        "Owners (Persons)":{
+          "Surname A" : "Surname"
+        }
+      }
+    }
+    if(mapp[source] == undefined || mapp[source][tableName] == undefined) return config;
+
+    // var keys = Object.keys(config);
+    // console.log(keys)
+    for (const key of Object.keys(config)) {
+      var newKey = mapp[source][tableName][key];
+      if(newKey != undefined){
+        config[newKey] = config[key];
+        delete config[key];
+      }
+    }
+    // console.log(config)
+    return config;
   }
   
   /**

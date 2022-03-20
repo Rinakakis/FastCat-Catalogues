@@ -136,6 +136,23 @@
                 "Accounts book": {
                     "Transaction Receivers": {}
                 }
+            },
+            "People": {
+                "Civil Register": {
+                    "Persons": {}
+                },
+                "Register of Maritime personel": {
+                    "Persons": {}
+                },
+                "Payroll": {
+                    "Persons": {}
+                },
+                "Payroll of Russian Steam Navigation and Trading Company": {
+                    "Persons": {}
+                },
+                "Seagoing Personel": {
+                    "Persons": {}
+                }
             }
         }
     },
@@ -234,6 +251,23 @@
             "Transaction Receivers": {}
         }
     },
+    "People": {
+        "Civil Register": {
+            "Persons": {}
+        },
+        "Register of Maritime personel": {
+            "Persons": {}
+        },
+        "Payroll": {
+            "Persons": {}
+        },
+        "Payroll of Russian Steam Navigation and Trading Company": {
+            "Persons": {}
+        },
+        "Seagoing Personel": {
+            "Persons": {}
+        }
+    },
     "Locations": {
         "sub": {
             "Departure Ports": {
@@ -258,7 +292,7 @@
                 }
             },
             "Embarkation Ports": {
-                "General Spanish Crew List":{
+                "General Spanish Crew List": {
                     "Embarkation Ports": {}
                 },
                 "Crew and displacement list (Roll)": {
@@ -280,10 +314,10 @@
                 "Crew List (Ruoli di Equipaggio)": {
                     "Ship Registry Ports": {}
                 },
-                "Logbook":{
+                "Logbook": {
                     "Registry Ports": {}
                 },
-                "List of ships":{
+                "List of ships": {
                     "Registry Ports": {}
                 }
             },
@@ -291,7 +325,7 @@
                 "Census La Ciotat": {
                     "Birth Places": {}
                 },
-                "First national all-Russian census of the Russian Empire":{
+                "First national all-Russian census of the Russian Empire": {
                     "Birth Places": {}
                 },
                 "Inscription Maritime - Maritime Register of the State for La Ciotat": {
@@ -314,7 +348,7 @@
                     "Death Locations": {}
                 }
             },
-            "Ship construction Places": {
+            "Ship Construction Places": {
                 "Crew and displacement list (Roll)": {
                     "Ship Construction Locations": {}
                 },
@@ -323,7 +357,7 @@
                 }
             },
             "Engine Construction Places": {
-                "List of ships":{
+                "List of ships": {
                     "Engine Construction Places": {}
                 }
             }
@@ -351,7 +385,7 @@
         }
     },
     "Embarkation Ports": {
-        "General Spanish Crew List":{
+        "General Spanish Crew List": {
             "Embarkation Ports": {}
         },
         "Crew and displacement list (Roll)": {
@@ -373,10 +407,10 @@
         "Crew List (Ruoli di Equipaggio)": {
             "Ship Registry Ports": {}
         },
-        "Logbook":{
+        "Logbook": {
             "Registry Ports": {}
         },
-        "List of ships":{
+        "List of ships": {
             "Registry Ports": {}
         }
     },
@@ -384,7 +418,7 @@
         "Census La Ciotat": {
             "Birth Places": {}
         },
-        "First national all-Russian census of the Russian Empire":{
+        "First national all-Russian census of the Russian Empire": {
             "Birth Places": {}
         },
         "Inscription Maritime - Maritime Register of the State for La Ciotat": {
@@ -407,7 +441,7 @@
             "Death Locations": {}
         }
     },
-    "Ship construction Places": {
+    "Ship Construction Places": {
         "Crew and displacement list (Roll)": {
             "Ship Construction Locations": {}
         },
@@ -416,49 +450,49 @@
         }
     },
     "Engine Construction Places": {
-        "List of ships":{
+        "List of ships": {
             "Engine Construction Places": {}
         }
     },
     "Organisations": {
-        "sub":{
+        "sub": {
             "Ship Owners (Organisations)": {
-                "Accounts book":{
+                "Accounts book": {
                     "Ship Owners (Organisations)": {}
                 },
                 "Crew and displacement list (Roll)": {
                     "Ship Owners (Organisations)": {}
                 },
-                "Logbook":{
+                "Logbook": {
                     "Owners (Organisations)": {}
                 },
-                "Payroll":{
+                "Payroll": {
                     "Ship Owners (Organisations)": {}
                 }
-            }, 
+            },
             "Engine Manufacturers": {
-                "List of ships":{
+                "List of ships": {
                     "Engine Manufacturers": {}
                 }
             }
         }
     },
     "Ship Owners (Organisations)": {
-        "Accounts book":{
+        "Accounts book": {
             "Ship Owners (Organisations)": {}
         },
         "Crew and displacement list (Roll)": {
             "Ship Owners (Organisations)": {}
         },
-        "Logbook":{
+        "Logbook": {
             "Owners (Organisations)": {}
         },
-        "Payroll":{
+        "Payroll": {
             "Ship Owners (Organisations)": {}
         }
-    }, 
+    },
     "Engine Manufacturers": {
-        "List of ships":{
+        "List of ships": {
             "Engine Manufacturers": {}
         }
     },
@@ -469,7 +503,7 @@
         "Civil Register": {
             "Professions": {}
         },
-        "General Spanish Crew List":{
+        "General Spanish Crew List": {
             "Professions": {}
         },
         "Crew and displacement list (Roll)": {
@@ -481,32 +515,29 @@
         "Inscription Maritime - Maritime Register of the State for La Ciotat": {
             "Professions": {}
         },
-        "Register of Maritime personel":{
+        "Register of Maritime personel": {
             "Previous Professions": {}
         },
-        "Register of Maritime workers (Matricole della gente di mare)":{
+        "Register of Maritime workers (Matricole della gente di mare)": {
             "Professions-Ranks": {}
         },
         "Employment records, Shipyards of Messageries Maritimes, La Ciotat": {
             "Professions (of Service in Company)": {}
         },
-        "Notarial Deeds":{
+        "Notarial Deeds": {
             "Professions (of Witnesses)": {}
-
         },
-        "Payroll":{
+        "Payroll": {
             "Professions-Ranks": {}
         },
-        "Sailors register (Libro de registro de marineros)":{
+        "Sailors register (Libro de registro de marineros)": {
             "Previous Professions": {}
         },
-        "Seagoing Personel":{
+        "Seagoing Personel": {
             "Professions": {}
         },
-        "Students Register":{
+        "Students Register": {
             "Students Professions": {}
-            
         }
-
     }
 }

@@ -57,7 +57,7 @@
             "Surname A": {
                 "path": "docs[0].data.list_of_students.#.student_surname_A"
             },
-            "Surname ": {
+            "Surname B": {
                 "path": "docs[0].data.list_of_students.#.student_surname_B"
             },
             "Location of Origin": {

@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnChanges, Output, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { CellClickedEvent, CellContextMenuEvent, FilterChangedEvent, GridApi, GridReadyEvent } from 'ag-grid-community';
+import { CellClickedEvent, CellContextMenuEvent, ColumnApi, FilterChangedEvent, GridApi, GridReadyEvent } from 'ag-grid-community';
 import { Chart, ChartConfiguration, ChartData, ChartType } from 'chart.js';
 import zoomPlugin from 'chartjs-plugin-zoom';
 import { saveAs } from 'file-saver';
@@ -16,9 +16,7 @@ import { ListService } from 'src/app/services/list.service';
   styleUrls: ['./table.component.css']
 })
 export class TableComponent implements OnChanges  {
-  private gridApi!: GridApi;
   @ViewChild(BaseChartDirective, { static: false }) chart: BaseChartDirective | undefined;
-
 
   @Input() rowData: any[] = [];
   @Input() titles: any[] = [];
@@ -28,6 +26,7 @@ export class TableComponent implements OnChanges  {
   @Output() newItemEvent = new EventEmitter<any>();
   @Output() titleClickEvent = new EventEmitter<any>();
 
+  private gridApi!: GridApi;
   columnDefs: any[] = [];
   defaultColDef = { resizable: true};
   tableHeight: string = '';
@@ -36,12 +35,10 @@ export class TableComponent implements OnChanges  {
     // Add event handlers
     onCellClicked: ((event: CellClickedEvent) =>{
       this.newItemEvent.emit(event);
-      // this.sendQuery(event, 'leftClick')
 
     }),
     onCellContextMenu: ((event: CellContextMenuEvent) =>{
       this.newItemEvent.emit(event);
-      // this.sendQuery(event, 'rightClick')
     }),
     onFilterChanged: ((event: FilterChangedEvent)=>{
       if(this.chartOption == true){
@@ -82,9 +79,9 @@ export class TableComponent implements OnChanges  {
   barChartPlugins = [];
   barChartType: ChartType = 'bar';
 
-  ExploreAllTitles = {
-    'Locations': ['Port', 'Port of Call', 'Registry Port', 'Place of Birth', 'Place of Residence', 'Death Location', 'Construction Location', 'Place of Engine Construction']
-  }
+  // ExploreAllTitles = {
+  //   'Locations': [' Port', 'Port of Call', 'Registry Port', 'Place of Birth', 'Place of Residence', 'Death Location', 'Construction Location', 'Place of Engine Construction']
+  // }
 
   constructor(
     private listservice : ListService,
@@ -110,6 +107,7 @@ export class TableComponent implements OnChanges  {
     this.barChartData.datasets[0].label = ''
     this.columnDefs = this.formatTableTitles(this.titles);
     this.tableHeight = this.listservice.calculatetableHeight(this.rowData.length);
+
   }
 
   onGridReady(params: GridReadyEvent) {
@@ -118,14 +116,8 @@ export class TableComponent implements OnChanges  {
 
   formatTableTitles(table: any[]): any[]{
     var titles: any = this.getTitles(table[0]);
-    var exploreAll = this.router.url.split('/')[1] == 'explore-all';
     var titleFormat = titles.map((val: string) => {
-        // console.log(exploreAll)
-        if(exploreAll == true && (this.ExploreAllTitles as any)['Locations'].includes(val))
-          var title = 'Locations';
-        else
-          var title = val;
-
+        var title = val;
         if(val == 'FastCat Records'){
           return {width: 60, resizable: false, tooltipField: val,
             cellRenderer: function() {
@@ -141,14 +133,12 @@ export class TableComponent implements OnChanges  {
           return {headerName:title, 'field': val,'colId':this.tableName, 'sortable': true, 'filter': true, tooltipField: val, cellRenderer: (params: { value: any; }) => params.value === undefined ? "n/a" : params.value};
 
     });
-
-    // console.log(titleFormat);
     return titleFormat;
   }
 
   getTitles(temp: any): string[]{
+    // console.log(temp)
     if(this.titles.length != 0) return this.titles;
-    console.log(temp)
     var titles: string[] = [];
     for (const [key, value] of Object.entries(temp)) {
       if(!isObject(value) && key!='value-type' && key!='listLength' && key!='listIds' && key!='display')
@@ -188,8 +178,19 @@ export class TableComponent implements OnChanges  {
     // }
   }
 
-  onBtnExport(tableg: any){
-    var blob = new Blob([this.listservice.ConvertToCSV(tableg)], {type: 'text/csv' });
+  onBtnExport(){
+
+    var values: any = [];
+    var titles;
+    this.gridApi.forEachNodeAfterFilter(rowNode => {
+      values.push(rowNode.data);
+    })
+    if(this.titles.length != 0)
+     titles = this.titles;
+    else
+      this.titles = this.getTitles(values[0]);
+
+    var blob = new Blob([this.listservice.ConvertToCSV(values, this.titles)], {type: 'text/csv;charset=utf-8;' });
     saveAs(blob, "export.csv");
   }
 

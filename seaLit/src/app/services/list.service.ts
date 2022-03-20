@@ -18,7 +18,7 @@ export class ListService {
   apiName: string = '/sealit-api';
   protocol: string = 'http://';
 
-  api = this.protocol+this.Ip+this.port+this.apiName;
+  api = this.protocol + this.Ip + this.port + this.apiName;
   // api = this.protocol+this.Ip+this.apiName;
 
   NumColumns: string[] = [
@@ -86,130 +86,139 @@ export class ListService {
 
   CachedEmploymentRecords: any;
 
-  constructor(private http:HttpClient) {
+  constructor(private http: HttpClient) {
   }
 
-  getNamesOfSources(): Observable<any>{
-    return this.http.get(this.api+'/numberOfrecords/all');
+  getNamesOfSources(): Observable<any> {
+    return this.http.get(this.api + '/numberOfrecords/all');
   }
 
-  getNameOfSource(title: string): Observable<any>{
-    return this.http.get(this.api+'/numberOfrecords/'+title);
+  getNameOfSource(title: string): Observable<any> {
+    return this.http.get(this.api + '/numberOfrecords/' + title);
   }
 
-  getSourceList(source: string): Observable<any>{
-    return this.http.get(this.api+'/sourceRecordList?'+'source='+source)
+  getSourceList(source: string): Observable<any> {
+    return this.http.get(this.api + '/sourceRecordList?' + 'source=' + source)
 
   }
 
-  getTitlesofSourceRecords(title: string): Observable<any>{
-    return this.http.get(this.api+'/sourceRecordTitles/'+title);
+  getTitlesofSourceRecords(title: string): Observable<any> {
+    return this.http.get(this.api + '/sourceRecordTitles/' + title);
   }
 
-  getTableFromSource(source: string,tableName: string): Observable<any>{
-    return this.http.get(this.api+'/tableData?'+'source='+source+'&tableName='+tableName);
+  getTableFromSource(source: string, tableName: string): Observable<any> {
+    return this.http.get(this.api + '/tableData?' + 'source=' + source + '&tableName=' + tableName);
   }
 
   getExploreAll(name: string): Observable<any> {
-    return this.http.get(this.api+'/exploreAll/'+name);
+    return this.http.get(this.api + '/exploreAll/' + name);
   }
 
-  getTablesFromSource(source: string, tableName: string, query: any): Observable<any>{
+  getTablesFromSource(source: string, tableName: string, query: any): Observable<any> {
     var httpParams = new HttpParams();
     Object.keys(query).forEach((key: string) => {
       httpParams = httpParams.append(key, query[key]);
     });
-    httpParams = httpParams.append('source',source);
-    httpParams = httpParams.append('tableName',tableName);
+    httpParams = httpParams.append('source', source);
+    httpParams = httpParams.append('tableName', tableName);
 
-    return this.http.get(this.api+'/tableData', { params: httpParams });
+    return this.http.get(this.api + '/tableData', { params: httpParams });
   }
 
-  getrecordFromSource(source: string,id: string): Observable<any>{
-    return this.http.get(this.api+'/tableData?'+'source='+source+'&id='+id);
+  getrecordFromSource(source: string, id: string): Observable<any> {
+    return this.http.get(this.api + '/tableData?' + 'source=' + source + '&id=' + id);
   }
 
-  ConvertToCSV(table: any){
-    // console.log(table)
-    var data = table.map((elem: object) =>{
+  ConvertToCSV(table: any[], titles: string[]) {
+    console.log(table)
+    // console.log(titles)
+    var firstLine;
+    var data = table.map(elem => {
+      elem = titles.map(key =>{
+        if(elem[key] == undefined)
+          return "n/a";
+        return elem[key]
+      })
+      // console.log(elem)
       return Object.values(elem)
-      .filter(col => (typeof col == 'string' || typeof col == 'number') && col != 'list')
-      .map(elem2=>  '"'+elem2+'"')
-      .join(',');
+        .filter(col => (typeof col == 'string' || typeof col == 'number') && col != 'list')
+        .map(elem2 => '"' + elem2 + '"')
+        .join(',');
     })
-    var titles = this.getTitles(table[0]).map(elem2=>  '"'+elem2+'"').join(',');
-    data.unshift(titles);
+    firstLine = titles.map(elem2 => '"' + elem2 + '"').join(',');
+    data.unshift(firstLine);
+    // console.log(data)
 
     return data.join('\n');
   }
 
-  ConvertChartToCSV(data: any, count: any, title: any){
+  ConvertChartToCSV(data: any, count: any, title: any) {
     var csvData = [];
-    csvData.push('"'+title+ '","Count"')
+    csvData.push('"' + title + '","Count"')
     for (let i = 0; i < data.length; i++) {
-      csvData.push('"'+data[i]+'","'+count[i]+'"')
+      csvData.push('"' + data[i] + '","' + count[i] + '"')
     }
     return csvData.join('\n');
   }
 
-    getTitles(temp: any): string[]{
-      var titles: string[] = [];
-      // console.log(temp)
-      for (const [key, value] of Object.entries(temp)) {
-        if(!isObject(value) && key!='value-type' && key!='listLength' &&key!='listIds')
-          titles.push(key);
-      }
-      return titles;
+  getTitles(temp: any): string[] {
+    var titles: string[] = [];
+    // console.log(temp)
+    for (const [key, value] of Object.entries(temp)) {
+      if (!isObject(value) && key != 'value-type' && key != 'listLength' && key != 'listIds')
+        titles.push(key);
     }
+    return titles;
+  }
 
-    arrayRemove(arr: string[], value: string): string[] {
-      return arr.filter(function(ele){
-          return ele != value;
-      });
+  arrayRemove(arr: string[], value: string): string[] {
+    return arr.filter(function (ele) {
+      return ele != value;
+    });
+  }
+
+  calculatetableHeight(length: number): string {
+    if (length == 1) {
+      var height = 160;
+      return 'height:' + height + 'px; width:100%';
+    } else if (length < 3) {
+      var height = 100 * length;
+      return 'height:' + height + 'px; width:100%';
+    } else if (length < 4) {
+      var height = 80 * length;
+      return 'height:' + height + 'px; width:100%';
+    } else if (length < 6) {
+      var height = 70 * length;
+      return 'height:' + height + 'px; width:100%';
+    } else if (length < 8) {
+      var height = 62 * length;
+      return 'height:' + height + 'px; width:100%';
+    } else {
+      return 'height:500px; width:100%';
     }
+  }
 
-    calculatetableHeight(length: number): string{
-      if(length == 1){
-        var height = 160;
-        return 'height:'+ height+'px; width:100%';
-      }else if(length < 3){
-        var height = 100*length;
-        return 'height:'+ height+'px; width:100%';
-      }else if(length < 4){
-        var height = 80*length;
-        return 'height:'+ height+'px; width:100%';
-      }else if(length < 6){
-        var height = 70*length;
-        return 'height:'+ height+'px; width:100%';
-      }else if(length < 8){
-        var height = 62*length;
-        return 'height:'+ height+'px; width:100%';
-      }else{
-        return 'height:500px; width:100%';
-      }
+  calculateStats(data: string[] | number[]): object {
+    // const count: object = countBy(data);
+    // return count;
+    const counts: { [key: string]: number } = {};
+    for (const el of data) {
+      var c;
+      if (typeof el == 'string')
+        c = el.toLowerCase();
+      else
+        c = el;
+      counts[c] = counts[c] ? ++counts[c] : 1;
     }
+    const orderedcount = Object.keys(counts).sort().reduce(
+      (obj: { [key: string]: number }, key) => {
+        obj[key] = counts[key];
+        return obj;
+      },
+      {}
+    );
 
-    calculateStats(data: string[] | number[]): object {
-      // const count: object = countBy(data);
-      // return count;
-      const counts: {[key: string]: number} = {};
-      for (const el of data) {
-        var c;
-        if(typeof el == 'string')
-          c = el.toLowerCase();
-        else
-          c = el;
-        counts[c] = counts[c] ? ++counts[c] : 1;
-      }
-      const orderedcount = Object.keys(counts).sort().reduce(
-        (obj:{[key: string]: number}, key) => {
-          obj[key] = counts[key];
-          return obj;
-        },
-        {}
-      );
-
-      return orderedcount;
-    }
+    return orderedcount;
+  }
 }
 

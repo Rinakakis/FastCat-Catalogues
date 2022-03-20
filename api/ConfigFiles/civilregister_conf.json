@@ -94,9 +94,9 @@
             "Surname A": {
                 "path": "docs[0].data.death_registers.#.related_person_surname_A"
             },
-                "Surname B": {
-                    "path": "docs[0].data.death_registers.#.related_person_surname_B"
-                },
+            "Surname B": {
+                "path": "docs[0].data.death_registers.#.related_person_surname_B"
+            },
             "Location of Origin": {
                 "path": "docs[0].data.death_registers.#.related_person_origin_location"
             },

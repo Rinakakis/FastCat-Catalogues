@@ -119,13 +119,13 @@
          }
       },
       "Ship Owners": {
-         "Owner Name": {
+         "Name": {
             "path": "docs[0].data.ship_records.owner_name"
          },
-         "Owner surname": {
+         "Surname": {
             "path": "docs[0].data.ship_records.owner_surname"
          },
-         "Owner Fathers Name": {
+         "Father's Name": {
             "path": "docs[0].data.ship_records.owner_fathers_name"
          },
          "Ships": {
