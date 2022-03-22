@@ -14,7 +14,7 @@
             "Length (In Meter)": {
                 "path": "docs[0].data.list_of_ships.#.length_tonnage_normalization_in_meter"
             },
-            "Construction Place": {
+            "Construction Location": {
                 "path": "docs[0].data.list_of_ships.#.construction_person_location"
             },
             "Owners (Persons)": {
@@ -85,7 +85,7 @@
         },
         "Construction Places":{
             "value-type": "list",
-            "Construction Place": {
+            "Construction Location": {
                 "path": "docs[0].data.list_of_ships.#.construction_person_location"
             },
             "Ships": {

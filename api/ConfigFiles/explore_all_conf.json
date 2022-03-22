@@ -354,6 +354,12 @@
                 },
                 "Crew List (Ruoli di Equipaggio)": {
                     "Ship Construction Locations": {}
+                },
+                "Naval Ship Register List":{
+                    "Construction Places":{}
+                },
+                "List of ships":{
+                    "Ship Construction Places": {}
                 }
             },
             "Engine Construction Places": {
@@ -447,6 +453,12 @@
         },
         "Crew List (Ruoli di Equipaggio)": {
             "Ship Construction Locations": {}
+        },
+        "Naval Ship Register List":{
+            "Construction Places":{}
+        },
+        "List of ships":{
+            "Ship Construction Places": {}
         }
     },
     "Engine Construction Places": {

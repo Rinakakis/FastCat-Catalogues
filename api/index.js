@@ -680,6 +680,11 @@ async function handleSourceRecordList(source) {
         "Owners (Persons)":{
           "Surname A" : "Surname"
         }
+      },
+      "List of ships":{
+        "Engine Manufacturers":{
+          "Engine Manufacturer": "Name"
+        }
       }
     }
     if(mapp[source] == undefined || mapp[source][tableName] == undefined) return config;

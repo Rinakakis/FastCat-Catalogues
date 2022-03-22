@@ -135,7 +135,7 @@
         },
         "Ports of Call": {
             "value-type": "list",
-            "Port of Call": {
+            "Port": {
                 "path": "docs[0].data.voyages.#.ports_of_call"
             },
             "Voyages": {

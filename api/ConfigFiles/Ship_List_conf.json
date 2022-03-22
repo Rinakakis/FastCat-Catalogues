@@ -17,7 +17,7 @@
             "Year of Registry": {
                 "path": "docs[0].data.list_of_ships.#.year_of_registry"
             },
-            "Place of Constraction": {
+            "Construction Location": {
                 "path": "docs[0].data.list_of_ships.#.place_of_constraction"
             },
             "Year of Constraction": {
@@ -49,7 +49,7 @@
         },
         "Registry Ports": {
             "value-type":"list",
-            "Registry Port": {
+            "Port": {
                 "path": "docs[0].data.list_of_ships.#.port_of_registry"
             },
             "Ships": {
@@ -60,7 +60,7 @@
         },
         "Ship Construction Places": {
             "value-type":"list",
-            "Place of Constraction": {
+            "Construction Location": {
                 "path": "docs[0].data.list_of_ships.#.place_of_constraction"
             },
             "Ships": {

@@ -35,7 +35,7 @@
             }
         },
         "Registry Ports":{
-            "Registry Port": {
+            "Port": {
                 "path": "docs[0].data.ship_records.registry_port"
             },
             "Ships": {

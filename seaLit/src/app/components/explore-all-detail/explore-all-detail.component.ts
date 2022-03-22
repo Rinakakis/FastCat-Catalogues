@@ -58,6 +58,11 @@ export class ExploreAllDetailComponent implements OnInit {
       "Owners (Persons)":{
          "Surname": "Surname A"
       }
+    },
+    "List of ships":{
+      "Engine Manufacturers":{
+        "Name":"Engine Manufacturer"
+      }
     }
   }
 
@@ -87,7 +92,7 @@ export class ExploreAllDetailComponent implements OnInit {
     },
     err => {
       if (err.status == 404) {
-        console.log(err)
+        // console.log(err)
         this.hideloader('loading');
         this.errorMessage = 'The requested page: "/' + String(this.route.snapshot.params.name) + '" could not be found.';
         this.clickedTable = err.error;
