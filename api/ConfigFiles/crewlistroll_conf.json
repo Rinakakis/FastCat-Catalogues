@@ -10,7 +10,7 @@
             "Construction Location": {
                 "path": "docs[0].data.ship_records.construction_location_country"
             },
-            "Construction Date": {
+            "Year of Construction": {
                 "path": "docs[0].data.ship_records.construction_location_date"
             },
             "Registry Location": {
@@ -161,7 +161,7 @@
                 "value-type": "nolist",
                 "path": "docs[0].data.ship_records.construction_location_country"
             },
-            "Construction Date": {
+            "Year of Construction": {
                 "value-type": "nolist",
                 "path": "docs[0].data.ship_records.construction_location_date"
             },
@@ -212,7 +212,7 @@
                 "value-type": "nolist",
                 "path": "docs[0].data.ship_records.construction_location_country"
             },
-            "Construction Date": {
+            "Year of Construction": {
                 "value-type": "nolist",
                 "path": "docs[0].data.ship_records.construction_location_date"
             },

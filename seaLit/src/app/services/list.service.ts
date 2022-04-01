@@ -13,7 +13,7 @@ export class ListService {
 
 
   Titles: any[] = [];
-  Ip: string = '192.168.1.2'; // 'catalogues.sealitproject.eu'
+  Ip: string = '192.168.1.39'; // 'catalogues.sealitproject.eu'
   port: string = ':8081';
   apiName: string = '/sealit-api';
   protocol: string = 'http://';
@@ -26,7 +26,7 @@ export class ListService {
     'Age (Years)',
     'House Number',
     'Year of Birth',
-    'Construction Date',
+    // 'Construction Date',
     'Registry Folio',
     'Registry List',
     'Registry Number',
@@ -39,7 +39,7 @@ export class ListService {
     'Tonnage',
     'Tonnage (Value)',
     'Year of Reagistry',
-    'Year of Constraction',
+    'Year of Construction',
     'Nominal Power',
     'Indicated Power',
     'Gross Tonnage (In Kg)',
@@ -56,7 +56,7 @@ export class ListService {
     'Overall Pension Fund (Value)',
     'Overall Net Wages (Value)',
     'Salary per Month (Value)',
-    'Registration Number',
+    // 'Registration Number',
     'Semester',
     'From',
     'To',

@@ -51,6 +51,9 @@
                 },
                 "Crew List (Ruoli di Equipaggio)": {
                     "Crew Members": {}
+                },
+                "Seagoing Personel": {
+                    "Persons": {}
                 }
             },
             "Captains": {
@@ -117,9 +120,21 @@
                     "Occupants": {}
                 }
             },
-            "Registered persons": {
+            "Registered Persons": {
                 "Inscription Maritime - Maritime Register of the State for La Ciotat": {
                     "Registered Persons": {}
+                },
+                "Civil Register": {
+                    "Persons": {}
+                },
+                "Register of Maritime personel": {
+                    "Persons": {}
+                },
+                "Payroll": {
+                    "Persons": {}
+                },
+                "Payroll of Russian Steam Navigation and Trading Company": {
+                    "Persons": {}
                 }
             },
             "Transaction Suppliers": {
@@ -165,6 +180,9 @@
         },
         "Crew List (Ruoli di Equipaggio)": {
             "Crew Members": {}
+        },
+        "Seagoing Personel": {
+            "Persons": {}
         }
     },
     "Captains": {
@@ -231,9 +249,21 @@
             "Occupants": {}
         }
     },
-    "Registered persons": {
+    "Registered Persons": {
         "Inscription Maritime - Maritime Register of the State for La Ciotat": {
             "Registered Persons": {}
+        },
+        "Civil Register": {
+            "Persons": {}
+        },
+        "Register of Maritime personel": {
+            "Persons": {}
+        },
+        "Payroll": {
+            "Persons": {}
+        },
+        "Payroll of Russian Steam Navigation and Trading Company": {
+            "Persons": {}
         }
     },
     "Transaction Suppliers": {
@@ -249,23 +279,6 @@
     "Transaction Receivers": {
         "Accounts book": {
             "Transaction Receivers": {}
-        }
-    },
-    "People": {
-        "Civil Register": {
-            "Persons": {}
-        },
-        "Register of Maritime personel": {
-            "Persons": {}
-        },
-        "Payroll": {
-            "Persons": {}
-        },
-        "Payroll of Russian Steam Navigation and Trading Company": {
-            "Persons": {}
-        },
-        "Seagoing Personel": {
-            "Persons": {}
         }
     },
     "Locations": {

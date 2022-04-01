@@ -10,7 +10,7 @@
             "Tonnage": {
                 "path": "docs[0].data.ship_records.ship_tonnage"
             },
-            "Registry Port": {
+            "Port of Registry": {
                 "path": "docs[0].data.ship_records.registry_port"
             },
             "Ship Owners": {

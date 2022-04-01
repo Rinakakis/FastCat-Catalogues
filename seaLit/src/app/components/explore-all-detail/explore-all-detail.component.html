@@ -27,7 +27,7 @@
       </div>
     </div>
 
-    <table *ngIf="rowClicked" mat-table [dataSource]="clickedTableData" >
+    <table *ngIf="rowClicked" mat-table [dataSource]="clickedTableData" oncontextmenu="return false;">
 
       <ng-container *ngFor="let col of clickedTableTitles" matColumnDef="{{col}}">
         <th mat-header-cell *matHeaderCellDef> {{col | titlecase}} </th>
@@ -36,7 +36,7 @@
 
 
       <tr mat-header-row *matHeaderRowDef="clickedTableTitles"></tr>
-      <tr mat-row (click)="clickedRowEvent(row)" *matRowDef="let row; columns: clickedTableTitles"></tr>
+      <tr mat-row (contextmenu)="RightclickedRowEvent(row)" (click)="clickedRowEvent(row)" *matRowDef="let row; columns: clickedTableTitles"></tr>
     </table>
 
   </div>

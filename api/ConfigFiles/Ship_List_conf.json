@@ -20,7 +20,7 @@
             "Construction Location": {
                 "path": "docs[0].data.list_of_ships.#.place_of_constraction"
             },
-            "Year of Constraction": {
+            "Year of Construction": {
                 "path": "docs[0].data.list_of_ships.#.year_of_construction"
             },
             "Tonnage (Unit)": {

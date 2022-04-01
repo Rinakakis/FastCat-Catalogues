@@ -74,6 +74,8 @@ export class ExploreAllDetailComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    document.body.scrollTop = 0;
+    document.documentElement.scrollTop = 0;
     this.getList();
   }
 
@@ -146,6 +148,24 @@ export class ExploreAllDetailComponent implements OnInit {
     }
     // console.log(row)
     this.router.navigate(['sources/'+row.source+'/table/'+row.table], { queryParams:this.clickedRow });
+  }
+
+  RightclickedRowEvent(row: any){
+    if(this.mapp[row.source] != undefined && this.mapp[row.source][row.table] != undefined){
+
+      for (const key of Object.keys(this.clickedRow)) {
+        var newKey = this.mapp[row.source][row.table][key];
+        if(newKey != undefined){
+          this.clickedRow[newKey] = this.clickedRow[key];
+          delete this.clickedRow[key];
+        }
+      }
+    }
+    // console.log(row)
+    // this.router.navigate(['sources/'+row.source+'/table/'+row.table], { queryParams:this.clickedRow });
+
+    const url = this.router.serializeUrl(this.router.createUrlTree(['seaLit/sources/'+row.source+'/table/'+row.table], { queryParams:this.clickedRow }));
+    window.open(url, '_blank');
   }
 
   containsObject(arr: any[], obj: any){
