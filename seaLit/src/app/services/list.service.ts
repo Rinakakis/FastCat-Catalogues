@@ -1,10 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { EMPTY, Observable, of } from 'rxjs';
-import { catchError, shareReplay, startWith } from 'rxjs/operators';
-import { isObject, countBy } from 'lodash';
+import { Observable } from 'rxjs';
+import { isObject } from 'lodash';
 
-const CACHE_KEY = 'httpCacheKey';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +11,7 @@ export class ListService {
 
 
   Titles: any[] = [];
-  Ip: string = '192.168.1.39'; // 'catalogues.sealitproject.eu'
+  Ip: string = '192.168.1.4'; // 'catalogues.sealitproject.eu'
   port: string = ':8081';
   apiName: string = '/sealit-api';
   protocol: string = 'http://';
@@ -84,7 +82,6 @@ export class ListService {
     'Start of Service'
   ];
 
-  CachedEmploymentRecords: any;
 
   constructor(private http: HttpClient) {
   }
@@ -130,7 +127,6 @@ export class ListService {
   }
 
   ConvertToCSV(table: any[], titles: string[]) {
-    console.log(table)
     // console.log(titles)
     var firstLine;
     var data = table.map(elem => {

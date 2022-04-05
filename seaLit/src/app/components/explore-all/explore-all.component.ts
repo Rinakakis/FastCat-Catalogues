@@ -30,12 +30,6 @@ export class ExploreAllComponent implements OnInit {
         if (list) {
           this.hideloader();
         }
-        const target: any = {};
-        // console.log(list);
-        // list.forEach((obj: { category: string }) => target[obj.category] = []);
-
-        // list.forEach((obj: { category: string }) => target[obj.category].push(obj));
-
         this.list = list;
         this.isDataLoaded = !this.isDataLoaded;
       });
@@ -60,4 +54,12 @@ export class ExploreAllComponent implements OnInit {
     }
     return [];
   }
+
+  addCounts(list: any[]){
+    if(!this.isArray(list)) return list;
+
+    return list.reduce((partialSum, a) => partialSum + a.count, 0);
+  }
+
+  isArray(elem: any): boolean { return typeof elem === 'object'; }
 }

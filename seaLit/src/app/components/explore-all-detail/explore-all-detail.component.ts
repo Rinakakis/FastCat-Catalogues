@@ -27,41 +27,125 @@ export class ExploreAllDetailComponent implements OnInit {
   error: boolean = false;
   errorMessage: string = '';
 
-   mapp: any = {
+  mapp: any = {
     "Civil Register": {
       "Persons": {
-         "Surname": "Surname A"
+        "Surname": "Surname A"
       },
       "Related Persons": {
-         "Surname": "Surname A"
+        "Surname": "Surname A"
+      },
+      "Death Locations": {
+        "Name": "Death Location"
       }
     },
-    "General Spanish Crew List":{
+    "General Spanish Crew List": {
       "Crew Members": {
-         "Surname": "Surname A"
+        "Surname": "Surname A"
+      },
+      "Embarkation Ports": {
+        "Name": "Port"
       }
     },
     "Crew and displacement list (Roll)": {
       "Ship Owners (Persons)": {
-         "Surname": "Surname A"
+        "Surname": "Surname A"
       },
       "Crew Members": {
-         "Surname": "Surname A"
+        "Surname": "Surname A"
+      },
+      "Destination Ports": {
+        "Name": "Port"
+      },
+      "Embarkation Ports": {
+        "Name": "Port"
+      },
+      "Ship Construction Locations": {
+        "Name": "Construction Location"
+      },
+      "Discharge Ports": {
+        "Name": "Port"
       }
     },
-    "Register of Maritime personel":{
+    "Register of Maritime personel": {
       "Persons": {
-         "Surname": "Surname A"
+        "Surname": "Surname A"
       }
     },
-    "Naval Ship Register List":{
-      "Owners (Persons)":{
-         "Surname": "Surname A"
+    "Naval Ship Register List": {
+      "Owners (Persons)": {
+        "Surname": "Surname A"
+      },
+      "Construction Places": {
+        "Name": "Construction Location"
       }
     },
-    "List of ships":{
-      "Engine Manufacturers":{
-        "Name":"Engine Manufacturer"
+    "List of ships": {
+      "Engine Manufacturers": {
+        "Name": "Engine Manufacturer"
+      },
+      "Registry Ports": {
+        "Name": "Port"
+      },
+      "Ship Construction Places": {
+        "Name": "Construction Location"
+      },
+      "Engine Construction Places": {
+        "Name": "Place of Engine Construction"
+      }
+    },
+    "Accounts book": {
+      "Departure Ports": {
+        "Name": "Port"
+      },
+      "Destination Ports": {
+        "Name": "Port"
+      },
+      "Ports of Call": {
+        "Name": "Port"
+      }
+    },
+    "Crew List (Ruoli di Equipaggio)": {
+      "Departure Ports": {
+        "Name": "Port"
+      },
+      "Embarkation Ports": {
+        "Name": "Port"
+      },
+      "Ship Registry Ports": {
+        "Name": "Port"
+      },
+      "Ship Construction Locations": {
+        "Name": "Construction Location"
+      },
+      "Discharge Ports": {
+        "Name": "Port"
+      }
+    },
+    "Logbook": {
+      "Registry Ports": {
+        "Name": "Port"
+      }
+    },
+    "Inscription Maritime - Maritime Register of the State for La Ciotat": {
+      "Birth Places": {
+        "Name": "Place of Birth"
+      },
+      "Residence Places": {
+        "Name": "Place of Residence"
+      }
+    },
+    "Employment records, Shipyards of Messageries Maritimes, La Ciotat": {
+      "Birth Places": {
+        "Name": "Place of Birth"
+      },
+      "Residence Places": {
+        "Name": "Place of Residence"
+      }
+    },
+    "Census La Ciotat": {
+      "Birth Places": {
+        "Name": "Place of Birth"
       }
     }
   }
@@ -87,7 +171,6 @@ export class ExploreAllDetailComponent implements OnInit {
       if (list) {
         this.hideloader('loading');
       }
-      // console.log(list);
       this.handleData(list);
       this.titleService.setTitle(`SeaLit - ${this.clickedTable} (${this.count})`);
       this.loaded = !this.loaded;
@@ -136,36 +219,30 @@ export class ExploreAllDetailComponent implements OnInit {
   }
 
   clickedRowEvent(row: any){
-    if(this.mapp[row.source] != undefined && this.mapp[row.source][row.table] != undefined){
-
-      for (const key of Object.keys(this.clickedRow)) {
-        var newKey = this.mapp[row.source][row.table][key];
-        if(newKey != undefined){
-          this.clickedRow[newKey] = this.clickedRow[key];
-          delete this.clickedRow[key];
-        }
-      }
-    }
-    // console.log(row)
-    this.router.navigate(['sources/'+row.source+'/table/'+row.table], { queryParams:this.clickedRow });
+    this.router.navigate(['sources/'+row.source+'/table/'+row.table], { queryParams: this.makeMapping(row) });
   }
 
   RightclickedRowEvent(row: any){
-    if(this.mapp[row.source] != undefined && this.mapp[row.source][row.table] != undefined){
+    const url = this.router.serializeUrl(this.router.createUrlTree(['seaLit/sources/'+row.source+'/table/'+row.table], { queryParams:this.makeMapping(row)}));
+    window.open(url, '_blank');
+  }
 
+  makeMapping(row: any){
+    var newClickedRow: any = {};
+    if(this.mapp[row.source] != undefined && this.mapp[row.source][row.table] != undefined){
       for (const key of Object.keys(this.clickedRow)) {
         var newKey = this.mapp[row.source][row.table][key];
         if(newKey != undefined){
-          this.clickedRow[newKey] = this.clickedRow[key];
-          delete this.clickedRow[key];
+          newClickedRow[newKey] = this.clickedRow[key];
+          // delete this.clickedRow[key];
+        }else{
+          newClickedRow[key] = this.clickedRow[key];
         }
       }
+    }else{
+      newClickedRow = this.clickedRow;
     }
-    // console.log(row)
-    // this.router.navigate(['sources/'+row.source+'/table/'+row.table], { queryParams:this.clickedRow });
-
-    const url = this.router.serializeUrl(this.router.createUrlTree(['seaLit/sources/'+row.source+'/table/'+row.table], { queryParams:this.clickedRow }));
-    window.open(url, '_blank');
+    return newClickedRow;
   }
 
   containsObject(arr: any[], obj: any){

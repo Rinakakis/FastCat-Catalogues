@@ -191,6 +191,131 @@ const NumColumns = [
   'Total Number of Students',
 ];
 
+const mapp = {
+  "Civil Register": {
+    "Persons": {
+      "Surname A": "Surname"
+    },
+    "Related Persons": {
+      "Surname A": "Surname"
+    },
+    "Death Locations": {
+      "Death Location": "Name"
+    }
+  },
+  "General Spanish Crew List": {
+    "Crew Members": {
+      "Surname A": "Surname"
+    },
+    "Embarkation Ports": {
+      "Port": "Name"
+    }
+  },
+  "Crew and displacement list (Roll)": {
+    "Ship Owners (Persons)": {
+      "Surname A": "Surname"
+    },
+    "Crew Members": {
+      "Surname A": "Surname"
+    },
+    "Destination Ports": {
+      "Port": "Name"
+    },
+    "Embarkation Ports": {
+      "Port": "Name"
+    },
+    "Ship Construction Locations": {
+      "Construction Location": "Name"
+    },
+    "Discharge Ports": {
+      "Port": "Name"
+    }
+  },
+  "Register of Maritime personel": {
+    "Persons": {
+      "Surname A": "Surname"
+    }
+  },
+  "Naval Ship Register List": {
+    "Owners (Persons)": {
+      "Surname A": "Surname"
+    },
+    "Construction Places": {
+      "Construction Location": "Name"
+    }
+  },
+  "List of ships": {
+    "Engine Manufacturers": {
+      "Engine Manufacturer": "Name"
+    },
+    "Registry Ports": {
+      "Port": "Name"
+    },
+    "Ship Construction Places": {
+      "Construction Location": "Name"
+    },
+    "Engine Construction Places": {
+      "Place of Engine Construction": "Name"
+    }
+  },
+  "Accounts book": {
+    "Departure Ports": {
+      "Port": "Name"
+    },
+    "Destination Ports": {
+      "Port": "Name"
+    },
+    "Ports of Call": {
+      "Port": "Name"
+    }
+  },
+  "Crew List (Ruoli di Equipaggio)": {
+    "Departure Ports": {
+      "Port": "Name"
+    },
+    "Embarkation Ports": {
+      "Port": "Name"
+    },
+    "Ship Registry Ports": {
+      "Port": "Name"
+    },
+    "Ship Construction Locations": {
+      "Construction Location": "Name"
+    },
+    "Discharge Ports": {
+      "Port": "Name"
+    }
+  },
+  "Logbook": {
+    "Registry Ports": {
+      "Port": "Name"
+    }
+  },
+  "Inscription Maritime - Maritime Register of the State for La Ciotat": {
+    "Birth Places": {
+      "Place of Birth": "Name"
+    },
+    "Residence Places": {
+      "Place of Residence": "Name"
+    }
+
+  },
+  "Employment records, Shipyards of Messageries Maritimes, La Ciotat": {
+    "Birth Places": {
+      "Place of Birth": "Name"
+    },
+    "Residence Places": {
+      "Place of Residence": "Name"
+    }
+  },
+  "Census La Ciotat": {
+    "Birth Places": {
+      "Place of Birth": "Name"
+    }
+  }
+
+}
+
 process.on("message", async (message) => {
     if(message.type == 'sourceRecordList')
         var jsonResponse = await handleSourceRecordList(message.source);
@@ -206,14 +331,26 @@ async function handleExploreAll(name){
   var config;
   var retObj = {};
   if(name == 'all'){
+    if(CacheExists('explore_all')) return await getCachedList('explore_all');
+
     config = await getConfig('explore_all');
     for (const category of Object.keys(config)) {
       var categoryObj = config[category];
-      if(categoryObj['sub'] != undefined)
-        config[category] = Object.keys(categoryObj['sub']);
-      else
-      config[category] = [];
+      if(categoryObj['sub'] != undefined){
+        // config[category] = Object.keys(categoryObj['sub']);
+        var categories = Object.keys(categoryObj['sub']);
+        config[category] = []
+        for (const subCategory of categories) {
+          retObj = await handleExploreAll(subCategory);
+          config[category].push({name: subCategory, count: retObj.arrayWithSources.length})
+        }
+      }
+      else{
+        retObj = await handleExploreAll(category);
+        config[category] = retObj.arrayWithSources.length;
+      }
     }
+    await saveToCache('explore_all', config);
     return config;
   }
 
@@ -312,7 +449,7 @@ async function handleTableData(query) {
         delete query['tableName'];
         if (recordId != null) {
             myarray = await handleSingleTable(source, tableName, true, true, recordId);
-        } else {
+        } else { 
             myarray = await handleSingleTable(source, tableName, true, true);
         }
         myarray = await handleQueryTables(source, tableName, query, myarray);
@@ -634,71 +771,30 @@ async function handleSourceRecordList(source) {
       if(source == 'Employment records, Shipyards of Messageries Maritimes, La Ciotat' && tableName == 'Workers' && CacheExists('messageriesmaritimes_workers') && remv == true && nestedlink == false){
         return getCachedList('messageriesmaritimes_workers');    
       }else{
-        myarray = await  getRecordFilesAsync(fullpath);//.then(myarray =>{
+        myarray = await getRecordFilesAsync(fullpath);
         data = formatObject(myarray, config, remv, nestedlink);
         if(source == 'Employment records, Shipyards of Messageries Maritimes, La Ciotat' && tableName == 'Workers' && remv == true && nestedlink == false){
             await saveToCache('messageriesmaritimes_workers',data);
         }
         return data;
-        // })
       }
     }  
     // return data;
   }
   
   function ChangeConfigKeys(source, tableName, config, exploreAllName){
-    // console.log(source)
-    // console.log(tableName)
-    var mapp = {
-      "Civil Register": {
-        "Persons": {
-          "Surname A" : "Surname"
-        },
-        "Related Persons": {
-          "Surname A" : "Surname"
-        }
-      },
-      "General Spanish Crew List":{
-        "Crew Members": {
-          "Surname A" : "Surname"
-        }
-      },
-      "Crew and displacement list (Roll)": {
-        "Ship Owners (Persons)": {
-          "Surname A" : "Surname"
-        },
-        "Crew Members": {
-          "Surname A" : "Surname"
-        }
-      },
-      "Register of Maritime personel":{
-        "Persons": {
-          "Surname A" : "Surname"
-        }
-      },
-      "Naval Ship Register List":{
-        "Owners (Persons)":{
-          "Surname A" : "Surname"
-        }
-      },
-      "List of ships":{
-        "Engine Manufacturers":{
-          "Engine Manufacturer": "Name"
-        }
-      }
-    }
-    if(mapp[source] == undefined || mapp[source][tableName] == undefined) return config;
 
+    if(mapp[source] == undefined || mapp[source][tableName] == undefined) return config;
     // var keys = Object.keys(config);
-    // console.log(keys)
     for (const key of Object.keys(config)) {
       var newKey = mapp[source][tableName][key];
       if(newKey != undefined){
-        config[newKey] = config[key];
-        delete config[key];
+        config = Object.keys(config).reduce((a, key2) => ({
+          ...a,
+          [key2 === key ? newKey : key2]: config[key2],
+        }), {});
       }
     }
-    // console.log(config)
     return config;
   }
   
@@ -899,16 +995,16 @@ async function getConfigEntity(recordName, entity) {
       }
   
     }
-
+    // console.dir(objArray, { depth: null });
+    
     if(objArray[0]["value-type"] !=  undefined)
-      objArray = formatList(objArray);
+    objArray = formatList(objArray);
     
     // console.log('after'); 
     if(remv == true)
       objArray = removeDuplicates(objArray);
     
     replaceEmptyValues(objArray);
-    
     return objArray;
    }
   
@@ -1080,12 +1176,15 @@ async function getConfigEntity(recordName, entity) {
         index = indexes[++i];
       }
       var first = Object.keys(fake)[1];
-  
-      if(first == 'display' || first == 'value-type')
-        first = Object.keys(fake)[2];
-  
-      fake['listLength'] = fake[first].length;
       // console.log(fake)
+      if(first == 'display' || first == 'value-type')
+        first = Object.keys(fake)[2]; 
+      // if(!isArray(first))
+      //   first = Object.keys(fake)[3];
+      
+      // console.log(first)
+      fake['listLength'] = fake[first].length;
+
       return fake;  
     }
   

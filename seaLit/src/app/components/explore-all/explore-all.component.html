@@ -12,17 +12,17 @@
         <div class="title">
           <a
               routerLink="/explore-all/{{category}}">
-              {{category}}
+              {{category}} ({{addCounts(list[category])}})
           </a>
       </div>
-          <ul class="archival">
+          <ul class="archival" *ngIf="isArray(list[category])">
               <li *ngFor="let item of list[category]; index as j;">
 
                   <div class="list-container">
                       <div class="title">
                           <a
-                              routerLink="/explore-all/{{item}}">
-                              {{item}}
+                              routerLink="/explore-all/{{item.name}}">
+                              {{item.name}} ({{item.count}})
                           </a>
                       </div>
                   </div>
