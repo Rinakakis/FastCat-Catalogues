@@ -11,13 +11,13 @@
             "Sex":{
                 "path": "docs[0].data.analytic_worker_list.#.worker_sex"
             },
-            "Date of Birth (Year)":{
+            "Birth Year":{
                 "path": "docs[0].data.analytic_worker_list.#.worker_date_of_birth"
             },
             "Place of Birth":{
                 "path": "docs[0].data.analytic_worker_list.#.worker_place_of_birth"
             },
-            "Place of Residence":{
+            "Location of Residence":{
                 "path": "docs[0].data.analytic_worker_list.#.worker_place_of_residence"
             },
             "Marital Status":{
@@ -44,9 +44,9 @@
                 "Id": "docs[0]._id"
             }
         },
-        "Residence Places": {
+        "Residence Locations": {
             "value-type": "list",    
-            "Place of Residence":{
+            "Location of Residence":{
                 "path": "docs[0].data.analytic_worker_list.#.worker_place_of_residence"
             },
             "Workers":{

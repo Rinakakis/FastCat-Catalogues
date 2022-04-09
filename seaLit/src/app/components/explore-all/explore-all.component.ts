@@ -48,17 +48,16 @@ export class ExploreAllComponent implements OnInit {
 
   getCategories(list: any): string[]{
     if(list!= undefined || list != null){
-      let arr=  Object.keys(list);
+      let arr =  Object.keys(list);
       arr.push(arr.splice(arr.indexOf('Other Records'), 1)[0]);
       return arr;
     }
     return [];
   }
 
-  addCounts(list: any[]){
+  addCounts(list: any){
     if(!this.isArray(list)) return list;
-
-    return list.reduce((partialSum, a) => partialSum + a.count, 0);
+    return list.count;
   }
 
   isArray(elem: any): boolean { return typeof elem === 'object'; }

@@ -17,7 +17,7 @@
             "Mother's Surname": {
                 "path": "docs[0].data.maritime_workers_list.#.worker_mothers_surname"
             },
-            "Birth Location": {
+            "Place of Birth": {
                 "path": "docs[0].data.maritime_workers_list.#.worker_birth_location"
             },
             "Birth Date": {
@@ -217,7 +217,7 @@
                 "value-type": "list",
                 "path": "docs[0].data.maritime_workers_list.#.worker_mothers_surname"
             },
-            "Birth Location": {
+            "Place of Birth": {
                 "value-type": "list",
                 "path": "docs[0].data.maritime_workers_list.#.worker_birth_location"
             },

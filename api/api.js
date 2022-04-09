@@ -3,7 +3,8 @@ const fs = require("fs");
 const cors = require('cors');
 const { get } = require('lodash');
 const https = require('https');
-const {fork} = require("child_process") 
+const {fork} = require("child_process")
+var tools = require('./index.js');
 
 const app = express();
 app.use(cors());
@@ -252,14 +253,18 @@ appBase.get('/tableData', async(req, res) => {
  * returns table data for a record from every entity
  */
 appBase.get('/exploreAll/:name', async(req, res) => {
-  const childProcess = fork('./index.js');
-  childProcess.send({"type":"exploreAll","name": req.params.name});
-  childProcess.on("message", message =>{
-    if(message == 'null')
-      res.status(404).send('Page not found');
-    else
-      res.send(message);
-  });
+  if(req.params.name=='Persons' && tools.CacheExists('Persons')) return res.send(await tools.getCachedList(req.params.name));
+  else{
+    const childProcess = fork('./index.js');
+    childProcess.send({"type":"exploreAll","name": req.params.name});
+    childProcess.on("message", message =>{
+      // console.log('message')
+      if(message == 'null')
+        res.status(404).send('Page not found');
+      else
+        res.send(message);
+    });
+  }
 })
 
 

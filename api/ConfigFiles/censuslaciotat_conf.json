@@ -23,7 +23,7 @@
             "Age": {
                 "path": "docs[0].data.nominative_list_of_occupants.#.person_age"
             },
-            "Year of Birth": {
+            "Birth Year": {
                 "path": "docs[0].data.nominative_list_of_occupants.#.person_year_of_birth"
             },
             "Place of Birth": {
@@ -130,8 +130,8 @@
             }
         },
         "Occupants and House Number": {
-            "display": "no",
             "value-type": "nested-list",
+            "display": "no",
             "Surname": {
                 "path": "docs[0].data.nominative_list_of_occupants.#.person_surname"
             },
@@ -145,7 +145,7 @@
             "Age": {
                 "path": "docs[0].data.nominative_list_of_occupants.#.person_age"
             },
-            "Year of Birth": {
+            "Birth Year": {
                 "path": "docs[0].data.nominative_list_of_occupants.#.person_year_of_birth"
             },
             "Place of Birth": {

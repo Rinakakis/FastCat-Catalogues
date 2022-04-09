@@ -17,7 +17,7 @@
             "Mother's Name": {
                 "path": "docs[0].data.maritime_personnel.#.mothers_name"
             },
-            "Birth Location": {
+            "Place of Birth": {
                 "path": "docs[0].data.maritime_personnel.#.birth_location"
             },
             "Birth Date": {

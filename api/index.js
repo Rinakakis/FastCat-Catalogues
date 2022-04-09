@@ -1,8 +1,13 @@
 const fs = require("fs");
-var gracefulFs = require('graceful-fs')
+var gracefulFs = require('graceful-fs');
 const { get, isArray, isObject, isPlainObject, isEqual, isEmpty, result } = require('lodash');
+gracefulFs.gracefulify(fs);
 
-gracefulFs.gracefulify(fs)
+module.exports = {
+  CacheExists: CacheExists
+  ,
+  getCachedList: getCachedList
+};
 
 const path = './Data/';
 
@@ -151,19 +156,19 @@ const templates = [
 
 const NumColumns = [
   'Age',
-  'Age (Years)',
+  // 'Age (Years)',
   'House Number',
   'Year of Birth',
   // 'Construction Date',
   'Registry Folio',
   'Registry List',
   'Registry Number',
-  'Birth Date (Year)', // Crew List (Ruoli di Equipaggio)
+  // 'Birth Date (Year)', // Crew List (Ruoli di Equipaggio)
   'Serial Number',
   'Months',
   'Days',
   'Total Crew Number (Captain Included)',
-  'Date of Birth (Year)', // Employment records, Shipyards of Messageries Maritimes, La Ciotat
+  // 'Date of Birth (Year)', // Employment records, Shipyards of Messageries Maritimes, La Ciotat
   'Tonnage', 
   'Tonnage (Value)', 
   'Year of Reagistry',
@@ -209,6 +214,9 @@ const mapp = {
     },
     "Embarkation Ports": {
       "Port": "Name"
+    },
+    "Ships":{
+      "Port of Registry": "Registry Location"
     }
   },
   "Crew and displacement list (Roll)": {
@@ -242,6 +250,9 @@ const mapp = {
     },
     "Construction Places": {
       "Construction Location": "Name"
+    },
+    "Ships":{
+      "Tonnage": "Gross Tonnage (in kg)"
     }
   },
   "List of ships": {
@@ -256,6 +267,10 @@ const mapp = {
     },
     "Engine Construction Places": {
       "Place of Engine Construction": "Name"
+    },
+    "Ships":{
+      "Port of Registry": "Registry Location",
+      "Tonnage (Value)": "Tonnage"
     }
   },
   "Accounts book": {
@@ -284,6 +299,9 @@ const mapp = {
     },
     "Discharge Ports": {
       "Port": "Name"
+    },
+    "Ships":{
+      "Port of Registry": "Registry Location"
     }
   },
   "Logbook": {
@@ -295,24 +313,52 @@ const mapp = {
     "Birth Places": {
       "Place of Birth": "Name"
     },
-    "Residence Places": {
-      "Place of Residence": "Name"
+    "Residence Locations": {
+      "Location of Residence": "Name"
     }
-
   },
   "Employment records, Shipyards of Messageries Maritimes, La Ciotat": {
     "Birth Places": {
       "Place of Birth": "Name"
     },
-    "Residence Places": {
-      "Place of Residence": "Name"
+    "Residence Locations": {
+      "Location of Residence": "Name"
     }
   },
   "Census La Ciotat": {
     "Birth Places": {
       "Place of Birth": "Name"
+    },
+    "Organisations (Works at)": {
+      "Organisation": "Name"
+    }
+  },
+  "First national all-Russian census of the Russian Empire":{
+    "Birth Places (Governorates)": {
+      "Governorate": "Name"
+    }
+  },
+  "Register of Maritime personel":{
+    "Residence Locations": {
+      "Location of Residence": "Name"
+    }
+  },
+  "Register of Maritime workers (Matricole della gente di mare)":{
+    "Residence Locations": {
+      "Location of Residence": "Name"
+    }
+  },
+  "Students Register":{
+    "Student Employment Companies": {
+      "Employment Company": "Name"
+    }
+  },
+  "Payroll of Russian Steam Navigation and Trading Company": {
+    "Ship owners (Companies)": {
+      "Owner (Company)": "Name"
     }
   }
+  
 
 }
 
@@ -323,6 +369,7 @@ process.on("message", async (message) => {
         var jsonResponse = await handleTableData(message.query);
     else 
         var jsonResponse = await handleExploreAll(message.name);
+    // console.log('jsonResponse')
     process.send(JSON.stringify(jsonResponse));
     process.exit();
 })
@@ -339,10 +386,13 @@ async function handleExploreAll(name){
       if(categoryObj['sub'] != undefined){
         // config[category] = Object.keys(categoryObj['sub']);
         var categories = Object.keys(categoryObj['sub']);
-        config[category] = []
+        config[category].sub = [];
+        retObj = await handleExploreAll(category);
+        config[category].count = retObj.arrayWithSources.length;
         for (const subCategory of categories) {
+          // console.log(subCategory)
           retObj = await handleExploreAll(subCategory);
-          config[category].push({name: subCategory, count: retObj.arrayWithSources.length})
+          config[category].sub.push({name: subCategory, count: retObj.arrayWithSources.length})
         }
       }
       else{
@@ -354,6 +404,8 @@ async function handleExploreAll(name){
     return config;
   }
 
+  if(name=='Persons' && CacheExists('Persons')) return await getCachedList(name);
+
   config = await getConfigEntity(null, name);
   if(config == undefined) return null;
 
@@ -364,8 +416,10 @@ async function handleExploreAll(name){
       retObj = await getExploreAllTables(tableConfig, retObj, tableName);
     }
   }else{
+    console.log(config)
     retObj = await getExploreAllTables(config,undefined, name);
   }
+  if(name =='Persons') await saveToCache(name, retObj);
   return retObj;
 }
 
@@ -380,6 +434,7 @@ async function getExploreAllTables(config, prevArray, ListName){
   // console.log(arrayWithData)
   for (const source of Object.keys(config)){
     var tableName = Object.keys(config[source]).join();
+    // console.log(tableName)
     var myarray = await handleSingleTable(source, tableName, true, false, null, ListName);
     filterData(myarray);
 
@@ -418,7 +473,7 @@ function checkIfComperationIsNeeded(previusTitles, currTitles){
   // console.log(previusTitles)
   for (let i = 0; i < previusTitles.length; i++) {
     const titles = previusTitles[i];
-    if(isEqual(currTitles.sort(), titles.sort())) return true;  
+    if(isEqual(currTitles.slice().sort(), titles.slice().sort())) return true;  
   }
   return false;
 }
@@ -794,6 +849,7 @@ async function handleSourceRecordList(source) {
           [key2 === key ? newKey : key2]: config[key2],
         }), {});
       }
+      if(key == 'display') delete config[key  ]
     }
     return config;
   }
@@ -925,7 +981,7 @@ async function getConfigEntity(recordName, entity) {
    * @returns The formated records of an entity according to the configuration file each entity's
    */
   function formatObject(data, config, remv = true, nestedlink = false){
-    // console.log(data)
+    // console.log(config)
     const mydata = data;
     var objArray = [];
     var mydata2;
@@ -995,12 +1051,10 @@ async function getConfigEntity(recordName, entity) {
       }
   
     }
-    // console.dir(objArray, { depth: null });
     
     if(objArray[0]["value-type"] !=  undefined)
-    objArray = formatList(objArray);
+      objArray = formatList(objArray);
     
-    // console.log('after'); 
     if(remv == true)
       objArray = removeDuplicates(objArray);
     
@@ -1110,7 +1164,6 @@ async function getConfigEntity(recordName, entity) {
       else // in case we have display no the first value is on the 3rd index  
       var path = config[Object.keys(config)[2]]['path'].split(".#.")[0];
         
-      // console.log(path)
       var data = get(mydata, path);
       // in case that the nested table doesn't start form index 1
       // occurs in Messageries_Maritimes
@@ -1182,7 +1235,6 @@ async function getConfigEntity(recordName, entity) {
       // if(!isArray(first))
       //   first = Object.keys(fake)[3];
       
-      // console.log(first)
       fake['listLength'] = fake[first].length;
 
       return fake;  

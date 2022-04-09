@@ -16,7 +16,7 @@
           </a>
       </div>
           <ul class="archival" *ngIf="isArray(list[category])">
-              <li *ngFor="let item of list[category]; index as j;">
+              <li *ngFor="let item of list[category].sub; index as j;">
 
                   <div class="list-container">
                       <div class="title">

@@ -6,12 +6,13 @@
             "Captains": {},
             "Ship Owners (Persons)": {},
             "Signed by": {},
-            "Works at": {},
+            "Employers (Persons)": {},
             "Occupants": {},
             "Registered Persons": {},
             "Transaction Suppliers": {},
             "Transaction Mediators": {},
-            "Transaction Receivers": {}
+            "Transaction Receivers": {},
+            "Workers": {}
         }
     },
     "Locations": {
@@ -32,7 +33,9 @@
     "Organisations": {
         "sub": {
             "Ship Owners (Organisations)": {},
-            "Engine Manufacturers": {}
+            "Engine Manufacturers": {},
+            "Employers (Organisations)": {},
+            "Companies (Singed by)": {}
         }
     },
     "Professions": {}

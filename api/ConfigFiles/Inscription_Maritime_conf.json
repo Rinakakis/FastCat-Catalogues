@@ -8,13 +8,13 @@
             "Surname": {
                 "path": "docs[0].data.list_of_registered_persons.#.person_surname"
             },
-            "Date of Birth": {
+            "Birth Date": {
                 "path": "docs[0].data.list_of_registered_persons.#.date_of_birth"
             },
             "Place of Birth": {
                 "path": "docs[0].data.list_of_registered_persons.#.place_of_birth"
             },
-            "Place of Residence": {
+            "Location of Residence": {
                 "path": "docs[0].data.list_of_registered_persons.#.place_of_residence"
             },
             "Service Sectors": {
@@ -59,9 +59,9 @@
                 "Id": "docs[0]._id"
             }
         },
-        "Residence Places": {
+        "Residence Locations": {
             "value-type": "list",
-            "Place of Residence": {
+            "Location of Residence": {
                 "path": "docs[0].data.list_of_registered_persons.#.place_of_residence"
             },
             "Registered Persons": {
@@ -224,7 +224,7 @@
                 "value-type": "list",
                 "path": "docs[0].data.list_of_registered_persons.#.person_surname"
             },
-            "Date of Birth": {
+            "Birth Date": {
                 "value-type": "list",
                 "path": "docs[0].data.list_of_registered_persons.#.date_of_birth"
             },
@@ -232,7 +232,7 @@
                 "value-type": "list",
                 "path": "docs[0].data.list_of_registered_persons.#.place_of_birth"
             },
-            "Place of Residence": {
+            "Location of Residence": {
                 "value-type": "list",
                 "path": "docs[0].data.list_of_registered_persons.#.place_of_residence"
             },
@@ -257,7 +257,7 @@
                 "value-type": "list",
                 "path": "docs[0].data.list_of_registered_persons.#.person_surname"
             },
-            "Date of Birth": {
+            "Birth Date": {
                 "value-type": "list",
                 "path": "docs[0].data.list_of_registered_persons.#.date_of_birth"
             },
@@ -265,7 +265,7 @@
                 "value-type": "list",
                 "path": "docs[0].data.list_of_registered_persons.#.place_of_birth"
             },
-            "Place of Residence": {
+            "Location of Residence": {
                 "value-type": "list",
                 "path": "docs[0].data.list_of_registered_persons.#.place_of_residence"
             },

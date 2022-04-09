@@ -184,7 +184,7 @@
          "Location of Residence": {
             "path": "docs[0].data.crew_list.#.crew_birth_location"
          },
-         "Birth Date (Year)": {
+         "Birth Year": {
             "path": "docs[0].data.crew_list.#.crew_birth_date"
          },
          "Serial Number": {

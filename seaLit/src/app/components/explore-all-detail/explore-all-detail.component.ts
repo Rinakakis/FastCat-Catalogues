@@ -45,6 +45,9 @@ export class ExploreAllDetailComponent implements OnInit {
       },
       "Embarkation Ports": {
         "Name": "Port"
+      },
+      "Ships": {
+        "Registry Location": "Port of Registry"
       }
     },
     "Crew and displacement list (Roll)": {
@@ -78,6 +81,9 @@ export class ExploreAllDetailComponent implements OnInit {
       },
       "Construction Places": {
         "Name": "Construction Location"
+      },
+      "Ships": {
+        "Gross Tonnage (in kg)": "Tonnage"
       }
     },
     "List of ships": {
@@ -92,6 +98,10 @@ export class ExploreAllDetailComponent implements OnInit {
       },
       "Engine Construction Places": {
         "Name": "Place of Engine Construction"
+      },
+      "Ships": {
+        "Registry Location": "Port of Registry",
+        "Tonnage": "Tonnage (Value)"
       }
     },
     "Accounts book": {
@@ -120,6 +130,9 @@ export class ExploreAllDetailComponent implements OnInit {
       },
       "Discharge Ports": {
         "Name": "Port"
+      },
+      "Ships": {
+        "Registry Location": "Port of Registry"
       }
     },
     "Logbook": {
@@ -129,23 +142,51 @@ export class ExploreAllDetailComponent implements OnInit {
     },
     "Inscription Maritime - Maritime Register of the State for La Ciotat": {
       "Birth Places": {
-        "Name": "Place of Birth"
+        "Place of Birth": "Name"
       },
-      "Residence Places": {
-        "Name": "Place of Residence"
+      "Residence Locations": {
+        "Location of Residence": "Name"
       }
     },
     "Employment records, Shipyards of Messageries Maritimes, La Ciotat": {
       "Birth Places": {
-        "Name": "Place of Birth"
+        "Place of Birth": "Name"
       },
-      "Residence Places": {
-        "Name": "Place of Residence"
+      "Residence Locations": {
+        "Location of Residence": "Name"
       }
     },
     "Census La Ciotat": {
       "Birth Places": {
         "Name": "Place of Birth"
+      },
+      "Organisations (Works at)": {
+        "Name": "Organisation"
+      }
+    },
+    "First national all-Russian census of the Russian Empire": {
+      "Birth Places (Governorates)": {
+        "Name": "Governorate"
+      },
+      "Register of Maritime personel": {
+        "Residence Locations": {
+          "Name": "Location of Residence"
+        }
+      },
+      "Register of Maritime workers (Matricole della gente di mare)": {
+        "Residence Locations": {
+          "Name": "Location of Residence"
+        }
+      }
+    },
+    "Students Register": {
+      "Student Employment Companies": {
+        "Name": "Employment Company"
+      }
+    },
+    "Payroll of Russian Steam Navigation and Trading Company": {
+      "Ship owners (Companies)": {
+        "Name": "Owner (Company)"
       }
     }
   }
@@ -171,6 +212,7 @@ export class ExploreAllDetailComponent implements OnInit {
       if (list) {
         this.hideloader('loading');
       }
+      console.log(list)
       this.handleData(list);
       this.titleService.setTitle(`SeaLit - ${this.clickedTable} (${this.count})`);
       this.loaded = !this.loaded;

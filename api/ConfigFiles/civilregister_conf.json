@@ -17,7 +17,7 @@
             "Profession": {
                 "path": "docs[0].data.death_registers.#.profession"
             },
-            "Age (Years)": {
+            "Age": {
                 "path": "docs[0].data.death_registers.#.diseased_person_age_years"
             },
             "Sex": {
@@ -145,8 +145,8 @@
             }
         },
         "Persons and Death Date": {
-            "display": "no",
             "value-type": "list",
+            "display": "no",
             "Name": {
                 "path": "docs[0].data.death_registers.#.diseased_person_name"
             },
@@ -162,7 +162,7 @@
             "Profession": {
                 "path": "docs[0].data.death_registers.#.profession"
             },
-            "Age (Years)": {
+            "Age": {
                 "path": "docs[0].data.death_registers.#.diseased_person_age_years"
             },
             "Sex": {

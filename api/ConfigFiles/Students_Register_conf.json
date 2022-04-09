@@ -75,7 +75,7 @@
             "Age": {
                 "path": "docs[0].data.list_of_students.#.student_age"
             },
-            "Year of Birth": {
+            "Birth Year": {
                 "path": "docs[0].data.list_of_students.#.student_birth_year"
             },
             "Courses": {

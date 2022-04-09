@@ -107,7 +107,7 @@
                     "Signed By Persons": {}
                 }
             },
-            "Works at": {
+            "Employer": {
                 "Census La Ciotat": {
                     "Persons (Works at)": {}
                 }
@@ -152,21 +152,9 @@
                     "Transaction Receivers": {}
                 }
             },
-            "People": {
-                "Civil Register": {
-                    "Persons": {}
-                },
-                "Register of Maritime personel": {
-                    "Persons": {}
-                },
-                "Payroll": {
-                    "Persons": {}
-                },
-                "Payroll of Russian Steam Navigation and Trading Company": {
-                    "Persons": {}
-                },
-                "Seagoing Personel": {
-                    "Persons": {}
+            "Workers":{
+                "Employment records, Shipyards of Messageries Maritimes, La Ciotat":{
+                    "Workers": {}
                 }
             }
         }
@@ -236,7 +224,7 @@
             "Signed By Persons": {}
         }
     },
-    "Works at": {
+    "Employer": {
         "Census La Ciotat": {
             "Persons (Works at)": {}
         }
@@ -279,6 +267,11 @@
     "Transaction Receivers": {
         "Accounts book": {
             "Transaction Receivers": {}
+        }
+    },
+    "Workers":{
+        "Employment records, Shipyards of Messageries Maritimes, La Ciotat":{
+            "Workers": {}
         }
     },
     "Locations": {
@@ -339,7 +332,7 @@
                     "Birth Places": {}
                 },
                 "First national all-Russian census of the Russian Empire": {
-                    "Birth Places": {}
+                    "Birth Places (Governorates)": {}
                 },
                 "Inscription Maritime - Maritime Register of the State for La Ciotat": {
                     "Birth Places": {}
@@ -350,10 +343,16 @@
             },
             "Residence Places": {
                 "Inscription Maritime - Maritime Register of the State for La Ciotat": {
-                    "Residence Places": {}
+                    "Residence Locations": {}
                 },
                 "Employment records, Shipyards of Messageries Maritimes, La Ciotat": {
-                    "Residence Places": {}
+                    "Residence Locations": {}
+                },
+                "Register of Maritime personel":{
+                    "Residence Locations": {}
+                },
+                "Register of Maritime workers (Matricole della gente di mare)":{
+                    "Residence Locations": {}
                 }
             },
             "Death Locations": {
@@ -437,22 +436,28 @@
         "Census La Ciotat": {
             "Birth Places": {}
         },
-        "First national all-Russian census of the Russian Empire": {
-            "Birth Places": {}
-        },
         "Inscription Maritime - Maritime Register of the State for La Ciotat": {
             "Birth Places": {}
         },
         "Employment records, Shipyards of Messageries Maritimes, La Ciotat": {
             "Birth Places": {}
+        },
+        "First national all-Russian census of the Russian Empire": {
+            "Birth Places (Governorates)": {}
         }
     },
     "Residence Places": {
         "Inscription Maritime - Maritime Register of the State for La Ciotat": {
-            "Residence Places": {}
+            "Residence Locations": {}
         },
         "Employment records, Shipyards of Messageries Maritimes, La Ciotat": {
-            "Residence Places": {}
+            "Residence Locations": {}
+        },
+        "Register of Maritime personel":{
+            "Residence Locations": {}
+        },
+        "Register of Maritime workers (Matricole della gente di mare)":{
+            "Residence Locations": {}
         }
     },
     "Death Locations": {
@@ -493,11 +498,31 @@
                 },
                 "Payroll": {
                     "Ship Owners (Organisations)": {}
+                },
+                "Naval Ship Register List":{
+                    "Owners (Organization)":{}
+                },
+                "Payroll of Russian Steam Navigation and Trading Company":{
+                    "Ship owners (Companies)":{}
                 }
+                
             },
             "Engine Manufacturers": {
                 "List of ships": {
                     "Engine Manufacturers": {}
+                }
+            },
+            "Employers (Organisations)": {
+                "Census La Ciotat": {
+                    "Organisations (Works at)": {}
+                },
+                "Students Register":{
+                    "Student Employment Companies": {}
+                }
+            },
+            "Companies (Singed by)":{
+                "Crew and displacement list (Roll)": {
+                    "Companies (Singed by)":{}
                 }
             }
         }
@@ -514,11 +539,33 @@
         },
         "Payroll": {
             "Ship Owners (Organisations)": {}
+        },
+        "Naval Ship Register List":{
+            "Owners (Organization)":{}
+        },
+        "Payroll of Russian Steam Navigation and Trading Company":{
+            "Ship owners (Companies)":{}
         }
+        
     },
     "Engine Manufacturers": {
         "List of ships": {
             "Engine Manufacturers": {}
+        }
+    },
+    "Employers (Organisations)": {
+        "Census La Ciotat": {
+            "Organisations (Works at)": {}
+        },
+        "Students Register":{
+            "Student Employment Companies": {},
+            "Employment Organization of Related Persons": {}
+
+        }
+    },
+    "Companies (Singed by)":{
+        "Crew and displacement list (Roll)": {
+            "Companies (Singed by)":{}
         }
     },
     "Professions": {

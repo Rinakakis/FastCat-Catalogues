@@ -17,10 +17,10 @@
             "Mother's Name": {
                 "path": "docs[0].data.seafarers_register.#.seafarer_mothers_name"
             },
-            "Date of Birth": {
+            "Birth Date": {
                 "path": "docs[0].data.seafarers_register.#.seafarer_birth_date"
             },
-            "Birth Location": {
+            "Place of Birth": {
                 "path": "docs[0].data.seafarers_register.#.seafarer_birth_location"
             },
             "Military Service Organisation Location": {

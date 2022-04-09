@@ -58,7 +58,7 @@
             "Surname A": {
                 "path": "docs[0].data.ship_records.owner_surname_A"
             },
-            "Residence": {
+            "Location of Residence": {
                 "path": "docs[0].data.ship_records.owner_residence"
             },
             "Ships": {
@@ -96,8 +96,8 @@
                 "Id": "docs[0]._id"
             }
         },
-        "Companies (Singed by)": {
-            "Company Name": {
+        "Companies (Singed by)":{
+            "Name": {
                 "path": "docs[0].data.ship_records.company_name"
             },
             "Headquarter Location": {
@@ -259,7 +259,7 @@
             "Father's Name": {
                 "path": "docs[0].data.crew_list.#.crew_fathers_name"
             },
-            "Location of Birth": {
+            "Place of Birth": {
                 "path": "docs[0].data.crew_list.#.crew_birth_location"
             },
             "Location of Residence": {
@@ -354,7 +354,7 @@
             "Father's Name": {
                 "path": "docs[0].data.crew_list.#.crew_fathers_name"
             },
-            "Location of Birth": {
+            "Place of Birth": {
                 "path": "docs[0].data.crew_list.#.crew_birth_location"
             },
             "Location of Residence": {

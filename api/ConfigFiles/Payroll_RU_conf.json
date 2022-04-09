@@ -47,10 +47,10 @@
             "Sex": {
                 "path": "docs[0].data.payroll.#.payroll_person_sex"
             },
-            "Date of Birth": {
+            "Birth Date": {
                 "path": "docs[0].data.payroll.#.payroll_person_date_birth"
             },
-            "Estate (Social Class)": {
+            "Estate": {
                 "path": "docs[0].data.payroll.#.payroll_person_estate"
             },
             "Ships": {
@@ -123,7 +123,7 @@
             "Person's Sex": {
                 "path": "docs[0].data.payroll.#.payroll_person_sex"
             },
-            "Person's Date of Birth": {
+            "Person's Birth Date": {
                 "path": "docs[0].data.payroll.#.payroll_person_date_birth"
             },
             "Recruitment Date": {
@@ -284,10 +284,10 @@
             "Sex": {
                 "path": "docs[0].data.payroll.#.payroll_person_sex"
             },
-            "Date of Birth": {
+            "Birth Date": {
                 "path": "docs[0].data.payroll.#.payroll_person_date_birth"
             },
-            "Estate (Social Class)": {
+            "Estate": {
                 "path": "docs[0].data.payroll.#.payroll_person_estate"
             },
             "Ships": {

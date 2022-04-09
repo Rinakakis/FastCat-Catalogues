@@ -21,19 +21,20 @@ export class ListService {
 
   NumColumns: string[] = [
     'Age',
-    'Age (Years)',
+    // 'Age (Years)',
     'House Number',
-    'Year of Birth',
+    // 'Year of Birth',
+    'Birth Year',
     // 'Construction Date',
     'Registry Folio',
     'Registry List',
     'Registry Number',
-    'Birth Date (Year)', // Crew List (Ruoli di Equipaggio)
+    // 'Birth Date (Year)', // Crew List (Ruoli di Equipaggio)
     'Serial Number',
     'Months',
     'Days',
     'Total Crew Number (Captain Included)',
-    'Date of Birth (Year)', // Employment records, Shipyards of Messageries Maritimes, La Ciotat
+    // 'Date of Birth (Year)', // Employment records, Shipyards of Messageries Maritimes, La Ciotat
     'Tonnage',
     'Tonnage (Value)',
     'Year of Reagistry',
@@ -68,7 +69,7 @@ export class ListService {
     // 'Navigation: From',
     // 'Navigation: To',
     'Date of Death',
-    'Date of Birth', // Inscription Maritime - Maritime Register of the State for La Ciotat, Payroll of Russian Steam Navigation and Trading Company, Sailors register (Libro de registro de marineros)
+    // 'Date of Birth', // Inscription Maritime - Maritime Register of the State for La Ciotat, Payroll of Russian Steam Navigation and Trading Company, Sailors register (Libro de registro de marineros)
     // 'Duration (From)',
     // 'Duration (To)',
     'Creation Date',

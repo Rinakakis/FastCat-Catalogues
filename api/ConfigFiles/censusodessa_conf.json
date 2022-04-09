@@ -14,7 +14,6 @@
                 "link": "Occupants",
                 "Id": "docs[0]._id"
             }
-
         },
         "Occupants": {
             "value-type": "nested-list",
@@ -30,7 +29,7 @@
             "Sex": {
                 "path": "docs[0].data.list_of_occupants.#.person_sex"
             },
-            "Age (Years)": {
+            "Age": {
                 "path": "docs[0].data.list_of_occupants.#.person_age"
             },
             "Marital Status": {
@@ -195,6 +194,19 @@
             "value-type": "nested-list",
             "Occupation (secondary)": {
                 "path": "docs[0].data.list_of_occupants.#.person_secondary_occupation"
+            },
+            "Occupants": {
+                "link": "Occupants",
+                "listLink": true,
+                "link-type": "nl-nl",
+                "Id": "docs[0]._id"
+            }
+        },
+        "Birth Places (Governorates)":{
+            "value-type": "nested-list",
+            "display": "no",
+            "Governorate": {
+                "path": "docs[0].data.list_of_occupants.#.person_birth_governorate"
             },
             "Occupants": {
                 "link": "Occupants",
