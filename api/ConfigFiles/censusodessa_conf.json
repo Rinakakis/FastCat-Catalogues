@@ -56,8 +56,8 @@
                 "link-type": "nl-nl",
                 "Id": "docs[0]._id"
             },
-            "Residense Places": {
-                "link": "Residense Places",
+            "Residence Places": {
+                "link": "Residence Places",
                 "listLink": true,
                 "link-type": "nl-nl",
                 "Id": "docs[0]._id"
@@ -127,7 +127,7 @@
                 "Id": "docs[0]._id"
             }
         },
-        "Residense Places":{
+        "Residence Places":{
             "value-type": "nested-list",
             "Country": {
                 "path": "docs[0].data.list_of_occupants.#.person_residense_country"
@@ -207,6 +207,29 @@
             "display": "no",
             "Governorate": {
                 "path": "docs[0].data.list_of_occupants.#.person_birth_governorate"
+            },
+            "Occupants": {
+                "link": "Occupants",
+                "listLink": true,
+                "link-type": "nl-nl",
+                "Id": "docs[0]._id"
+            }
+        },
+        "Addresses (Cities)": {
+            "display": "no",
+            "Name": {
+                "path": "docs[0].data.source_identity.city"
+            },
+            "Occupants": {
+                "link": "Occupants",
+                "Id": "docs[0]._id"
+            }
+        },
+        "Residence Places (Cities)":{
+            "value-type": "nested-list",
+            "display": "no",
+            "Name": {
+                "path": "docs[0].data.list_of_occupants.#.person_residense_city"
             },
             "Occupants": {
                 "link": "Occupants",

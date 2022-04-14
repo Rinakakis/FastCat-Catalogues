@@ -305,6 +305,30 @@
                 "listLink": true,
                 "Id": "docs[0]._id"
             }
+        },
+        "Person Registration Places (Governorates)": {
+            "value-type": "list",
+            "display":"no",
+            "Name": {
+                "path": "docs[0].data.payroll.#.payroll_person_governorate"
+            },
+            "Persons": {
+                "link": "Persons",
+                "listLink": true,
+                "Id": "docs[0]._id"
+            }
+        },
+        "Document Issuing Authority Places (Governorates)": {
+            "value-type": "list",
+            "display":"no",
+            "Name": {
+                "path": "docs[0].data.payroll.#.payroll_issuing_governorate"
+            },
+            "Persons": {
+                "link": "Persons",
+                "listLink": true,
+                "Id": "docs[0]._id"
+            }
         }
      },
     "Title": [

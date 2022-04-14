@@ -147,7 +147,7 @@
             "Name": {
                 "path": "docs[0].data.list_of_students.#.related_person_name"
             },
-            "Surame": {
+            "Surname": {
                 "path": "docs[0].data.list_of_students.#.related_person_surname"
             },
             "Profession": {

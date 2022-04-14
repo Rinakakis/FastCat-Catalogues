@@ -54,6 +54,9 @@
                 },
                 "Seagoing Personel": {
                     "Persons": {}
+                },
+                "Sailors register (Libro de registro de marineros)": {
+                    "Seafarers": {}
                 }
             },
             "Captains": {
@@ -107,7 +110,7 @@
                     "Signed By Persons": {}
                 }
             },
-            "Employer": {
+            "Employers (Persons)": {
                 "Census La Ciotat": {
                     "Persons (Works at)": {}
                 }
@@ -122,7 +125,8 @@
             },
             "Registered Persons": {
                 "Inscription Maritime - Maritime Register of the State for La Ciotat": {
-                    "Registered Persons": {}
+                    "Registered Persons": {},
+                    "Patrons":{}
                 },
                 "Civil Register": {
                     "Persons": {}
@@ -135,6 +139,14 @@
                 },
                 "Payroll of Russian Steam Navigation and Trading Company": {
                     "Persons": {}
+                }
+            },
+            "Related Persons": {
+                "Civil Register": {
+                    "Related Persons": {}
+                },
+                "Students Register": {
+                    "Related Persons": {}
                 }
             },
             "Transaction Suppliers": {
@@ -156,6 +168,11 @@
                 "Employment records, Shipyards of Messageries Maritimes, La Ciotat":{
                     "Workers": {}
                 }
+            },
+            "Students":{
+                "Students Register":{
+                    "Students": {}
+                }
             }
         }
     },
@@ -171,6 +188,9 @@
         },
         "Seagoing Personel": {
             "Persons": {}
+        },
+        "Sailors register (Libro de registro de marineros)": {
+            "Seafarers": {}
         }
     },
     "Captains": {
@@ -224,7 +244,7 @@
             "Signed By Persons": {}
         }
     },
-    "Employer": {
+    "Employers (Persons)": {
         "Census La Ciotat": {
             "Persons (Works at)": {}
         }
@@ -239,7 +259,8 @@
     },
     "Registered Persons": {
         "Inscription Maritime - Maritime Register of the State for La Ciotat": {
-            "Registered Persons": {}
+            "Registered Persons": {},
+            "Patrons":{}
         },
         "Civil Register": {
             "Persons": {}
@@ -252,6 +273,14 @@
         },
         "Payroll of Russian Steam Navigation and Trading Company": {
             "Persons": {}
+        }
+    },
+    "Related Persons": {
+        "Civil Register": {
+            "Related Persons": {}
+        },
+        "Students Register": {
+            "Related Persons": {}
         }
     },
     "Transaction Suppliers": {
@@ -269,13 +298,41 @@
             "Transaction Receivers": {}
         }
     },
+    "Transaction Recording Locations": {
+        "Accounts book": {
+            "Transaction Recording Locations": {}
+        }
+    },
     "Workers":{
         "Employment records, Shipyards of Messageries Maritimes, La Ciotat":{
             "Workers": {}
         }
     },
+    "Students":{
+        "Students Register":{
+            "Students": {}
+        }
+    },
     "Locations": {
         "sub": {
+            "Addresses": {
+                "First national all-Russian census of the Russian Empire":{
+                    "Addresses (Cities)": {}
+                }
+            },
+            "Ports": {
+                "Logbook": {
+                    "Ports": {}
+                }
+            },
+            "Arrival Ports": {
+                "Crew List (Ruoli di Equipaggio)": {
+                    "Arrival Ports": {}
+                },
+                "Crew and displacement list (Roll)": {
+                    "Arrival Ports": {}
+                }
+            },
             "Departure Ports": {
                 "Accounts book": {
                     "Departure Ports": {}
@@ -284,20 +341,45 @@
                     "Departure Ports": {}
                 }
             },
-            "Destination Ports": {
+            "Destination Locations": {
                 "Accounts book": {
                     "Destination Ports": {}
                 },
                 "Crew and displacement list (Roll)": {
                     "Destination Ports": {}
+                },
+                "Register of Maritime workers (Matricole della gente di mare)": {
+                    "Destination Locations": {}
+                },
+                "Seagoing Personel": {
+                    "Destinations": {}
+                },
+                "Crew List (Ruoli di Equipaggio)": {
+                    "First Planned Destinations": {}
+                },
+                "General Spanish Crew List": {
+                    "First Planned Destinations": {}
                 }
             },
             "Ports of Call": {
                 "Accounts book": {
                     "Ports of Call": {}
+                },
+                "Register of Maritime workers (Matricole della gente di mare)": {
+                    "Intermediate Ports of Call": {}
                 }
             },
-            "Embarkation Ports": {
+            "Ports of Provenance": {
+                "Crew and displacement list (Roll)": {
+                    "Ports of Provenance": {}
+                }
+            },
+            "Recruitment Ports": {
+                "Payroll of Russian Steam Navigation and Trading Company": {
+                    "Recruitment Ports": {}
+                }
+            },
+            "Embarkation Locations": {
                 "General Spanish Crew List": {
                     "Embarkation Ports": {}
                 },
@@ -306,17 +388,29 @@
                 },
                 "Crew List (Ruoli di Equipaggio)": {
                     "Embarkation Ports": {}
+                },
+                "Inscription Maritime - Maritime Register of the State for La Ciotat":{
+                    "Embarkation Locations": {}
+                },
+                "Register of Maritime workers (Matricole della gente di mare)": {
+                    "Embarkation Locations": {}
                 }
             },
-            "Discharge Ports": {
+            "Disembarkation-Discharge Locations": {
                 "Crew and displacement list (Roll)": {
                     "Discharge Ports": {}
                 },
                 "Crew List (Ruoli di Equipaggio)": {
                     "Discharge Ports": {}
+                },
+                "Inscription Maritime - Maritime Register of the State for La Ciotat":{
+                    "Disembarkation Locations": {}
+                },
+                "Register of Maritime workers (Matricole della gente di mare)": {
+                    "Discharge Locations": {}
                 }
             },
-            "Registry Ports": {
+            "Registry Locations": {
                 "Crew List (Ruoli di Equipaggio)": {
                     "Ship Registry Ports": {}
                 },
@@ -325,6 +419,12 @@
                 },
                 "List of ships": {
                     "Registry Ports": {}
+                },
+                "Crew and displacement list (Roll)": {
+                    "Ship Registration Locations": {}
+                },
+                "Payroll of Russian Steam Navigation and Trading Company": {
+                    "Person Registration Places (Governorates)": {}
                 }
             },
             "Birth Places": {
@@ -339,6 +439,18 @@
                 },
                 "Employment records, Shipyards of Messageries Maritimes, La Ciotat": {
                     "Birth Places": {}
+                },
+                "Register of Maritime personel": {
+                    "Birth Locations": {}
+                },
+                "Register of Maritime workers (Matricole della gente di mare)": {
+                    "Birth Locations": {}
+                },
+                "Sailors register (Libro de registro de marineros)": {
+                    "Birth Locations": {}
+                },
+                "Crew and displacement list (Roll)": {
+                    "Locations of Birth": {}
                 }
             },
             "Residence Places": {
@@ -353,11 +465,46 @@
                 },
                 "Register of Maritime workers (Matricole della gente di mare)":{
                     "Residence Locations": {}
+                },
+                "First national all-Russian census of the Russian Empire":{
+                    "Residence Places (Cities)":{}
+                },
+                "Crew List (Ruoli di Equipaggio)": {
+                    "Locations of Residence": {}
+                },
+                "Crew and displacement list (Roll)": {
+                    "Locations of Residence": {}
+                },
+                "General Spanish Crew List": {
+                    "Locations of Residence": {}
+                },
+                "Notarial Deeds": {
+                    "Residence Locations (of Witnesses)": {},
+                    "Residence Locations (of Contracting Parties)": {}
                 }
             },
             "Death Locations": {
                 "Civil Register": {
                     "Death Locations": {}
+                }
+            },
+            "Origin Locations": {
+                "Civil Register": {
+                    "Origin Locations": {}
+                },
+                "Students Register": {
+                    "Students Origin Locations": {}
+                },
+                "Payroll": {
+                    "Locations of Origin": {}
+                },
+                "Notarial Deeds": {
+                    "Origin Locations (of Contracting Parties)": {}
+                }
+            },
+            "Military Service Organisation Locations": {
+                "Sailors register (Libro de registro de marineros)": {
+                    "Military Service Organisation Locations": {}
                 }
             },
             "Ship Construction Places": {
@@ -378,7 +525,30 @@
                 "List of ships": {
                     "Engine Construction Places": {}
                 }
+            },
+            "Transaction Recording Locations": {
+                "Accounts book": {
+                    "Transaction Recording Locations": {}
+                }
             }
+        }
+    },
+    "Addresses": {
+        "First national all-Russian census of the Russian Empire":{
+            "Addresses (Cities)": {}
+        }
+    },
+    "Ports": {
+        "Logbook": {
+            "Ports": {}
+        }
+    },
+    "Arrival Ports": {
+        "Crew List (Ruoli di Equipaggio)": {
+            "Arrival Ports": {}
+        },
+        "Crew and displacement list (Roll)": {
+            "Arrival Ports": {}
         }
     },
     "Departure Ports": {
@@ -389,20 +559,45 @@
             "Departure Ports": {}
         }
     },
-    "Destination Ports": {
+    "Destination Locations": {
         "Accounts book": {
             "Destination Ports": {}
         },
         "Crew and displacement list (Roll)": {
             "Destination Ports": {}
+        },
+        "Register of Maritime workers (Matricole della gente di mare)": {
+            "Destination Locations": {}
+        },
+        "Seagoing Personel": {
+            "Destinations": {}
+        },
+        "Crew List (Ruoli di Equipaggio)": {
+            "First Planned Destinations": {}
+        },
+        "General Spanish Crew List": {
+            "First Planned Destinations": {}
         }
     },
     "Ports of Call": {
         "Accounts book": {
             "Ports of Call": {}
+        },
+        "Register of Maritime workers (Matricole della gente di mare)": {
+            "Intermediate Ports of Call": {}
         }
     },
-    "Embarkation Ports": {
+    "Ports of Provenance": {
+        "Crew and displacement list (Roll)": {
+            "Ports of Provenance": {}
+        }
+    },
+    "Recruitment Ports": {
+        "Payroll of Russian Steam Navigation and Trading Company": {
+            "Recruitment Ports": {}
+        }
+    },
+    "Embarkation Locations": {
         "General Spanish Crew List": {
             "Embarkation Ports": {}
         },
@@ -411,17 +606,29 @@
         },
         "Crew List (Ruoli di Equipaggio)": {
             "Embarkation Ports": {}
+        },
+        "Inscription Maritime - Maritime Register of the State for La Ciotat":{
+            "Embarkation Locations": {}
+        },
+        "Register of Maritime workers (Matricole della gente di mare)": {
+            "Embarkation Locations": {}
         }
     },
-    "Discharge Ports": {
+    "Disembarkation-Discharge Locations": {
         "Crew and displacement list (Roll)": {
-            "Embarkation Ports": {}
+            "Discharge Ports": {}
         },
         "Crew List (Ruoli di Equipaggio)": {
-            "Embarkation Ports": {}
+            "Discharge Ports": {}
+        },
+        "Inscription Maritime - Maritime Register of the State for La Ciotat":{
+            "Disembarkation Locations": {}
+        },
+        "Register of Maritime workers (Matricole della gente di mare)": {
+            "Discharge Locations": {}
         }
     },
-    "Registry Ports": {
+    "Registry Locations": {
         "Crew List (Ruoli di Equipaggio)": {
             "Ship Registry Ports": {}
         },
@@ -430,6 +637,12 @@
         },
         "List of ships": {
             "Registry Ports": {}
+        },
+        "Crew and displacement list (Roll)": {
+            "Ship Registration Locations": {}
+        },
+        "Payroll of Russian Steam Navigation and Trading Company": {
+            "Person Registration Places (Governorates)": {}
         }
     },
     "Birth Places": {
@@ -444,6 +657,18 @@
         },
         "First national all-Russian census of the Russian Empire": {
             "Birth Places (Governorates)": {}
+        },
+        "Register of Maritime personel": {
+            "Birth Locations": {}
+        },
+        "Register of Maritime workers (Matricole della gente di mare)": {
+            "Birth Locations": {}
+        },
+        "Sailors register (Libro de registro de marineros)": {
+            "Birth Locations": {}
+        },
+        "Crew and displacement list (Roll)": {
+            "Locations of Birth": {}
         }
     },
     "Residence Places": {
@@ -458,11 +683,46 @@
         },
         "Register of Maritime workers (Matricole della gente di mare)":{
             "Residence Locations": {}
+        },
+        "First national all-Russian census of the Russian Empire":{
+            "Residence Places (Cities)":{}
+        },
+        "Crew List (Ruoli di Equipaggio)": {
+            "Locations of Residence": {}
+        },
+        "Crew and displacement list (Roll)": {
+            "Locations of Residence": {}
+        },
+        "General Spanish Crew List": {
+            "Locations of Residence": {}
+        },
+        "Notarial Deeds": {
+            "Residence Locations (of Witnesses)": {},
+            "Residence Locations (of Contracting Parties)": {}
         }
     },
     "Death Locations": {
         "Civil Register": {
             "Death Locations": {}
+        }
+    },
+    "Origin Locations": {
+        "Civil Register": {
+            "Origin Locations": {}
+        },
+        "Students Register": {
+            "Students Origin Locations": {}
+        },
+        "Payroll": {
+            "Locations of Origin": {}
+        },
+        "Notarial Deeds": {
+            "Origin Locations (of Contracting Parties)": {}
+        }
+    },
+    "Military Service Organisation Locations": {
+        "Sailors register (Libro de registro de marineros)": {
+            "Military Service Organisation Locations": {}
         }
     },
     "Ship Construction Places": {
@@ -560,7 +820,6 @@
         "Students Register":{
             "Student Employment Companies": {},
             "Employment Organization of Related Persons": {}
-
         }
     },
     "Companies (Singed by)":{
@@ -568,7 +827,7 @@
             "Companies (Singed by)":{}
         }
     },
-    "Professions": {
+    "Professions-Occupations": {
         "Census La Ciotat": {
             "Professions": {}
         },
@@ -597,7 +856,8 @@
             "Professions (of Service in Company)": {}
         },
         "Notarial Deeds": {
-            "Professions (of Witnesses)": {}
+            "Professions (of Witnesses)": {},
+            "Professions (of Contracting Parties)": {}
         },
         "Payroll": {
             "Professions-Ranks": {}
@@ -606,10 +866,19 @@
             "Previous Professions": {}
         },
         "Seagoing Personel": {
-            "Professions": {}
+            "Professions": {},
+            "Transient Professions": {}
         },
         "Students Register": {
-            "Students Professions": {}
+            "Students Professions": {},
+            "Professions of Related Persons": {}
+        },
+        "First national all-Russian census of the Russian Empire":{
+            "Occupations (main)": {},
+            "Occupations (secondary)": {}
+        },
+        "Payroll of Russian Steam Navigation and Trading Company":{
+            "Ranks-Specializations": {}
         }
     }
 }

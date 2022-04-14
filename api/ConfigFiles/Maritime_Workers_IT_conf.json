@@ -175,7 +175,7 @@
         },
         "Intermediate Ports of Call": {
             "value-type": "nested-list",
-            "Discharge Location": {
+            "Intermediate Port of Call": {
                 "path": "docs[0].data.displacement_list.#.intermediate_port"
             },
             "Ships": {

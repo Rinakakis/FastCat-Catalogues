@@ -37,6 +37,9 @@ export class ExploreAllDetailComponent implements OnInit {
       },
       "Death Locations": {
         "Name": "Death Location"
+      },
+      "Origin Locations":{
+        "Name":"Location of Origin" 
       }
     },
     "General Spanish Crew List": {
@@ -48,6 +51,12 @@ export class ExploreAllDetailComponent implements OnInit {
       },
       "Ships": {
         "Registry Location": "Port of Registry"
+      },
+      "Locations of Residence":{
+        "Name": "Location of Residence"
+      },
+      "First Planned Destinations":{
+        "Name": "First Planned Destination"
       }
     },
     "Crew and displacement list (Roll)": {
@@ -68,11 +77,32 @@ export class ExploreAllDetailComponent implements OnInit {
       },
       "Discharge Ports": {
         "Name": "Port"
+      },
+      "Ports of Provenance": {
+        "Name": "Port"
+      },
+      "Arrival Ports": {
+        "Name": "Port"
+      },
+      "Ship Registration Locations": {
+        "Name":"Registry Location" 
+      },
+      "Locations of Residence": {
+        "Name":"Location of Residence"
+      },
+      "Locations of Birth": {
+        "Name":"Location of Birth"
       }
     },
     "Register of Maritime personel": {
       "Persons": {
         "Surname": "Surname A"
+      },
+      "Residence Locations": {
+        "Name": "Location of Residence"
+      },
+      "Birth Locations": {
+        "Name":"Birth Location"
       }
     },
     "Naval Ship Register List": {
@@ -113,11 +143,17 @@ export class ExploreAllDetailComponent implements OnInit {
       },
       "Ports of Call": {
         "Name": "Port"
+      },
+      "Transaction Recording Locations": {
+        "Name":"Location"
       }
     },
     "Crew List (Ruoli di Equipaggio)": {
       "Departure Ports": {
         "Name": "Port"
+      },
+      "Arrival Ports": {
+        "Port": "Name"
       },
       "Embarkation Ports": {
         "Name": "Port"
@@ -131,12 +167,21 @@ export class ExploreAllDetailComponent implements OnInit {
       "Discharge Ports": {
         "Name": "Port"
       },
+      "Locations of Residence": {
+        "Name": "Location of Residence"
+      },
+      "First Planned Destinations": {
+        "Name": "First Planned Destination"
+      },
       "Ships": {
         "Registry Location": "Port of Registry"
       }
     },
     "Logbook": {
       "Registry Ports": {
+        "Name": "Port"
+      },
+      "Ports": {
         "Name": "Port"
       }
     },
@@ -146,6 +191,12 @@ export class ExploreAllDetailComponent implements OnInit {
       },
       "Residence Locations": {
         "Location of Residence": "Name"
+      },
+      "Embarkation Locations": {
+         "Name":"Embarkation Location"
+      },
+      "Disembarkation Locations": {
+         "Name":"Disembarkation Location"
       }
     },
     "Employment records, Shipyards of Messageries Maritimes, La Ciotat": {
@@ -168,25 +219,91 @@ export class ExploreAllDetailComponent implements OnInit {
       "Birth Places (Governorates)": {
         "Name": "Governorate"
       },
-      "Register of Maritime personel": {
-        "Residence Locations": {
-          "Name": "Location of Residence"
-        }
+      "Occupations (main)": {
+        "Profession":"Occupation (main)"
       },
-      "Register of Maritime workers (Matricole della gente di mare)": {
-        "Residence Locations": {
-          "Name": "Location of Residence"
-        }
+      "Occupations (secondary)": {
+        "Profession":"Occupation (secondary)"
+      }
+    },
+    "Register of Maritime workers (Matricole della gente di mare)": {
+      "Residence Locations": {
+        "Name": "Location of Residence"
+      },
+      "Birth Locations": {
+        "Name":"Birth Location"
+      },
+      "Destination Locations": {
+        "Name": "Destination Location"
+      },
+      "Embarkation Locations": {
+        "Name": "Embarkation Location"
+      },
+      "Discharge Locations": {
+        "Name": "Discharge Location"
+      },
+      "Intermediate Ports of Call": {
+        "Name":"Intermediate Port of Call"
       }
     },
     "Students Register": {
       "Student Employment Companies": {
         "Name": "Employment Company"
+      },
+      "Employment Organization of Related Persons": {
+        "Name": "Employment Organization"
+      },
+      "Students Origin Locations": {
+        "Name":"Location of Origin"
+      },
+      "Students": {
+        "Surname": "Surname A"
       }
     },
     "Payroll of Russian Steam Navigation and Trading Company": {
       "Ship owners (Companies)": {
         "Name": "Owner (Company)"
+      },
+      "Ranks-Specializations": {
+        "Profession":"Rank-Specialization"
+      },
+      "Recruitment Ports": {
+        "Name":"Recruitment Port"
+      }
+    },
+    "Seagoing Personel":{
+      "Transient Professions":{
+        "Profession": "Transient Profession"
+      },
+      "Destinations":{
+        "Name": "Destination"
+      },
+    },
+    "Sailors register (Libro de registro de marineros)": {
+      "Birth Locations": {
+        "Name":"Birth Location"
+      },
+      "Military Service Organisation Locations": {
+         "Name": "Military Service Organisation Location"
+      },
+      "Seafarers": {
+        "Surname":"Surname A"
+      }
+    },
+    "Payroll": {
+      "Locations of Origin": {
+        "Name": "Location of Origin"
+      }
+    },
+    "Notarial Deeds": {
+      "Residence Locations (of Witnesses)": {
+        "Name": "Location of Residence"
+      },
+      "Residence Locations (of Contracting Parties)": {
+        "Name": "Location of Residence"
+      },
+      "Origin Locations (of Contracting Parties)": {
+        "Name":"Location of Origin"
       }
     }
   }
@@ -212,7 +329,7 @@ export class ExploreAllDetailComponent implements OnInit {
       if (list) {
         this.hideloader('loading');
       }
-      console.log(list)
+      // console.log(list)
       this.handleData(list);
       this.titleService.setTitle(`SeaLit - ${this.clickedTable} (${this.count})`);
       this.loaded = !this.loaded;

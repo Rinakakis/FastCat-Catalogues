@@ -1,6 +1,7 @@
 const fs = require("fs");
 var gracefulFs = require('graceful-fs');
-const { get, isArray, isObject, isPlainObject, isEqual, isEmpty, result } = require('lodash');
+const { get, isArray, isObject, isPlainObject, isEmpty } = require('lodash');
+var equal = require('fast-deep-equal');
 gracefulFs.gracefulify(fs);
 
 module.exports = {
@@ -206,6 +207,9 @@ const mapp = {
     },
     "Death Locations": {
       "Death Location": "Name"
+    },
+    "Origin Locations":{
+      "Location of Origin": "Name"
     }
   },
   "General Spanish Crew List": {
@@ -217,6 +221,12 @@ const mapp = {
     },
     "Ships":{
       "Port of Registry": "Registry Location"
+    },
+    "Locations of Residence":{
+      "Location of Residence": "Name"
+    },
+    "First Planned Destinations":{
+      "First Planned Destination": "Name"
     }
   },
   "Crew and displacement list (Roll)": {
@@ -237,11 +247,32 @@ const mapp = {
     },
     "Discharge Ports": {
       "Port": "Name"
+    },
+    "Ports of Provenance": {
+      "Port":"Name"
+    },
+    "Arrival Ports": {
+      "Port":"Name"
+    },
+    "Ship Registration Locations": {
+      "Registry Location": "Name"
+    },
+    "Locations of Residence": {
+      "Location of Residence": "Name"
+    },
+    "Locations of Birth": {
+      "Location of Birth":"Name"
     }
   },
   "Register of Maritime personel": {
     "Persons": {
       "Surname A": "Surname"
+    },
+    "Residence Locations": {
+      "Location of Residence": "Name"
+    },
+    "Birth Locations": {
+      "Birth Location": "Name"
     }
   },
   "Naval Ship Register List": {
@@ -282,10 +313,16 @@ const mapp = {
     },
     "Ports of Call": {
       "Port": "Name"
+    },
+    "Transaction Recording Locations": {
+      "Location": "Name"
     }
   },
   "Crew List (Ruoli di Equipaggio)": {
     "Departure Ports": {
+      "Port": "Name"
+    },
+    "Arrival Ports": {
       "Port": "Name"
     },
     "Embarkation Ports": {
@@ -300,12 +337,21 @@ const mapp = {
     "Discharge Ports": {
       "Port": "Name"
     },
+    "Locations of Residence": {
+      "Location of Residence": "Name"
+    },
+    "First Planned Destinations": {
+      "First Planned Destination": "Name"
+    },
     "Ships":{
       "Port of Registry": "Registry Location"
     }
   },
   "Logbook": {
     "Registry Ports": {
+      "Port": "Name"
+    },
+    "Ports": {
       "Port": "Name"
     }
   },
@@ -315,6 +361,12 @@ const mapp = {
     },
     "Residence Locations": {
       "Location of Residence": "Name"
+    },
+    "Embarkation Locations": {
+      "Embarkation Location": "Name"
+    },
+    "Disembarkation Locations": {
+      "Disembarkation Location": "Name"
     }
   },
   "Employment records, Shipyards of Messageries Maritimes, La Ciotat": {
@@ -336,26 +388,92 @@ const mapp = {
   "First national all-Russian census of the Russian Empire":{
     "Birth Places (Governorates)": {
       "Governorate": "Name"
-    }
-  },
-  "Register of Maritime personel":{
-    "Residence Locations": {
-      "Location of Residence": "Name"
+    },
+    "Occupations (main)": {
+      "Occupation (main)": "Profession"
+    },
+    "Occupations (secondary)": {
+      "Occupation (secondary)": "Profession"
     }
   },
   "Register of Maritime workers (Matricole della gente di mare)":{
     "Residence Locations": {
       "Location of Residence": "Name"
+    },
+    "Birth Locations": {
+      "Birth Location": "Name"
+    },
+    "Destination Locations": {
+      "Destination Location": "Name"
+    },
+    "Embarkation Locations": {
+      "Embarkation Location": "Name"
+    },
+    "Discharge Locations": {
+      "Discharge Location": "Name"
+    },
+    "Intermediate Ports of Call": {
+      "Intermediate Port of Call": "Name"
     }
   },
   "Students Register":{
     "Student Employment Companies": {
       "Employment Company": "Name"
+    },
+    "Employment Organization of Related Persons": {
+      "Employment Organization": "Name"
+    },
+    "Students Origin Locations": {
+      "Location of Origin": "Name"
+    },
+    "Students": {
+      "Surname A": "Surname"
     }
   },
   "Payroll of Russian Steam Navigation and Trading Company": {
     "Ship owners (Companies)": {
       "Owner (Company)": "Name"
+    },
+    "Ranks-Specializations": {
+      "Rank-Specialization": "Profession"
+    },
+    "Recruitment Ports": {
+      "Recruitment Port": "Name"
+    }
+  },
+  "Seagoing Personel":{
+    "Transient Professions":{
+      "Transient Profession":"Profession"
+    },
+    "Destinations":{
+      "Destination":"Name"
+    },
+  },
+  "Sailors register (Libro de registro de marineros)": {
+    "Birth Locations": {
+      "Birth Location": "Name"
+    },
+    "Military Service Organisation Locations": {
+      "Military Service Organisation Location": "Name"
+    },
+    "Seafarers": {
+      "Surname A": "Surname"
+    }
+  },
+  "Payroll": {
+    "Locations of Origin": {
+      "Location of Origin": "Name"
+    }
+  },
+  "Notarial Deeds": {
+    "Residence Locations (of Witnesses)": {
+      "Location of Residence": "Name"
+    },
+    "Residence Locations (of Contracting Parties)": {
+      "Location of Residence":"Name"
+    },
+    "Origin Locations (of Contracting Parties)": {
+      "Location of Origin": "Name"
     }
   }
   
@@ -390,8 +508,9 @@ async function handleExploreAll(name){
         retObj = await handleExploreAll(category);
         config[category].count = retObj.arrayWithSources.length;
         for (const subCategory of categories) {
-          // console.log(subCategory)
           retObj = await handleExploreAll(subCategory);
+          // console.log(subCategory)
+          // console.log(retObj)
           config[category].sub.push({name: subCategory, count: retObj.arrayWithSources.length})
         }
       }
@@ -412,59 +531,63 @@ async function handleExploreAll(name){
   if(Object.keys(config).length == 1 && Object.keys(config).join() == 'sub'){
     config = config['sub'];
     for(tableName of Object.keys(config)){
+      // console.log(tableName)
       var tableConfig = config[tableName];
       retObj = await getExploreAllTables(tableConfig, retObj, tableName);
     }
   }else{
-    console.log(config)
+    // console.log(config)
     retObj = await getExploreAllTables(config,undefined, name);
   }
   if(name =='Persons') await saveToCache(name, retObj);
   return retObj;
 }
 
-async function getExploreAllTables(config, prevArray, ListName){
-  var arrayWithData = {data: [],titles:[], arrayWithSources: []};
+async function getExploreAllTables(config, prevArray, ListName) {
+  var arrayWithData = { data: [], titles: [], arrayWithSources: []};
   var previusTitles = [];
+  
   // var arrayWithSources = [];
-  if(prevArray!= undefined && Object.keys(prevArray).length != 0){
+  if (prevArray != undefined && Object.keys(prevArray).length != 0) {
     arrayWithData = prevArray;
     previusTitles.push(prevArray.titles);
   }
-  // console.log(arrayWithData)
-  for (const source of Object.keys(config)){
-    var tableName = Object.keys(config[source]).join();
-    // console.log(tableName)
-    var myarray = await handleSingleTable(source, tableName, true, false, null, ListName);
-    filterData(myarray);
+  for (const source of Object.keys(config)) {
+    var tableNames = Object.keys(config[source]);
+    for (const tableName of tableNames) {
 
-    for(const key of Object.keys(myarray[0])){
-      if(!arrayWithData.titles.includes(key))
-        arrayWithData.titles.push(key);
-    }
-    
-    if(arrayWithData.data.length == 0){
-      for (const data of myarray) {
-        arrayWithData.arrayWithSources.push([{'source':source, 'table': tableName}]);
-        arrayWithData.data.push(data);
+      var myarray = await handleSingleTable(source, tableName, true, false, null, ListName);
+      filterData(myarray);
+
+      for (const key of Object.keys(myarray[0])) {
+        if (!arrayWithData.titles.includes(key))
+          arrayWithData.titles.push(key);
       }
 
-    }else{
-      var titles = Object.keys(myarray[0]);
-      var res;
-      var compare = checkIfComperationIsNeeded(previusTitles, titles);
-      for (const data of myarray) {
-        if(compare) res = containsObject(arrayWithData.data, data);
-        else res = false;
-        if(res === false){
+      if (arrayWithData.data.length == 0) {
+        for (const data of myarray) {
+          arrayWithData.arrayWithSources.push([{ 'source': source, 'table': tableName }]);
           arrayWithData.data.push(data);
-          arrayWithData.arrayWithSources.push([{'source':source, 'table': tableName}]);
-        }else{
-          arrayWithData.arrayWithSources[res].push({'source':source, 'table': tableName});
+        }
+        // arrayWithData.previusTitlesHash.push([0,myarray.length]);
+      } else {
+        var titles = Object.keys(myarray[0]);
+        var res;
+        var compare = checkIfComperationIsNeeded(previusTitles, titles);
+        // console.log(compare)
+        for (const data of myarray) {
+          if (compare) res = containsObject(arrayWithData.data, data);
+          else res = false;
+          if (res === false) {
+            arrayWithData.data.push(data);
+            arrayWithData.arrayWithSources.push([{ 'source': source, 'table': tableName }]);
+          } else {
+            arrayWithData.arrayWithSources[res].push({ 'source': source, 'table': tableName });
+          }
         }
       }
+      previusTitles.push(Object.keys(myarray[0]));
     }
-    previusTitles.push(Object.keys(myarray[0]));
   }
   return arrayWithData;
 }
@@ -472,15 +595,21 @@ async function getExploreAllTables(config, prevArray, ListName){
 function checkIfComperationIsNeeded(previusTitles, currTitles){
   // console.log(previusTitles)
   for (let i = 0; i < previusTitles.length; i++) {
+    // console.log(previusTitles[i])
+
+    // console.log('curr')
+    // console.log(currTitles)
     const titles = previusTitles[i];
-    if(isEqual(currTitles.slice().sort(), titles.slice().sort())) return true;  
+    if(currTitles.every(title=> titles.includes(title))) return true;  
   }
+  // if(currTitles.every(title=> [].concat(...previusTitles).includes(title))) return true;
+
   return false;
 }
 
 function containsObject(arr, obj){
   for (const [i,row] of arr.entries()) {
-    if(isEqual(row,obj))
+    if(equal(row,obj))
       return i;
   }
   return false;
@@ -563,7 +692,7 @@ async function handleSourceRecordList(source) {
           Object.assign(obj, {[key]: el[key]});        
         } 
       }
-      if(isEqual(obj,query)){
+      if(equal(obj,query)){
         return el;
       }
     });
@@ -816,6 +945,7 @@ async function handleSourceRecordList(source) {
     var data;
     if(exploreAllName != undefined) 
       config = ChangeConfigKeys(source,tableName, config, exploreAllName);
+
     if(id!= null){
       // console.log('myarray')
       // myarray = getRecordWithId(fullpath, id);
@@ -838,7 +968,7 @@ async function handleSourceRecordList(source) {
   }
   
   function ChangeConfigKeys(source, tableName, config, exploreAllName){
-
+    if(config['display']) delete config['display'];
     if(mapp[source] == undefined || mapp[source][tableName] == undefined) return config;
     // var keys = Object.keys(config);
     for (const key of Object.keys(config)) {
@@ -849,7 +979,7 @@ async function handleSourceRecordList(source) {
           [key2 === key ? newKey : key2]: config[key2],
         }), {});
       }
-      if(key == 'display') delete config[key  ]
+      // if(key == 'display') delete config[key];
     }
     return config;
   }

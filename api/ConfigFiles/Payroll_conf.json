@@ -204,7 +204,7 @@
                 "Id": "docs[0]._id"
             }
         },
-        "Location of Origin": {
+        "Locations of Origin": {
             "value-type": "nested-list",
             "Location of Origin": {
                 "path": "docs[0].data.payroll_analysis.#.person_origin_location"

@@ -132,7 +132,7 @@
             }
          },
         "First Planned Destinations": {
-            "First Planned destination": {
+            "First Planned Destination": {
                "path": "docs[0].data.ports_of_call.first_planned_destinations"
             },
             "Ships": {

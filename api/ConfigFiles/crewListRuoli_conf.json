@@ -255,8 +255,8 @@
             "link": "Ships",
             "Id": "docs[0]._id"
          },
-         "First Planned destinations": {
-            "link": "First Planned destinations",
+         "First Planned Destinations": {
+            "link": "First Planned Destinations",
             "Id": "docs[0]._id"
          },
          "Crew Members": {
@@ -264,8 +264,8 @@
             "Id": "docs[0]._id"
          }
       },
-      "First Planned destinations": {
-         "First Planned destination": {
+      "First Planned Destinations": {
+         "First Planned Destination": {
             "path": "docs[0].data.ports_of_call.first_planned_destinations"
          },
          "Ships": {

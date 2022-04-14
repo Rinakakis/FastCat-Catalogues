@@ -9,25 +9,35 @@
             "Employers (Persons)": {},
             "Occupants": {},
             "Registered Persons": {},
+            "Related Persons": {},
             "Transaction Suppliers": {},
             "Transaction Mediators": {},
             "Transaction Receivers": {},
-            "Workers": {}
+            "Workers": {},
+            "Students": {}
         }
     },
     "Locations": {
         "sub": {
+            "Addresses": {},
+            "Ports": {},
+            "Arrival Ports": {},
             "Departure Ports": {},
-            "Destination Ports": {},
             "Ports of Call": {},
-            "Embarkation Ports": {},
-            "Discharge Ports": {},
-            "Registry Ports": {},
+            "Ports of Provenance": {},
+            "Recruitment Ports": {},
+            "Destination Locations": {},
+            "Embarkation Locations": {},
+            "Disembarkation-Discharge Locations": {},
+            "Registry Locations": {},
             "Birth Places": {},
             "Residence Places": {},
             "Death Locations": {},
+            "Origin Locations": {},
+            "Military Service Organisation Locations": {},
             "Ship Construction Places": {},
-            "Engine Construction Places": {}
+            "Engine Construction Places": {},
+            "Transaction Recording Locations":{}
         }
     },
     "Organisations": {
@@ -38,5 +48,5 @@
             "Companies (Singed by)": {}
         }
     },
-    "Professions": {}
+    "Professions-Occupations": {}
 }
