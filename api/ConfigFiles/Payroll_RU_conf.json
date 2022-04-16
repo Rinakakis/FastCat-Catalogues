@@ -5,8 +5,10 @@
             "Name": {
                 "path": "docs[0].data.payroll.#.payroll_ship_name"
             },
-            "Owner (Company)": {
-                "path": "docs[0].data.payroll.#.payroll_ship_owner"
+            "Ship owners (Companies)": {
+                "link": "Ship owners (Companies)",
+                "listLink": true,
+                "Id": "docs[0]._id"
             },
             "Persons": {
                 "link": "Persons",

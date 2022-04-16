@@ -32,17 +32,8 @@
             "Previous Profession": {
                 "path": "docs[0].data.maritime_personnel.#.previous_profession"
             },
-            "Military Service Organisation Location": {
-                "path": "docs[0].data.maritime_personnel.#.military_service_location"
-            },
-            "Military Service Organisation Inscription Date": {
-                "path": "docs[0].data.maritime_personnel.#.military_service_date"
-            },
-            "Military Service Start Date": {
-                "path": "docs[0].data.maritime_personnel.#.military_service_start_date"
-            },
-            "Dummy": {
-                "link": "Dummy",
+            "Military Service Informations": {
+                "link": "Military Service Informations",
                 "listLink": true,
                 "Id": "docs[0]._id"
             }
@@ -102,11 +93,22 @@
                 "Id": "docs[0]._id"
             }
         },
-        "Dummy": {
+        "Military Service Informations": {
             "display":"no",
             "value-type": "list",
-            "Name": {
-                "path": "docs[0].data.maritime_personnel.#.dummy_data"
+            "Military Service Organisation Location": {
+                "path": "docs[0].data.maritime_personnel.#.military_service_location"
+            },
+            "Military Service Organisation Inscription Date": {
+                "path": "docs[0].data.maritime_personnel.#.military_service_date"
+            },
+            "Military Service Start Date": {
+                "path": "docs[0].data.maritime_personnel.#.military_service_start_date"
+            },
+            "Persons": {
+                "link": "Persons",
+                "listLink": true,
+                "Id": "docs[0]._id"
             }
         }
     },

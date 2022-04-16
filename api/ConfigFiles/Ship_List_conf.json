@@ -23,10 +23,7 @@
             "Year of Construction": {
                 "path": "docs[0].data.list_of_ships.#.year_of_construction"
             },
-            "Tonnage (Unit)": {
-                "path": "docs[0].data.list_of_ships.#.tonnage_type"
-            },
-            "Tonnage (Value)": {
+            "Tonnage": {
                 "path": "docs[0].data.list_of_ships.#.tonnage_value"
             },
             "Place of Engine Construction": {

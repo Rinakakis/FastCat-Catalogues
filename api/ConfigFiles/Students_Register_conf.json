@@ -141,7 +141,7 @@
         },
         "Related Persons": {
             "value-type": "nested-list",
-            "Type": {
+            "Relation Type": {
                 "path": "docs[0].data.list_of_students.#.related_person_type"
             },
             "Name": {

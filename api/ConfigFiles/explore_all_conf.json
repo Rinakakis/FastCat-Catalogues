@@ -167,11 +167,34 @@
             "Workers":{
                 "Employment records, Shipyards of Messageries Maritimes, La Ciotat":{
                     "Workers": {}
+                },
+                "Register of Maritime workers (Matricole della gente di mare)":{
+                    "Maritime Workers": {}
                 }
             },
             "Students":{
                 "Students Register":{
                     "Students": {}
+                }
+            },
+            "Workshop Managers":{
+                "Employment records, Shipyards of Messageries Maritimes, La Ciotat":{
+                    "Workshop Managers (of Service in Company)": {}
+                }
+            },
+            "Notaries":{
+                "Notarial Deeds":{
+                    "Notaries": {}
+                }
+            },
+            "Witnesses":{
+                "Notarial Deeds":{
+                    "Witnesses": {}
+                }
+            },
+            "Contracting Parties":{
+                "Notarial Deeds":{
+                    "Contracting Parties": {}
                 }
             }
         }
@@ -306,6 +329,9 @@
     "Workers":{
         "Employment records, Shipyards of Messageries Maritimes, La Ciotat":{
             "Workers": {}
+        },
+        "Register of Maritime workers (Matricole della gente di mare)":{
+            "Maritime Workers": {}
         }
     },
     "Students":{
@@ -313,14 +339,29 @@
             "Students": {}
         }
     },
+    "Workshop Managers":{
+        "Employment records, Shipyards of Messageries Maritimes, La Ciotat":{
+            "Workshop Managers (of Service in Company)": {}
+        }
+    },
+    "Notaries":{
+        "Notarial Deeds":{
+            "Notaries": {}
+        }
+    },
+    "Witnesses":{
+        "Notarial Deeds":{
+            "Witnesses": {}
+        }
+    },
+    "Contracting Parties":{
+        "Notarial Deeds":{
+            "Contracting Parties": {}
+        }
+    },
     "Locations": {
         "sub": {
-            "Addresses": {
-                "First national all-Russian census of the Russian Empire":{
-                    "Addresses (Cities)": {}
-                }
-            },
-            "Ports": {
+            "Route Ports": {
                 "Logbook": {
                     "Ports": {}
                 }
@@ -425,6 +466,9 @@
                 },
                 "Payroll of Russian Steam Navigation and Trading Company": {
                     "Person Registration Places (Governorates)": {}
+                },
+                "Naval Ship Register List": {
+                    "Registration Locations": {}
                 }
             },
             "Birth Places": {
@@ -467,7 +511,8 @@
                     "Residence Locations": {}
                 },
                 "First national all-Russian census of the Russian Empire":{
-                    "Residence Places (Cities)":{}
+                    "Residence Places (Cities)":{},
+                    "Addresses (Cities)": {}
                 },
                 "Crew List (Ruoli di Equipaggio)": {
                     "Locations of Residence": {}
@@ -533,12 +578,7 @@
             }
         }
     },
-    "Addresses": {
-        "First national all-Russian census of the Russian Empire":{
-            "Addresses (Cities)": {}
-        }
-    },
-    "Ports": {
+    "Route Ports": {
         "Logbook": {
             "Ports": {}
         }
@@ -643,6 +683,9 @@
         },
         "Payroll of Russian Steam Navigation and Trading Company": {
             "Person Registration Places (Governorates)": {}
+        },
+        "Naval Ship Register List": {
+            "Registration Locations": {}
         }
     },
     "Birth Places": {
@@ -685,7 +728,8 @@
             "Residence Locations": {}
         },
         "First national all-Russian census of the Russian Empire":{
-            "Residence Places (Cities)":{}
+            "Residence Places (Cities)":{},
+            "Addresses (Cities)": {}
         },
         "Crew List (Ruoli di Equipaggio)": {
             "Locations of Residence": {}

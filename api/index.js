@@ -284,6 +284,9 @@ const mapp = {
     },
     "Ships":{
       "Tonnage": "Gross Tonnage (in kg)"
+    },
+    "Registration Locations":{
+      "Location": "Name"
     }
   },
   "List of ships": {
@@ -474,10 +477,11 @@ const mapp = {
     },
     "Origin Locations (of Contracting Parties)": {
       "Location of Origin": "Name"
+    },
+    "Contracting Parties": {
+      "Surname A": "Surname"
     }
   }
-  
-
 }
 
 process.on("message", async (message) => {
@@ -508,6 +512,8 @@ async function handleExploreAll(name){
         retObj = await handleExploreAll(category);
         config[category].count = retObj.arrayWithSources.length;
         for (const subCategory of categories) {
+          // console.log(subCategory)
+
           retObj = await handleExploreAll(subCategory);
           // console.log(subCategory)
           // console.log(retObj)
@@ -524,6 +530,7 @@ async function handleExploreAll(name){
   }
 
   if(name=='Persons' && CacheExists('Persons')) return await getCachedList(name);
+  if(name=='Locations' && CacheExists('Locations')) return await getCachedList(name);
 
   config = await getConfigEntity(null, name);
   if(config == undefined) return null;
@@ -539,7 +546,7 @@ async function handleExploreAll(name){
     // console.log(config)
     retObj = await getExploreAllTables(config,undefined, name);
   }
-  if(name =='Persons') await saveToCache(name, retObj);
+  if(name =='Persons' || name=='Locations') await saveToCache(name, retObj);
   return retObj;
 }
 
@@ -1139,7 +1146,7 @@ async function getConfigEntity(recordName, entity) {
                   fake[column] = '';
                 }else if(data.includes("\n") && column != 'First planned destinations'){
                   var temp = splitData(data, column);
-                  fake[column] = temp;                
+                  fake[column] = temp;               
                   fake['value-type'] = 'list';    
                   fake['listLength'] = temp.length;
                 }else{
@@ -1168,6 +1175,7 @@ async function getConfigEntity(recordName, entity) {
       }
       // console.log(fake)
       if(splitarray.length != 0){
+        // console.log(splitarray)
         splitarray.forEach(elem=> objArray.push(elem))
         splitarray = [];
       }else{
@@ -1176,6 +1184,7 @@ async function getConfigEntity(recordName, entity) {
           // console.log('lala')
         }
         else{
+          // console.log(fake)
           objArray.push(fake);
         }
       }
@@ -1564,7 +1573,7 @@ async function getConfigEntity(recordName, entity) {
        return val.toLowerCase();
     }
     
-    return val.toLowerCase();
+    return val.toLowerCase().trim();
   }
   
   function CacheExists(fileName){

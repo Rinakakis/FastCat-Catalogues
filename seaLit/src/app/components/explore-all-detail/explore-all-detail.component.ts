@@ -114,6 +114,9 @@ export class ExploreAllDetailComponent implements OnInit {
       },
       "Ships": {
         "Gross Tonnage (in kg)": "Tonnage"
+      },
+      "Registration Locations":{
+        "Name": "Location"
       }
     },
     "List of ships": {
@@ -304,6 +307,9 @@ export class ExploreAllDetailComponent implements OnInit {
       },
       "Origin Locations (of Contracting Parties)": {
         "Name":"Location of Origin"
+      },
+      "Contracting Parties": {
+        "Surname": "Surname A"
       }
     }
   }

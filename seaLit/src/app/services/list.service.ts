@@ -11,7 +11,7 @@ export class ListService {
 
 
   Titles: any[] = [];
-  Ip: string = '192.168.1.4'; // 'catalogues.sealitproject.eu'
+  Ip: string = '192.168.1.18'; // 'catalogues.sealitproject.eu'
   port: string = ':8081';
   apiName: string = '/sealit-api';
   protocol: string = 'http://';

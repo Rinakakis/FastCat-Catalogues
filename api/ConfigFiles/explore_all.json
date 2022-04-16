@@ -14,13 +14,16 @@
             "Transaction Mediators": {},
             "Transaction Receivers": {},
             "Workers": {},
-            "Students": {}
+            "Students": {},
+            "Workshop Managers": {},
+            "Notaries": {},
+            "Witnesses": {},
+            "Contracting Parties": {}
         }
     },
     "Locations": {
         "sub": {
-            "Addresses": {},
-            "Ports": {},
+            "Route Ports": {},
             "Arrival Ports": {},
             "Departure Ports": {},
             "Ports of Call": {},

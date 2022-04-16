@@ -26,15 +26,6 @@
             "Location of Residence": {
                 "path": "docs[0].data.maritime_workers_list.#.worker_residence_location"
             },
-            "Hair Color": {
-                "path": "docs[0].data.maritime_workers_list.#.worker_hair_colour"
-            },
-            "Eyes Color": {
-                "path": "docs[0].data.maritime_workers_list.#.worker_eyes_colour"
-            },
-            "Marital Status": {
-                "path": "docs[0].data.maritime_workers_list.#.worker_marital_status"
-            },
             "Professions-Ranks": {
                 "link": "Professions-Ranks",
                 "listLink": true,
