@@ -1,12 +1,11 @@
 const fs = require("fs");
 var gracefulFs = require('graceful-fs');
-const { get, isArray, isObject, isPlainObject, isEmpty } = require('lodash');
+const { get, isArray, isObject, isPlainObject, isEmpty, omit } = require('lodash');
 var equal = require('fast-deep-equal');
 gracefulFs.gracefulify(fs);
 
 module.exports = {
-  CacheExists: CacheExists
-  ,
+  CacheExists: CacheExists,
   getCachedList: getCachedList
 };
 
@@ -195,6 +194,10 @@ const NumColumns = [
   'From',
   'To',
   'Total Number of Students',
+  'Monthly Wage (Value)',
+  'Total Wage (Value)',
+  'Pension Fund (Value)',
+  'Net Wage (Value)'
 ];
 
 const mapp = {
@@ -496,6 +499,20 @@ process.on("message", async (message) => {
     process.exit();
 })
 
+// async function handler(message){
+//   console.log('Worker server (PID: %d)', process.pid);
+
+//     if(message.type == 'sourceRecordList')
+//         var jsonResponse = await handleSourceRecordList(message.source);
+//     else if(message.type == 'tableData')
+//         var jsonResponse = await handleTableData(message.query);
+//     else 
+//         var jsonResponse = await handleExploreAll(message.name);
+//     // console.log('jsonResponse')
+//     return JSON.stringify(jsonResponse);
+//     // process.exit();
+// }
+
 async function handleExploreAll(name){
   var config;
   var retObj = {};
@@ -562,7 +579,7 @@ async function getExploreAllTables(config, prevArray, ListName) {
   for (const source of Object.keys(config)) {
     var tableNames = Object.keys(config[source]);
     for (const tableName of tableNames) {
-
+      // console.log(tableName)
       var myarray = await handleSingleTable(source, tableName, true, false, null, ListName);
       filterData(myarray);
 
@@ -692,6 +709,7 @@ async function handleSourceRecordList(source) {
     for (const key in query) {
       query[key] = isNum(query[key], key);
     }
+    // console.log(myarray)
     var elem = myarray.filter(el => {
       var obj = {}
       for (const key in el) {
@@ -965,6 +983,7 @@ async function handleSourceRecordList(source) {
       }else{
         myarray = await getRecordFilesAsync(fullpath);
         data = formatObject(myarray, config, remv, nestedlink);
+        // console.log(data)
         if(source == 'Employment records, Shipyards of Messageries Maritimes, La Ciotat' && tableName == 'Workers' && remv == true && nestedlink == false){
             await saveToCache('messageriesmaritimes_workers',data);
         }
@@ -1193,7 +1212,7 @@ async function getConfigEntity(recordName, entity) {
     
     if(objArray[0]["value-type"] !=  undefined)
       objArray = formatList(objArray);
-    
+    // console.log(objArray)
     if(remv == true)
       objArray = removeDuplicates(objArray);
     
@@ -1441,32 +1460,44 @@ async function getConfigEntity(recordName, entity) {
     * @param {object[]} data 
     * @returns The Array without dublicate objects  
     */
-   function removeDuplicates(data){
+  function removeDuplicates(data) {
     //  console.log(data)
-     if(data.length == 0) return data;
-       var newarray = [];
-  
-       var temp = data.map(val =>{
-         return Object.values(val).filter(val => typeof val == 'string' && val !='list').join();
-       })
-  
-       const count = temp.map(function (item, pos) { //bool
-         return temp.indexOf(item) == pos;
-       })
-       for (let i = 0; i < data.length; i++){
-         var element = data[i];
-         if(count[i] == true){
-           newarray.push(element)
-         }else{
-           var name = temp[i];
-           var index = findIndexOfName(name,newarray);
-           newarray[index] = merge(newarray[index], element);
-         }
-       }
-       return newarray;
-  
+
+    if (data.length == 0) return data;
+
+    var newarray = [];
+
+    // var dataWithoutListLength = omit(data)
+
+    var temp = data.map(val => {
+      var val2;
+      if(val['listLength'] != undefined) delete val['listLength'];
+      // else val2 = val;
+      return Object.values(val).filter(el => (typeof el == 'string' || typeof el == 'number' ) && (el != 'list' && el != 'nested-list')).join();
+    })
+    // console.log(temp)
+    const count = temp.map(function (item, pos) { //bool
+      return temp.indexOf(item) == pos;
+    })
+    // console.log(data)
+    for (let i = 0; i < data.length; i++) {
+      var element = data[i];
+      if (count[i] == true) {
+        newarray.push(element)
+      } else {
+        var name = temp[i];
+        var index = findIndexOfName(name, newarray);
+        
+        // console.log('merge')
+        // console.log(element)
+        // console.log(element)
+        newarray[index] = merge(newarray[index], element);
+      }
+    }
+    return newarray;
+
     //  return data;
-   }
+  }
   
    /**
     * Merges duplicate object (their links)
@@ -1492,7 +1523,9 @@ async function getConfigEntity(recordName, entity) {
    }
   
    function findIndexOfName(name, newarray) {
-     return newarray.findIndex(data => Object.values(data).filter(val => typeof val == 'string' && val !='list').join() == name )
+    //  console.log(name)
+    //  console.log(newarray)
+     return newarray.findIndex(data => Object.values(data).filter(el => (typeof el == 'string' || typeof el == 'number' ) && (el != 'list' && el != 'nested-list')).join() == name )
    }
   
    /**
@@ -1502,7 +1535,7 @@ async function getConfigEntity(recordName, entity) {
   function replaceEmptyValues(array) {
      array.forEach(obj => {
         Object.keys(obj).forEach(key => {
-           if (obj[key] === '' || obj[key] == undefined || obj[key] == ' '){
+           if (obj[key] === '' || obj[key] == undefined || obj[key] == ' ' || obj[key] == '&nbsp;'){
               obj[key] = 'None or Unfilled';
            }
         });

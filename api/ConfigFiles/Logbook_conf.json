@@ -13,8 +13,8 @@
             "Tonnage": {
                 "path": "docs[0].data.ship_records.tonnage"
             },
-            "Other Ship Name": {
-                "link": "Other Ship Name",
+            "Other Ship Names": {
+                "link": "Other Ship Names",
                 "Id": "docs[0]._id"
             },
             "Registry Info": {
@@ -164,10 +164,14 @@
                 "Id": "docs[0]._id"
             }
         },
-        "Other Ship Name": {
+        "Other Ship Names": {
             "display": "no",
             "Other Ship Name": {
                 "path": "docs[0].data.ship_records.other_ship_name"
+            },
+            "Ships": {
+                "link": "Ships",
+                "Id": "docs[0]._id"
             }
         },
         "Registry Info":{

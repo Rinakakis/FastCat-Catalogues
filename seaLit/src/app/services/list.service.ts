@@ -11,7 +11,7 @@ export class ListService {
 
 
   Titles: any[] = [];
-  Ip: string = '192.168.1.18'; // 'catalogues.sealitproject.eu'
+  Ip: string = '192.168.1.5'; // 'catalogues.sealitproject.eu'
   port: string = ':8081';
   apiName: string = '/sealit-api';
   protocol: string = 'http://';
@@ -29,6 +29,7 @@ export class ListService {
     'Registry Folio',
     'Registry List',
     'Registry Number',
+    'Registry Year',
     // 'Birth Date (Year)', // Crew List (Ruoli di Equipaggio)
     'Serial Number',
     'Months',
@@ -60,6 +61,11 @@ export class ListService {
     'From',
     'To',
     'Total Number of Students',
+    'Monthly Wage (Value)',
+    'Total Wage (Value)',
+    'Pension Fund (Value)',
+    'Net Wage (Value)'
+    
   ];
   DateColumns: string[] = [
     'Date (From)',
