@@ -47,7 +47,7 @@ export class ListDetailsComponent implements OnInit {
       if (list) {
         this.hideloader('loading');
       }
-      console.log(list)
+      // console.log(list)
       this.initList(list);
     },
       err => {

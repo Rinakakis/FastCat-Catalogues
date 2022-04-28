@@ -73,11 +73,14 @@ export class EntityDetailsComponent implements OnInit {
     var id = String(this.route.snapshot.paramMap.get('id'));
     var data = event.data;
     var entity = event.colDef.colId;
-
+    
     for (const key in data) {
-      if(key=='value-type' || key =='listLength' || key == 'display' || ((key == 'Embarkation Date' || key == 'Ship\'s Name') && (table=='Crew Members'|| table== 'Crew Members and Embarkation Dates'))
-        || ((key == 'Discharge Date' || key == 'Ship\'s Name') && (table=='Crew Members'|| table== 'Crew Members and Discharge Dates'))  )
+      if(key=='value-type' || key =='listLength' || key == 'display' || 
+            ((key == 'Embarkation Date' || key == 'Ship\'s Name') && (table=='Crew Members'|| table== 'Crew Members and Embarkation Dates' || table== 'Crew Members and Discharge Dates'))
+        || ((key == 'Discharge Date' || key == 'Ship\'s Name') && (table=='Crew Members'|| table== 'Crew Members and Discharge Dates'|| table== 'Crew Members and Embarkation Dates'))){
           delete data[key];
+
+        }
     }
     if(id != 'null'){
       data.recordId = id;
