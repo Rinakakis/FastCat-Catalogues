@@ -316,24 +316,25 @@ async function getRecordNamesAsync(){
 
 
 /**
- * Returns the configuration file of an entity 
- * @param {string} recordName The name of the entity 
+ * Returns the configuration file of an source 
+ * @param {string} source The name of the entity 
  * @returns {object}  The configuration file of an entity 
  */
-async function getConfig(recordName) {
-  var record = templates.find(obj => obj.name == recordName);
-  if (record == undefined) return [];
+async function getConfig(source) {
+  // console.log(source)
+  var sourceinfo = templates.find(obj => obj.name == source);
+  if (sourceinfo == undefined) return [];
 
-  var config = await fs.promises.readFile('./ConfigFiles/' + record.configuration, 'utf8');
+  var config = await fs.promises.readFile('./ConfigFiles/' + sourceinfo.configuration, 'utf8');
   // console.log(config)
   config = JSON.parse(config.trim());
-  config = get(config, record.name);
+  config = get(config, sourceinfo.name);
   return config;
 }
 
- async function getConfigTitle(recordName){
-  var record = templates.find(obj => obj.name == recordName);
-  var config = await fs.promises.readFile('./ConfigFiles/'+record.configuration, 'utf8');
+ async function getConfigTitle(source){
+  var sourceinfo = templates.find(obj => obj.name == source);
+  var config = await fs.promises.readFile('./ConfigFiles/'+sourceinfo.configuration, 'utf8');
   config = JSON.parse(config);
   config = get(config,'Title');
   return config;

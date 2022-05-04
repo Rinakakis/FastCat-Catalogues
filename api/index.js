@@ -2,6 +2,7 @@ const fs = require("fs");
 var gracefulFs = require('graceful-fs');
 const { get, isArray, isObject, isPlainObject, isEmpty, omit } = require('lodash');
 var equal = require('fast-deep-equal');
+const {templates, NumColumns, mapp} = require('./globalVars')
 gracefulFs.gracefulify(fs);
 
 module.exports = {
@@ -11,482 +12,9 @@ module.exports = {
 
 const path = './Data/';
 
-const templates = [
-  {
-     "category": "Log / Account Books",
-     "id":"Accounts book",
-     "name":"Accounts book",
-     "description":"No source description yet!",
-     "configuration":"accountsbook_conf.json"
-  },
-  {
-     "category": "Censuses",
-     "id":"Census_LaCiotat",
-     "name":"Census La Ciotat",
-     "description":"No source description yet!",
-     "configuration":"censuslaciotat_conf.json"
-  },
-  {
-     "category": "Crew Lists",
-     "id":"Crew List",
-     "name":"Crew and displacement list (Roll)",
-     "description":"No source description yet!",
-     "configuration":"crewlistroll_conf.json"
-  },
-  {
-     "category": "Crew Lists",
-     "id":"Crew List_IT",
-     "name":"Crew List (Ruoli di Equipaggio)",
-     "description":"No source description yet!",
-     "configuration":"crewListRuoli_conf.json"
-  },
-  {
-     "category": "Registers / Lists",
-     "id":"Civil Register",
-     "name":"Civil Register",
-     "description":"No source description yet!",
-     "configuration":"civilregister_conf.json"
-  },
-  {
-     "category": "Censuses",
-     "id":"Census Odessa",
-     "name":"First national all-Russian census of the Russian Empire",
-     "description":"No source description yet!",
-     "configuration":"censusodessa_conf.json"
-  },
-  {
-     "category": "Crew Lists",
-     "id":"Crew_List_ES",
-     "name":"General Spanish Crew List",
-     "description":"No source description yet!",
-     "configuration":"CrewListES_conf.json"
-  },
-  {
-     "category": "Registers / Lists",
-     "id":"Inscription_Maritime",
-     "name":"Inscription Maritime - Maritime Register of the State for La Ciotat",
-     "description":"No source description yet!",
-     "configuration":"Inscription_Maritime_conf.json"
-  },
-  {
-     "category": "Registers / Lists",
-     "id":"Ship_List",
-     "name":"List of ships",
-     "description":"No source description yet!",
-     "configuration":"Ship_List_conf.json"
-  },
-  {
-     "category": "Log / Account Books",
-     "id":"Logbook",
-     "name":"Logbook",
-     "description":"No source description yet!",
-     "configuration":"Logbook_conf.json"
-  },
-  {
-     "category": "Registers / Lists",
-     "id":"Register_of_Ships",
-     "name":"Naval Ship Register List",
-     "description":"No source description yet!",
-     "configuration":"Register_of_Ships_conf.json"
-  },
-  {
-     "category": "Payroll",
-     "id":"Payroll",
-     "name":"Payroll",
-     "description":"No source description yet!",
-     "configuration":"Payroll_conf.json"
-  },
-  {
-     "category": "Payroll",
-     "id":"Payroll_RU",
-     "name":"Payroll of Russian Steam Navigation and Trading Company",
-     "description":"No source description yet!",
-     "configuration":"Payroll_RU_conf.json"
-  },
-  {
-     "category": "Registers / Lists",
-     "id":"Maritime_Register_ES",
-     "name":"Register of Maritime personel",
-     "description":"No source description yet!",
-     "configuration":"Maritime_Register_ES_conf.json"
-  },
-  {
-     "category": "Registers / Lists",
-     "id":"Maritime Workers_IT",
-     "name":"Register of Maritime workers (Matricole della gente di mare)",
-     "description":"No source description yet!",
-     "configuration":"Maritime_Workers_IT_conf.json"
-  },
-  {
-     "category": "Registers / Lists",
-     "id":"Sailors_Register",
-     "name":"Sailors register (Libro de registro de marineros)",
-     "description":"No source description yet!",
-     "configuration":"Sailors_Register_conf.json"
-  },
-  {
-     "category": "Registers / Lists",
-     "id":"Seagoing_Personel",
-     "name":"Seagoing Personel",
-     "description":"No source description yet!",
-     "configuration":"Seagoing_Personel_conf.json"
-  },
-  {
-     "category": "Registers / Lists",
-     "id":"Students Register",
-     "name":"Students Register",
-     "description":"No source description yet!",
-     "configuration":"Students_Register_conf.json"
-  },
-  {
-     "category": "Other Records",
-     "id":"Messageries_Maritimes",
-     "name":"Employment records, Shipyards of Messageries Maritimes, La Ciotat",
-     "description":"No source description yet!",
-     "configuration":"messageriesmaritimes_conf.json"
-  },
-  {
-     "category": "Other Records",
-     "id":"Notarial Deeds",
-     "name":"Notarial Deeds",
-     "description":"No source description yet!",
-     "configuration":"Notarial_Deeds_conf.json"
-  }
-];
-
-const NumColumns = [
-  'Age',
-  // 'Age (Years)',
-  'House Number',
-  'Year of Birth',
-  // 'Construction Date',
-  'Registry Folio',
-  'Registry List',
-  'Registry Number',
-  // 'Birth Date (Year)', // Crew List (Ruoli di Equipaggio)
-  'Serial Number',
-  'Months',
-  'Days',
-  'Total Crew Number (Captain Included)',
-  // 'Date of Birth (Year)', // Employment records, Shipyards of Messageries Maritimes, La Ciotat
-  'Tonnage', 
-  'Tonnage (Value)', 
-  'Year of Reagistry',
-  'Year of Construction',
-  'Nominal Power',
-  'Indicated Power',
-  'Gross Tonnage (In Kg)',
-  'Length (In Meter)',
-  'Width (In Meter)',
-  'Depth (In Meter)',
-  'Year',
-  'Refrence Number',
-  'Total Days',
-  'Days at Sea',
-  'Days at Port',
-  'Overall Total Wages (Value)',
-  'Overall Pension Fund (Value)',
-  'Overall Net Wages (Value)',
-  'Salary per Month (Value)',
-  'Net Wage (Value)',
-  // 'Registration Number',
-  'Semester',
-  'From',
-  'To',
-  'Total Number of Students',
-  'Monthly Wage (Value)',
-  'Total Wage (Value)',
-  'Pension Fund (Value)',
-  'Net Wage (Value)'
-];
-
-const mapp = {
-  "Civil Register": {
-    "Persons": {
-      "Surname A": "Surname"
-    },
-    "Related Persons": {
-      "Surname A": "Surname"
-    },
-    "Death Locations": {
-      "Death Location": "Name"
-    },
-    "Origin Locations":{
-      "Location of Origin": "Name"
-    }
-  },
-  "General Spanish Crew List": {
-    "Crew Members": {
-      "Surname A": "Surname"
-    },
-    "Embarkation Ports": {
-      "Port": "Name"
-    },
-    "Ships":{
-      "Port of Registry": "Registry Location"
-    },
-    "Locations of Residence":{
-      "Location of Residence": "Name"
-    },
-    "First Planned Destinations":{
-      "First Planned Destination": "Name"
-    }
-  },
-  "Crew and displacement list (Roll)": {
-    "Ship Owners (Persons)": {
-      "Surname A": "Surname"
-    },
-    "Crew Members": {
-      "Surname A": "Surname"
-    },
-    "Destination Ports": {
-      "Port": "Name"
-    },
-    "Embarkation Ports": {
-      "Port": "Name"
-    },
-    "Ship Construction Locations": {
-      "Construction Location": "Name"
-    },
-    "Discharge Ports": {
-      "Port": "Name"
-    },
-    "Ports of Provenance": {
-      "Port":"Name"
-    },
-    "Arrival Ports": {
-      "Port":"Name"
-    },
-    "Ship Registration Locations": {
-      "Registry Location": "Name"
-    },
-    "Locations of Residence": {
-      "Location of Residence": "Name"
-    },
-    "Locations of Birth": {
-      "Location of Birth":"Name"
-    }
-  },
-  "Register of Maritime personel": {
-    "Persons": {
-      "Surname A": "Surname"
-    },
-    "Residence Locations": {
-      "Location of Residence": "Name"
-    },
-    "Birth Locations": {
-      "Birth Location": "Name"
-    }
-  },
-  "Naval Ship Register List": {
-    "Owners (Persons)": {
-      "Surname A": "Surname"
-    },
-    "Construction Places": {
-      "Construction Location": "Name"
-    },
-    "Ships":{
-      "Tonnage": "Gross Tonnage (in kg)"
-    },
-    "Registration Locations":{
-      "Location": "Name"
-    }
-  },
-  "List of ships": {
-    "Engine Manufacturers": {
-      "Engine Manufacturer": "Name"
-    },
-    "Registry Ports": {
-      "Port": "Name"
-    },
-    "Ship Construction Places": {
-      "Construction Location": "Name"
-    },
-    "Engine Construction Places": {
-      "Place of Engine Construction": "Name"
-    },
-    "Ships":{
-      "Port of Registry": "Registry Location",
-      "Tonnage (Value)": "Tonnage"
-    }
-  },
-  "Accounts book": {
-    "Departure Ports": {
-      "Port": "Name"
-    },
-    "Destination Ports": {
-      "Port": "Name"
-    },
-    "Ports of Call": {
-      "Port": "Name"
-    },
-    "Transaction Recording Locations": {
-      "Location": "Name"
-    }
-  },
-  "Crew List (Ruoli di Equipaggio)": {
-    "Departure Ports": {
-      "Port": "Name"
-    },
-    "Arrival Ports": {
-      "Port": "Name"
-    },
-    "Embarkation Ports": {
-      "Port": "Name"
-    },
-    "Ship Registry Ports": {
-      "Port": "Name"
-    },
-    "Ship Construction Locations": {
-      "Construction Location": "Name"
-    },
-    "Discharge Ports": {
-      "Port": "Name"
-    },
-    "Locations of Residence": {
-      "Location of Residence": "Name"
-    },
-    "First Planned Destinations": {
-      "First Planned Destination": "Name"
-    },
-    "Ships":{
-      "Port of Registry": "Registry Location"
-    }
-  },
-  "Logbook": {
-    "Registry Ports": {
-      "Port": "Name"
-    },
-    "Ports": {
-      "Port": "Name"
-    }
-  },
-  "Inscription Maritime - Maritime Register of the State for La Ciotat": {
-    "Birth Places": {
-      "Place of Birth": "Name"
-    },
-    "Residence Locations": {
-      "Location of Residence": "Name"
-    },
-    "Embarkation Locations": {
-      "Embarkation Location": "Name"
-    },
-    "Disembarkation Locations": {
-      "Disembarkation Location": "Name"
-    }
-  },
-  "Employment records, Shipyards of Messageries Maritimes, La Ciotat": {
-    "Birth Places": {
-      "Place of Birth": "Name"
-    },
-    "Residence Locations": {
-      "Location of Residence": "Name"
-    }
-  },
-  "Census La Ciotat": {
-    "Birth Places": {
-      "Place of Birth": "Name"
-    },
-    "Organisations (Works at)": {
-      "Organisation": "Name"
-    }
-  },
-  "First national all-Russian census of the Russian Empire":{
-    "Birth Places (Governorates)": {
-      "Governorate": "Name"
-    },
-    "Occupations (main)": {
-      "Occupation (main)": "Profession"
-    },
-    "Occupations (secondary)": {
-      "Occupation (secondary)": "Profession"
-    }
-  },
-  "Register of Maritime workers (Matricole della gente di mare)":{
-    "Residence Locations": {
-      "Location of Residence": "Name"
-    },
-    "Birth Locations": {
-      "Birth Location": "Name"
-    },
-    "Destination Locations": {
-      "Destination Location": "Name"
-    },
-    "Embarkation Locations": {
-      "Embarkation Location": "Name"
-    },
-    "Discharge Locations": {
-      "Discharge Location": "Name"
-    },
-    "Intermediate Ports of Call": {
-      "Intermediate Port of Call": "Name"
-    }
-  },
-  "Students Register":{
-    "Student Employment Companies": {
-      "Employment Company": "Name"
-    },
-    "Employment Organization of Related Persons": {
-      "Employment Organization": "Name"
-    },
-    "Students Origin Locations": {
-      "Location of Origin": "Name"
-    },
-    "Students": {
-      "Surname A": "Surname"
-    }
-  },
-  "Payroll of Russian Steam Navigation and Trading Company": {
-    "Ship owners (Companies)": {
-      "Owner (Company)": "Name"
-    },
-    "Ranks-Specializations": {
-      "Rank-Specialization": "Profession"
-    },
-    "Recruitment Ports": {
-      "Recruitment Port": "Name"
-    }
-  },
-  "Seagoing Personel":{
-    "Transient Professions":{
-      "Transient Profession":"Profession"
-    },
-    "Destinations":{
-      "Destination":"Name"
-    },
-  },
-  "Sailors register (Libro de registro de marineros)": {
-    "Birth Locations": {
-      "Birth Location": "Name"
-    },
-    "Military Service Organisation Locations": {
-      "Military Service Organisation Location": "Name"
-    },
-    "Seafarers": {
-      "Surname A": "Surname"
-    }
-  },
-  "Payroll": {
-    "Locations of Origin": {
-      "Location of Origin": "Name"
-    }
-  },
-  "Notarial Deeds": {
-    "Residence Locations (of Witnesses)": {
-      "Location of Residence": "Name"
-    },
-    "Residence Locations (of Contracting Parties)": {
-      "Location of Residence":"Name"
-    },
-    "Origin Locations (of Contracting Parties)": {
-      "Location of Origin": "Name"
-    },
-    "Contracting Parties": {
-      "Surname A": "Surname"
-    }
-  }
-}
-
+/**
+ * handler function for the child process
+ */
 process.on("message", async (message) => {
     if(message.type == 'sourceRecordList')
         var jsonResponse = await handleSourceRecordList(message.source);
@@ -494,25 +22,17 @@ process.on("message", async (message) => {
         var jsonResponse = await handleTableData(message.query);
     else 
         var jsonResponse = await handleExploreAll(message.name);
-    // console.log('jsonResponse')
+
     process.send(JSON.stringify(jsonResponse));
     process.exit();
 })
 
-// async function handler(message){
-//   console.log('Worker server (PID: %d)', process.pid);
 
-//     if(message.type == 'sourceRecordList')
-//         var jsonResponse = await handleSourceRecordList(message.source);
-//     else if(message.type == 'tableData')
-//         var jsonResponse = await handleTableData(message.query);
-//     else 
-//         var jsonResponse = await handleExploreAll(message.name);
-//     // console.log('jsonResponse')
-//     return JSON.stringify(jsonResponse);
-//     // process.exit();
-// }
-
+/**
+ * handler for the explore all requests
+ * @param {string} name name of the entity
+ * @returns {object} the data for the entity as well the titles for the columns and a hash with the sources
+ */
 async function handleExploreAll(name){
   var config;
   var retObj = {};
@@ -567,6 +87,14 @@ async function handleExploreAll(name){
   return retObj;
 }
 
+
+/**
+ *  helper function for the explore all. it takes the entities and the tables and constructs the object
+ * @param {*} config the explore all config
+ * @param {*} prevArray the previus object if we need to merge entities
+ * @param {*} ListName the name of the table
+ * @returns the data for the entity as well the titles for the columns and a hash with the sources
+ */
 async function getExploreAllTables(config, prevArray, ListName) {
   var arrayWithData = { data: [], titles: [], arrayWithSources: []};
   var previusTitles = [];
@@ -616,6 +144,12 @@ async function getExploreAllTables(config, prevArray, ListName) {
   return arrayWithData;
 }
 
+/**
+ * checks if the current titles exists in the previus object 
+ * @param {string} previusTitles 
+ * @param {string} currTitles 
+ * @returns true of false
+ */
 function checkIfComperationIsNeeded(previusTitles, currTitles){
   // console.log(previusTitles)
   for (let i = 0; i < previusTitles.length; i++) {
@@ -631,6 +165,12 @@ function checkIfComperationIsNeeded(previusTitles, currTitles){
   return false;
 }
 
+/**
+ * checks if an object array contains an object
+ * @param {*} arr 
+ * @param {*} obj 
+ * @returns if it contains the object we return the position of not we return false
+ */
 function containsObject(arr, obj){
   for (const [i,row] of arr.entries()) {
     if(equal(row,obj))
@@ -639,6 +179,11 @@ function containsObject(arr, obj){
   return false;
 }
 
+/**
+ * handler for the "explore by source" table data and queries
+ * @param {*} query the get request query
+ * @returns an object with the data
+ */
 async function handleTableData(query) {
     var source = query.source;
     var tableName = query.tableName;
@@ -668,6 +213,11 @@ async function handleTableData(query) {
     return myarray;
 }
 
+/**
+ * handles the requests for the list of each source 
+ * @param {*} source 
+ * @returns an array with the names of the tables and the count of the datat for each table
+ */
 async function handleSourceRecordList(source) {
     var count = [];
 
@@ -924,6 +474,14 @@ async function handleSourceRecordList(source) {
     return dataFromLinksArray;
   }
   
+  /**
+   * handles the request for the tablers for one record
+   * @param {*} source source of the record
+   * @param {*} id id of the record
+   * @param {*} remv Flag to remove the duplicates
+   * @param {*} nestedlink flag to see if we need to calculate the links
+   * @returns the datat for the record, the sourceId and the sourceName
+   */
   async function handleRecordTables(source,id, remv = true, nestedlink = false){
     var myarray = [];
     var fullpath = path + source.replAll(' ', '_');
@@ -961,6 +519,7 @@ async function handleSourceRecordList(source) {
    * id id is provided then it returns only for that record
    * @param {string} source  
    * @param {*} tableName 
+   * @param {*} nestedlink flag to see if we need to calculate the links
    * @returns raw data for one table of an entity
    */
   async function handleSingleTable(source,tableName,remv=true,nestedlink=false, id = null, exploreAllName){
@@ -969,7 +528,7 @@ async function handleSourceRecordList(source) {
     var config = await getConfigEntity(source,tableName);
     var data;
     if(exploreAllName != undefined) 
-      config = ChangeConfigKeys(source,tableName, config, exploreAllName);
+      config = ChangeConfigKeys(source,tableName, config);
 
     if(id!= null){
       // console.log('myarray')
@@ -993,7 +552,14 @@ async function handleSourceRecordList(source) {
     // return data;
   }
   
-  function ChangeConfigKeys(source, tableName, config, exploreAllName){
+  /**
+   * it changes the keys from the connfig files if needed "explore all"
+   * @param {*} source 
+   * @param {*} tableName 
+   * @param {*} config 
+   * @returns config file with kayes changes
+   */
+  function ChangeConfigKeys(source, tableName, config){
     if(config['display']) delete config['display'];
     if(mapp[source] == undefined || mapp[source][tableName] == undefined) return config;
     // var keys = Object.keys(config);
@@ -1037,41 +603,45 @@ async function handleSourceRecordList(source) {
       // return myarray;
   }
   
-  function getRecordNamesAsync(){
+  // function getRecordNamesAsync(){
   
-    const readDirPr = new Promise( (resolve, reject) => {
-      fs.readdir(path, 
-        (err, foldernames) => (err) ? reject(err) : resolve(foldernames))
-    });
+  //   const readDirPr = new Promise( (resolve, reject) => {
+  //     fs.readdir(path, 
+  //       (err, foldernames) => (err) ? reject(err) : resolve(foldernames))
+  //   });
   
-    return readDirPr.then( foldernames => Promise.all(foldernames.map((foldername) => {
-      return new Promise ( (resolve, reject) => {
-        fs.readdir(path + foldername,
-          (err, content) => (err) ? reject(err) : resolve({ name: foldername, 'count':content.length}));
-      })
-    })).catch( error => Promise.reject(error)))
+  //   return readDirPr.then( foldernames => Promise.all(foldernames.map((foldername) => {
+  //     return new Promise ( (resolve, reject) => {
+  //       fs.readdir(path + foldername,
+  //         (err, content) => (err) ? reject(err) : resolve({ name: foldername, 'count':content.length}));
+  //     })
+  //   })).catch( error => Promise.reject(error)))
       
-      // return myarray;
-  }
+  //     // return myarray;
+  // }
   
   async function getRecordWithIdAsync(fullpath, id){
     var data = await getRecordFilesAsync(fullpath);//.then(data =>{
     return data.filter(record=> record.docs[0]._id == id);
     //})
   }
-  
-async function getConfigEntity(recordName, entity) {
-  var record = {};
-  if (recordName == null)
-    record.configuration = 'explore_all_conf.json';
+/**
+ * Returns the configuration file of an entity in a specific source
+ * @param {string} source The name of the source 
+ * @returns {object}  The configuration file of an entity in a specific source
+ */
+async function getConfigEntity(source, entity) {
+  var sourceInfo = {};
+  if (source == null)
+    sourceInfo.configuration = 'explore_all_conf.json';
   else
-    record = templates.find(obj => obj.name == recordName);
+    sourceInfo = templates.find(obj => obj.name == source);
   // console.log(record)
-  var config = await fs.promises.readFile('./ConfigFiles/' + record.configuration, 'utf8');
+  var config = await fs.promises.readFile('./ConfigFiles/' + sourceInfo.configuration, 'utf8');
   config = JSON.parse(config);
 
-  if (recordName != null)
-    config = get(config, record.name);
+  if (source != null)
+    config = get(config, sourceInfo.name);
 
   config = get(config, entity);
   // if(config == undefined && recordName == null)
@@ -1081,29 +651,29 @@ async function getConfigEntity(recordName, entity) {
 }
   
   /**
-   * Returns the configuration file of an entity 
-   * @param {string} recordName The name of the entity 
-   * @returns {object}  The configuration file of an entity 
+   * Returns the configuration file of an source 
+   * @param {string} source The name of the source 
+   * @returns {object}  The configuration file of an source 
    */
-  async function getConfig(recordName) {
-    var record = {};
-    if (recordName == 'explore_all')
-      record.configuration = 'explore_all.json';
+  async function getConfig(source) {
+    var sourceInfo = {};
+    if (source == 'explore_all')
+    sourceInfo.configuration = 'explore_all.json';
     else
-      record = templates.find(obj => obj.name == recordName);
+    sourceInfo = templates.find(obj => obj.name == source);
 
-    if (record == undefined) return [];
-    var config = await fs.promises.readFile('./ConfigFiles/' + record.configuration, 'utf8');
+    if (sourceInfo == undefined) return [];
+    var config = await fs.promises.readFile('./ConfigFiles/' + sourceInfo.configuration, 'utf8');
     config = JSON.parse(config.trim());
     
-    if (recordName != 'explore_all')
-      config = get(config, record.name);
+    if (source != 'explore_all')
+      config = get(config, sourceInfo.name);
     return config;
   }
   
-   async function getConfigTitle(recordName){
-    var record = templates.find(obj => obj.name == recordName);
-    var config = await fs.promises.readFile('./ConfigFiles/'+record.configuration, 'utf8');
+   async function getConfigTitle(source){
+    var sourceInfo = templates.find(obj => obj.name == source);
+    var config = await fs.promises.readFile('./ConfigFiles/'+sourceInfo.configuration, 'utf8');
     config = JSON.parse(config);
     config = get(config,'Title');
     return config;
@@ -1134,6 +704,7 @@ async function getConfigEntity(recordName, entity) {
    * @param {object[]} data Array with the records of an entity
    * @param {*} config The configuration file of an entity
    * @param {*} remv Flag to remove the duplicates
+   * @param {*} nestedlink flag to see if we need to calculate the links 
    * @returns The formated records of an entity according to the configuration file each entity's
    */
   function formatObject(data, config, remv = true, nestedlink = false){
@@ -1302,8 +873,15 @@ async function getConfigEntity(recordName, entity) {
       }
       return fake;
     }
-    
+    /**
+   * formats the nested-list data and creates the right links if nestedlink is true
+   * @param {*} config the config file of the entity
+   * @param {*} mydata the array with the record data
+   * @param {*} nestedlink flag to see if we need to calculate the links
+   * @returns list data in an array 
+   */
     function addNestedListData(config,mydata,nestedlink = false) {
+      // console.log(mydata)
       var index = 0;
       var i = 0;
       var total = 0;
@@ -1394,7 +972,7 @@ async function getConfigEntity(recordName, entity) {
       //   first = Object.keys(fake)[3];
       
       fake['listLength'] = fake[first].length;
-
+      // console.log(fake)
       return fake;  
     }
   
@@ -1554,6 +1132,10 @@ async function getConfigEntity(recordName, entity) {
     return target.split(search).join(replacement);
   };
   
+  /**
+   * filters arrays or objects from unwanted data
+   * @param {*} myarray 
+   */
   function filterData(myarray){
     // console.log(myarray)
     if(isArray(myarray)){
@@ -1581,6 +1163,10 @@ async function getConfigEntity(recordName, entity) {
     }
   }
   
+  /**
+   * deletes properties that are not strings and numbers or they have the key listLength or value-type from an object array
+   * @param {*} element 
+   */
   function deleteObjects(element){
     element.forEach(elem => {
       for (const key in elem) {
@@ -1591,6 +1177,12 @@ async function getConfigEntity(recordName, entity) {
     })
   }
   
+  /**
+   * converts string numbers to numbers
+   * @param {*} val the values
+   * @param {*} column the column of the value in the array
+   * @returns string numbers to numbers
+   */
   function isNum(val, column){
   
     if(val == 'None or Unfilled') return val;
@@ -1609,19 +1201,34 @@ async function getConfigEntity(recordName, entity) {
     return val.toLowerCase().trim();
   }
   
+  /**
+   * looks if the file exists in the cache
+   * @param {string} fileName 
+   * @returns 
+   */
   function CacheExists(fileName){
     var fileExists = fs.existsSync('./Cache/'+fileName+'.json');
     // console.log(fileExists)
-    return fileExists
+    return fileExists;
   }
   
+  /**
+   * reads file from the cache folder
+   * @param {string} fileName 
+   * @returns the cached data
+   */
   async function getCachedList(fileName){
     var list = await fs.promises.readFile('./Cache/'+fileName+'.json', 'utf8');
     list = JSON.parse(list);
     return list;
   }
   
-  async function saveToCache(fileName,count){
-    let data = JSON.stringify(count);
-    await fs.promises.writeFile('./Cache/'+fileName+'.json', data);
+  /**
+   * saves json files to the cache folder
+   * @param {*} fileName 
+   * @param {*} data 
+   */
+  async function saveToCache(fileName,data){
+    let strdata = JSON.stringify(data);
+    await fs.promises.writeFile('./Cache/'+fileName+'.json', strdata);
   }

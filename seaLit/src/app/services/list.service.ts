@@ -11,7 +11,7 @@ export class ListService {
 
 
   Titles: any[] = [];
-  Ip: string = '192.168.1.5'; // 'catalogues.sealitproject.eu'
+  Ip: string = '192.168.1.2'; // 'catalogues.sealitproject.eu'
   port: string = ':8081';
   apiName: string = '/sealit-api';
   protocol: string = 'http://';
@@ -48,7 +48,7 @@ export class ListService {
     'Depth (In Meter)',
     'Net Wage (Value)',
     'Year',
-    'Refrence Number',
+    'Reference Number',
     'Total Days',
     'Days at Sea',
     'Days at Port',
