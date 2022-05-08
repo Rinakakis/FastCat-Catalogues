@@ -4,21 +4,26 @@
       <p id="waitmsg" *ngIf="isEmploymentWorkers">Please wait...Reading large amounts of data!</p>
   </div>
 </div>
-<div class="record-container" *ngIf="selectedTable">
+<div class="record-container">
+    <div class="error-message" *ngIf="error">
+      <h3>{{title}}</h3>
+      <p>{{errorMessage}}</p>
+    </div>
+    <div class="inside-wrapper" *ngIf="selectedTable">
 
-    <a class='blend-title' style="display: inline-block"
+      <a class='blend-title' style="display: inline-block"
       routerLink="/sources/{{sourceName}}">
       <h3 class="title">{{sourceName}}</h3>
     </a>
-
+    
     <h3 style="display: inline-block">: {{recordTitle}}</h3>
-
+    
     <a *ngIf="idExists" class='title' style="display: inline-block"
-      href="https://isl.ics.forth.gr/FastCatTeam/templates/{{sourceId}}.html?name={{Id}}&templateTitle={{sourceName}}&mode=teamView"
-      target="_blank" rel="noopener"
-      ><h3 class="title">(FastCat Record)</h3>
-    </a>
-
+    href="https://isl.ics.forth.gr/FastCatTeam/templates/{{sourceId}}.html?name={{Id}}&templateTitle={{sourceName}}&mode=teamView"
+    target="_blank" rel="noopener"
+    ><h3 class="title">(FastCat Record)</h3>
+  </a>
+  
   <div class="nocol-grid">
     <div class="nontable" >
       <h3 class="notable-title">{{title}} </h3>
@@ -27,18 +32,19 @@
       </p>
     </div>
   </div>
-
+  
   <div class="tables">
     <div class="table" *ngFor="let tableg of tables; index as i;">
       <app-table
-        [rowData]="tableg"
-        [titles]="titles[i]"
-        [tableName]="tableTitles[i]"
-        [id]="i"
-        (newItemEvent)="sendQuery($event)"
-        (titleClickEvent)="show($event)">
-      </app-table>
-    </div>
+      [rowData]="tableg"
+      [titles]="titles[i]"
+      [tableName]="tableTitles[i]"
+      [id]="i"
+      (newItemEvent)="sendQuery($event)"
+      (titleClickEvent)="show($event)">
+    </app-table>
   </div>
+</div>
+</div>
 </div>
 

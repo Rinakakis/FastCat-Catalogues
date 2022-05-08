@@ -29,7 +29,8 @@ export class EntityDetailsComponent implements OnInit {
   tableTitles: any[] = [];
   visibleId: string[] = [];
   titles: any = [];
-
+  error: boolean = false;
+  errorMessage: string = '';
 
 
   constructor(
@@ -56,9 +57,28 @@ export class EntityDetailsComponent implements OnInit {
       }
       // console.log(list);
       this.displaydata(params,list);
+    },
+    err => {
+      if (err.status == 404) {
+        this.hideloader();
+        this.error = true;
+        this.title = err.error;
+        var query = this.route.snapshot.queryParams
+        // const searchParams: never[] = []
+        // Object.keys(query).forEach(key => searchParams.append(key, query[key]));
+        this.errorMessage = 'The requested page: "/' + String(this.route.snapshot.params.source)+ '/table/'+String(this.route.snapshot.params.name)+'?'+this.serialize(query)+ '" could not be found.';
+      }
     });
   }
-
+  serialize = function(obj: any) {
+    var str = [];
+    for (var p in obj)
+      if (obj.hasOwnProperty(p)) {
+        str.push(decodeURIComponent(p) + "=" + decodeURIComponent(obj[p]));
+      }
+    return str.join("&");
+  }
+  
   hideloader() {
     (<HTMLInputElement>document.getElementById('loading')).style.display = 'none';
   }

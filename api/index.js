@@ -281,6 +281,8 @@ async function handleSourceRecordList(source) {
         temp = merge(elem[0],elem[i])
       }
       elem.push(temp);
+    }else if(elem.length == 0){
+      return null; //query does not exist
     }
 
     elem = removeDuplicateLinks(elem[0]);
