@@ -23,6 +23,7 @@ process.on("message", async (message) => {
     else 
         var jsonResponse = await handleExploreAll(message.name);
 
+    // console.log(jsonResponse)
     process.send(JSON.stringify(jsonResponse));
     process.exit();
 })
@@ -527,8 +528,11 @@ async function handleSourceRecordList(source) {
   async function handleSingleTable(source,tableName,remv=true,nestedlink=false, id = null, exploreAllName){
     var myarray = [];
     var fullpath = path + source.replAll(' ', '_');
-    var config = await getConfigEntity(source,tableName);
     var data;
+    var config = await getConfigEntity(source,tableName);
+
+    if (config == null) return config;
+    
     if(exploreAllName != undefined) 
       config = ChangeConfigKeys(source,tableName, config);
 
@@ -638,16 +642,19 @@ async function getConfigEntity(source, entity) {
     sourceInfo.configuration = 'explore_all_conf.json';
   else
     sourceInfo = templates.find(obj => obj.name == source);
-  // console.log(record)
+  
+  if(sourceInfo == undefined) return null;
+
   var config = await fs.promises.readFile('./ConfigFiles/' + sourceInfo.configuration, 'utf8');
+  
   config = JSON.parse(config);
-
   if (source != null)
-    config = get(config, sourceInfo.name);
-
+  config = get(config, sourceInfo.name);
+  
   config = get(config, entity);
   // if(config == undefined && recordName == null)
   //   config = get(config, entity);
+  if(config == undefined) return null;
 
   return config;
 }
@@ -1139,7 +1146,8 @@ async function getConfigEntity(source, entity) {
    * @param {*} myarray 
    */
   function filterData(myarray){
-    // console.log(myarray)
+    if(myarray == null) return;
+
     if(isArray(myarray)){
       deleteObjects(myarray);
     }else{

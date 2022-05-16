@@ -97,13 +97,13 @@ export class ListService {
     return this.http.get(this.api + '/numberOfrecords/all');
   }
 
-  getNameOfSource(title: string): Observable<any> {
-    return this.http.get(this.api + '/numberOfrecords/' + title);
+  getNameOfSource(source: string): Observable<any> {
+    return this.http.get(this.api + '/numberOfrecords/' + source);
   }
 
   getSourceList(source: string): Observable<any> {
-    return this.http.get(this.api + '/sourceRecordList?' + 'source=' + source)
-
+    
+    return this.http.get(this.api + '/sourceRecordList/' + source)
   }
 
   getTitlesofSourceRecords(title: string): Observable<any> {
@@ -125,7 +125,7 @@ export class ListService {
     });
     httpParams = httpParams.append('source', source);
     httpParams = httpParams.append('tableName', tableName);
-
+    
     return this.http.get(this.api + '/tableData', { params: httpParams });
   }
 

@@ -178,10 +178,10 @@ var server = app.listen(8081, function () {
 
 /** 
  * returns the names of the tables that an
- * entity has and how many of each there is
+ * source has and how many of each there is
  */
-appBase.get('/sourceRecordList/', async (req, res) => {
-  const data = req.query.source;
+appBase.get('/sourceRecordList/:source', async (req, res) => {
+  const data = req.params.source;
   const childProcess = fork('./index.js');
   childProcess.send({"type":"sourceRecordList","source": data});
   childProcess.on("message", message =>{
@@ -213,12 +213,13 @@ appBase.get('/sourceRecordTitles/:name/', async (req, res) =>{
  * returns an object with the entities and the number of the records for each one
  * or for a single entity
  */
-appBase.get('/numberOfrecords/:name', async (req, res) => {
-  var record = req.params.name;
+appBase.get('/numberOfrecords/:source', async (req, res) => {
+  var source = req.params.source;
+  // console.log(record)
   var myarray = [];
 
-  var config = await getConfig(req.params.name);
-  if (config.length == 0 && record != 'all') {
+  var config = await getConfig(source);
+  if (config.length == 0 && source != 'all') {
     res.status(404).send('Page not found');
   } else {
     var list = await getRecordNamesAsync();
@@ -227,9 +228,8 @@ appBase.get('/numberOfrecords/:name', async (req, res) => {
       record.count = source.count;
       return record;
     });
-    if (record != 'all')
-      myarray = myarray.filter(obj => obj.name == record);
-
+    if (source != 'all')
+      myarray = myarray.filter(obj => obj.name == source);
     res.send(JSON.stringify(myarray));
   }
 })
@@ -239,21 +239,30 @@ appBase.get('/numberOfrecords/:name', async (req, res) => {
  * returns table data for a record of an entity
  */
 appBase.get('/tableData', async(req, res) => {
-  const childProcess = fork('./index.js');
-  childProcess.send({"type":"tableData","query": req.query});
-  childProcess.on("message", message =>{
+  // console.log(req.query)
+  if (req.query.source == 'Employment records, Shipyards of Messageries Maritimes, La Ciotat' && req.query.tableName == 'Workers' && tools.CacheExists('messageriesmaritimes_workers')) {
+    res.send(await tools.getCachedList('messageriesmaritimes_workers'));
+  }else{
+    const childProcess = fork('./index.js');
+    childProcess.send({"type":"tableData","query": req.query});
+    childProcess.on("message", message =>{
     if(message == 'null')
       res.status(404).send('Page not found');
     else
       res.send(message);
   });
+  }
+  
 })
 
 /**
  * returns table data for a record from every entity
  */
 appBase.get('/exploreAll/:name', async(req, res) => {
+  // console.log(req.params.name)
   if(req.params.name=='Persons' && tools.CacheExists('Persons')) return res.send(await tools.getCachedList(req.params.name));
+  else if(req.params.name=='Locations' && tools.CacheExists('Locations')) return res.send(await tools.getCachedList(req.params.name));
+  else if(req.params.name=='all' && tools.CacheExists('explore_all')) return res.send(await tools.getCachedList('explore_all'));
   else{
     const childProcess = fork('./index.js');
     childProcess.send({"type":"exploreAll","name": req.params.name});
