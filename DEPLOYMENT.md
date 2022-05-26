@@ -15,7 +15,7 @@
 
 ## Change the Ip of the API
 
-- In the angular project go to seaLit\src\app\services\list.service.ts and in line 12 change the Ip to the Ip of the computer that th api.js will run on.
+- In the angular project go to seaLit\src\app\services\list.service.ts and in line 14 change the Ip to the Ip of the computer that th api.js will run on.
 
 ## Production build for Angular Application
 
@@ -29,6 +29,6 @@ This will compile an Angular app into an output directory named dist/seaLit
 ## deployment to tomcat server
 
 1. In the angular application go to seaLit/dist and copy the folder "seaLit"
-2. Then go to your tomcat server etc. Tomcat xx.x\webapps and paste thr folder
-3. After that go to Tomcat 10.0\bin and click on Tomcat10.exe
+2. Then go to your tomcat server Tomcatxx.x\webapps and paste the folder
+3. After that go to Tomcat xx.x\bin and click on Tomcat10.exe
 4. Open a browser to <http://localhost:8080/seaLit/>

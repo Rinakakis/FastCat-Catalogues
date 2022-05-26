@@ -2,7 +2,8 @@ const fs = require("fs");
 var gracefulFs = require('graceful-fs');
 const { get, isArray, isObject, isPlainObject, isEmpty, omit } = require('lodash');
 var equal = require('fast-deep-equal');
-const {templates, NumColumns, mapp} = require('./globalVars')
+const { NumColumns, mapp} = require('./globalVars');
+const templates = require('./ConfigFiles/templates.json');
 gracefulFs.gracefulify(fs);
 
 module.exports = {
