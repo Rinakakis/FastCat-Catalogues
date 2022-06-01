@@ -46,16 +46,6 @@
 -->
 
 
-<!-- ABOUT THE PROJECT 
-## About The Project
-
-<a href="https://catalogues.sealitproject.eu/">
-    <img src="seaLit\src\assets\git_img.png" alt="Logo">
-  </a>
-
-<p align="right">(<a href="#top">back to top</a>)</p>
--->
-
 
 ### Built With
 
@@ -96,7 +86,7 @@ To get a local copy up and running follow these steps.
    npm install
    ```
 
-### Change the Ip of the API
+### Change the IP of the API
 
 - In the angular project go to seaLit\src\app\services\list.service.ts and in line 14 change   the varianble `Ip` to the Ip of the computer that th api.js will run on.
 
