@@ -15,7 +15,7 @@
   </ul>
  </p>
  <p>
-  <b>FastCat Catalogues</b> has been deployed in the context of the <a href="https://sealitproject.eu/">SeaLiT project</a> for supporting historians in exploring a large and diverse set of archival sources related to maritime history: <a href="https://catalogues.sealitproject.eu/">https://catalogues.sealitproject.eu/</a>
+  <b>FastCat Catalogues</b> has been deployed in the context of the <a href="https://sealitproject.eu/">SeaLiT project</a> for supporting historians in exploring a large and diverse set of archival sources related to maritime history. The application is available at: <a href="https://catalogues.sealitproject.eu/">https://catalogues.sealitproject.eu/</a>
   </p>
 </div>
 
