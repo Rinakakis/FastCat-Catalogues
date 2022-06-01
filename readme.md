@@ -117,6 +117,17 @@ To get a local copy up and running follow these steps.
 
 <!-- Configuration -->
 ## Configuration
+<p>
+<b>FastCat Catalogues</b> operates over a set of JSON files, each one containing the transcribed data of a single archival document. 
+The JSON files are organised in folders, each one containing files of the same JSON structure which represents a type of archival source.  
+</p>
+
+<p>
+The configuration needed by <b>FastCat Catalogues</b> defines: <br />
+a) the different types of archival sources in our data collection (file 'templates.json')<br />
+b) the fields in the JSON structure of each type of archival source that provide information about the entities of interest (one configuration file for each different type of source defined in 'templates.json')
+</p>
+
 TODO: Describe the configuration files...
 
 <!-- Acknowledgements -->
