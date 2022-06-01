@@ -222,13 +222,17 @@ async function handleTableData(query) {
  */
 async function handleSourceRecordList(source) {
     var count = [];
-
+    // console.log(source)
     var config = await getConfig(source);
     if (config.length == 0) {
         return null;
     } else {
         if (source == 'Employment records, Shipyards of Messageries Maritimes, La Ciotat' && CacheExists('messageriesmaritimes_list')) {
             return await getCachedList('messageriesmaritimes_list');
+        }else if (source == 'Logbook' && CacheExists('Logbook_list')) {
+            return await getCachedList('Logbook_list');
+        }else if (source == 'Sailors register (Libro de registro de marineros)' && CacheExists('Sailorsregister_list')) {
+            return await getCachedList('Sailorsregister_list');
         } else {
             var fullpath = path + source.replAll(' ', '_');
             var myarray = await getRecordFilesAsync(fullpath);
@@ -241,6 +245,12 @@ async function handleSourceRecordList(source) {
             }
             if (source == 'Employment records, Shipyards of Messageries Maritimes, La Ciotat') {
               await saveToCache('messageriesmaritimes_list', count);
+            }
+            if (source == 'Logbook') {
+              await saveToCache('Logbook_list', count);
+            }
+            if (source == 'Sailors register (Libro de registro de marineros)') {
+              await saveToCache('Sailorsregister_list', count);
             }
             return count;
             

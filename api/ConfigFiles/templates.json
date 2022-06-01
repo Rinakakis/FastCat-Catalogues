@@ -10,7 +10,7 @@
       "category": "Censuses",
       "id": "Census_LaCiotat",
       "name": "Census La Ciotat",
-      "description": "No source description yet!",
+      "description": "The listes de dénombrement de la population, or otherwise nominative censuses, are a complete record of the population, and are therefore acknowledged as the best source of information for population analysis. It was created at a communal level as a quinquennial census, providing a name-by-name listing of each resident, their status, profession, etc. It offered different data over the course of time. The listes de dénombrement de la population are considered an invaluable source for researchers interested in the structure and evolution of the French population.",
       "configuration": "censuslaciotat_conf.json"
    },
    {
@@ -24,14 +24,14 @@
       "category": "Crew Lists",
       "id": "Crew List_IT",
       "name": "Crew List (Ruoli di Equipaggio)",
-      "description": "No source description yet!",
+      "description": "Kept in Genoa State Archives from 1818 to 1865, crew lists consist of a four-page document delivered by the port authorities located in the port of registry of a ship. They were issued at the departure of a ship from the port of Genoa, at the moment of the crew's enrolment, and covered periods of continuous navigation (usually no more than two years). Inside, crew lists contain information about the ship, shipowners, and crew members, including personal and professional details; on the last page, there was usually a list of the ports of call, consisting of consular stamps and declarations that each captain needed before leaving a port, notwithstanding whether it stopped there by necessity (for sanitary and custom checks) or for commercial operations. They provide ship identity data: name, tonnage, type, and place and construction date. They also provide valuable information about seafarers: date of embarkment, date of discharge, surname, name, date and place of birth, rank onboard, serial number and wages.",
       "configuration": "crewListRuoli_conf.json"
    },
    {
       "category": "Registers / Lists",
       "id": "Civil Register",
       "name": "Civil Register",
-      "description": "No source description yet!",
+      "description": "The Civil Register is the institution created by the nascent liberal state to collect the information of the main events that occurred during the life of a person –birth, marriage and death-. The Register of Deaths in Barcelona was introduced in 1836. Since then, the books of the institution have kept basic personal information about each person who died in the city. It includes its name and surname, location of birth and residence, age, profession (in case of men), cause of death, and civil status. Moreover, the register included information about people related to the deceased, more specifically the spouse, the parents, and, in some cases, the sons and daughters. The data it contains has a great potential for studying demographic and labour history as well as for analysing gender relations, standards of living and urban patterns of residence in a long term perspective.",
       "configuration": "civilregister_conf.json"
    },
    {
@@ -52,7 +52,7 @@
       "category": "Registers / Lists",
       "id": "Inscription_Maritime",
       "name": "Inscription Maritime - Maritime Register of the State for La Ciotat",
-      "description": "No source description yet!",
+      "description": "The Matricules de gens de mer, the registers of seamen maintained in the Inscription Maritime, the institution responsible for maritime regulation on the French coast, and the administration of maritime labour. Any man who wished to follow a seafaring profession was enrolled in the registers of seamen. These registers represented a record of a seamans’ career at sea. The source of the registers of seamen  of La Ciotat (Matricules de gens de mer) retained in the Service Historique de la Defence in Toulon is a complete record of seafarers careers including their personal and marital details, as well as all the data related to each voyage they embarked upon.",
       "configuration": "Inscription_Maritime_conf.json"
    },
    {
@@ -66,7 +66,7 @@
       "category": "Log / Account Books",
       "id": "Logbook",
       "name": "Logbook",
-      "description": "No source description yet!",
+      "description": "The usage of logbooks within the Italian merchant marine was regulated by the 1879 Regolamento che approva l'esecuzione del testo unico del Codice della Marina Mercantile. Despite being mentioned in the 1866 \"Code for the merchant marine\", the logbook as an onboard bureaucratic practice was taken for granted. In the 1879 version, between articles 345 and 361, it is possible to find all the instructions and regulations concerning logbooks. According to the law, there were three different logbooks: 1) the general logbook; 2) the navigation logbook; and 3) the hold logbook. The captain exerted absolute responsibility for the first sort, which contained all the relevant information concerning the voyage, including the crew members' list, salaries, accidents encountered in navigation, and, more broadly, every bit of information that the captain deemed useful to annotate. Navigation logbooks, instead, were compiled either by captains or mates: they provided information and data about the route, including atmospheric events and maneuvers. Finally, hold logbooks were routinely updated by mates under the captain's supervision. Structured schematically, they contained valuable information about cargoes, including ports and dates of loading and discharge, the nature and quantities of merchandise, and personal information about charterers and consigners.",
       "configuration": "Logbook_conf.json"
    },
    {
@@ -108,7 +108,7 @@
       "category": "Registers / Lists",
       "id": "Sailors_Register",
       "name": "Sailors register (Libro de registro de marineros)",
-      "description": "No source description yet!",
+      "description": "Based on the French system of the Inscriptions maritime, they were introduced in Liguria during the Napoleonic period and then inherited by the Savoy administration. In order to work, every seaman needed to register into the first or second category of maritime professions: the former was reserved for navigating personnel and high seas fishers; the latter hosted shipbuilders and coastal fishers. The Genoa State Archives host the registers including every Ligurian seafarer who had registered in the first category of seamen between 1843 and 1886. Due to the modifications introduced with the publication of a new Code for the Merchant Marine (1866), the source is organized into two serial progressions: the first series begins in 1843 and proceeds up to 1866 (numbers 1192-25367); then, the series restarted from zero. The archives present a few gaps in terms of serial continuity. The Genoa State Archives possess only fifteen registers of the second series, from 1868 to 1886 (numbers 4324-28423). The records are collected in registers, each embracing an average of 600-700 individuals: then each folio is divided into three horizontal sections, each of them reserved to a different seaman. Then, each line is further divided into columns: the first displayed personal data, such as serial numbers, names, surnames, family details, place and date of birth, place of living, date of enrolment, and career advancements. The list of embarkations is recorded from the second column until the end of the page: in this section, there is the date of the beginning and end of service, the name and type of the ship, the captain’s name, the seafarer profession, the prospective destinations, some of the ports of call, and the days of active service.",
       "configuration": "Sailors_Register_conf.json"
    },
    {
@@ -129,7 +129,7 @@
       "category": "Other Records",
       "id": "Messageries_Maritimes",
       "name": "Employment records, Shipyards of Messageries Maritimes, La Ciotat",
-      "description": "No source description yet!",
+      "description": "The employment records (Registres Entrées) of the shipyards are a valuable and unexplored source for the history of the workforce in the shipyard and workshops of Messageries Maritimes retained in the Museum of La Ciotat (Musée Ciotaden), and found during field research trips to La Ciotat, where the complete registers of worker recruitment from 1851 to 1912 (44.000 entries in total) are available.",
       "configuration": "messageriesmaritimes_conf.json"
    },
    {
