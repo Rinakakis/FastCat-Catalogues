@@ -119,16 +119,16 @@ To get a local copy up and running follow these steps.
 ## Configuration
 <p>
 <b>FastCat Catalogues</b> operates over a set of JSON files, each one containing the transcribed data of a single archival document. 
-The JSON files are organised in folders, each one containing files of the same JSON structure which represents a type of archival source.  
+The JSON files are organised in folders, each one containing files of the same JSON structure (representing a type of archival source).  
 </p>
 
 <p>
-The configuration needed by <b>FastCat Catalogues</b> defines: <br />
-a) the different types of archival sources in our data collection (file 'templates.json')<br />
-b) the fields in the JSON structure of each type of archival source that provide information about the entities of interest (one configuration file for each different type of source defined in 'templates.json')
+For configuring <b>FastCat Catalogues</b>, we first need to define the file <b>'templates.json'</b>. In this file, we need to provide for each different type of archival source: i) a category name (used for grouping the different types of sources), ii) an ID, iii) a name (shown in the user interface), iv) a description (shown in the user inteface), and v) the name of its configuration file (more below).
+</p>
+<p>
+Then, we need to define the configuration file of each type of source. This file defines i) the <i>entities of interest</i> that appear in this type of source and which will be available for exploration (e.g., 'Persons', 'Origin Locations', etc.), and ii) the JSON fields that define the name of a record of this type of source (field 'Title'). For each entity of interest, we define the JSON fields that provide entity-related information.
 </p>
 
-TODO: Describe the configuration files...
 
 <!-- Acknowledgements -->
 ## Acknowledgements
