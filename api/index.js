@@ -43,6 +43,7 @@ async function handleExploreAll(name){
 
     config = await getConfig('explore_all');
     for (const category of Object.keys(config)) {
+      // console.log(category)
       var categoryObj = config[category];
       if(categoryObj['sub'] != undefined){
         // config[category] = Object.keys(categoryObj['sub']);
@@ -69,6 +70,7 @@ async function handleExploreAll(name){
   }
 
   if(name=='Persons' && CacheExists('Persons')) return await getCachedList(name);
+  if(name=='Ships' && CacheExists('Ships')) return await getCachedList(name);
   if(name=='Locations' && CacheExists('Locations')) return await getCachedList(name);
 
   config = await getConfigEntity(null, name);
@@ -85,7 +87,7 @@ async function handleExploreAll(name){
     // console.log(config)
     retObj = await getExploreAllTables(config,undefined, name);
   }
-  if(name =='Persons' || name=='Locations') await saveToCache(name, retObj);
+  if(name =='Persons' || name=='Locations' || name=='Ships') await saveToCache(name, retObj);
   return retObj;
 }
 
@@ -233,6 +235,8 @@ async function handleSourceRecordList(source) {
             return await getCachedList('Logbook_list');
         }else if (source == 'Sailors register (Libro de registro de marineros)' && CacheExists('Sailorsregister_list')) {
             return await getCachedList('Sailorsregister_list');
+        }else if (source == 'List of ships' && CacheExists('Listofships_list')) {
+            return await getCachedList('Listofships_list');
         } else {
             var fullpath = path + source.replAll(' ', '_');
             var myarray = await getRecordFilesAsync(fullpath);
@@ -243,17 +247,16 @@ async function handleSourceRecordList(source) {
                     count.push(obj);
                 }
             }
-            if (source == 'Employment records, Shipyards of Messageries Maritimes, La Ciotat') {
+            if (source == 'Employment records, Shipyards of Messageries Maritimes, La Ciotat')
               await saveToCache('messageriesmaritimes_list', count);
-            }
-            if (source == 'Logbook') {
+            else if (source == 'Logbook') 
               await saveToCache('Logbook_list', count);
-            }
-            if (source == 'Sailors register (Libro de registro de marineros)') {
+            else if (source == 'Sailors register (Libro de registro de marineros)') 
               await saveToCache('Sailorsregister_list', count);
-            }
-            return count;
-            
+            else if (source == 'List of ships') 
+              await saveToCache('Listofships_list', count);
+
+            return count;      
         }
 
     }
