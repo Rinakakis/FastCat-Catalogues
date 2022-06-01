@@ -1,27 +1,30 @@
-<div id="top"></div>
+<div>
+  
+<h3>FastCat Catalogues: Interactive Entity-based Exploratory Analysis of Archival Documents</h3>
 
-<!-- PROJECT LOGO -->
-<br />
-<div align="center">
-  <a href="https://github.com/Rinakakis/seaLit">
-    <img src="seaLit\src\assets\sealit.png" alt="Logo" width="160" height="auto">
-  </a>
-
-<h3 align="center">“SeaLit Catalogues” a Dynamic and Configurable Web Application for Exploring Archival Sources of Maritime History</h3>
-
-  <p align="center">
-    SeaLit Catalogues is an online application that offers a way to navigate FastCat data by defining categories of entities such as ships, sailors, voyages and ports, etc. and creating relationships between them. The application allows data navigation and provides the ability to visualize the data in charts, download it for further analysis, or visit the transcripts. Τhe application reads the exported JSON files from the fastcat database and with the use of the configuration files of each source builds the entities that we want and the complex connections between them.
-    <br />
-    <a href="https://catalogues.sealitproject.eu/">View the application</a>
+  <p>
+    <b>FastCat Catalogues</b> is a Web application that supports researchers studying archival material, such as historians, in exploring and quantitatively analysing the data (<i>transcripts</i>) of their archival sources. The application makes use of JSON technology and is configurable for use over any type of archival documents whose contents have been transcribed and exported in JSON format. 
+    The supported functionalities include:
+    <ul>
+<li>source- or record-specific entity browsing 
+<li>source-independent entity browsing 
+<li>data filtering 
+<li>inspection of the provenance of any piece of information (important for verification or further data exploration) 
+<li>data aggregation and visualisation in charts
+<li>data export for further (external) analysis
+  </ul>
+ </p>
+ <p>
+  <b>FastCat Catalogues</b> has been deployed in the context of the <a href="https://sealitproject.eu/">SeaLiT project</a> for supporting historians in exploring a large and diverse set of archival sources related to maritime history: <a href="https://catalogues.sealitproject.eu/">https://catalogues.sealitproject.eu/</a>
   </p>
 </div>
 
-<!-- TABLE OF CONTENTS -->
+<!--
+<!-- TABLE OF CONTENTS 
 <details>
   <summary>Table of Contents</summary>
   <ol>
     <li>
-      <a href="#about-the-project">About The Project</a>
       <ul>
         <li><a href="#built-with">Built With</a></li>
       </ul>
@@ -37,13 +40,13 @@
         <li><a href="#deployment-to-the-tomcat-server">Deployment to the tomcat server</a></li>
       </ul>
     </li>
-    <li><a href="#license">License</a></li>
+    <li><a href="#ack">Acknowledgements</a></li>
   </ol>
 </details>
+-->
 
 
-
-<!-- ABOUT THE PROJECT -->
+<!-- ABOUT THE PROJECT 
 ## About The Project
 
 <a href="https://catalogues.sealitproject.eu/">
@@ -51,7 +54,7 @@
   </a>
 
 <p align="right">(<a href="#top">back to top</a>)</p>
-
+-->
 
 
 ### Built With
@@ -121,9 +124,9 @@ To get a local copy up and running follow these steps.
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
-<!-- LICENSE -->
-## License
+<!-- Acknowledgements -->
+## Acknowledgements
 
-Distributed under the MIT License.
+This work has received funding from the European Union's Horizon 2020 research and innovation programme under the Marie Sklodowska-Curie grant agreement No 890861 (Project ReKnow). 
 
 <p align="right">(<a href="#top">back to top</a>)</p>
