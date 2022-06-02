@@ -120,9 +120,9 @@ export class EntityDetailsComponent implements OnInit {
     }else{
       var url;
       if(id!='null')
-        url = this.router.serializeUrl(this.router.createUrlTree(['seaLit/sources/'+source+'/'+id+'/table/'+entity], { queryParams:data }));
+        url = this.router.serializeUrl(this.router.createUrlTree(['FastCat-Catalogues/sources/'+source+'/'+id+'/table/'+entity], { queryParams:data }));
       else
-        url = this.router.serializeUrl(this.router.createUrlTree(['seaLit/sources/'+source+'/table/'+entity], { queryParams:data }));
+        url = this.router.serializeUrl(this.router.createUrlTree(['FastCat-Catalogues/sources/'+source+'/table/'+entity], { queryParams:data }));
       window.open(url, '_blank');
     }
   }
