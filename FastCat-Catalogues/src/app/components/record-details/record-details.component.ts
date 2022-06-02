@@ -115,7 +115,7 @@ export class RecordDetailsComponent implements OnInit {
     if(event.type == 'cellClicked'){
       this.router.navigate(['sources/'+source+'/'+id+'/table/'+entity], { queryParams:data });
     }else{
-      const url = this.router.serializeUrl(this.router.createUrlTree(['FastCat-Catalogues/sources/'+source+'/'+id+'/table/'+entity], { queryParams:data }));
+      const url = this.router.serializeUrl(this.router.createUrlTree(['seaLit/sources/'+source+'/'+id+'/table/'+entity], { queryParams:data }));
       window.open(url, '_blank');
     }
   }
