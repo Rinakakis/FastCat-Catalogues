@@ -15,12 +15,12 @@
 
 ## Change the Ip of the API
 
-- In the angular project go to FastCat-Catalogues\src\apprvices\list.service.ts and in line 14 change the Ip to the Ip of the computer that th api.js will run on.
+- In the angular project go to FastCat-Catalogues\src\app\services\list.service.ts and in line 14 change the Ip to the Ip of the computer that th api.js will run on.
 
 ## Production build for Angular Application
 
-- Go to /FastCat-Catalogues and run => `ng build --base-href=/seaLit/`
-This will compile an Angular app into an output directory named dist/seaLit
+- Go to /FastCat-Catalogues and run => `ng build --base-href=/FastCat-Catalogues/`
+This will compile an Angular app into an output directory named dist/FastCat-Catalogues
 
 ## Run API
 
@@ -28,7 +28,7 @@ This will compile an Angular app into an output directory named dist/seaLit
 
 ## deployment to tomcat server
 
-1. In the angular application go to seaLit/dist and copy the folder "seaLit"
+1. In the angular application go to FastCat-Catalogues/dist and copy the folder "FastCat-Catalogues"
 2. Then go to your tomcat server Tomcatxx.x\webapps and paste the folder
 3. After that go to Tomcat xx.x\bin and click on Tomcatxx.exe
-4. Open a browser to <http://localhost:8080/seaLit/>
+4. Open a browser to <http://localhost:8080/FastCat-Catalogues/>

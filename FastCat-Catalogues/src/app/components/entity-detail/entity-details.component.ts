@@ -43,7 +43,6 @@ export class EntityDetailsComponent implements OnInit {
   ngOnInit(): void {
     document.body.scrollTop = 0;
     document.documentElement.scrollTop = 0;
-
     const params = this.route.snapshot.params;
     const query = this.route.snapshot.queryParams;
     if(params.source == 'Employment records, Shipyards of Messageries Maritimes, La Ciotat' && params.name == 'Workers')
@@ -119,10 +118,12 @@ export class EntityDetailsComponent implements OnInit {
           this.router.navigate(['sources/'+source+'/table/'+entity], { queryParams:data });
     }else{
       var url;
+      var baseUrl = window.location.pathname.split('/')[1];
+      if(baseUrl == 'sources') baseUrl = '';
       if(id!='null')
-        url = this.router.serializeUrl(this.router.createUrlTree(['seaLit/sources/'+source+'/'+id+'/table/'+entity], { queryParams:data }));
+        url = this.router.serializeUrl(this.router.createUrlTree([baseUrl+'/sources/'+source+'/'+id+'/table/'+entity], { queryParams:data }));
       else
-        url = this.router.serializeUrl(this.router.createUrlTree(['seaLit/sources/'+source+'/table/'+entity], { queryParams:data }));
+        url = this.router.serializeUrl(this.router.createUrlTree([baseUrl+'/sources/'+source+'/table/'+entity], { queryParams:data }));
       window.open(url, '_blank');
     }
   }

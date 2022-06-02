@@ -38,7 +38,7 @@ process.on("message", async (message) => {
 async function handleExploreAll(name){
   var config;
   var retObj = {};
-  if(name == 'all'){
+  if(name == 'explore_all'){
     if(CacheExists('explore_all')) return await getCachedList('explore_all');
 
     config = await getConfig('explore_all');

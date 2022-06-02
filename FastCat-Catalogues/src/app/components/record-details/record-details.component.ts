@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
-import { CellClickedEvent, CellContextMenuEvent } from 'ag-grid-community';
+import { BeanStub, CellClickedEvent, CellContextMenuEvent } from 'ag-grid-community';
 import { isObject } from 'lodash';
 import { ListService } from 'src/app/services/list.service';
 
@@ -115,7 +115,9 @@ export class RecordDetailsComponent implements OnInit {
     if(event.type == 'cellClicked'){
       this.router.navigate(['sources/'+source+'/'+id+'/table/'+entity], { queryParams:data });
     }else{
-      const url = this.router.serializeUrl(this.router.createUrlTree(['seaLit/sources/'+source+'/'+id+'/table/'+entity], { queryParams:data }));
+      var baseUrl = window.location.pathname.split('/')[1];
+      if(baseUrl == 'sources') baseUrl = '';
+      const url = this.router.serializeUrl(this.router.createUrlTree([baseUrl+'/sources/'+source+'/'+id+'/table/'+entity], { queryParams:data }));
       window.open(url, '_blank');
     }
   }

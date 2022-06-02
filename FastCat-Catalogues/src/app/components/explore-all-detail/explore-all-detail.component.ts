@@ -388,7 +388,9 @@ export class ExploreAllDetailComponent implements OnInit {
   }
 
   RightclickedRowEvent(row: any){
-    const url = this.router.serializeUrl(this.router.createUrlTree(['seaLit/sources/'+row.source+'/table/'+row.table], { queryParams:this.makeMapping(row)}));
+    var baseUrl = window.location.pathname.split('/')[1];
+      if(baseUrl == 'explore-all') baseUrl = '';
+    const url = this.router.serializeUrl(this.router.createUrlTree([baseUrl+'/sources/'+row.source+'/table/'+row.table], { queryParams:this.makeMapping(row)}));
     window.open(url, '_blank');
   }
 

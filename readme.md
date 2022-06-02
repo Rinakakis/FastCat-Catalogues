@@ -94,9 +94,9 @@ To get a local copy up and running follow these steps.
 
 - Go to /FastCat-Catalogues and run 
   ```sh
-  ng build --base-href=/seaLit/
+  ng build --base-href=/FastCat-Catalogues/
   ```
-- This will compile an Angular app into an output directory named dist/seaLit
+- This will compile an Angular app into an output directory named dist/FastCat-Catalogues
 
 ### Run the API
 
@@ -107,10 +107,10 @@ To get a local copy up and running follow these steps.
 
 ### Deployment to the tomcat server
 
-1. In the angular application go to FastCat-Catalogues/dist and copy the folder "seaLit"
+1. In the angular application go to FastCat-Catalogues/dist and copy the folder "FastCat-Catalogues"
 2. Then go to your tomcat server Tomcatxx.x\webapps and paste the folder
 3. After that go to Tomcat xx.x\bin and click on Tomcatxx.exe
-4. Open a browser to <http://localhost:8080/seaLit/>
+4. Open a browser to <http://localhost:8080/FastCat-Catalogues/>
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 

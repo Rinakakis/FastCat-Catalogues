@@ -117,11 +117,11 @@ appBase.get('/tableData', async(req, res) => {
  * returns table data for a record from every entity
  */
 appBase.get('/exploreAll/:name', async(req, res) => {
-  // console.log(req.params.name)
+  // console.log(req.params)
   if(req.params.name=='Persons' && tools.CacheExists('Persons')) return res.send(await tools.getCachedList(req.params.name));
   else if(req.params.name=='Locations' && tools.CacheExists('Locations')) return res.send(await tools.getCachedList(req.params.name));
   else if(req.params.name=='Ships' && tools.CacheExists('Ships')) return res.send(await tools.getCachedList(req.params.name));
-  else if(req.params.name=='all' && tools.CacheExists('explore_all')) return res.send(await tools.getCachedList('explore_all'));
+  else if(req.params.name=='explore_all' && tools.CacheExists('explore_all')) return res.send(await tools.getCachedList('explore_all'));
   else{
     const childProcess = fork('./index.js');
     childProcess.send({"type":"exploreAll","name": req.params.name});

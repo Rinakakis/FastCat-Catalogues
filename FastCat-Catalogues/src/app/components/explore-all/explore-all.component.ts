@@ -25,7 +25,7 @@ export class ExploreAllComponent implements OnInit {
 
 
   getList(): void{
-    this.listservice.getExploreAll('all')
+    this.listservice.getExploreAll('explore_all')
       .subscribe(list =>{
         if (list) {
           this.hideloader();

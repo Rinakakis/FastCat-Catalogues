@@ -100,8 +100,10 @@ export class ListDetailsComponent implements OnInit {
     if(event.type == 'cellClicked'){
       this.router.navigate(['sources/'+source+'/table/'+entity], { queryParams:data });
     }else{
-      const url = this.router.serializeUrl(this.router.createUrlTree(['seaLit/sources/'+source+'/table/'+entity], { queryParams:data }));
-        window.open(url, '_blank');
+      var baseUrl = window.location.pathname.split('/')[1];
+      if(baseUrl == 'sources') baseUrl = '';
+      const url = this.router.serializeUrl(this.router.createUrlTree([baseUrl+'/sources/'+source+'/table/'+entity], { queryParams:data }));
+      window.open(url, '_blank');
     }
   }
 
