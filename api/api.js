@@ -73,7 +73,7 @@ appBase.get('/sourceRecordTitles/:name/', async (req, res) =>{
  */
 appBase.get('/numberOfrecords/:source', async (req, res) => {
   var source = req.params.source;
-  // console.log(record)
+  // console.log(source)
   var myarray = [];
 
   var config = await getConfig(source);
@@ -163,13 +163,13 @@ appBase.get('/exploreAll/:name', async(req, res) => {
 }
 
 async function getRecordNamesAsync(){
-
   const readDirPr = new Promise( (resolve, reject) => {
-    fs.readdir(path, 
-      (err, foldernames) => (err) ? reject(err) : resolve(foldernames))
+    fs.readdir(path,{ withFileTypes: true },
+      (err, foldernames) => (err) ? reject(err) : resolve(foldernames.filter(dirent => dirent.isDirectory()).map(dirent => dirent.name))) //exclude files e.g. readme
   });
-
+  
   const foldernames_1 = await readDirPr;
+  // console.log(foldernames_1)
   try {
     return Promise.all(foldernames_1.map((foldername) => {
       return new Promise((resolve_1, reject_1) => {

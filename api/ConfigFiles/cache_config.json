@@ -1,0 +1,20 @@
+{
+    "/exploreAll:name":{
+        "name": [
+            "captains",
+            "Locations",
+            "Ships",
+            "all",
+        ]
+    },
+    "/tableData":{
+        "source": [
+            {
+                "Employment records, Shipyards of Messageries Maritimes, La Ciotat":[
+                    "Workers",
+                    
+                ]
+            }
+        ]
+    }
+}
