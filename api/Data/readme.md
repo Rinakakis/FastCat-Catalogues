@@ -1,2 +1,2 @@
-In this folder we have small sample of the data that we use for the SeaLit project that has been extracted from FastCat.  <br>
+In this folder we have small sample of the data that we use for the SeaLit project that has been extracted from FastCat. <br>
 If anyone is interested in all the resources of SeaLiT contact this email: <fafalios@ics.forth.gr>
