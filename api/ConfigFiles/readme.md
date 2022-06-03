@@ -82,7 +82,7 @@ Lets see what a simple version of a configuration file for a archival source loo
             }
         },
     },
-    "Title": [ // Η πληροφορία που θέλουμε να έχει ο τίτλος του record
+    "Title": [ // The information that we want the title of a record to have
         "docs[0].data.ship_records.ship_name",
         "docs[0].data.ship_records.ship_type",
         "docs[0].data.source_identity.book_date_from",
