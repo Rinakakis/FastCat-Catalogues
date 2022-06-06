@@ -1,0 +1,233 @@
+{
+    "Logbook":{
+        "Ships": {
+            "Name": {
+                "path": "docs[0].data.ship_records.ship_name"
+            },
+            "Type": {
+                "path": "docs[0].data.ship_records.ship_type"
+            },
+            "Telegraphic Code": {
+                "path": "docs[0].data.ship_records.telegraphic_code"
+            },
+            "Tonnage": {
+                "path": "docs[0].data.ship_records.tonnage"
+            },
+            "Other Ship Names": {
+                "link": "Other Ship Names",
+                "Id": "docs[0]._id"
+            },
+            "Registry Info": {
+                "link": "Registry Info",
+                "Id": "docs[0]._id"
+            },
+            "Captains": {
+                "link": "Captains",
+                "Id": "docs[0]._id"
+            },
+            "Owners (Persons)": {
+                "link": "Owners (Persons)",
+                "Id": "docs[0]._id"
+            },
+            "Owners (Organisations)": {
+                "link": "Owners (Organisations)",
+                "Id": "docs[0]._id"
+            }
+        },
+        "Registry Ports":{
+            "Port": {
+                "path": "docs[0].data.ship_records.registry_port"
+            },
+            "Ships": {
+                "link": "Ships",
+                "Id": "docs[0]._id"
+            }
+        },
+        "Captains":{
+            "Name": {
+                "path": "docs[0].data.ship_records.captain_name"
+            },
+            "Surname": {
+                "path": "docs[0].data.ship_records.captain_surname"
+            },
+            "Ships": {
+                "link": "Ships",
+                "Id": "docs[0]._id"
+            }
+        },
+        "Owners (Persons)":{
+            "Name": {
+                "path": "docs[0].data.ship_records.owner_name"
+            },
+            "Surname": {
+                "path": "docs[0].data.ship_records.owner_name"
+            },
+            "Ships": {
+                "link": "Ships",
+                "Id": "docs[0]._id"
+            }
+        },
+        "Owners (Organisations)":{
+            "Name": {
+                "path": "docs[0].data.ship_records.organization_name"
+            },
+            "Headquarter Location": {
+                "path": "docs[0].data.ship_records.organization_location"
+            },
+            "Ships": {
+                "link": "Ships",
+                "Id": "docs[0]._id"
+            }
+        },
+        "Ports":{
+            "value-type": "list",
+            "Port": {
+                "path": "docs[0].data.voyage_calendar.#.at_port"
+            },
+            "Ships and Dates": {
+                "link": "Ships and Dates",
+                "listLink": true,
+                "Id": "docs[0]._id"
+            }
+        },
+        "Routes":{
+            "value-type": "list",
+            "Departure Port": {
+                "path": "docs[0].data.voyage_calendar.#.route_from"
+            },
+            "Destination Port": {
+                "path": "docs[0].data.voyage_calendar.#.route_to"
+            },
+            "Ships and Dates": {
+                "link": "Ships and Dates",
+                "listLink": true,
+                "Id": "docs[0]._id"
+            }
+        },
+        "Weather Conditions":{
+            "value-type": "nested-list",
+            "Weather": {
+                "path": "docs[0].data.analytic_calendars.#.calendar_weather"
+            },
+            "Wind (Strength)": {
+                "path": "docs[0].data.analytic_calendars.#.calendar_wind_strength"
+            },
+            "Wind (Direction)": {
+                "path": "docs[0].data.analytic_calendars.#.calendar_wind_direction"
+            },
+            "Ships": {
+                "link": "Ships",
+                "Id": "docs[0]._id"
+            },
+            "Routes": {
+                "link": "Routes",
+                "listLink": true,
+                "link-type": "nl-l",
+                "Id": "docs[0]._id"
+            }
+        },
+        "Calendar Event Types":{
+            "value-type": "nested-list",
+            "Type of Event": {
+                "path": "docs[0].data.analytic_calendars.#.calendar_event_type"
+            },
+            "Ships": {
+                "link": "Ships",
+                "Id": "docs[0]._id"
+            },
+            "Routes": {
+                "link": "Routes",
+                "listLink": true,
+                "link-type": "nl-l",
+                "Id": "docs[0]._id"
+            }
+        },
+        "Other Route Movements":{
+            "value-type": "nested-list",
+            "Movements": {
+                "path": "docs[0].data.analytic_calendars.#.calendar_location_action"
+            },
+            "Location A": {
+                "path": "docs[0].data.analytic_calendars.#.calendar_location_A"
+            },
+            "Location B": {
+                "path": "docs[0].data.analytic_calendars.#.calendar_location_B"
+            },
+            "Ships": {
+                "link": "Ships",
+                "Id": "docs[0]._id"
+            },
+            "Routes": {
+                "link": "Routes",
+                "listLink": true,
+                "link-type": "nl-l",
+                "Id": "docs[0]._id"
+            }
+        },
+        "Other Ship Names": {
+            "display": "no",
+            "Other Ship Name": {
+                "path": "docs[0].data.ship_records.other_ship_name"
+            },
+            "Ships": {
+                "link": "Ships",
+                "Id": "docs[0]._id"
+            }
+        },
+        "Registry Info":{
+            "display": "no",
+            "Registry Port": {
+                "path": "docs[0].data.ship_records.registry_port"
+            },
+            "Registry Number": {
+                "path": "docs[0].data.ship_records.registry_number"
+            },
+            "Registry Year": {
+                "path": "docs[0].data.ship_records.registry_year"
+            },
+            "Ships": {
+                "link": "Ships",
+                "Id": "docs[0]._id"
+            }
+        },
+        "Ships and Dates":{
+            "value-type": "list",
+            "display": "no",
+            "Date (From)": {
+                "path": "docs[0].data.voyage_calendar.#.duration_from"
+            },
+            "Date (To)": {
+                "path": "docs[0].data.voyage_calendar.#.duration_to"
+            },
+            "Ship Name": {
+                "value-type": "nolist",
+                "path": "docs[0].data.ship_records.ship_name"
+            },
+            "Ship Type": {
+                "value-type": "nolist",
+                "path": "docs[0].data.ship_records.ship_type"
+            },
+            "Telegraphic Code": {
+                "value-type": "nolist",
+                "path": "docs[0].data.ship_records.telegraphic_code"
+            },
+            "Tonnage": {
+                "value-type": "nolist",
+                "path": "docs[0].data.ship_records.tonnage"
+            },
+            "Ships": {
+                "link": "Ships",
+                "Id": "docs[0]._id"
+            }
+        }
+    },
+    "Title": [
+        "docs[0].data.ship_records.ship_name",
+        "docs[0].data.ship_records.ship_type",
+        "docs[0].data.source_identity.register_from",
+        "docs[0].data.source_identity.register_to",
+        "docs[0].data.record_information.name",
+        "docs[0].data.record_information.surname",
+        "docs[0].data.record_information.catalogue_id"
+    ]
+}

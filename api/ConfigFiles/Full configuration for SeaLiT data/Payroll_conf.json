@@ -1,0 +1,282 @@
+{
+    "Payroll":{
+        "Ships": {
+            "Name": {
+                "path": "docs[0].data.ship_records.ship_name"
+            },
+            "Type": {
+                "path": "docs[0].data.ship_records.ship_type"
+            },
+            "Captains": {
+                "link": "Captains",
+                "Id": "docs[0]._id"
+            },
+            "Ship Owners (Persons)": {
+                "link": "Ship Owners (Persons)",
+                "Id": "docs[0]._id"
+            },
+            "Ship Owners (Organisations)": {
+                "link": "Ship Owners (Organisations)",
+                "Id": "docs[0]._id"
+            },
+            "Voyages": {
+                "link": "Voyages",
+                "Id": "docs[0]._id"
+            }
+        },
+        "Captains": {
+            "Name": {
+                "path": "docs[0].data.ship_records.captain_name"
+            },
+            "Surname": {
+                "path": "docs[0].data.ship_records.captain_surname"
+            },
+            "Ships": {
+                "link": "Ships",
+                "Id": "docs[0]._id"
+            }
+        },
+        "Ship Owners (Persons)": {
+            "Name": {
+                "path": "docs[0].data.ship_records.owner_name"
+            },
+            "Surname": {
+                "path": "docs[0].data.ship_records.owner_surname"
+            },
+            "Ships": {
+                "link": "Ships",
+                "Id": "docs[0]._id"
+            }
+        },
+        "Ship Owners (Organisations)": {
+            "Name": {
+                "path": "docs[0].data.ship_records.organization_name"
+            },
+            "Headquarter Location": {
+                "path": "docs[0].data.ship_records.organization_location"
+            },
+            "Ships": {
+                "link": "Ships",
+                "Id": "docs[0]._id"
+            }
+        },
+        "Voyages": {
+            "value-type": "list",
+            "Date (From)": {
+                "path": "docs[0].data.voyages.#.date_from"
+            },
+            "Date (To)": {
+                "path": "docs[0].data.voyages.#.date_to"
+            },
+            "Ship's Name": {
+                "value-type": "nolist",
+                "path": "docs[0].data.ship_records.ship_name"
+            },
+            "Total Days": {
+                "path": "docs[0].data.voyages.#.days"
+            },
+            "Days at Sea": {
+                "path": "docs[0].data.voyages.#.days_at_sea"
+            },
+            "Days at Port": {
+                "path": "docs[0].data.voyages.#.days_at_port"
+            },
+            "Overall Total Wages (Value)": {
+                "path": "docs[0].data.voyages.#.overall_total_wages_value"
+            },
+            "Overall Total Wages (Unit)": {
+                "path": "docs[0].data.voyages.#.overall_total_wages_unit"
+            },
+            "Overall Pension Fund (Value)": {
+                "path": "docs[0].data.voyages.#.overall_pension_fund_value"
+            },
+            "Overall Pension Fund (Unit)": {
+                "path": "docs[0].data.voyages.#.overall_pension_fund_unit"
+            },
+            "Overall Net Wages (Value)": {
+                "path": "docs[0].data.voyages.#.overall_net_wages_value"
+            },
+            "Overall Net Wages (Unit)": {
+                "path": "docs[0].data.voyages.#.overall_net_wages_unit"
+            },
+            "Ships": {
+                "link": "Ships",
+                "Id": "docs[0]._id"
+            },
+            "Signed By Persons": {
+                "link": "Signed By Persons",
+                "listLink": true,
+                "Id": "docs[0]._id"
+            },
+            "Routes": {
+                "link": "Routes",
+                "listLink": true,
+                "Id": "docs[0]._id"
+            }
+        },
+        "Routes": {
+            "value-type": "list",
+            "Route (From)": {
+                "path": "docs[0].data.voyages.#.route_from"
+            },
+            "Route (To)": {
+                "path": "docs[0].data.voyages.#.route_to"
+            },
+            "Ships": {
+                "link": "Ships",
+                "Id": "docs[0]._id"
+            },
+            "Voyages": {
+                "link": "Voyages",
+                "listLink": true,
+                "Id": "docs[0]._id"
+            }
+        },
+        "Signed By Persons": {
+            "value-type": "list",
+            "Name": {
+                "path": "docs[0].data.voyages.#.signed_by_name"
+            },
+            "Surname": {
+                "path": "docs[0].data.voyages.#.signed_by_surname"
+            },
+            "Grade": {
+                "path": "docs[0].data.voyages.#.signed_by_grade"
+            },
+            "Ships": {
+                "link": "Ships",
+                "Id": "docs[0]._id"
+            },
+            "Voyages": {
+                "link": "Voyages",
+                "listLink": true,
+                "Id": "docs[0]._id"
+            }
+        },
+        "Persons": {
+            "value-type": "nested-list",
+            "Name": {
+                "path": "docs[0].data.payroll_analysis.#.person_name"
+            },
+            "Surname": {
+                "path": "docs[0].data.payroll_analysis.#.person_surname"
+            },
+            "Adult or Child": {
+                "path": "docs[0].data.payroll_analysis.#.person_age"
+            },
+            "Literacy": {
+                "path": "docs[0].data.payroll_analysis.#.person_literacy"
+            },
+            "Location of Origin": {
+                "path": "docs[0].data.payroll_analysis.#.person_origin_location"
+            },
+            "Ships": {
+                "link": "Ships",
+                "Id": "docs[0]._id"
+            },
+            "Voyages": {
+                "link": "Voyages",
+                "listLink": true,
+                "Id": "docs[0]._id"
+            },
+            "Professions-Ranks": {
+                "link": "Professions-Ranks",
+                "link-type": "nl-nl",
+                "listLink": true,
+                "Id": "docs[0]._id"
+            },
+            "Work Info": {
+                "link": "Work Info",
+                "link-type": "nl-nl",
+                "listLink": true,
+                "Id": "docs[0]._id"
+            }
+        },
+        "Professions-Ranks": {
+            "value-type": "nested-list",
+            "Profession": {
+                "path": "docs[0].data.payroll_analysis.#.person_profession_rank"
+            },
+            "Persons": {
+                "link": "Persons",
+                "link-type": "nl-nl",
+                "listLink": true,
+                "Id": "docs[0]._id"
+            }
+        },
+        "Locations of Origin": {
+            "value-type": "nested-list",
+            "Location of Origin": {
+                "path": "docs[0].data.payroll_analysis.#.person_origin_location"
+            },
+            "Persons": {
+                "link": "Persons",
+                "link-type": "nl-nl",
+                "listLink": true,
+                "Id": "docs[0]._id"
+            }
+        },
+        "Work Info": {
+            
+            "value-type": "nested-list",
+            "Profession-Rank": {
+                "path": "docs[0].data.payroll_analysis.#.person_profession_rank"
+            },
+            "Recruitment Date": {
+                "path": "docs[0].data.payroll_analysis.#.person_recruitment"
+            },
+            "Discharge Date": {
+                "path": "docs[0].data.payroll_analysis.#.person_discharge"
+            },
+            "Months": {
+                "path": "docs[0].data.payroll_analysis.#.total_duration_months"
+            },
+            "Days": {
+                "path": "docs[0].data.payroll_analysis.#.total_duration_days"
+            },
+            "Recruitment Location": {
+                "path": "docs[0].data.payroll_analysis.#.location_recruitment"
+            },
+            "Discharge Location": {
+                "path": "docs[0].data.payroll_analysis.#.location_discharge"
+            },
+            "Monthly Wage (Value)": {
+                "path": "docs[0].data.payroll_analysis.#.monthly_wage_value"
+            },
+            "Monthly Wage (Unit)": {
+                "path": "docs[0].data.payroll_analysis.#.monthly_wage_unit"
+            },
+            "Total Wage (Value)": {
+                "path": "docs[0].data.payroll_analysis.#.total_wage_value"
+            },
+            "Total Wage (Unit)": {
+                "path": "docs[0].data.payroll_analysis.#.total_wage_unit"
+            },
+            "Pension Fund (Value)": {
+                "path": "docs[0].data.payroll_analysis.#.pension_fund_value"
+            },
+            "Pension Fund (Unit)": {
+                "path": "docs[0].data.payroll_analysis.#.pension_fund_unit"
+            },
+            "Net Wage (Value)": {
+                "path": "docs[0].data.payroll_analysis.#.net_wage_value"
+            },
+            "Net Wage (Unit)": {
+                "path": "docs[0].data.payroll_analysis.#.net_wage_unit"
+            },
+            "Persons": {
+                "link": "Persons",
+                "link-type": "nl-nl",
+                "listLink": true,
+                "Id": "docs[0]._id"
+            }
+        }
+    },
+    "Title": [
+        "docs[0].data.ship_records.ship_name",
+        "docs[0].data.ship_records.ship_type",
+        "docs[0].data.record_information.name",
+        "docs[0].data.record_information.surname",
+        "docs[0].data.record_information.catalogue_id"
+    ]
+}

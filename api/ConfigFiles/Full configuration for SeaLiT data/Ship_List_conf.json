@@ -1,0 +1,114 @@
+{
+    "List of ships":{
+        "Ships": {
+            "value-type":"list",
+            "Name": {
+                "path": "docs[0].data.list_of_ships.#.ship_name"
+            },
+            "Previous Name": {
+                "path": "docs[0].data.list_of_ships.#.previous_ship_name"
+            },
+            "Type": {
+                "path": "docs[0].data.list_of_ships.#.ship_type"
+            },
+            "Port of Registry": {
+                "path": "docs[0].data.list_of_ships.#.port_of_registry"
+            },
+            "Year of Registry": {
+                "path": "docs[0].data.list_of_ships.#.year_of_registry"
+            },
+            "Construction Location": {
+                "path": "docs[0].data.list_of_ships.#.place_of_constraction"
+            },
+            "Year of Construction": {
+                "path": "docs[0].data.list_of_ships.#.year_of_construction"
+            },
+            "Tonnage": {
+                "path": "docs[0].data.list_of_ships.#.tonnage_value"
+            },
+            "Place of Engine Construction": {
+                "path": "docs[0].data.list_of_ships.#.place_of_engine_construction"
+            },
+            "Engine Manufacturer": {
+                "path": "docs[0].data.list_of_ships.#.engine_manufacturer"
+            },
+            "Nominal Power": {
+                "path": "docs[0].data.list_of_ships.#.nominant_power"
+            },
+            "Indicated Power": {
+                "path": "docs[0].data.list_of_ships.#.indicated_power_power"
+            },
+            "Owners": {
+                "link": "Owners",
+                "listLink": true,
+                "Id": "docs[0]._id"
+            }
+        },
+        "Registry Ports": {
+            "value-type":"list",
+            "Port": {
+                "path": "docs[0].data.list_of_ships.#.port_of_registry"
+            },
+            "Ships": {
+                "link": "Ships",
+                "listLink": true,
+                "Id": "docs[0]._id"
+            }
+        },
+        "Ship Construction Places": {
+            "value-type":"list",
+            "Construction Location": {
+                "path": "docs[0].data.list_of_ships.#.place_of_constraction"
+            },
+            "Ships": {
+                "link": "Ships",
+                "listLink": true,
+                "Id": "docs[0]._id"
+            }
+        },
+        "Engine Construction Places": {
+            "value-type":"list",
+            "Place of Engine Construction": {
+                "path": "docs[0].data.list_of_ships.#.place_of_engine_construction"
+            },
+            "Ships": {
+                "link": "Ships",
+                "listLink": true,
+                "Id": "docs[0]._id"
+            }
+        },
+        "Engine Manufacturers": {
+            "value-type":"list",
+            "Engine Manufacturer": {
+                "path": "docs[0].data.list_of_ships.#.engine_manufacturer"
+            },
+            "Ships": {
+                "link": "Ships",
+                "listLink": true,
+                "Id": "docs[0]._id"
+            }
+        },
+        "Owners": {
+            "value-type":"list",
+            "Name": {
+                "path": "docs[0].data.list_of_ships.#.owner_surname"
+            },
+            "Address": {
+                "path": "docs[0].data.list_of_ships.#.owner_address"
+            },
+            "Ships": {
+                "link": "Ships",
+                "listLink": true,
+                "Id": "docs[0]._id"
+            }
+        }
+    },
+    "Title": [
+        "docs[0].data.source_identity.book_title",
+        "docs[0].data.source_identity.register_from",
+        "docs[0].data.source_identity.register_to",
+        "docs[0].data.record_information.name",
+        "docs[0].data.record_information.surname",
+        "docs[0].data.record_information.catalogue_id"
+    ]
+}

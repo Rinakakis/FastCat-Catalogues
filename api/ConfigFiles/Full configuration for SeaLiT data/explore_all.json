@@ -1,0 +1,55 @@
+{
+    "Ships": {},
+    "Persons": {
+        "sub": {
+            "Crew Members": {},
+            "Captains": {},
+            "Ship Owners (Persons)": {},
+            "Signed by": {},
+            "Employers (Persons)": {},
+            "Occupants": {},
+            "Registered Persons": {},
+            "Related Persons": {},
+            "Transaction Suppliers": {},
+            "Transaction Mediators": {},
+            "Transaction Receivers": {},
+            "Workers": {},
+            "Students": {},
+            "Workshop Managers": {},
+            "Notaries": {},
+            "Witnesses": {},
+            "Contracting Parties": {}
+        }
+    },
+    "Locations": {
+        "sub": {
+            "Route Ports": {},
+            "Arrival Ports": {},
+            "Departure Ports": {},
+            "Ports of Call": {},
+            "Ports of Provenance": {},
+            "Recruitment Ports": {},
+            "Destination Locations": {},
+            "Embarkation Locations": {},
+            "Disembarkation-Discharge Locations": {},
+            "Registry Locations": {},
+            "Birth Places": {},
+            "Residence Places": {},
+            "Death Locations": {},
+            "Origin Locations": {},
+            "Military Service Organisation Locations": {},
+            "Ship Construction Places": {},
+            "Engine Construction Places": {},
+            "Transaction Recording Locations":{}
+        }
+    },
+    "Organisations": {
+        "sub": {
+            "Ship Owners (Organisations)": {},
+            "Engine Manufacturers": {},
+            "Employers (Organisations)": {},
+            "Companies (Singed by)": {}
+        }
+    },
+    "Professions-Occupations": {}
+}
