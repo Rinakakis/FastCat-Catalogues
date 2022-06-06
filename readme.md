@@ -123,10 +123,16 @@ The JSON files are organised in folders, each one containing files of the same J
 </p>
 
 <p>
-For configuring <b>FastCat Catalogues</b>, we first need to define the file <b>'templates.json'</b>. In this file, we need to provide for each different type of archival source: i) a category name (used for grouping the different types of sources), ii) an ID, iii) a name (shown in the user interface), iv) a description (shown in the user inteface), and v) the name of its configuration file (more below).
+For configuring <b>FastCat Catalogues</b>, we first need to define the file <b>'templates.json'</b>. In this file, we need to provide for each different type of archival source: i) a category name (used for grouping the different types of sources), ii) an ID (used for creating the links to the transcripts), iii) a name (shown in the user interface), iv) a description (shown in the user inteface), and v) the name of its configuration file.
 </p>
 <p>
-Then, we need to define the configuration file of each type of source. This file defines i) the <i>entities of interest</i> that appear in this type of source and which will be available for exploration (e.g., 'Persons', 'Origin Locations', etc.), and ii) the JSON fields that define the name of a record of this type of source (field 'Title'). For each entity of interest, we define the JSON fields that provide entity-related information.
+In the configuration file of each source, we define i) the entity categories (e.g., persons, ships, etc.) that appear in records of this source type and which will be available for exploration, ii) for each entity category, the JSON fields that provide entity-related information like properties of the entity or its relations to other entities, and iii) the JSON fields that define the name of a source record, needed for the UI and the creation of the links. 
+</p>
+<p>
+For configuring the <b>Explore all</b> functionality, we first need to define the names of all the supported entity categories and their grouping (in the <b>'explore_all.json'</b> configuration file). Then, we need to configure each of the entity categories, by defining the sources and the tables in each source that provide instances (in the <b>'explore_all_conf.json'</b> file). All other information needed for creating the entity tables is read from the source-specific configuration files.
+</p>
+<p>
+More details on how to prepare the configuration are available <a href="https://github.com/isl/FastCat-Catalogues/tree/main/api/ConfigFiles">here</a>.
 </p>
 
 
