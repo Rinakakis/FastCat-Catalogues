@@ -1,18 +1,19 @@
 # Design of the Configuration files
 
-In this section we'll show a step to step guide on how to design:
+In this section we'll show a step to step guide on how to define the configuration files. 
 
-## 1. The template file
+## 1. The 'templates.json' configuration file
 
-In this file, we provide for each different type of archival source
+In this file, we provide for each different type of archival source:
 1. A category name
 (used for grouping the different types of sources)
 2. An ID (used for creating the
 links to the transcripts), 
 3. A name (shown in the UI),
-4. The description we want a source to have
+4. A description (shown in the UI),
+5. The name of the the source's configuration file.
 
-The template file `template.json` has the following format:
+The file has the following format:
 
 ```json
 [
@@ -42,14 +43,12 @@ The template file `template.json` has the following format:
 ]
 ```
 
-## 2. The configuration file
+## 2. The configuration file of each source type
 
 In the configuration file for each source, we define 
-1. The entities of interest that appear in this source type and which will be available for exploration (e.g.,persons, ships, etc.)
-2. The JSON fields that define the name of a record of this type of source (needed for the UI and the creation of the links). For
-each entity of interest, we define the JSON fields that provide entity-related
-information, such as characteristics of the entity or its relations to other entities.
-3. The information we want the title of the record to have.
+1. The entity categories (e.g., persons, ships, etc.) that appear in records of this source type and which will be available for exploration.
+2. For each entity category, the JSON fields that provide entity-related information like properties of the entity or its relations to other entities.
+3. The JSON fields that define the name of a source record, needed for the UI and the creation of the links.
 
 Lets see what a simple version of a configuration file for a archival source looks like:
 
@@ -96,12 +95,11 @@ Lets see what a simple version of a configuration file for a archival source loo
 ```
 <br>
 
-### Creating entities 
+### Configuring the entities 
 
+A more in depth look in the creation of an entity.
 
-A more in depth look in the creation of an entitie.
-
-In the fastCat application the data entry can be done in:
+In the FastCat application the data entry can be done in:
 
 1. Tables with only one entry
 
@@ -219,7 +217,7 @@ And an entity containing nested table data to add one or more columns whose valu
 
 <center>Fastcat-Catalogues table</center><br>
 
-### Creating relationships/Links between entities
+### Configuring the relationships between the entities
 
 <br>
 
@@ -350,11 +348,10 @@ If the other entity contains data from: <br>
 }
 ```
 
-## 2. The explore all file
+## 2. Configuring the 'Explore all' functionality
 
 For configuring the ‘Explore all’ functionality, we first need to define the
-names of all the supported entity categories and their grouping in the ‘ex-
-plore_all.json’ configuration file. Then, the file ‘explore_all_conf.json’ allows
+names of all the supported entity categories and their grouping in the ‘explore_all.json’ configuration file. Then, the file ‘explore_all_conf.json’ allows
 configuring each of the entity categories, by defining the sources and the tables
 in each source that provide instances. Then, all other information needed for
 creating the entity tables is read from the source-specific configuration files.
