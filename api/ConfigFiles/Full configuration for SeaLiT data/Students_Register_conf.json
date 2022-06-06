@@ -1,0 +1,199 @@
+{
+    "Students Register":{
+        "Courses": {
+            "value-type": "list",
+            "Title": {
+                "path": "docs[0].data.list_of_courses.#.title_of_course"
+            },
+            "From": {
+                "path": "docs[0].data.list_of_courses.#.schoolyear_date_from"
+            },
+            "To": {
+                "path": "docs[0].data.list_of_courses.#.schoolyear_date_to"
+            },
+            "Semester": {
+                "path": "docs[0].data.list_of_courses.#.semester"
+            },
+            
+            "Number of Course-Section": {
+                "path": "docs[0].data.list_of_courses.#.total_number_of_students"
+            },
+            "Total Number of Students": {
+                "path": "docs[0].data.list_of_courses.#.number_of_course_section"
+            },
+            "Students": {
+                "link": "Students",
+                "listLink": true,
+                "link-type": "l-nl",
+                "Id": "docs[0]._id"
+            },
+            "Subjects": {
+                "link": "Subjects",
+                "listLink": true,
+                "link-type": "l-nl",
+                "Id": "docs[0]._id"
+            }
+        },
+        "Subjects": {
+            "value-type": "nested-list",
+            "Type": {
+                "path": "docs[0].data.subjects.#.subject_of_study_type"
+            },
+            "Subject": {
+                "path": "docs[0].data.subjects.#.subject_of_study_subject"
+            },
+            "Courses": {
+                "link": "Courses",
+                "listLink": true,
+                "link-type": "nl-l",
+                "Id": "docs[0]._id"
+            }
+        },
+        "Students": {
+            "value-type": "nested-list",
+            "Name": {
+                "path": "docs[0].data.list_of_students.#.student_name"
+            },
+            "Surname A": {
+                "path": "docs[0].data.list_of_students.#.student_surname_A"
+            },
+            "Surname B": {
+                "path": "docs[0].data.list_of_students.#.student_surname_B"
+            },
+            "Location of Origin": {
+                "path": "docs[0].data.list_of_students.#.student_origin_location"
+            },
+            "Profession": {
+                "path": "docs[0].data.list_of_students.#.student_profession"
+            },
+            "Employment Company": {
+                "path": "docs[0].data.list_of_students.#.student_employment_organization"
+            },
+            "Religion": {
+                "path": "docs[0].data.list_of_students.#.student_religion"
+            },
+            "Age": {
+                "path": "docs[0].data.list_of_students.#.student_age"
+            },
+            "Birth Year": {
+                "path": "docs[0].data.list_of_students.#.student_birth_year"
+            },
+            "Courses": {
+                "link": "Courses",
+                "listLink": true,
+                "link-type": "nl-l",
+                "Id": "docs[0]._id"
+            },
+            "Related Persons": {
+                "link": "Related Persons",
+                "listLink": true,
+                "link-type": "nl-nl",
+                "Id": "docs[0]._id"
+            }
+        },
+        "Students Origin Locations": {
+            "value-type": "nested-list",
+            "Location of Origin": {
+                "path": "docs[0].data.list_of_students.#.student_origin_location"
+            },
+            "Students": {
+                "link": "Students",
+                "listLink": true,
+                "link-type": "nl-nl",
+                "Id": "docs[0]._id"
+            }
+        },
+        "Students Professions": {
+            "value-type": "nested-list",
+            "Profession": {
+                "path": "docs[0].data.list_of_students.#.student_profession"
+            },
+            "Students": {
+                "link": "Students",
+                "listLink": true,
+                "link-type": "nl-nl",
+                "Id": "docs[0]._id"
+            }
+        },
+        "Student Employment Companies": {
+            "value-type": "nested-list",
+            "Employment Company": {
+                "path": "docs[0].data.list_of_students.#.student_employment_organization"
+            },
+            "Students": {
+                "link": "Students",
+                "listLink": true,
+                "link-type": "nl-nl",
+                "Id": "docs[0]._id"
+            }
+        },
+        "Student Religions": {
+            "value-type": "nested-list",
+            "Religion": {
+                "path": "docs[0].data.list_of_students.#.student_religion"
+            },
+            "Students": {
+                "link": "Students",
+                "listLink": true,
+                "link-type": "nl-nl",
+                "Id": "docs[0]._id"
+            }
+        },
+        "Related Persons": {
+            "value-type": "nested-list",
+            "Relation Type": {
+                "path": "docs[0].data.list_of_students.#.related_person_type"
+            },
+            "Name": {
+                "path": "docs[0].data.list_of_students.#.related_person_name"
+            },
+            "Surname": {
+                "path": "docs[0].data.list_of_students.#.related_person_surname"
+            },
+            "Profession": {
+                "path": "docs[0].data.list_of_students.#.related_person_profession"
+            },
+            "Employment Organization": {
+                "path": "docs[0].data.list_of_students.#.related_person_emplyment_organization"
+            },
+            "Students": {
+                "link": "Students",
+                "listLink": true,
+                "link-type": "nl-nl",
+                "Id": "docs[0]._id"
+            }
+        },
+        "Professions of Related Persons": {
+            "value-type": "nested-list",
+            "Profession": {
+                "path": "docs[0].data.list_of_students.#.related_person_profession"
+            },
+            "Related Persons": {
+                "link": "Related Persons",
+                "listLink": true,
+                "link-type": "nl-nl",
+                "Id": "docs[0]._id"
+            }
+        },
+        "Employment Organization of Related Persons": {
+            "value-type": "nested-list",
+            "Employment Organization": {
+                "path": "docs[0].data.list_of_students.#.related_person_emplyment_organization"
+            },
+            "Related Persons": {
+                "link": "Related Persons",
+                "listLink": true,
+                "link-type": "nl-nl",
+                "Id": "docs[0]._id"
+            }
+        }
+    },
+    "Title": [
+        "docs[0].data.source_identity.register_number",
+        "docs[0].data.source_identity.book_date_from",
+        "docs[0].data.source_identity.register_to",
+        "docs[0].data.record_information.name",
+        "docs[0].data.record_information.surname",
+        "docs[0].data.record_information.catalogue_id"
+    ]
+}

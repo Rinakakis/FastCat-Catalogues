@@ -1,0 +1,265 @@
+{
+    "Notarial Deeds":{
+        "Deeds": {
+            "value-type": "list",
+            "Year": {
+                "path": "docs[0].data.list_of_deeds.#.book_year"
+            },
+            "Reference Number": {
+                "path": "docs[0].data.list_of_deeds.#.reference_number"
+            },
+            "Creation Date": {
+                "path": "docs[0].data.list_of_deeds.#.creation_date"
+            },
+            "Type of Act": {
+                "path": "docs[0].data.list_of_deeds.#.type_of_act"
+            },
+            "Notary Name": {
+                "path": "docs[0].data.list_of_deeds.#.notary_name"
+            },
+            "Notary Surname": {
+                "path": "docs[0].data.list_of_deeds.#.notary_surname"
+            },
+            "Notary Father's Name": {
+                "path": "docs[0].data.list_of_deeds.#.fathers_name"
+            },
+            "Witnesses": {
+                "link": "Witnesses",
+                "listLink": true,
+                "Id": "docs[0]._id"
+            },
+            "Contracting Parties": {
+                "link": "Contracting Parties",
+                "link-type": "l-nl",
+                "listLink": true,
+                "Id": "docs[0]._id"
+            },
+            "Ships": {
+                "link": "Ships",
+                "link-type": "l-nl",
+                "listLink": true,
+                "Id": "docs[0]._id"
+            }
+        },
+        "Types of Act": {
+            "value-type": "list",
+            "Type of Act": {
+                "path": "docs[0].data.list_of_deeds.#.type_of_act"
+            },
+            "Deeds": {
+                "link": "Deeds",
+                "listLink": true,
+                "Id": "docs[0]._id"
+            },
+            "Witnesses": {
+                "link": "Witnesses",
+                "listLink": true,
+                "Id": "docs[0]._id"
+            },
+            "Contracting Parties": {
+                "link": "Contracting Parties",
+                "link-type": "l-nl",
+                "listLink": true,
+                "Id": "docs[0]._id"
+            },
+            "Ships": {
+                "link": "Ships",
+                "link-type": "l-nl",
+                "listLink": true,
+                "Id": "docs[0]._id"
+            }
+        },
+        "Notaries": {
+            "value-type": "list",
+            "Name": {
+                "path": "docs[0].data.list_of_deeds.#.notary_name"
+            },
+            "Surname": {
+                "path": "docs[0].data.list_of_deeds.#.notary_surname"
+            },
+            "Father's Name": {
+                "path": "docs[0].data.list_of_deeds.#.fathers_name"
+            },
+            "Deeds": {
+                "link": "Deeds",
+                "listLink": true,
+                "Id": "docs[0]._id"
+            }
+        },
+        "Witnesses": {
+            "value-type": "list",
+            "Name": {
+                "path": "docs[0].data.list_of_deeds.#.witness_name"
+            },
+            "Surname": {
+                "path": "docs[0].data.list_of_deeds.#.witness_surname"
+            },
+            "Father's Name": {
+                "path": "docs[0].data.list_of_deeds.#.witness_fathers_name"
+            },
+            "Sex": {
+                "path": "docs[0].data.list_of_deeds.#.witness_sex"
+            },
+            "Profession": {
+                "path": "docs[0].data.list_of_deeds.#.witness_profession"
+            },
+            "Location of Residence": {
+                "path": "docs[0].data.list_of_deeds.#.witness_residence_location"
+            },
+            "Deeds": {
+                "link": "Deeds",
+                "listLink": true,
+                "Id": "docs[0]._id"
+            }
+        },
+        "Professions (of Witnesses)": {
+            "value-type": "list",
+            "Profession": {
+                "path": "docs[0].data.list_of_deeds.#.witness_profession"
+            },
+            "Witnesses": {
+                "link": "Witnesses",
+                "listLink": true,
+                "Id": "docs[0]._id"
+            }
+        },
+        "Residence Locations (of Witnesses)": {
+            "value-type": "list",
+            "Location of Residence": {
+                "path": "docs[0].data.list_of_deeds.#.witness_residence_location"
+            },
+            "Witnesses": {
+                "link": "Witnesses",
+                "listLink": true,
+                "Id": "docs[0]._id"
+            }
+        },
+        "Contracting Parties": {
+            "value-type": "nested-list",
+            "Relation Type": {
+                "path": "docs[0].data.contents_of_deed.#.relation_type_to_other_person"
+            },
+            "Name": {
+                "path": "docs[0].data.contents_of_deed.#.contracting_person_name"
+            },
+            "Surname A": {
+                "path": "docs[0].data.contents_of_deed.#.contracting_person_surname_a"
+            },
+            "Surname B": {
+                "path": "docs[0].data.contents_of_deed.#.contracting_person_surname_b"
+            },
+            "Father's Name": {
+                "path": "docs[0].data.contents_of_deed.#.contracting_person_fathers_name"
+            },
+            "Age": {
+                "path": "docs[0].data.contents_of_deed.#.contracting_person_age"
+            },
+            "Sex": {
+                "path": "docs[0].data.contents_of_deed.#.contracting_person_sex"
+            },
+            "Marital Status": {
+                "path": "docs[0].data.contents_of_deed.#.contracting_person_marital_status"
+            },
+            "Profession": {
+                "path": "docs[0].data.contents_of_deed.#.contracting_person_proffesion"
+            },
+            "Location of Origin": {
+                "path": "docs[0].data.contents_of_deed.#.contracting_person_origin_location"
+            },
+            "Location of Residence": {
+                "path": "docs[0].data.contents_of_deed.#.contracting_person_residence_location"
+            },
+            "Deeds": {
+                "link": "Deeds",
+                "listLink": true,
+                "link-type": "nl-l",
+                "Id": "docs[0]._id"
+            }
+        },
+        "Relation Types (of Contracting Parties)": {
+            "value-type": "nested-list",
+            "Relation Type": {
+                "path": "docs[0].data.contents_of_deed.#.relation_type_to_other_person"
+            },
+            "Contracting Parties": {
+                "link": "Contracting Parties",
+                "listLink": true,
+                "link-type": "nl-nl",
+                "Id": "docs[0]._id"
+            }
+        },
+        "Professions (of Contracting Parties)": {
+            "value-type": "nested-list",
+            "Profession": {
+                "path": "docs[0].data.contents_of_deed.#.contracting_person_proffesion"
+            },
+            "Contracting Parties": {
+                "link": "Contracting Parties",
+                "listLink": true,
+                "link-type": "nl-nl",
+                "Id": "docs[0]._id"
+            }
+        },
+        "Origin Locations (of Contracting Parties)": {
+            "value-type": "nested-list",
+            "Location of Origin": {
+                "path": "docs[0].data.contents_of_deed.#.contracting_person_origin_location"
+            },
+            "Contracting Parties": {
+                "link": "Contracting Parties",
+                "listLink": true,
+                "link-type": "nl-nl",
+                "Id": "docs[0]._id"
+            }
+        },
+        "Residence Locations (of Contracting Parties)": {
+            "value-type": "nested-list",
+            "Location of Residence": {
+                "path": "docs[0].data.contents_of_deed.#.contracting_person_residence_location"
+            },
+            "Contracting Parties": {
+                "link": "Contracting Parties",
+                "listLink": true,
+                "link-type": "nl-nl",
+                "Id": "docs[0]._id"
+            }
+        },
+        "Ships": {
+            "value-type": "nested-list",
+            "Name": {
+                "path": "docs[0].data.contents_of_deed.#.ship_name"
+            },
+            "Type": {
+                "path": "docs[0].data.contents_of_deed.#.ship_type"
+            },
+            "Tonnage": {
+                "path": "docs[0].data.contents_of_deed.#.ship_tonnage"
+            },
+            "Flag": {
+                "path": "docs[0].data.contents_of_deed.#.ship_flag"
+            },
+            "Registry Number": {
+                "path": "docs[0].data.contents_of_deed.#.ship_registry_number"
+            },
+            "Registry Location": {
+                "path": "docs[0].data.contents_of_deed.#.ship_registry_location"
+            },
+            "Deeds": {
+                "link": "Deeds",
+                "listLink": true,
+                "link-type": "nl-l",
+                "Id": "docs[0]._id"
+            }
+        }
+
+
+    },
+    "Title": [
+        "docs[0].data.source_identity.source_name",
+        "docs[0].data.source_identity.source_year_from",
+        "docs[0].data.source_identity.source_year_to",
+        "docs[0].data.record_information.name",
+        "docs[0].data.record_information.surname",
+        "docs[0].data.record_information.catalogue_id"
+    ]
+}

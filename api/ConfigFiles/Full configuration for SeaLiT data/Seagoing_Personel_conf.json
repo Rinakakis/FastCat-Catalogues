@@ -1,0 +1,259 @@
+{
+    "Seagoing Personel":{
+        "Persons": {
+            "value-type": "list",
+            "Name": {
+                "path": "docs[0].data.employees_list.#.person_name"
+            },
+            "Surname": {
+                "path": "docs[0].data.employees_list.#.person_surname"
+            },
+            "Father's Name": {
+                "path": "docs[0].data.employees_list.#.person_fathers_name"
+            },
+            "Marital Status": {
+                "path": "docs[0].data.employees_list.#.person_marital_status"
+            },
+            "Birth Date": {
+                "path": "docs[0].data.employees_list.#.person_birth_date"
+            },
+            "Professions": {
+                "link": "Professions",
+                "listLink": true,
+                "Id": "docs[0]._id"
+            },
+            "Transient Professions": {
+                "link": "Transient Professions",
+                "listLink": true,
+                "Id": "docs[0]._id"
+            },
+            "Ships": {
+                "link": "Ships",
+                "listLink": true,
+                "Id": "docs[0]._id"
+            },
+            "Destinations": {
+                "link": "Destinations",
+                "listLink": true,
+                "Id": "docs[0]._id"
+            },
+            "End of Service Info": {
+                "link": "End of Service Info",
+                "listLink": true,
+                "Id": "docs[0]._id"
+            },
+            "Work Status Types": {
+                "link": "Work Status Types",
+                "listLink": true,
+                "Id": "docs[0]._id"
+            }
+        },
+        "Professions": {
+            "value-type": "list",
+            "Profession": {
+                "path": "docs[0].data.employees_list.#.service_in_company_profession"
+            },
+            "Persons": {
+                "link": "Persons",
+                "listLink": true,
+                "Id": "docs[0]._id"
+            }
+        },
+        "Transient Professions": {
+            "value-type": "list",
+            "Transient Profession": {
+                "path": "docs[0].data.employees_list.#.service_in_company_transient_profession"
+            },
+            "Persons": {
+                "link": "Persons",
+                "listLink": true,
+                "Id": "docs[0]._id"
+            }
+        },
+        "Ships": {
+            "value-type": "list",
+            "Name": {
+                "path": "docs[0].data.employees_list.#.ship_name"
+            },
+            "Persons": {
+                "link": "Persons",
+                "listLink": true,
+                "Id": "docs[0]._id"
+            },
+            "Destinations": {
+                "link": "Destinations",
+                "listLink": true,
+                "Id": "docs[0]._id"
+            }
+        },
+        "Destinations": {
+            "value-type": "list",
+            "Destination": {
+                "path": "docs[0].data.employees_list.#.destination"
+            },
+            "Persons": {
+                "link": "Persons",
+                "listLink": true,
+                "Id": "docs[0]._id"
+            },
+            "Ships": {
+                "link": "Ships",
+                "listLink": true,
+                "Id": "docs[0]._id"
+            }
+        },
+        "End of Service Reasons": {
+            "value-type": "list",
+            "End of Service Reason": {
+                "path": "docs[0].data.employees_list.#.end_of_service_reason"
+            },
+            "Persons and End of Service Info": {
+                "link": "Persons and End of Service Info",
+                "listLink": true,
+                "Id": "docs[0]._id"
+            }
+        },
+        "Work Status Types": {
+            "value-type": "list",
+            "Work Status Type": {
+                "path": "docs[0].data.employees_list.#.work_status_type"
+            },
+            "Person and Start Date": {
+                "link": "Person and Start Date",
+                "listLink": true,
+                "Id": "docs[0]._id"
+            }
+        },
+        "End of Service Info": {
+            "display": "no",
+            "value-type": "list",
+            "End of Service Type": {
+                "path": "docs[0].data.employees_list.#.end_of_service_type"
+            },
+            "End of Service Date": {
+                "path": "docs[0].data.employees_list.#.end_of_service_date"
+            },
+            "End of Service Reason": {
+                "path": "docs[0].data.employees_list.#.end_of_service_reason"
+            },
+            "Persons": {
+                "link": "Persons",
+                "listLink": true,
+                "Id": "docs[0]._id"
+            }
+        },
+        "Person and Start Date": {
+            "display": "no",
+            "value-type": "list",
+            "Start Date": {
+                "path": "docs[0].data.employees_list.#.work_status_start_date"
+            },
+            "Name": {
+                "path": "docs[0].data.employees_list.#.person_name"
+            },
+            "Surname": {
+                "path": "docs[0].data.employees_list.#.person_surname"
+            },
+            "Father's Name": {
+                "path": "docs[0].data.employees_list.#.person_fathers_name"
+            },
+            "Marital Status": {
+                "path": "docs[0].data.employees_list.#.military_service_organization"
+            },
+            "Birth Date": {
+                "path": "docs[0].data.employees_list.#.person_birth_date"
+            },
+            "Professions": {
+                "link": "Professions",
+                "listLink": true,
+                "Id": "docs[0]._id"
+            },
+            "Transient Professions": {
+                "link": "Transient Professions",
+                "listLink": true,
+                "Id": "docs[0]._id"
+            },
+            "Ships": {
+                "link": "Ships",
+                "listLink": true,
+                "Id": "docs[0]._id"
+            },
+            "Destinations": {
+                "link": "Destinations",
+                "listLink": true,
+                "Id": "docs[0]._id"
+            },
+            "End of Service Info": {
+                "link": "End of Service Info",
+                "listLink": true,
+                "Id": "docs[0]._id"
+            },
+            "Work Status Types": {
+                "link": "Work Status Types",
+                "listLink": true,
+                "Id": "docs[0]._id"
+            }
+        },
+        "Persons and End of Service Info": {
+            "display": "no",
+            "value-type": "list",
+            "End of Service Type": {
+                "path": "docs[0].data.employees_list.#.end_of_service_type"
+            },
+            "End of Service Date": {
+                "path": "docs[0].data.employees_list.#.end_of_service_date"
+            },
+            "Name": {
+                "path": "docs[0].data.employees_list.#.person_name"
+            },
+            "Surname": {
+                "path": "docs[0].data.employees_list.#.person_surname"
+            },
+            "Father's Name": {
+                "path": "docs[0].data.employees_list.#.person_fathers_name"
+            },
+            "Marital Status": {
+                "path": "docs[0].data.employees_list.#.person_marital_status"
+            },
+            "Birth Date": {
+                "path": "docs[0].data.employees_list.#.person_birth_date"
+            },
+            "Professions": {
+                "link": "Professions",
+                "listLink": true,
+                "Id": "docs[0]._id"
+            },
+            "Transient Professions": {
+                "link": "Transient Professions",
+                "listLink": true,
+                "Id": "docs[0]._id"
+            },
+            "Ships": {
+                "link": "Ships",
+                "listLink": true,
+                "Id": "docs[0]._id"
+            },
+            "Destinations": {
+                "link": "Destinations",
+                "listLink": true,
+                "Id": "docs[0]._id"
+            },
+            "End of Service Info": {
+                "link": "End of Service Info",
+                "listLink": true,
+                "Id": "docs[0]._id"
+            },
+            "Work Status Types": {
+                "link": "Work Status Types",
+                "listLink": true,
+                "Id": "docs[0]._id"
+            }
+        }
+    },
+    "Title": [
+        "docs[0].data.source_identity.title_of_book",
+        "docs[0].data.record_information.name",
+        "docs[0].data.record_information.surname",
+        "docs[0].data.record_information.catalogue_id"
+    ]
+}

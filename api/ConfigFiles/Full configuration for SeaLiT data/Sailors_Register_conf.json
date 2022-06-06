@@ -1,0 +1,75 @@
+{
+    "Sailors register (Libro de registro de marineros)":{
+        "Seafarers": {
+            "value-type": "list",
+            "Name": {
+                "path": "docs[0].data.seafarers_register.#.seafarer_name"
+            },
+            "Surname A": {
+                "path": "docs[0].data.seafarers_register.#.seafarer_surname1"
+            },
+            "Surname B": {
+                "path": "docs[0].data.seafarers_register.#.seafarer_surname2"
+            },
+            "Father's Name": {
+                "path": "docs[0].data.seafarers_register.#.seafarer_fathers_name"
+            },
+            "Mother's Name": {
+                "path": "docs[0].data.seafarers_register.#.seafarer_mothers_name"
+            },
+            "Birth Date": {
+                "path": "docs[0].data.seafarers_register.#.seafarer_birth_date"
+            },
+            "Place of Birth": {
+                "path": "docs[0].data.seafarers_register.#.seafarer_birth_location"
+            },
+            "Military Service Organisation Location": {
+                "path": "docs[0].data.seafarers_register.#.military_service_organization"
+            },
+            "Previous Professions": {
+                "link": "Previous Professions",
+                "listLink": true,
+                "Id": "docs[0]._id"
+            }
+        },
+        "Birth Locations": {
+            "value-type": "list",
+            "Birth Location": {
+                "path": "docs[0].data.seafarers_register.#.seafarer_birth_location"
+            },
+            "Seafarers": {
+                "link": "Seafarers",
+                "listLink": true,
+                "Id": "docs[0]._id"
+            }
+        },
+        "Previous Professions": {
+            "value-type": "list",
+            "Profession": {
+                "path": "docs[0].data.seafarers_register.#.seafarer_previous_profession"
+            },
+            "Seafarers": {
+                "link": "Seafarers",
+                "listLink": true,
+                "Id": "docs[0]._id"
+            }
+        },
+        "Military Service Organisation Locations": {
+            "value-type": "list",
+            "Military Service Organisation Location": {
+                "path": "docs[0].data.seafarers_register.#.military_service_organization"
+            },
+            "Seafarers": {
+                "link": "Seafarers",
+                "listLink": true,
+                "Id": "docs[0]._id"
+            }
+        }
+    },
+    "Title": [
+        "docs[0].data.source_identity.book_number",
+        "docs[0].data.record_information.name",
+        "docs[0].data.record_information.surname",
+        "docs[0].data.record_information.catalogue_id"
+    ]
+}
