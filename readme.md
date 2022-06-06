@@ -129,7 +129,7 @@ For configuring <b>FastCat Catalogues</b>, we first need to define the file <b>'
 In the configuration file of each source, we define i) the entity categories (e.g., persons, ships, etc.) that appear in records of this source type and which will be available for exploration, ii) for each entity category, the JSON fields that provide entity-related information like properties of the entity or its relations to other entities, and iii) the JSON fields that define the name of a source record, needed for the UI and the creation of the links. 
 </p>
 <p>
-For configuring the <b>Explore all</b> functionality, we first need to define the names of all the supported entity categories and their grouping (in the <b>'explore_all.json'</b> configuration file). Then, we need to configure each of the entity categories, by defining the sources and the tables in each source that provide instances (in the <b>'explore_all_conf.json'</b> file). All other information needed for creating the entity tables is read from the source-specific configuration files.
+For configuring the <b>'Explore all'</b> functionality, we first need to define the names of all the supported entity categories and their grouping (in the <b>'explore_all.json'</b> configuration file). Then, we need to configure each of the entity categories, by defining the sources and the tables in each source that provide instances (in the <b>'explore_all_conf.json'</b> file). All other information needed for creating the entity tables is read from the source-specific configuration files.
 </p>
 <p>
 More details on how to prepare the configuration are available <a href="https://github.com/isl/FastCat-Catalogues/tree/main/api/ConfigFiles">here</a>.
