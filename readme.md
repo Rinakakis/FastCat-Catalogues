@@ -139,6 +139,6 @@ More details on how to prepare the configuration are available <a href="https://
 <!-- Acknowledgements -->
 ## Acknowledgements
 
-This work has received funding from the European Union's Horizon 2020 research and innovation programme under the Marie Sklodowska-Curie grant agreement No 890861 (Project ReKnow). 
+This work has received funding from the European Union's Horizon 2020 research and innovation programme under the Marie Sklodowska-Curie grant agreement No 890861 (<a href="https://reknow.ics.forth.gr/">Project ReKnow</a>). 
 
 <p align="right">(<a href="#top">back to top</a>)</p>
